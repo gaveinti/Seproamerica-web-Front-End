@@ -8,5 +8,10 @@ import { catchError, retry } from 'rxjs/operators';
 })
 export class ClienteWAService {
 
+  DJANGO_SERVER: string = "http://127.0.0.1:8000";
   constructor(private http: HttpClient) { }
+
+  /*public upload(formData){
+    return this.http.post<any>(`${this.DJANGO_SERVER}/upload/`, formData);
+  }*/
 }

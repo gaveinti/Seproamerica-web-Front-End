@@ -33,9 +33,7 @@ export class InicioSesionComponent implements OnInit {
     var formData: any = new FormData();
     formData.append('correo', this.inicioSesionForm.get('correo')?.value);
     formData.append('contrasenha', this.inicioSesionForm.get('contrasenha')?.value);
-    this.http
-      .post('http://localhost:4000/api/usuario-sesion', formData)
-      .subscribe({
+    this.http.post('http://127.0.0.1:8000/', formData).subscribe({
         next: (response) => console.log(response),
         error: (error) => console.log(error),
       });
