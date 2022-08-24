@@ -9,7 +9,7 @@ import { catchError, retry } from 'rxjs/operators';
 export class ClienteWAService {
 
   /*Url del servidor */
-  DJANGO_SERVER: string = "http://127.0.0.1:8000";
+  DJANGO_SERVER: string = "http://127.0.0.1:8000/usuarioInicioSesion/";
   constructor(private http: HttpClient) { }
 
   /*public upload(formData){
@@ -22,4 +22,8 @@ export class ClienteWAService {
     return this.http.post(this.DJANGO_SERVER + '/usuarioInicioSesion/',val);
   }
 
+  /*Basandome en la pagina https://www.bezkoder.com/angular-crud-app/ */
+  create(data: any){
+    return this.http.post(this.DJANGO_SERVER, data)
+  }
 }
