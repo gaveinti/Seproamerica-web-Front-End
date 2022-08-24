@@ -11,6 +11,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ClienteWAService } from './services/cliente-wa.service';
 
 const routes: Routes = [
   { path: 'inicioSesion', component: InicioSesionComponent },
@@ -35,7 +36,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes)
   ],
   exports: [RouterModule],
-  providers: [],
+  providers: [ClienteWAService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
