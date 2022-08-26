@@ -2,7 +2,7 @@ export class RegisterModel{
     apellidos!: String;
     nombres!: String;
     cedula!: Number;
-    fNacimiento!: Date;
+    fechaNac!: Date;
     sexo!: String;
     correo!: String;
     telefono!: Number;

@@ -9,7 +9,7 @@ import { catchError, retry } from 'rxjs/operators';
 export class ClienteWAService {
 
   /*Url del servidor */
-  DJANGO_SERVER: string = "http://127.0.0.1:8000/usuarioInicioSesion/";
+  DJANGO_SERVER: string = "http://127.0.0.1:8000/api/usuarioRegistro";
   constructor(private http: HttpClient) { }
 
   /*public upload(formData){
@@ -17,13 +17,13 @@ export class ClienteWAService {
   }*/
 
   /* Metodo para mandar un usuario que inicia sesion al back end */
-  /*El link de usuarioInicioSesion se encuentra en url.py de clientewa */
+  /*El link de usuarioInicioSesion se encuentra en url.py de clientewa 
   addUsuarioIS(val:any){
     return this.http.post(this.DJANGO_SERVER + '/usuarioInicioSesion/',val);
-  }
-
+  }*/
+  
   /*Basandome en la pagina https://www.bezkoder.com/angular-crud-app/ */
-  create(data: any){
+  create(data: any): Observable<any>{
     return this.http.post(this.DJANGO_SERVER, data)
   }
 }
