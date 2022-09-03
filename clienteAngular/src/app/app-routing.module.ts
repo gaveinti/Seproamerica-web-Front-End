@@ -4,9 +4,9 @@ import { InicioSesionComponent } from './inicio-sesion/inicio-sesion.component';
 import { RegistroComponent } from './registro/registro.component';
 
 const routes: Routes = [
-  { path: "inicioSesion", component: InicioSesionComponent},
+  { path: "inicioSesion/:correo", component: InicioSesionComponent},
   { path: "registro", component: RegistroComponent},
-  { path: "**", redirectTo: "inicioSesion"}
+  { path: "**", redirectTo: "inicioSesion/:correo"}
 ];
 
 @NgModule({

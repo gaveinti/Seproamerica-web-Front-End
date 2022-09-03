@@ -10,6 +10,7 @@ export class ClienteWAService {
 
   /*Url del servidor */
   DJANGO_SERVER: string = "http://127.0.0.1:8000/api/usuarioRegistro";
+  DJANGO_SERVER_INICIO_SESION: string = "http://127.0.0.1:8000/api/usuarioInicioSesion";
   constructor(private http: HttpClient) { }
 
   /*public upload(formData){
@@ -25,5 +26,10 @@ export class ClienteWAService {
   /*Basandome en la pagina https://www.bezkoder.com/angular-crud-app/ */
   create(data: any): Observable<any>{
     return this.http.post(this.DJANGO_SERVER, data)
+  }
+
+  /*Basandome en  https://www.bezkoder.com/django-angular-crud-rest-framework/*/
+  get(correo: any){
+    return this.http.get(`${this.DJANGO_SERVER_INICIO_SESION}/${correo}`);
   }
 }
