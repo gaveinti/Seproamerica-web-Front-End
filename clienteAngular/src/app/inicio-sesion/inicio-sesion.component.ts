@@ -13,10 +13,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class InicioSesionComponent implements OnInit {
 
-  user: InicioSesionModel = new InicioSesionModel();
+  user: RegisterModel = new RegisterModel();
+  indexActual = -1
   inicioSesionForm: FormGroup;
   hide = true;
-  mensaje = '';
+  correoX = '';
   /*Variable para guardar usuario encontrado*/
   usuarioActual: RegisterModel = {
     apellidos: '',
@@ -31,8 +32,8 @@ export class InicioSesionComponent implements OnInit {
 
   constructor(public fb: FormBuilder, private http: HttpClient, private clienteWAService: ClienteWAService, private route: ActivatedRoute, private router: Router) {
     this.inicioSesionForm = this.fb.group({
-      correo: [''],
-      contrasenha: ['']
+      correo: [this.user.correo, [Validators.required, Validators.email]],
+      contrasenha: [this.user.contrasenha, [Validators.required]]
     });
   }
 
@@ -58,6 +59,17 @@ export class InicioSesionComponent implements OnInit {
 
   /*Función para obtener usuario a partir del correo ingresado*/
   getUsuario(correoIngresado: string): void{
+    this.usuarioActual = {
+      apellidos: '',
+      nombres: '',
+      cedula: 0,
+      fechaNac: new Date(),
+      sexo: '',
+      correo: '',
+      telefono: 0,
+      contrasenha: ''
+    };
+    this.indexActual = -1;
     console.log("entra")
     this.clienteWAService.get(correoIngresado)
       .subscribe({
