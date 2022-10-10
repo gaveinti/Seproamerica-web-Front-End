@@ -31,8 +31,8 @@ export class ClienteWAService {
   }
 
   /*Basandome en  https://www.bezkoder.com/django-angular-crud-rest-framework/*/
-  get(correoU: any){
-    return this.http.get(`${this.DJANGO_SERVER_INICIO_SESION}/${correoU}`);
+  get(correoU: any): Observable<RegisterModel>{
+    return this.http.get<RegisterModel>(`${this.DJANGO_SERVER_INICIO_SESION}/${correoU}`);
   }
 
   encontrarCorreo(correoU: any): Observable<RegisterModel>{

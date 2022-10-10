@@ -13,6 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class InicioSesionComponent implements OnInit {
 
+  usuariosLista?: RegisterModel[];
   user: RegisterModel = new RegisterModel();
   indexActual = -1
   inicioSesionForm: FormGroup;
@@ -38,6 +39,7 @@ export class InicioSesionComponent implements OnInit {
   }
 
   ngOnInit(): void{
+    this.getUsuarioA(this.route.snapshot.params["correo"]);
     this.inicioSesionForm = this.fb.group({
       'correo': [this.user.correo, [Validators.required, Validators.email]],
       'contrasenha': [this.user.contrasenha, [Validators.required]]
@@ -51,14 +53,16 @@ export class InicioSesionComponent implements OnInit {
     var formData: any = new FormData();
     formData.append('correo', this.inicioSesionForm.get('correo')?.value);
     formData.append('contrasenha', this.inicioSesionForm.get('contrasenha')?.value);
-    this.http.post('http://127.0.0.1:8000/usuarioInicioSesion/', JSON.stringify(formData)).subscribe({
+    /*this.http.post('http://127.0.0.1:8000/usuarioInicioSesion/', JSON.stringify(formData)).subscribe({
         next: (response) => console.log(response),
         error: (error) => console.log(error),
-    });
+    });*/
+    this.getUsuarioA(this.inicioSesionForm.get('correo')?.value)
   }
 
   /*Función para obtener usuario a partir del correo ingresado*/
   getUsuario(correoIngresado: string): void{
+    this.clienteWAService.get(correoIngresado)
     this.usuarioActual = {
       apellidos: '',
       nombres: '',
@@ -71,15 +75,29 @@ export class InicioSesionComponent implements OnInit {
     };
     this.indexActual = -1;
     console.log("entra")
-    this.clienteWAService.get(correoIngresado)
+    this.clienteWAService.encontrarCorreo(correoIngresado)
       .subscribe({
         next: (data) => {
+          //this.usuariosLista: RegisterModel[] = data;
           let x = data;
           console.log(x)
           console.log(data);
         },
         error: (e) => console.log(e)
       });
+  }
+
+  //Funcion que obtiene el objeto de la base de datos
+  getUsuarioA(correoIngresado: string): void{
+    console.log(correoIngresado)
+    this.clienteWAService.get(correoIngresado)
+    .subscribe({
+      next: (data) => {
+        this.usuarioActual = data;
+        console.log(data)
+      },
+      error: (e) => console.error(e)
+    });
   }
 
 }
