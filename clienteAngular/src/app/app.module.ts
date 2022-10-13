@@ -12,6 +12,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ClienteWAService } from './services/cliente-wa.service';
+import { PrincipalComponent } from './principal/principal.component';
 
 const routes: Routes = [
   { path: 'inicioSesion', component: InicioSesionComponent },
@@ -22,7 +23,8 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     InicioSesionComponent,
-    RegistroComponent
+    RegistroComponent,
+    PrincipalComponent
   ],
   imports: [
     BrowserModule,

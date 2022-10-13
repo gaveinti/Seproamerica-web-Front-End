@@ -32,7 +32,7 @@ export class RegistroComponent implements OnInit {
       'sexo': [this.user.sexo, [Validators.required]],
       'correo': [this.user.correo, [Validators.required, Validators.email]],
       'telefono': [this.user.telefono, [Validators.required]],
-      'contrasenha': [this.user.contrasenha, [Validators.required]],
+      'contrasenha': [this.user.contrasenia, [Validators.required]],
     });
     this.validarTerminosyCondiciones();
     this.permitirRegistro();
@@ -40,7 +40,7 @@ export class RegistroComponent implements OnInit {
 
   onRegisterSubmit(){
     alert(this.user.apellidos + ' ' + this.user.nombres + ' ' + this.user.cedula + ' ' + this.user + ' ' + 
-    this.user.sexo+ ' '+ this.user.correo + ' ' + this.user.telefono + ' ' + this.user.contrasenha + ' ' +  this.direccion + ' ' +
+    this.user.sexo+ ' '+ this.user.correo + ' ' + this.user.telefono + ' ' + this.user.contrasenia + ' ' +  this.direccion + ' ' +
     this.fechaRegistro + ' ' + this.rol);
   }
 
@@ -54,7 +54,7 @@ export class RegistroComponent implements OnInit {
       sexo : this.user.sexo,
       correo : this.user.correo,
       telefono : this.user.telefono,
-      contrasenia : this.user.contrasenha,
+      contrasenia : this.user.contrasenia,
 
       direccion : this.user.correo,
       rol : '11'
