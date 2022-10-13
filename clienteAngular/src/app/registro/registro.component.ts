@@ -15,6 +15,8 @@ export class RegistroComponent implements OnInit {
   fechaRegistro: string = '2000-09-01';
   rol: string ='11';
 
+  terminosValidados: boolean = false;
+
   registerForm!: FormGroup;
   hide = true;
   submitted = false;
@@ -32,6 +34,8 @@ export class RegistroComponent implements OnInit {
       'telefono': [this.user.telefono, [Validators.required]],
       'contrasenha': [this.user.contrasenha, [Validators.required]],
     });
+    this.validarTerminosyCondiciones();
+    this.permitirRegistro();
   }
 
   onRegisterSubmit(){
@@ -73,5 +77,32 @@ export class RegistroComponent implements OnInit {
 
     }
   }*/
+
+  validarTerminosyCondiciones(): void{
+    var checkBox = document.getElementById("invalidCheck") as HTMLInputElement | null;
+    if(checkBox?.checked == true){
+      console.log("checkeado")
+      this.terminosValidados = true;
+    }  
+  }
+
+  permitirRegistro(): void{
+    console.log("entra a fucnion")
+    var botonRegistro = document.querySelector("#botonRegistro") as HTMLInputElement | null;
+    /*Caso en el que se deba habilitar el boton */
+    if(!this.registerForm  && !this.terminosValidados){
+      if(botonRegistro != undefined){
+        console.log("se ha habilitado el boton")
+        botonRegistro.disabled = false;
+      }
+    } else{
+      if(botonRegistro != undefined){
+        console.log("boton deshabilitado")
+        console.log(this.registerForm)
+        console.log(this.terminosValidados)
+        botonRegistro.disabled = false;
+      }
+    }
+  }
 
 }
