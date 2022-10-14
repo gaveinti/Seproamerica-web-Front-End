@@ -18,7 +18,7 @@ export class InicioSesionComponent implements OnInit {
   indexActual = -1
   inicioSesionForm: FormGroup;
   hide = true;
-  correoX = '';
+  correoX = 'frh';
   /*Variable para guardar usuario encontrado*/
   usuarioActual: RegisterModel = {
     apellidos: '',
@@ -28,23 +28,24 @@ export class InicioSesionComponent implements OnInit {
     sexo: '',
     correo: '',
     telefono: 0,
-    contrasenha: ''
+    contrasenia: ''
   };
 
   constructor(public fb: FormBuilder, private http: HttpClient, private clienteWAService: ClienteWAService, private route: ActivatedRoute, private router: Router) {
     this.inicioSesionForm = this.fb.group({
       correo: [this.user.correo, [Validators.required, Validators.email]],
-      contrasenha: [this.user.contrasenha, [Validators.required]]
+      contrasenha: [this.user.contrasenia, [Validators.required]]
     });
   }
 
   ngOnInit(): void{
-    this.getUsuarioA(this.route.snapshot.params["correo"]);
+    //this.getUsuarioA(this.route.snapshot.params["correo"]);
     this.inicioSesionForm = this.fb.group({
       'correo': [this.user.correo, [Validators.required, Validators.email]],
-      'contrasenha': [this.user.contrasenha, [Validators.required]]
+      'contrasenha': [this.user.contrasenia, [Validators.required]]
     });
     this.onInicioSesionSubmit();
+    this.correoX = this.inicioSesionForm.value.correo
   }
 
 
@@ -57,10 +58,12 @@ export class InicioSesionComponent implements OnInit {
         next: (response) => console.log(response),
         error: (error) => console.log(error),
     });*/
-    this.getUsuarioA(this.inicioSesionForm.get('correo')?.value)
+    //this.getUsuarioA(this.inicioSesionForm.get('correo')?.value)
+
+    //this.getUsuarioA(this.inicioSesionForm.value.correo, this.inicioSesionForm.value.contrasenha)
   }
 
-  /*Función para obtener usuario a partir del correo ingresado*/
+  /*Función para obtener usuario a partir del correo ingresado
   getUsuario(correoIngresado: string): void{
     this.clienteWAService.get(correoIngresado)
     this.usuarioActual = {
@@ -85,19 +88,37 @@ export class InicioSesionComponent implements OnInit {
         },
         error: (e) => console.log(e)
       });
-  }
+  }*/
 
-  //Funcion que obtiene el objeto de la base de datos
-  getUsuarioA(correoIngresado: string): void{
+  //Funcion que obtiene el objeto de la base de datos y valida el inicio de sesion
+  getUsuarioA(): void{
+    var correoIngresado = this.inicioSesionForm.value.correo;
     console.log(correoIngresado)
     this.clienteWAService.get(correoIngresado)
     .subscribe({
       next: (data) => {
         this.usuarioActual = data;
         console.log(data)
+        //Obtener contraseña para validar
+        console.log("Contraseña ingresada: " + this.inicioSesionForm.value.contrasenha)
+        console.log("Contraseña de la base de datos: " + data.contrasenia)
+        var contrasenhaValidar = data.contrasenia
+        if(this.inicioSesionForm.value.contrasenha == contrasenhaValidar){
+          console.log("inicio de sesion exitoso")
+        } else{
+          console.log("inicio de sesion fallido")
+        }
       },
       error: (e) => console.error(e)
     });
   }
+
+  imprimirObjeto(): void{
+    var correoIngresado = this.inicioSesionForm.value.correo;
+    console.log(correoIngresado)
+    //console.log(this.inicioSesionForm.value.correo)
+  }
+
+  //Función que habilita el boton "inicio de sesion" si correo y contraseña coinciden
 
 }
