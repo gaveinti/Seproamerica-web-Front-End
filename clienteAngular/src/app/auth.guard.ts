@@ -36,11 +36,11 @@ export class AuthGuard implements CanActivate {
     console.log("no habilitar el inicio sesion")
     console.log("valor de validar ruta:"+this.validarRuta)
     return false*/
-    console.log("Receptor validacion:" + this.aService.obtenerValidacion())
+    console.log("Receptor validacion:" + this.aService.obtenerValidacion());
     if(this.aService.obtenerValidacion()){
       return true;
     } else{
-      console.log("alerta de window")
+      console.log("alerta de window");
       window.alert("No puede iniciar sesion");
       return false;
     }
