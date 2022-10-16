@@ -32,7 +32,7 @@
             <div class="card-body p-5">
               <h2 class="text-uppercase text-center mb-5">Datos de registro</h2>
 
-              <form id="demoForm" [formGroup]="registerForm" autocomplete="off" (ngSubmit)="registerForm.valid && onRegisterSubmit()" novalidate>
+              <form id="demoForm" class="needs-validation" [formGroup]="registerForm" autocomplete="off" (ngSubmit)="registerForm.valid && onRegisterSubmit()" novalidate>
 
                 <div class="form-outline mb-4">
                   <label class="form-label" for="form3Example1cg">Apellidos</label>
@@ -40,33 +40,42 @@
                   formControlName="apellidos"
                   [(ngModel)]="user.apellidos"
                   />
-                  <div class="valid-tooltip">
-                    Looks good!
+                  <div class="invalid-feedback">
+                    Datos inválidos, ingrese nuevamente
                   </div>
                 </div>
 
                 <div class="form-outline mb-4">
-                  <label class="form-label" for="form3Example1cg">Nombres</label>
-                  <input type="text" id="form3Example1cg" class="form-control form-control-lg" 
+                  <label class="form-label" for="form3Example2cg">Nombres</label>
+                  <input type="text" id="form3Example2cg" class="form-control form-control-lg" 
                   formControlName="nombres"
                   [(ngModel)]="user.nombres"
                   />
+                  <div class="invalid-feedback">
+                    Datos inválidos, ingrese nuevamente
+                  </div>
                 </div>
 
                 <div class="form-outline mb-4">
-                  <label class="form-label" for="form3Example1cg">Cedula</label>
-                  <input type="text" id="form3Example1cg" class="form-control form-control-lg" 
+                  <label class="form-label" for="form3Example3cg">Cedula</label>
+                  <input type="text" id="form3Example3cg" class="form-control form-control-lg" 
                   formControlName="cedula"
                   [(ngModel)]="user.cedula"
                   />
+                  <div class="invalid-feedback">
+                    Datos inválidos, ingrese nuevamente
+                  </div>
                 </div>
 
                 <div class="form-outline mb-4">
-                  <label class="form-label" for="form3Example1cg">Fecha de Nacimiento</label>
-                  <input type="date" id="form3Example1cg" class="form-control form-control-lg" 
+                  <label class="form-label" for="form3Example4cg">Fecha de Nacimiento</label>
+                  <input type="date" id="form3Example4cg" class="form-control form-control-lg" 
                   formControlName="fechaNac"
                   [(ngModel)]="user.fechaNac"
                   />
+                  <div class="invalid-feedback">
+                    Datos inválidos, ingrese nuevamente
+                  </div>
                 </div>
 
                 <label class="form-label" for="form3Example1cg">Sexo</label>
@@ -96,24 +105,30 @@
 
 
                 <div class="form-outline mb-4">
-                  <label class="form-label" for="form3Example3cg">Correo</label>
-                  <input type="email" id="form3Example3cg" class="form-control form-control-lg" 
+                  <label class="form-label" for="form3Example6cg">Correo</label>
+                  <input type="email" id="form3Example6cg" class="form-control form-control-lg" 
                   formControlName="correo"
                   [(ngModel)]="user.correo"
                   />
+                  <div class="invalid-feedback">
+                    Datos inválidos, ingrese nuevamente
+                  </div>
                 </div>
 
                 <div class="form-outline mb-4">
-                  <label class="form-label" for="form3Example3cg">Telefono</label>
-                  <input type="tel" id="form3Example3cg" class="form-control form-control-lg" 
+                  <label class="form-label" for="form3Example7cg">Telefono</label>
+                  <input type="tel" id="form3Example7cg" class="form-control form-control-lg" 
                   formControlName="telefono"
                   [(ngModel)]="user.telefono"
                   />
+                  <div class="invalid-feedback">
+                    Datos inválidos, ingrese nuevamente
+                  </div>
                 </div>
 
                 <div class="form-outline mb-4">
-                  <label class="form-label" for="form3Example4cg">Contraseña</label>
-                  <input type="password" id="form3Example4cg" class="form-control form-control-lg" 
+                  <label class="form-label" for="form3Example8cg">Contraseña</label>
+                  <input type="password" id="form3Example8cg" class="form-control form-control-lg" 
                   formControlName="contrasenha"
                   [(ngModel)]="user.contrasenia"
                   [type]="hide ? 'password':'text'"
@@ -121,6 +136,9 @@
                   <mat-icon matSuffix (click)="hide = !hide">
                     {{hide ? 'visibility' : 'visibility_off'}}
                   </mat-icon>
+                  <div class="invalid-feedback">
+                    Datos inválidos, ingrese nuevamente
+                  </div>
                 </div>
 
                 <!--<div class="form-outline mb-4">
@@ -134,6 +152,9 @@
                     Acepto los <a href="#!" class="text-body"
                     data-bs-toggle="modal" data-bs-target="#staticBackdrop"><u>términos y condiciones del servicio</u></a>
                   </label>
+                  <div class="invalid-feedback">
+                    Debe aceptar los términos y condiciones para registrarse
+                  </div>
                 </div>
 
                 <div class="d-flex justify-content-center">
