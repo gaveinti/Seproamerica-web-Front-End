@@ -13,6 +13,9 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ClienteWAService } from './services/cliente-wa.service';
 import { PrincipalComponent } from './principal/principal.component';
+import { AuthGuard } from './auth.guard';
+import { AuthService } from './services/auth.service';
+import { PerfilComponent } from './perfil/perfil.component';
 
 const routes: Routes = [
   { path: 'inicioSesion', component: InicioSesionComponent },
@@ -24,7 +27,8 @@ const routes: Routes = [
     AppComponent,
     InicioSesionComponent,
     RegistroComponent,
-    PrincipalComponent
+    PrincipalComponent,
+    PerfilComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +42,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes)
   ],
   exports: [RouterModule],
-  providers: [ClienteWAService],
+  providers: [ClienteWAService, AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

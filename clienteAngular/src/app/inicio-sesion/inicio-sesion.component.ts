@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ClienteWAService } from '../services/cliente-wa.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-inicio-sesion',
@@ -19,6 +20,8 @@ export class InicioSesionComponent implements OnInit {
   inicioSesionForm: FormGroup;
   hide = true;
   correoX = 'frh';
+  //Bandera con la que se habilitara el boton de inicio de sesion
+  exito = false
   /*Variable para guardar usuario encontrado*/
   usuarioActual: RegisterModel = {
     apellidos: '',
@@ -31,7 +34,8 @@ export class InicioSesionComponent implements OnInit {
     contrasenia: ''
   };
 
-  constructor(public fb: FormBuilder, private http: HttpClient, private clienteWAService: ClienteWAService, private route: ActivatedRoute, private router: Router) {
+  constructor(public fb: FormBuilder, private http: HttpClient, private clienteWAService: ClienteWAService,
+    private authService: AuthService , private route: ActivatedRoute, private router: Router) {
     this.inicioSesionForm = this.fb.group({
       correo: [this.user.correo, [Validators.required, Validators.email]],
       contrasenha: [this.user.contrasenia, [Validators.required]]
@@ -46,11 +50,13 @@ export class InicioSesionComponent implements OnInit {
     });
     this.onInicioSesionSubmit();
     this.correoX = this.inicioSesionForm.value.correo
+    //this.authService.currentApprovalStageMessage.subscribe(msg => this.exito = msg)
+
   }
 
 
   onInicioSesionSubmit(){
-    alert(this.user.correo)
+    //alert(this.user.correo)
     var formData: any = new FormData();
     formData.append('correo', this.inicioSesionForm.get('correo')?.value);
     formData.append('contrasenha', this.inicioSesionForm.get('contrasenha')?.value);
@@ -93,7 +99,8 @@ export class InicioSesionComponent implements OnInit {
   //Funcion que obtiene el objeto de la base de datos y valida el inicio de sesion
   getUsuarioA(): void{
     var correoIngresado = this.inicioSesionForm.value.correo;
-    console.log(correoIngresado)
+    console.log("Correo ingresado: "+correoIngresado)
+    //this.authService.updateApprovalMessage(this.exito)
     this.clienteWAService.get(correoIngresado)
     .subscribe({
       next: (data) => {
@@ -105,9 +112,18 @@ export class InicioSesionComponent implements OnInit {
         var contrasenhaValidar = data.contrasenia
         if(this.inicioSesionForm.value.contrasenha == contrasenhaValidar){
           console.log("inicio de sesion exitoso")
+          this.exito = true
+          console.log(this.exito)
+          this.authService.esValidado(this.exito)
+          //this.authService.currentApprovalStageMessage.subscribe(msg => this.exito = msg)
         } else{
           console.log("inicio de sesion fallido")
+          console.log(this.exito)
+          this.authService.esValidado(this.exito)
+          //this.authService.currentApprovalStageMessage.subscribe(msg => this.exito = msg)
         }
+        this.exito = false
+        //this.authService.currentApprovalStageMessage.subscribe(msg => this.exito = msg)
       },
       error: (e) => console.error(e)
     });
@@ -120,5 +136,8 @@ export class InicioSesionComponent implements OnInit {
   }
 
   //Función que habilita el boton "inicio de sesion" si correo y contraseña coinciden
+  esV(){
+    return true;
+  }
 
 }
