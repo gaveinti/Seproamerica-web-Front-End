@@ -16,6 +16,9 @@ import { PrincipalComponent } from './principal/principal.component';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './services/auth.service';
 import { PerfilComponent } from './perfil/perfil.component';
+import * as Material from "@angular/material";
+import {MatFormFieldModule} from '@angular/material/form-field';
+
 
 const routes: Routes = [
   { path: 'inicioSesion', component: InicioSesionComponent },
@@ -39,7 +42,9 @@ const routes: Routes = [
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    MatFormFieldModule,
+    
   ],
   exports: [RouterModule],
   providers: [ClienteWAService, AuthService, AuthGuard],
