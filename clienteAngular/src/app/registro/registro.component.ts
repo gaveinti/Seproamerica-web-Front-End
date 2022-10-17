@@ -3,6 +3,7 @@ import { from, VirtualTimeScheduler } from 'rxjs';
 import { RegisterModel } from '../models/register.model';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { ClienteWAService } from '../services/cliente-wa.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-registro',
@@ -25,13 +26,13 @@ export class RegistroComponent implements OnInit {
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
-      'apellidos': [this.user.apellidos, [Validators.required]],
-      'nombres': [this.user.nombres, [Validators.required]],
-      'cedula': [this.user.cedula, [Validators.required]],
+      'apellidos': [this.user.apellidos, [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
+      'nombres': [this.user.nombres, [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
+      'cedula': [this.user.cedula, [Validators.required, Validators.pattern("^[0-9]*$")]],
       'fechaNac': '2000-09-01',
       'sexo': [this.user.sexo, [Validators.required]],
       'correo': [this.user.correo, [Validators.required, Validators.email]],
-      'telefono': [this.user.telefono, [Validators.required]],
+      'telefono': [this.user.telefono, [Validators.required, Validators.minLength(10), Validators.pattern("^[0-9]*$")]],
       'contrasenha': [this.user.contrasenia, [Validators.required]],
     });
     this.validarTerminosyCondiciones();
