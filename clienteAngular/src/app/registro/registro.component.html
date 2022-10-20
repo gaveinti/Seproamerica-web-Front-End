@@ -129,12 +129,13 @@
                   <mat-icon matSuffix (click)="hide = !hide">
                     {{hide ? 'visibility' : 'visibility_off'}}
                   </mat-icon>
-                  <mat-error> Datos inválidos</mat-error>
                 </div>
+
+                
                 <!--<div class="form-outline mb-4">
                   <input type="password" id="form3Example4cdg" class="form-control form-control-lg" />
                   <label class="form-label" for="form3Example4cdg">Repeat your password</label>
-                </div>-->
+                </div> -->
 
                 <div class="form-check d-flex justify-content-center mb-5">
                   <input class="form-check-input me-2" type="checkbox" value="" id="invalidCheck" (click)="validarTerminosyCondiciones()" name="invalidCheck" required/>
@@ -145,19 +146,38 @@
                   <div class="invalid-feedback">
                     Debe aceptar los términos y condiciones para registrarse
                   </div>
-                </div>
+                </div> 
 
                 <div class="d-flex justify-content-center">
-                  <button mat-button type="submit button" (click)="guardarUsuario()" id="botonRegistro" [disabled]="registerForm.invalid" 
+                  <button mat-button type="submit button" (click)="guardarUsuario()" id="botonRegistro" [disabled]="false" 
                   class="btn-confirmar">Confirmar</button>
                 </div>
 
-                <!-- PAntalla de términos y condiciones -->
+                <button class="btn" type="button" data-bs-toggle="modal" data-bs-target="#modalDos" 
+                data-bs-dismiss="modal">Seguridad</button>
+
+                <!--Pantalla de confirmacion de registro-->
+                <div class="modal fade" id="modalDos" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="moda-body">
+                        <p>Holaaaaa</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+
+                <!---PAntalla de términos y condiciones -->
                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                   <div class="modal-dialog modal-dialog-scrollable">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Términos y condiciones</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
@@ -173,7 +193,7 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> 
 
                 <p class="text-center text-muted mt-5 mb-0">¿Ya tiene una cuenta? <a mat-button href="#!"
                     class="fw-bold text-body" routerLink="/inicioSesion/:correo"><u>Inicie sesión aquí</u></a></p>

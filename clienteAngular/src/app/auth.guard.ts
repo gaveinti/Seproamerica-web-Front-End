@@ -7,7 +7,7 @@ import { AuthService } from './services/auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class AuthGuard /*implements CanActivate*/ {
   //COn este valor cambia (Tengo que ver como obtengo el booleano del otro componente)
   validarRuta: boolean = true;
 
@@ -24,9 +24,10 @@ export class AuthGuard implements CanActivate {
   this.aService.updateApprovalMessage(this.validarRuta);
   }*/
 
+  /*
   canActivate(
     /*route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot*/): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       //logica
     //this.aService.currentApprovalStageMessage.subscribe(msg => this.validarRuta = msg)
     /*if(this.validarRuta){
@@ -35,7 +36,10 @@ export class AuthGuard implements CanActivate {
     }
     console.log("no habilitar el inicio sesion")
     console.log("valor de validar ruta:"+this.validarRuta)
-    return false*/
+    return false
+    
+
+    //este funciona
     console.log("Receptor validacion:" + this.aService.obtenerValidacion());
     if(this.aService.obtenerValidacion()){
       return true;
@@ -44,7 +48,7 @@ export class AuthGuard implements CanActivate {
       window.alert("No puede iniciar sesion");
       return false;
     }
-  }
+  }*/
 
   
 }

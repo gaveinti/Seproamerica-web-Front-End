@@ -18,6 +18,7 @@ import { AuthService } from './services/auth.service';
 import { PerfilComponent } from './perfil/perfil.component';
 import * as Material from "@angular/material";
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { GuardService } from './services/guard.service';
 
 
 const routes: Routes = [
@@ -31,7 +32,7 @@ const routes: Routes = [
     InicioSesionComponent,
     RegistroComponent,
     PrincipalComponent,
-    PerfilComponent
+    PerfilComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,7 +48,7 @@ const routes: Routes = [
     
   ],
   exports: [RouterModule],
-  providers: [ClienteWAService, AuthService, AuthGuard],
+  providers: [ClienteWAService, AuthService, AuthGuard, GuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

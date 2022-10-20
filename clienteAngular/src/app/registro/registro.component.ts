@@ -16,6 +16,12 @@ export class RegistroComponent implements OnInit {
   fechaRegistro: string = '2000-09-01';
   rol: string ='11';
 
+  //Variables de campos completados del registro y de confirmacion de que se han aceptado los términos y condiciones
+  camposCompletos: boolean = false;
+  terminosAceptados: boolean = false;
+  ppp: boolean = false;
+  //varComb: boolean = this.varPUno && this.varPDos;
+
   terminosValidados: boolean = false;
 
   registerForm!: FormGroup;
@@ -47,6 +53,7 @@ export class RegistroComponent implements OnInit {
 
   /*Función para guardar usuario nuevo que se registre */
   guardarUsuario(): void {
+    this.camposCompletos = !this.registerForm.invalid;
     const data = {
       apellidos : this.user.apellidos,
       nombres : this.user.nombres,
@@ -62,15 +69,22 @@ export class RegistroComponent implements OnInit {
     };
     console.log("entra")
     console.log(data)
-    /*El problema empieza aqui */
-    this.clienteWAService.create(data)
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-          this.submitted = true;
-        },
-        error: (e) => console.error(e)
-      });
+    console.log("Campos completos: "+this.camposCompletos)
+    console.log("Terminos aceptados:")
+    this.validarAceptacionDeTerminos();
+    //Se han completado los campos y se han aceptado los términos de la empresa
+    if(this.camposCompletos && this.terminosAceptados){
+      this.clienteWAService.create(data)
+        .subscribe({
+          next: (res) => {
+            console.log(res);
+            this.submitted = true;
+          },
+          error: (e) => console.error(e)
+        });
+    } else{
+      alert("Debe completar los campos y aceptar los términos y condiciones")
+    }
   }/*
   nuevoUsuario(): void {
     this.submitted = false;
@@ -103,6 +117,14 @@ export class RegistroComponent implements OnInit {
         console.log(this.terminosValidados)
         botonRegistro.disabled = false;
       }
+    }
+  }
+
+  validarAceptacionDeTerminos(){
+    const varValid = document.querySelector('#invalidCheck') as HTMLInputElement | null;
+    if(varValid != null){
+      this.terminosAceptados = varValid.checked
+      console.log(varValid.checked);
     }
   }
 
