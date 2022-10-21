@@ -18,6 +18,17 @@ import { InicioSesionModel } from '../models/inicioSesion.model';
 })
 export class AuthService{
 
+  private usuario: RegisterModel = {
+    apellidos: '',
+    nombres: '',
+    cedula: 0,
+    fechaNac: new Date(),
+    sexo: '',
+    correo: '',
+    telefono: 0,
+    contrasenia: ''
+  };
+
   constructor() { }
 
 
@@ -62,6 +73,29 @@ export class AuthService{
 
   estaAutenticado(){
     return this.sesionIniciada;
+  }
+
+  //Método para probar paso de datos a componente principal
+  getUsuario(){
+    return this.usuario;
+  }
+
+  infoPutUsuario(usuarioIS: RegisterModel){
+    this.usuario = usuarioIS;
+  }
+
+  //Metodo para resetear usuario
+  reseteoUsuario(){
+    this.usuario = {
+      apellidos: '',
+      nombres: '',
+      cedula: 0,
+      fechaNac: new Date(),
+      sexo: '',
+      correo: '',
+      telefono: 0,
+      contrasenia: ''
+    };
   }
 
   /*
