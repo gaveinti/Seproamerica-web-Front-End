@@ -4,6 +4,9 @@ import { RegisterModel } from '../models/register.model';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { ClienteWAService } from '../services/cliente-wa.service';
 import { AuthService } from '../services/auth.service';
+import * as bootstrap from "bootstrap";
+import * as $ from 'jquery';
+
 
 @Component({
   selector: 'app-registro',
@@ -11,6 +14,7 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./registro.component.css']
 })
 export class RegistroComponent implements OnInit {
+  
   user: RegisterModel = new RegisterModel();
   direccion: string = 'a@a.com';
   fechaRegistro: string = '2000-09-01';
@@ -26,6 +30,7 @@ export class RegistroComponent implements OnInit {
 
   registerForm!: FormGroup;
   hide = true;
+  //Indicador si registro fue guardado en la base de datos o no
   submitted = false;
 
   constructor(private formBuilder: FormBuilder, private clienteWAService: ClienteWAService) { }
@@ -46,9 +51,9 @@ export class RegistroComponent implements OnInit {
   }
 
   onRegisterSubmit(){
-    alert(this.user.apellidos + ' ' + this.user.nombres + ' ' + this.user.cedula + ' ' + this.user + ' ' + 
+    /*alert(this.user.apellidos + ' ' + this.user.nombres + ' ' + this.user.cedula + ' ' + this.user + ' ' + 
     this.user.sexo+ ' '+ this.user.correo + ' ' + this.user.telefono + ' ' + this.user.contrasenia + ' ' +  this.direccion + ' ' +
-    this.fechaRegistro + ' ' + this.rol);
+    this.fechaRegistro + ' ' + this.rol);*/
   }
 
   /*Función para guardar usuario nuevo que se registre */
@@ -79,11 +84,18 @@ export class RegistroComponent implements OnInit {
           next: (res) => {
             console.log(res);
             this.submitted = true;
+            alert("Cuenta creada exitosamente")
+            this.registerForm.reset()
           },
           error: (e) => console.error(e)
         });
     } else{
       alert("Debe completar los campos y aceptar los términos y condiciones")
+    }
+    if(this.submitted){
+      console.log("Datos guardados")
+    } else {
+      console.log("Datos no guardados")
     }
   }/*
   nuevoUsuario(): void {

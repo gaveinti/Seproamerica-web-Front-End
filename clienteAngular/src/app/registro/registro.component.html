@@ -149,28 +149,39 @@
                 </div> 
 
                 <div class="d-flex justify-content-center">
-                  <button mat-button type="submit button" (click)="guardarUsuario()" id="botonRegistro" [disabled]="false" 
+                  <button mat-button type="submit button" data-bs-toggle="modal" data-bs-target="#modalDos" 
+                  data-bs-dismiss="modal" id="botonRegistro" [disabled]="false" 
                   class="btn-confirmar">Confirmar</button>
                 </div>
 
-                <button class="btn" type="button" data-bs-toggle="modal" data-bs-target="#modalDos" 
-                data-bs-dismiss="modal">Seguridad</button>
-
-                <!--Pantalla de confirmacion de registro-->
+                <!--Pantalla para confirmar registro-->
                 <div class="modal fade" id="modalDos" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Crear cuenta con estos datos</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
-                      <div class="moda-body">
-                        <p>Holaaaaa</p>
+                      <div class="modal-footer">
+                        <button type="button" (click)="guardarUsuario()" class="btn btn-primary" style="background-color:green;">Guardar</button>
                       </div>
                     </div>
                   </div>
                 </div>
-                
+
+                <!--Pantalla de datos no guardados-->
+                <ng-container *ngIf="submitted" >
+                  <div *ngIf="submitted" class="modal fade" id="modalFallido" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="staticBackdropLabel">Cuenta no creada</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </ng-container>
 
                 <!---PAntalla de términos y condiciones -->
                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
