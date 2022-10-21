@@ -20,6 +20,9 @@ export class InicioSesionComponent implements OnInit {
   inicioSesionForm: FormGroup;
   hide = true;
   correoX = 'frh';
+  camposCompletos: boolean = false;
+  //bandera de prueba
+  b : boolean = false;
   //Bandera con la que se habilitara el boton de inicio de sesion
   exito = false
   /*Variable para guardar usuario encontrado*/
@@ -50,6 +53,9 @@ export class InicioSesionComponent implements OnInit {
     });
     this.onInicioSesionSubmit();
     this.correoX = this.inicioSesionForm.value.correo
+    /*
+    this.authService.login(this.inicioSesionForm.value, this.inicioSesionForm.value.correo).subscribe((res) => console.log("Login"));
+    */
     //this.authService.currentApprovalStageMessage.subscribe(msg => this.exito = msg)
 
   }
@@ -99,34 +105,47 @@ export class InicioSesionComponent implements OnInit {
   //Funcion que obtiene el objeto de la base de datos y valida el inicio de sesion
   getUsuarioA(): void{
     var correoIngresado = this.inicioSesionForm.value.correo;
-    console.log("Correo ingresado: "+correoIngresado)
+    /*console.log("Correo ingresado: "+correoIngresado)
+    console.log("Contra ingresada: "+this.inicioSesionForm.value.contrasenha)*/
     //this.authService.updateApprovalMessage(this.exito)
-    this.clienteWAService.get(correoIngresado)
-    .subscribe({
-      next: (data) => {
-        this.usuarioActual = data;
-        console.log(data)
-        //Obtener contraseña para validar
-        console.log("Contraseña ingresada: " + this.inicioSesionForm.value.contrasenha)
-        console.log("Contraseña de la base de datos: " + data.contrasenia)
-        var contrasenhaValidar = data.contrasenia
-        if(this.inicioSesionForm.value.contrasenha == contrasenhaValidar){
-          console.log("inicio de sesion exitoso")
-          this.exito = true
-          console.log(this.exito)
-          this.authService.esValidado(this.exito)
+    this.camposCompletos = !this.inicioSesionForm.invalid;
+    console.log("Campos completos: "+this.camposCompletos)
+    if(this.camposCompletos){
+      this.clienteWAService.get(correoIngresado)
+      .subscribe({
+        next: (data) => {
+          this.usuarioActual = data;
+          console.log(data)
+          console.log(this.usuarioActual)
+          //Obtener contraseña para validar
+          /*console.log("Contraseña ingresada: " + this.inicioSesionForm.value.contrasenha)
+          console.log("Contraseña de la base de datos: " + data.contrasenia)*/
+          var contrasenhaValidar = data.contrasenia
+          if(this.inicioSesionForm.value.contrasenha == contrasenhaValidar){
+            this.authService.infoPutUsuario(this.usuarioActual)
+            console.log("inicio de sesion exitoso")
+            this.exito = true
+            //console.log(this.exito)
+
+            //this.authService.esValidado(this.exito)
+
+            this.authService.loginDos()
+            //this.authService.currentApprovalStageMessage.subscribe(msg => this.exito = msg)
+          } else{
+            alert("Usuario o contraseña incorrectos")
+            console.log("inicio de sesion fallido")
+            //console.log(this.exito)
+            //this.authService.esValidado(this.exito)
+            //this.authService.currentApprovalStageMessage.subscribe(msg => this.exito = msg)
+          }
+          this.exito = false
           //this.authService.currentApprovalStageMessage.subscribe(msg => this.exito = msg)
-        } else{
-          console.log("inicio de sesion fallido")
-          console.log(this.exito)
-          this.authService.esValidado(this.exito)
-          //this.authService.currentApprovalStageMessage.subscribe(msg => this.exito = msg)
-        }
-        this.exito = false
-        //this.authService.currentApprovalStageMessage.subscribe(msg => this.exito = msg)
-      },
-      error: (e) => console.error(e)
-    });
+        },
+        error: (e) => /*console.error(e)*/ alert("Usuario no registrado")
+      });
+    }else{
+      console.log("Campos no válidos")
+    }
   }
 
   imprimirObjeto(): void{

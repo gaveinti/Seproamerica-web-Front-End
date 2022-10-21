@@ -36,13 +36,12 @@
 
                 <div class="form-outline mb-4">
                   <label class="form-label" for="form3Example1cg">Apellidos</label>
-                  <input type="text" id="form3Example1cg" class="form-control form-control-lg" required
+                  <input type="text" id="form3Example1cg" matInput class="form-control form-control-lg" required
                   formControlName="apellidos"
                   [(ngModel)]="user.apellidos"
                   />
-                  <div class="invalid-feedback">
-                    Datos inválidos, ingrese nuevamente
-                  </div>
+                  <mat-error *ngIf="registerForm.controls['apellidos'].errors?.['required']"> *</mat-error>
+                  <mat-error *ngIf="registerForm.controls['apellidos'].errors?.['pattern']"> Solo insertar letras</mat-error>
                 </div>
 
                 <div class="form-outline mb-4">
@@ -51,9 +50,8 @@
                   formControlName="nombres"
                   [(ngModel)]="user.nombres"
                   />
-                  <div class="invalid-feedback">
-                    Datos inválidos, ingrese nuevamente
-                  </div>
+                  <mat-error *ngIf="registerForm.controls['nombres'].errors?.['required']"> *</mat-error>
+                  <mat-error *ngIf="registerForm.controls['nombres'].errors?.['pattern']"> Solo insertar letras</mat-error>
                 </div>
 
                 <div class="form-outline mb-4">
@@ -62,9 +60,8 @@
                   formControlName="cedula"
                   [(ngModel)]="user.cedula"
                   />
-                  <div class="invalid-feedback">
-                    Datos inválidos, ingrese nuevamente
-                  </div>
+                  <mat-error *ngIf="registerForm.controls['cedula'].errors?.['required']"> *</mat-error>
+                  <mat-error *ngIf="registerForm.controls['cedula'].errors?.['pattern']"> Solo insertar números</mat-error>
                 </div>
 
                 <div class="form-outline mb-4">
@@ -73,9 +70,6 @@
                   formControlName="fechaNac"
                   [(ngModel)]="user.fechaNac"
                   />
-                  <div class="invalid-feedback">
-                    Datos inválidos, ingrese nuevamente
-                  </div>
                 </div>
 
                 <label class="form-label" for="form3Example1cg">Sexo</label>
@@ -110,9 +104,8 @@
                   formControlName="correo"
                   [(ngModel)]="user.correo"
                   />
-                  <div class="invalid-feedback">
-                    Datos inválidos, ingrese nuevamente
-                  </div>
+                  <mat-error *ngIf="registerForm.controls['correo'].errors?.['required']"> *</mat-error>
+                  <mat-error *ngIf="registerForm.controls['correo'].errors?.['email']"> Correo no válido</mat-error>
                 </div>
 
                 <div class="form-outline mb-4">
@@ -121,9 +114,9 @@
                   formControlName="telefono"
                   [(ngModel)]="user.telefono"
                   />
-                  <div class="invalid-feedback">
-                    Datos inválidos, ingrese nuevamente
-                  </div>
+                  <mat-error *ngIf="registerForm.controls['telefono'].errors?.['required']"> *</mat-error>
+                  <mat-error *ngIf="registerForm.controls['telefono'].errors?.['minlength']"> Mínimo 10 caracteres</mat-error>
+                  <mat-error *ngIf="registerForm.controls['telefono'].errors?.['pattern']"> Solo insertar números</mat-error>
                 </div>
 
                 <div class="form-outline mb-4">
@@ -136,15 +129,13 @@
                   <mat-icon matSuffix (click)="hide = !hide">
                     {{hide ? 'visibility' : 'visibility_off'}}
                   </mat-icon>
-                  <div class="invalid-feedback">
-                    Datos inválidos, ingrese nuevamente
-                  </div>
                 </div>
 
+                
                 <!--<div class="form-outline mb-4">
                   <input type="password" id="form3Example4cdg" class="form-control form-control-lg" />
                   <label class="form-label" for="form3Example4cdg">Repeat your password</label>
-                </div>-->
+                </div> -->
 
                 <div class="form-check d-flex justify-content-center mb-5">
                   <input class="form-check-input me-2" type="checkbox" value="" id="invalidCheck" (click)="validarTerminosyCondiciones()" name="invalidCheck" required/>
@@ -155,19 +146,49 @@
                   <div class="invalid-feedback">
                     Debe aceptar los términos y condiciones para registrarse
                   </div>
-                </div>
+                </div> 
 
                 <div class="d-flex justify-content-center">
-                  <button mat-button type="submit button" (click)="guardarUsuario()" id="botonRegistro" [disabled]="!registerForm.valid" 
+                  <button mat-button type="submit button" data-bs-toggle="modal" data-bs-target="#modalDos" 
+                  data-bs-dismiss="modal" id="botonRegistro" [disabled]="false" 
                   class="btn-confirmar">Confirmar</button>
                 </div>
 
-                <!-- PAntalla de términos y condiciones -->
+                <!--Pantalla para confirmar registro-->
+                <div class="modal fade" id="modalDos" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Crear cuenta con estos datos</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" (click)="guardarUsuario()" class="btn btn-primary" style="background-color:green;">Guardar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!--Pantalla de datos no guardados-->
+                <ng-container *ngIf="submitted" >
+                  <div *ngIf="submitted" class="modal fade" id="modalFallido" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="staticBackdropLabel">Cuenta no creada</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </ng-container>
+
+                <!---PAntalla de términos y condiciones -->
                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                   <div class="modal-dialog modal-dialog-scrollable">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Términos y condiciones</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
@@ -183,7 +204,7 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> 
 
                 <p class="text-center text-muted mt-5 mb-0">¿Ya tiene una cuenta? <a mat-button href="#!"
                     class="fw-bold text-body" routerLink="/inicioSesion/:correo"><u>Inicie sesión aquí</u></a></p>

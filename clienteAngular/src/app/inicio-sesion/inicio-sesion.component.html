@@ -20,17 +20,21 @@
                   </div>
     
                   <div class="form-outline form-white mb-4">
+                    <mat-icon matSuffix (click)="hide = !hide">
+                      {{hide ? 'visibility' : 'visibility_off'}}
+                    </mat-icon>
                     <input type="password" id="typePasswordX" class="form-control form-control-lg" 
                     formControlName="contrasenha"
                     [(ngModel)]="user.contrasenia"
                     [type]="hide ? 'password':'text'"
                     />
+                    
                     <label class="form-label" for="typePasswordX">Contraseña</label>
                   </div>
     
     
                   <button class="btn btn-outline-light btn-lg px-5" type="submit"
-                  [disabled]="!inicioSesionForm.valid" routerLink="/principal" (click)="getUsuarioA()">Inicio sesion </button>
+                  [disabled]="false" routerLink="/principal" (click)="getUsuarioA()">Inicio sesion </button>
     
                   <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Olvidé mi contraseña</a></p>
 

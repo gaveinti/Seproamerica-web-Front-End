@@ -17,6 +17,9 @@ import { AuthGuard } from './auth.guard';
 import { AuthService } from './services/auth.service';
 import { PerfilComponent } from './perfil/perfil.component';
 import { MensajeriaComponent } from './components/mensajeria/mensajeria.component';
+import * as Material from "@angular/material";
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { GuardService } from './services/guard.service';
 
 const routes: Routes = [
   { path: 'inicioSesion', component: InicioSesionComponent },
@@ -30,7 +33,10 @@ const routes: Routes = [
     RegistroComponent,
     PrincipalComponent,
     PerfilComponent,
+<<<<<<< HEAD
     MensajeriaComponent
+=======
+>>>>>>> e3293be1755e1902fced47ce6259d6d593c25cd0
   ],
   imports: [
     BrowserModule,
@@ -41,10 +47,12 @@ const routes: Routes = [
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    MatFormFieldModule,
+    
   ],
   exports: [RouterModule],
-  providers: [ClienteWAService, AuthService, AuthGuard],
+  providers: [ClienteWAService, AuthService, AuthGuard, GuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
