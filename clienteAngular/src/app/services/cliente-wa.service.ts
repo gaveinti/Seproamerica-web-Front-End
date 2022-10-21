@@ -9,7 +9,12 @@ import { RegisterModel } from '../models/register.model';
   providedIn: 'root'
 })
 export class ClienteWAService {
-
+  //"http://127.0.0.1:8000/api/usuarioRegistro";
+  //"http://127.0.0.1:8000/api/usuarioInicioSesion";
+  /*
+  "https://seproamerica2022.pythonanywhere.com/api/usuarioRegistro";
+  "https://seproamerica2022.pythonanywhere.com/api/usuarioInicioSesion";
+   */
   /*Url del servidor */
   DJANGO_SERVER: string = "https://seproamerica2022.pythonanywhere.com/api/usuarioRegistro";
   DJANGO_SERVER_INICIO_SESION: string = "https://seproamerica2022.pythonanywhere.com/api/usuarioInicioSesion";
@@ -37,5 +42,10 @@ export class ClienteWAService {
 
   encontrarCorreo(correoU: any): Observable<RegisterModel>{
     return this.http.get<RegisterModel>(`${this.DJANGO_SERVER_INICIO_SESION}?correo=${correoU}`)
+  }
+
+  /*Basandome en  https://www.bezkoder.com/django-angular-mysql/*/
+  update(correoU: any, data: any): Observable<any> {
+    return this.http.put(`${this.DJANGO_SERVER_INICIO_SESION}/${correoU}/`, data);
   }
 }
