@@ -16,6 +16,7 @@ import { PrincipalComponent } from './principal/principal.component';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './services/auth.service';
 import { PerfilComponent } from './perfil/perfil.component';
+import { MensajeriaComponent } from './components/mensajeria/mensajeria.component';
 
 const routes: Routes = [
   { path: 'inicioSesion', component: InicioSesionComponent },
@@ -28,7 +29,8 @@ const routes: Routes = [
     InicioSesionComponent,
     RegistroComponent,
     PrincipalComponent,
-    PerfilComponent
+    PerfilComponent,
+    MensajeriaComponent
   ],
   imports: [
     BrowserModule,
