@@ -116,11 +116,13 @@ export class InicioSesionComponent implements OnInit {
         next: (data) => {
           this.usuarioActual = data;
           console.log(data)
+          console.log(this.usuarioActual)
           //Obtener contraseña para validar
           /*console.log("Contraseña ingresada: " + this.inicioSesionForm.value.contrasenha)
           console.log("Contraseña de la base de datos: " + data.contrasenia)*/
           var contrasenhaValidar = data.contrasenia
           if(this.inicioSesionForm.value.contrasenha == contrasenhaValidar){
+            this.authService.infoPutUsuario(this.usuarioActual)
             console.log("inicio de sesion exitoso")
             this.exito = true
             //console.log(this.exito)
@@ -130,6 +132,7 @@ export class InicioSesionComponent implements OnInit {
             this.authService.loginDos()
             //this.authService.currentApprovalStageMessage.subscribe(msg => this.exito = msg)
           } else{
+            alert("Usuario o contraseña incorrectos")
             console.log("inicio de sesion fallido")
             //console.log(this.exito)
             //this.authService.esValidado(this.exito)

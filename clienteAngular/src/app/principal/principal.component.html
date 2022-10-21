@@ -13,7 +13,7 @@
                         <li data-filter=".fresh-meat">Fresh Meat</li>
                         <li data-filter=".vegetables">Vegetables</li>
                         <li data-filter=".fastfood">Fastfood</li>
-                        <button routerLink="/inicioSesion">log out</button>
+                        <button routerLink="/inicioSesion" (click)="resetearUsuario()">log out</button>
                     </ul>
                 </div>
             </div>
@@ -139,6 +139,7 @@
                     </div>
                 </div>
             </div>
+            <h1>Usuario: {{usuario.apellidos}}</h1>
         </div>
     </div>
 </section>
