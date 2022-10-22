@@ -21,7 +21,8 @@
               <h5 class="my-3">{{usuario.nombres}} {{usuario.apellidos}}</h5>
               <!--<p class="text-muted mb-4">Bay Area, San Francisco, CA</p>-->
               <div class="d-flex justify-content-center mb-2">
-                <button type="button" class="btn btn-primary" (click)="actualizarDatos()">Editar perfil</button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalIngresarDatos" 
+                data-bs-dismiss="modal">Editar perfil</button>
               </div>
             </div>
           </div>
@@ -54,15 +55,6 @@
                 </div>
                 <div class="col-sm-9">
                   <p class="text-muted mb-0">{{usuario.correo}}</p>
-                </div>
-              </div>
-              <hr>
-              <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0">Phone</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0">{{usuario.telefono}}</p>
                 </div>
               </div>
               <hr>
@@ -130,6 +122,124 @@
               </div>-->
             </div>
           </div>
+
+          <!--Pantalla para confirmar registro-->
+          <div class="modal fade" id="modalIngresarDatos" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Ingrese nuevos datos</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form id="demoForm" class="needs-validation" [formGroup]="registerForm" autocomplete="off" (ngSubmit)="registerForm.valid" novalidate>
+
+                    <div class="form-outline mb-4">
+                      <label class="form-label" for="form3Example1cg">Apellidos</label>
+                      <input type="text" id="form3Example1cg" matInput class="form-control form-control-lg" required
+                      formControlName="apellidos"
+                      [(ngModel)]="usuario.apellidos"
+                      />
+                      <mat-error *ngIf="registerForm.controls['apellidos'].errors?.['required']"> *</mat-error>
+                      <mat-error *ngIf="registerForm.controls['apellidos'].errors?.['pattern']"> Solo insertar letras</mat-error>
+                    </div>
+    
+                    <div class="form-outline mb-4">
+                      <label class="form-label" for="form3Example2cg">Nombres</label>
+                      <input type="text" id="form3Example2cg" class="form-control form-control-lg" 
+                      formControlName="nombres"
+                      [(ngModel)]="usuario.nombres"
+                      />
+                      <mat-error *ngIf="registerForm.controls['nombres'].errors?.['required']"> *</mat-error>
+                      <mat-error *ngIf="registerForm.controls['nombres'].errors?.['pattern']"> Solo insertar letras</mat-error>
+                    </div>
+    
+                    <div class="form-outline mb-4">
+                      <label class="form-label" for="form3Example3cg">Cedula</label>
+                      <input type="text" id="form3Example3cg" class="form-control form-control-lg" 
+                      formControlName="cedula"
+                      [(ngModel)]="usuario.cedula"
+                      />
+                      <mat-error *ngIf="registerForm.controls['cedula'].errors?.['required']"> *</mat-error>
+                      <mat-error *ngIf="registerForm.controls['cedula'].errors?.['pattern']"> Solo insertar números</mat-error>
+                    </div>
+    
+                    <div class="form-outline mb-4">
+                      <label class="form-label" for="form3Example4cg">Fecha de Nacimiento</label>
+                      <input type="date" id="form3Example4cg" class="form-control form-control-lg" 
+                      formControlName="fechaNac"
+                      [(ngModel)]="usuario.fechaNac"
+                      />
+                    </div>
+    
+                    <label class="form-label" for="form3Example1cg">Sexo</label>
+                    <div class="form-outline mb-4">
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" formControlName="sexo" [(ngModel)]="usuario.sexo" 
+                          id="gridRadios1" value="M">
+                          <label class="form-check-label" for="gridRadios1">
+                            Masculino
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" formControlName="sexo" [(ngModel)]="usuario.sexo" 
+                          id="gridRadios2" value="F">
+                          <label class="form-check-label" for="gridRadios2">
+                            Femenino
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" formControlName="sexo" [(ngModel)]="usuario.sexo" 
+                          id="gridRadios3" value="Nd">
+                          <label class="form-check-label" for="gridRadios3">
+                            No definir
+                          </label>
+                        </div>
+                    </div>
+    
+    
+                    <!--<div class="form-outline mb-4">
+                      <label class="form-label" for="form3Example6cg">Correo</label>
+                      <input type="email" id="form3Example6cg" class="form-control form-control-lg" 
+                      formControlName="correo"
+                      [(ngModel)]="usuario.correo"
+                      />
+                      <mat-error *ngIf="registerForm.controls['correo'].errors?.['required']"> *</mat-error>
+                      <mat-error *ngIf="registerForm.controls['correo'].errors?.['email']"> Correo no válido</mat-error>
+                    </div>-->
+    
+                    <div class="form-outline mb-4">
+                      <label class="form-label" for="form3Example7cg">Telefono</label>
+                      <input type="tel" id="form3Example7cg" class="form-control form-control-lg" 
+                      formControlName="telefono"
+                      [(ngModel)]="usuario.telefono"
+                      />
+                      <mat-error *ngIf="registerForm.controls['telefono'].errors?.['required']"> *</mat-error>
+                      <mat-error *ngIf="registerForm.controls['telefono'].errors?.['minlength']"> Mínimo 10 caracteres</mat-error>
+                      <mat-error *ngIf="registerForm.controls['telefono'].errors?.['pattern']"> Solo insertar números</mat-error>
+                    </div>
+    
+                    <div class="form-outline mb-4">
+                      <label class="form-label" for="form3Example8cg">Contraseña</label>
+                      <input type="password" id="form3Example8cg" class="form-control form-control-lg" 
+                      formControlName="contrasenha"
+                      [(ngModel)]="usuario.contrasenia"
+                      [type]="hide ? 'password':'text'"
+                      />
+                      <mat-icon matSuffix (click)="hide = !hide">
+                        {{hide ? 'visibility' : 'visibility_off'}}
+                      </mat-icon>
+                    </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" style="background-color:green;" (click)="actualizarDatos()">Guardar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
           <!--<div class="row">
             <div class="col-md-6">
               <div class="card mb-4 mb-md-0">
