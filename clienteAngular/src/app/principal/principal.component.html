@@ -1,3 +1,40 @@
+<header class="fondo-header estructura-header">
+    <div class="primeraDivision">
+      <div class="container-imagen">
+        <img src="https://www.seproamerica.com.ec/wp-content/uploads/2019/07/Seproamerica-privada-y-electronica-grande-logo-seguridad-ecuador.png">
+      </div>
+    </div>
+    <div class="segundaDivision">
+      <div class="container-Registro1">
+        <div class="container-Registro2">
+          <h2>Servicios</h2>
+        </div>
+      </div>
+    </div>
+</header>
+
+<div class="contenedorPrincipal d-flex">
+    <div class="p-2 w-75 infoIzquierda">
+        <li *ngFor="let servicio of listaServicios">
+            {{servicio.nombre}}
+        </li>
+    </div>
+    <div class="p-2 flex-shrink-1 infoDerecha">
+        <div class="d-flex flex-column mb-3">
+            <div class="p-2">Flex item 1</div>
+            <div class="p-2 opciones">
+                <div *ngFor="let op of listaopciones">
+                    <br>
+                    <p>{{op}}</p>
+                </div>
+            </div>
+        <div class="p-2">Flex item 3</div>
+        </div>
+    </div>
+</div>
+
+
+
 <!-- Featured Section Begin -->
 <section class="featured spad">
     <div class="container">
