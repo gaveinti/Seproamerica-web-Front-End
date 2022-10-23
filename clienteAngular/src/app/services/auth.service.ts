@@ -96,6 +96,7 @@ export class AuthService{
       telefono: 0,
       contrasenia: ''
     };
+    this.sesionIniciada = false;
   }
 
   /*
