@@ -19,6 +19,8 @@ import { PerfilComponent } from './perfil/perfil.component';
 import * as Material from "@angular/material";
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { GuardService } from './services/guard.service';
+import { GeneralinfobarComponent } from './principal/generalinfobar/generalinfobar.component';
+import { InfoempresaComponent } from './infoempresa/infoempresa.component';
 
 
 const routes: Routes = [
@@ -33,6 +35,8 @@ const routes: Routes = [
     RegistroComponent,
     PrincipalComponent,
     PerfilComponent,
+    GeneralinfobarComponent,
+    InfoempresaComponent,
   ],
   imports: [
     BrowserModule,

@@ -17,17 +17,17 @@ export class PrincipalComponent implements OnInit {
     { nombre: "Guardia de seguridad"}
   ];
 
-  listaopciones: string[] = [
-    "Servicios",
-    "Historial de servicios",
-    "Carrito",
-    "Tarjetas",
-    "Escanear código",
-    "Sucursales",
-    "Información general"
+  listaOpciones: [string, string][] = [
+    ["/", "Servicios"],
+    ["/", "Historial de servicios"],
+    ["/", "Carrito"],
+    ["/", "Tarjetas"],
+    ["/", "Escanear código"],
+    ["/", "Sucursales"],
+    ["/informacion", "Información general"]
   ];
 
-  sesionIniciada: boolean = true;
+  //sesionIniciada: boolean = true;
 
   usuario: RegisterModel = {
     apellidos: '',
@@ -46,7 +46,7 @@ export class PrincipalComponent implements OnInit {
     this.usuario = this.authService.getUsuario();
   }
 
-  resetearUsuario(): void{
+  /*resetearUsuario(): void{
     this.sesionIniciada = false;
     this.usuario = {
       apellidos: '',
@@ -60,6 +60,6 @@ export class PrincipalComponent implements OnInit {
     };
   
     this.authService.reseteoUsuario();
-  }
+  }*/
 
 }

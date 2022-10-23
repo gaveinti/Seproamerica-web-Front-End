@@ -18,7 +18,7 @@ import { InicioSesionModel } from '../models/inicioSesion.model';
 })
 export class AuthService{
 
-  private usuario: RegisterModel = {
+  usuario: RegisterModel = {
     apellidos: '',
     nombres: '',
     cedula: 0,
@@ -80,8 +80,14 @@ export class AuthService{
     return this.usuario;
   }
 
+  /*Metodo para obtener el usuario del inicio de sesion */
   infoPutUsuario(usuarioIS: RegisterModel){
     this.usuario = usuarioIS;
+  }
+
+  /*Metodo para enviar datos de usuario a distintos componentes */
+  enviarUsuario(){
+    return this.usuario;
   }
 
   //Metodo para resetear usuario

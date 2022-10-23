@@ -13,6 +13,8 @@ import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 })
 export class PerfilComponent implements OnInit {
 
+  sesionIniciada: boolean = true;
+
   registerForm!: FormGroup;
 
   hide = true;
@@ -107,6 +109,22 @@ export class PerfilComponent implements OnInit {
     } else{
       alert("Debe completar los campos")
     }
+  }
+
+  resetearUsuario(): void{
+    this.sesionIniciada = false;
+    this.usuario = {
+      apellidos: '',
+      nombres: '',
+      cedula: 0,
+      fechaNac: new Date(),
+      sexo: '',
+      correo: '',
+      telefono: 0,
+      contrasenia: ''
+    };
+  
+    this.authService.reseteoUsuario();
   }
 
 }

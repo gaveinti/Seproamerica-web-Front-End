@@ -7,7 +7,7 @@
     <div class="segundaDivision">
       <div class="container-Registro1">
         <div class="container-Registro2">
-          <h2 routerLink="/informacion">Servicios</h2>
+          <h2>{{titulo}}</h2>
         </div>
       </div>
     </div>
@@ -16,14 +16,15 @@
     </div>
 </header>
 
+
 <div class="contenedorPrincipal d-flex">
     <div class="p-2 w-75 infoIzquierda">
-        <li *ngFor="let servicio of listaServicios">
-            {{servicio.nombre}}
-        </li>
+        <div class="containerInfoGeneral">
+            <h1>Nosotros</h1>
+            <p>Nuestra mision es...</p> 
+            <p>Nuestra vision es...</p>
+            <p>Ofrecemos servicios de seguridad</p>
+          </div>
     </div>
-    <app-generalinfobar [usuario]="usuario"></app-generalinfobar>
+    <app-generalinfobar></app-generalinfobar>
 </div>
-
-
-

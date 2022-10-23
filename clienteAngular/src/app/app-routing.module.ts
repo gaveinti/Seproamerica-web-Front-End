@@ -7,11 +7,13 @@ import { PerfilComponent } from './perfil/perfil.component';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './services/auth.service';
 import { GuardService } from './services/guard.service';
+import { InfoempresaComponent } from './infoempresa/infoempresa.component';
 
 const routes: Routes = [
   { path: "inicioSesion/:correo", component: InicioSesionComponent},
   { path: "registro", component: RegistroComponent},
   { path: "principal", component: PrincipalComponent, canActivate: [GuardService]},
+  { path: "informacion", component: InfoempresaComponent},
   { path: "perfil", component: PerfilComponent},
   //{ path: '',   redirectTo: '/inicioSesion/:correo', pathMatch: 'full'},
   { path: '', component: InicioSesionComponent}
