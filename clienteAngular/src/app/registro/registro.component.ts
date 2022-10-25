@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { from, VirtualTimeScheduler } from 'rxjs';
 import { RegisterModel } from '../models/register.model';
-import { FormGroup, FormBuilder, Validators, FormControl} from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, FormControlDirective} from '@angular/forms';
 import { ClienteWAService } from '../services/cliente-wa.service';
 import { AuthService } from '../services/auth.service';
 import * as bootstrap from "bootstrap";
@@ -15,6 +15,17 @@ import * as moment from "moment";
   styleUrls: ['./registro.component.css']
 })
 export class RegistroComponent implements OnInit {
+
+  title = 'email-validation-tutorial';
+  userEmail = new FormControl({
+    correo: new FormControl('',[
+      Validators.required,
+
+      Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+      secondaryEmail: new FormControl('',[
+        Validators.required,
+      Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")])
+  });
   
   user: RegisterModel = new RegisterModel();
   direccion: string = 'a@a.com';
@@ -43,12 +54,12 @@ export class RegistroComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
       'apellidos': [this.user.apellidos, [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
       'nombres': [this.user.nombres, [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
-      'cedula': [this.user.cedula, [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(10)]],
+      'cedula': [this.user.cedula, [Validators.required, Validators.pattern('^(0){1}(9){1}[0-9]{8}$'), Validators.maxLength(10)]],
       'fechaNac': [this.user.fechaNac, [this.validacionFecha]],
       'sexo': [this.user.sexo, [Validators.required]],
-      'correo': [this.user.correo, [Validators.required, Validators.email]],
-      'telefono': [this.user.telefono, [Validators.required, Validators.minLength(10), Validators.pattern("^[0-9]*$")]],
-      'contrasenha': [this.user.contrasenia, [Validators.required]],
+      'correo': [this.user.correo, [Validators.required, Validators.email, Validators.pattern('^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$')]],
+      'telefono': [this.user.telefono, [Validators.required, Validators.minLength(9), Validators.maxLength(10), Validators.pattern('^(0){1}(9){1}[0-9]{8}$')]],
+      'contrasenha': [this.user.contrasenia, [Validators.required, Validators.minLength(8)]],
     });
     this.validarTerminosyCondiciones();
     this.permitirRegistro();
