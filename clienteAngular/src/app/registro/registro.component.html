@@ -70,7 +70,11 @@
                   formControlName="fechaNac"
                   [(ngModel)]="user.fechaNac"
                   />
+                  <mat-error *ngIf="noMayorEdad">
+                    Debe ser mayor de 18 años
+                  </mat-error>
                 </div>
+                
 
                 <label class="form-label" for="form3Example1cg">Sexo</label>
                 <div class="form-outline mb-4">
@@ -95,6 +99,7 @@
                         No definir
                       </label>
                     </div>
+                  <mat-error *ngIf="registerForm.controls['sexo'].errors?.['required']"> *</mat-error>
                 </div>
 
 
