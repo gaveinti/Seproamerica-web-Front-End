@@ -61,16 +61,20 @@
                   [(ngModel)]="user.cedula"
                   />
                   <mat-error *ngIf="registerForm.controls['cedula'].errors?.['required']"> *</mat-error>
-                  <mat-error *ngIf="registerForm.controls['cedula'].errors?.['pattern']"> Solo insertar números</mat-error>
+                  <mat-error *ngIf="registerForm.controls['cedula'].errors?.['pattern']"> Su cédula debe empezar con 09 y tener máximo 10 dígitos</mat-error>
                 </div>
 
                 <div class="form-outline mb-4">
                   <label class="form-label" for="form3Example4cg">Fecha de Nacimiento</label>
                   <input type="date" id="form3Example4cg" class="form-control form-control-lg" 
                   formControlName="fechaNac"
-                  [(ngModel)]="user.fechaNac"
+                  [(ngModel)]="user.fechaNac" required validarFecha
                   />
+                  <mat-error *ngIf="noMayorEdad">
+                    Debe ser mayor de 18 años
+                  </mat-error>
                 </div>
+                
 
                 <label class="form-label" for="form3Example1cg">Sexo</label>
                 <div class="form-outline mb-4">
@@ -95,6 +99,7 @@
                         No definir
                       </label>
                     </div>
+                  <mat-error *ngIf="registerForm.controls['sexo'].errors?.['required']"> *</mat-error>
                 </div>
 
 
@@ -106,6 +111,8 @@
                   />
                   <mat-error *ngIf="registerForm.controls['correo'].errors?.['required']"> *</mat-error>
                   <mat-error *ngIf="registerForm.controls['correo'].errors?.['email']"> Correo no válido</mat-error>
+                  <mat-error *ngIf="registerForm.controls['correo'].errors?.['pattern']"> Debe contener una extensión</mat-error>
+
                 </div>
 
                 <div class="form-outline mb-4">
@@ -115,8 +122,9 @@
                   [(ngModel)]="user.telefono"
                   />
                   <mat-error *ngIf="registerForm.controls['telefono'].errors?.['required']"> *</mat-error>
-                  <mat-error *ngIf="registerForm.controls['telefono'].errors?.['minlength']"> Mínimo 10 caracteres</mat-error>
-                  <mat-error *ngIf="registerForm.controls['telefono'].errors?.['pattern']"> Solo insertar números</mat-error>
+                  <mat-error *ngIf="registerForm.controls['telefono'].errors?.['pattern']"> Su telefono debe comenzar con 09 y tener como máximo 10 dígitos</mat-error>
+                  <mat-error *ngIf="registerForm.controls['telefono'].errors?.['minlength']"> Minimo 9 caracteres</mat-error>
+                  <mat-error *ngIf="registerForm.controls['telefono'].errors?.['maxlength']"> Maximo 10 caracteres</mat-error>
                 </div>
 
                 <div class="form-outline mb-4">
@@ -129,6 +137,7 @@
                   <mat-icon matSuffix (click)="hide = !hide">
                     {{hide ? 'visibility' : 'visibility_off'}}
                   </mat-icon>
+                  <mat-error *ngIf="registerForm.controls['contrasenha'].errors?.['minlength']"> Minimo 8 caracteres</mat-error>
                 </div>
 
                 

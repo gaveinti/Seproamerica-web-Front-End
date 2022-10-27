@@ -20,15 +20,6 @@ export class ClienteWAService {
   DJANGO_SERVER_INICIO_SESION: string = "https://seproamerica2022.pythonanywhere.com/api/usuarioInicioSesion";
   constructor(private http: HttpClient) { }
 
-  /*public upload(formData){
-    return this.http.post<any>(`${this.DJANGO_SERVER}/upload/`, formData);
-  }*/
-
-  /* Metodo para mandar un usuario que inicia sesion al back end */
-  /*El link de usuarioInicioSesion se encuentra en url.py de clientewa 
-  addUsuarioIS(val:any){
-    return this.http.post(this.DJANGO_SERVER + '/usuarioInicioSesion/',val);
-  }*/
   
   /*Basandome en la pagina https://www.bezkoder.com/angular-crud-app/ */
   create(data: any): Observable<any>{

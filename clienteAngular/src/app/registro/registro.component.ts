@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { from, VirtualTimeScheduler } from 'rxjs';
 import { RegisterModel } from '../models/register.model';
-import { FormGroup, FormBuilder, Validators} from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, FormControlDirective} from '@angular/forms';
 import { ClienteWAService } from '../services/cliente-wa.service';
 import { AuthService } from '../services/auth.service';
 import * as bootstrap from "bootstrap";
 import * as $ from 'jquery';
+import * as moment from "moment";
 
 
 @Component({
@@ -14,6 +15,17 @@ import * as $ from 'jquery';
   styleUrls: ['./registro.component.css']
 })
 export class RegistroComponent implements OnInit {
+
+  title = 'email-validation-tutorial';
+  userEmail = new FormControl({
+    correo: new FormControl('',[
+      Validators.required,
+
+      Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+      secondaryEmail: new FormControl('',[
+        Validators.required,
+      Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")])
+  });
   
   user: RegisterModel = new RegisterModel();
   direccion: string = 'a@a.com';
@@ -33,18 +45,21 @@ export class RegistroComponent implements OnInit {
   //Indicador si registro fue guardado en la base de datos o no
   submitted = false;
 
+  noMayorEdad: boolean = true;
+  p: boolean = false;
+
   constructor(private formBuilder: FormBuilder, private clienteWAService: ClienteWAService) { }
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
       'apellidos': [this.user.apellidos, [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
       'nombres': [this.user.nombres, [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
-      'cedula': [this.user.cedula, [Validators.required, Validators.pattern("^[0-9]*$")]],
-      'fechaNac': '2000-09-01',
+      'cedula': [this.user.cedula, [Validators.required, Validators.pattern('^(0){1}(9){1}[0-9]{8}$'), Validators.maxLength(10)]],
+      'fechaNac': [this.user.fechaNac, [this.validacionFecha]],
       'sexo': [this.user.sexo, [Validators.required]],
-      'correo': [this.user.correo, [Validators.required, Validators.email]],
-      'telefono': [this.user.telefono, [Validators.required, Validators.minLength(10), Validators.pattern("^[0-9]*$")]],
-      'contrasenha': [this.user.contrasenia, [Validators.required]],
+      'correo': [this.user.correo, [Validators.required, Validators.email, Validators.pattern('^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$')]],
+      'telefono': [this.user.telefono, [Validators.required, Validators.minLength(9), Validators.maxLength(10), Validators.pattern('^(0){1}(9){1}[0-9]{8}$')]],
+      'contrasenha': [this.user.contrasenia, [Validators.required, Validators.minLength(8)]],
     });
     this.validarTerminosyCondiciones();
     this.permitirRegistro();
@@ -74,6 +89,7 @@ export class RegistroComponent implements OnInit {
     };
     console.log("entra")
     console.log(data)
+    console.log("Fecha valida:" )
     console.log("Campos completos: "+this.camposCompletos)
     console.log("Terminos aceptados:")
     this.validarAceptacionDeTerminos();
@@ -97,13 +113,7 @@ export class RegistroComponent implements OnInit {
     } else {
       console.log("Datos no guardados")
     }
-  }/*
-  nuevoUsuario(): void {
-    this.submitted = false;
-    this.user = {
-
-    }
-  }*/
+  }
 
   validarTerminosyCondiciones(): void{
     var checkBox = document.getElementById("invalidCheck") as HTMLInputElement | null;
@@ -140,4 +150,45 @@ export class RegistroComponent implements OnInit {
     }
   }
 
+  /*validar si fecha escogida indica si usuario es mayor de edad */
+  validacionFecha(control: FormControl){
+    if(control.value){
+      const date = moment(control.value).format('DD-MM-YYYY')
+      console.log("Fecha introducida: " + date)
+      const diaEscogido: number = parseInt(date.split('-')[0])
+      const mesEscogido: number = parseInt(date.split('-')[1])
+      const anioEscogido: number = parseInt(date.split('-')[2])
+      const today = moment().format('DD-MM-YYYY')
+      console.log("Fecha de hoy: " + today)
+      const diaActual: number = parseInt(today.split('-')[0])
+      const mesActual: number = parseInt(today.split('-')[1])
+      const anioActual: number = parseInt(today.split('-')[2])
+      const restaAnio = anioActual - anioEscogido
+      const restaMes = mesActual - mesEscogido
+      const restaDia = diaActual - diaEscogido
+      if ((restaAnio >= 18) && (restaMes >= 0) && (restaDia >= 0)){
+        console.log("Es mayor de edad")
+        return null/*{ 'validDate': true}*/
+      }
+    }
+    let mensajeError = "Debe ser mayor de edad"
+    console.log("No es mayor de edad")
+    return mensajeError/*{'validDate': false};*/
+  }
+
+  /*Validar si Dias y meses escogidos con actuales son válidos para cumplir la mayoria de edad 
+  validacionMesDia(){
+    let restaMesDia = 1/*actual - escogido
+    if(restaMesDia >= 0){
+    } else {
+  
+    }
+  }*/
+
+  
+
+
+
 }
+
+

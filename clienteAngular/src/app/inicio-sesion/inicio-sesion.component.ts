@@ -40,74 +40,37 @@ export class InicioSesionComponent implements OnInit {
   constructor(public fb: FormBuilder, private http: HttpClient, private clienteWAService: ClienteWAService,
     private authService: AuthService , private route: ActivatedRoute, private router: Router) {
     this.inicioSesionForm = this.fb.group({
-      correo: [this.user.correo, [Validators.required, Validators.email]],
-      contrasenha: [this.user.contrasenia, [Validators.required]]
+      correo: [this.user.correo, [Validators.required, Validators.email, Validators.pattern('^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$')]],
+      contrasenha: [this.user.contrasenia, [Validators.required, Validators.minLength(8)]]
     });
   }
 
+  obj: any;
+
   ngOnInit(): void{
-    //this.getUsuarioA(this.route.snapshot.params["correo"]);
     this.inicioSesionForm = this.fb.group({
       'correo': [this.user.correo, [Validators.required, Validators.email]],
       'contrasenha': [this.user.contrasenia, [Validators.required]]
     });
-    this.onInicioSesionSubmit();
     this.correoX = this.inicioSesionForm.value.correo
-    /*
-    this.authService.login(this.inicioSesionForm.value, this.inicioSesionForm.value.correo).subscribe((res) => console.log("Login"));
-    */
-    //this.authService.currentApprovalStageMessage.subscribe(msg => this.exito = msg)
-
   }
 
 
   onInicioSesionSubmit(){
-    //alert(this.user.correo)
-    var formData: any = new FormData();
+    this.obj = this.clienteWAService.get(this.inicioSesionForm.value.correo).subscribe(
+      data => {
+        console.log(data.apellidos)
+        this.obj = data
+      })
+    /*var formData: any = new FormData();
     formData.append('correo', this.inicioSesionForm.get('correo')?.value);
-    formData.append('contrasenha', this.inicioSesionForm.get('contrasenha')?.value);
-    /*this.http.post('http://127.0.0.1:8000/usuarioInicioSesion/', JSON.stringify(formData)).subscribe({
-        next: (response) => console.log(response),
-        error: (error) => console.log(error),
-    });*/
-    //this.getUsuarioA(this.inicioSesionForm.get('correo')?.value)
-
-    //this.getUsuarioA(this.inicioSesionForm.value.correo, this.inicioSesionForm.value.contrasenha)
+    formData.append('contrasenha', this.inicioSesionForm.get('contrasenha')?.value);*/
   }
 
-  /*Función para obtener usuario a partir del correo ingresado
-  getUsuario(correoIngresado: string): void{
-    this.clienteWAService.get(correoIngresado)
-    this.usuarioActual = {
-      apellidos: '',
-      nombres: '',
-      cedula: 0,
-      fechaNac: new Date(),
-      sexo: '',
-      correo: '',
-      telefono: 0,
-      contrasenha: ''
-    };
-    this.indexActual = -1;
-    console.log("entra")
-    this.clienteWAService.encontrarCorreo(correoIngresado)
-      .subscribe({
-        next: (data) => {
-          //this.usuariosLista: RegisterModel[] = data;
-          let x = data;
-          console.log(x)
-          console.log(data);
-        },
-        error: (e) => console.log(e)
-      });
-  }*/
 
   //Funcion que obtiene el objeto de la base de datos y valida el inicio de sesion
   getUsuarioA(): void{
     var correoIngresado = this.inicioSesionForm.value.correo;
-    /*console.log("Correo ingresado: "+correoIngresado)
-    console.log("Contra ingresada: "+this.inicioSesionForm.value.contrasenha)*/
-    //this.authService.updateApprovalMessage(this.exito)
     this.camposCompletos = !this.inicioSesionForm.invalid;
     console.log("Campos completos: "+this.camposCompletos)
     if(this.camposCompletos){
@@ -117,31 +80,19 @@ export class InicioSesionComponent implements OnInit {
           this.usuarioActual = data;
           console.log(data)
           console.log(this.usuarioActual)
-          //Obtener contraseña para validar
-          /*console.log("Contraseña ingresada: " + this.inicioSesionForm.value.contrasenha)
-          console.log("Contraseña de la base de datos: " + data.contrasenia)*/
           var contrasenhaValidar = data.contrasenia
           if(this.inicioSesionForm.value.contrasenha == contrasenhaValidar){
             this.authService.infoPutUsuario(this.usuarioActual)
             console.log("inicio de sesion exitoso")
             this.exito = true
-            //console.log(this.exito)
-
-            //this.authService.esValidado(this.exito)
-
             this.authService.loginDos()
-            //this.authService.currentApprovalStageMessage.subscribe(msg => this.exito = msg)
           } else{
             alert("Usuario o contraseña incorrectos")
             console.log("inicio de sesion fallido")
-            //console.log(this.exito)
-            //this.authService.esValidado(this.exito)
-            //this.authService.currentApprovalStageMessage.subscribe(msg => this.exito = msg)
           }
           this.exito = false
-          //this.authService.currentApprovalStageMessage.subscribe(msg => this.exito = msg)
         },
-        error: (e) => /*console.error(e)*/ alert("Usuario no registrado")
+        error: (e) => alert("Usuario no registrado")
       });
     }else{
       console.log("Campos no válidos")
