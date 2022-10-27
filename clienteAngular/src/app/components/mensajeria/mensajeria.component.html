@@ -94,3 +94,21 @@
     </div>
 
 </section>
+
+<script>
+    console.log('ws://'
+        + window.location.host
+        + '/ws/socket-server/')
+
+    const chatSocket = new WebSocket(
+        'ws://'
+        + window.location.host
+        + '/ws/socket-server/' 
+    );
+
+    chatSocket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        console.log('data: ', data)
+    };
+
+</script>

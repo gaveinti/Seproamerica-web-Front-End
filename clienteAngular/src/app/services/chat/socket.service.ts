@@ -8,13 +8,13 @@ import {io} from 'socket.io-client';
 })
 export class SocketService {
 
-  url ="http://127.0.0.1:8000/ws/socket-server/"
+  url ="http://localhost:3000/"
   url1='ws://'
   + '127.0.0.1:8000'
   + '/ws/socket-server/'
 
   url2="http://localhost:3000/"
-  io =  io(this.url1,{
+  io =  io(this.url,{
     withCredentials:true,    
     autoConnect:true
 

@@ -22,7 +22,7 @@ export class MensajeriaComponent implements OnInit {
       date: '',
       estado_envio: false
     }
-    //this.chat.sendMessage(smsInfo);
+    this.chat.sendMessage(smsInfo);
     this.textSms="";
 
   }

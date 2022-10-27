@@ -33,10 +33,8 @@ const routes: Routes = [
     RegistroComponent,
     PrincipalComponent,
     PerfilComponent,
-<<<<<<< HEAD
     MensajeriaComponent
-=======
->>>>>>> e3293be1755e1902fced47ce6259d6d593c25cd0
+
   ],
   imports: [
     BrowserModule,

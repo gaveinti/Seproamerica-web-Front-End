@@ -5,7 +5,8 @@ import {io} from 'socket.io-client';
   providedIn: 'root'
 })
 export class SocketService {
-  io =io("http://localhost:3000/",{
+  url="http://localhost:3000/"
+  io =io(this.url,{
     withCredentials:true,    
     autoConnect:true
 
