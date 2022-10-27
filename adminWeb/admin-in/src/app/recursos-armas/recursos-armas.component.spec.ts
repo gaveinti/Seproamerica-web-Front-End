@@ -1,17 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { PersonalWindComponent } from './personal-wind.component';
 
-describe('PersonalWindComponent', () => {
-  let component: PersonalWindComponent;
-  let fixture: ComponentFixture<PersonalWindComponent>;
+import { RecursosArmasComponent } from './recursos-armas.component';
+
+describe('RecursosArmasComponent', () => {
+  let component: RecursosArmasComponent;
+  let fixture: ComponentFixture<RecursosArmasComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PersonalWindComponent ]
+      declarations: [ RecursosArmasComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PersonalWindComponent);
+    fixture = TestBed.createComponent(RecursosArmasComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
