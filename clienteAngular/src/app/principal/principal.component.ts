@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { RegisterModel } from '../models/register.model';
 import { GuardService } from '../services/guard.service';
+import { ServiceModel } from '../models/servicio';
 
 @Component({
   selector: 'app-principal',
@@ -9,7 +10,24 @@ import { GuardService } from '../services/guard.service';
   styleUrls: ['./principal.component.css']
 })
 export class PrincipalComponent implements OnInit {
-  sesionIniciada: boolean = true;
+  listaServicios: ServiceModel[] = [
+    { nombre: "Custodia Armada"},
+    { nombre: "Transporte de productos"},
+    { nombre: "Chofer seguro"},
+    { nombre: "Guardia de seguridad"}
+  ];
+
+  listaOpciones: [string, string][] = [
+    ["/", "Servicios"],
+    ["/", "Historial de servicios"],
+    ["/", "Carrito"],
+    ["/", "Tarjetas"],
+    ["/", "Escanear código"],
+    ["/", "Sucursales"],
+    ["/informacion", "Información general"]
+  ];
+
+  //sesionIniciada: boolean = true;
 
   usuario: RegisterModel = {
     apellidos: '',
@@ -28,7 +46,7 @@ export class PrincipalComponent implements OnInit {
     this.usuario = this.authService.getUsuario();
   }
 
-  resetearUsuario(): void{
+  /*resetearUsuario(): void{
     this.sesionIniciada = false;
     this.usuario = {
       apellidos: '',
@@ -42,6 +60,6 @@ export class PrincipalComponent implements OnInit {
     };
   
     this.authService.reseteoUsuario();
-  }
+  }*/
 
 }

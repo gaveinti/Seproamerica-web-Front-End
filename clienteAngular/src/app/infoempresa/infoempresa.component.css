@@ -1,3 +1,4 @@
+/*Estilos header*/
 .gradient-custom-3 {
     /* fallback for old browsers */
     background: #84fab0;
@@ -72,6 +73,7 @@ fondo-header{
     list-style: none;
 }
 
+/*Body*/
 /*Body*/
 .fondo{
     background-color: white;
