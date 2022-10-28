@@ -45,7 +45,7 @@ export class PrincipalComponent implements OnInit {
   ngOnInit(): void {
     this.usuario = this.authService.getUsuario();
 
-    let d = this.authService.obtenerLocalStorage("23")
+    //let d = this.authService.obtenerLocalStorage("23")
     //this.usuario = this.authService.getUsuario();
   }
 

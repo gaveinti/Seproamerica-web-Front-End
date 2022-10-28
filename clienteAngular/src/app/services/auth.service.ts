@@ -80,7 +80,7 @@ export class AuthService{
   /*Metodo para obtener el usuario del inicio de sesion */
   infoPutUsuario(usuarioIS: RegisterModel){
     this.usuario = usuarioIS;
-    this.guardarLocalStorage(this.key, this.usuario);
+    //this.guardarLocalStorage(this.key, this.usuario);
   }
 
   /*Metodo para enviar datos de usuario a distintos componentes */
@@ -105,7 +105,7 @@ export class AuthService{
 
 
   //funcion para encriptar
-  private encrypt(txt: string): string {
+  /*private encrypt(txt: string): string {
     return CryptoJS.AES.encrypt(txt, this.key).toString();
   }
 
@@ -129,6 +129,6 @@ export class AuthService{
   //Eliminar usuario del localStorage
   public eliminarDatosLocalStorage(key: string){
     localStorage.removeItem(key);
-  }
+  }*/
 
 }
