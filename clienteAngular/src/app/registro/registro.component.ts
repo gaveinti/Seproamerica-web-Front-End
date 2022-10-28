@@ -9,6 +9,7 @@ import * as $ from 'jquery';
 import * as moment from "moment";
 
 
+
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.component.html',
@@ -112,6 +113,9 @@ export class RegistroComponent implements OnInit {
       console.log("Datos guardados")
     } else {
       console.log("Datos no guardados")
+      //Cerrar ventana(modal) que indica guardar
+      //const modalPresentado = document.getElementById('modalDos')
+      //modalPresentado?.hidden
     }
   }
 

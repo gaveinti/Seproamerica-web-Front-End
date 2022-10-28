@@ -1,6 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import {MatIconModule} from '@angular/material/icon';
+import {MatTooltipModule} from '@angular/material/tooltip';
+
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,6 +18,11 @@ import { ReportesWindComponent } from './reportes-wind/reportes-wind.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MensajeriaWindComponent } from './mensajeria-wind/mensajeria-wind.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RecursosVehiculosComponent } from './recursos-vehiculos/recursos-vehiculos.component';
+import { RecursosCandadosComponent } from './recursos-candados/recursos-candados.component';
+import { RecursosCelularComponent } from './recursos-celular/recursos-celular.component';
+import { RecursosArmasComponent } from './recursos-armas/recursos-armas.component';
+import { PersonalRegistroComponent } from './personal-registro/personal-registro.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +31,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     PersonalWindComponent,
     RecursosWindComponent,
     ReportesWindComponent,
-    MensajeriaWindComponent
+    MensajeriaWindComponent,
+
+    RecursosVehiculosComponent,
+    RecursosCandadosComponent,
+    RecursosCelularComponent,
+    RecursosArmasComponent,
+    PersonalRegistroComponent
   ],
   imports: [
     BrowserModule,
@@ -32,10 +50,20 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
       {path: 'reportesVentana', component: ReportesWindComponent},
       {path: 'mensajeriaVentana', component: MensajeriaWindComponent},
       
+      {path: 'vehiculosSec',component: RecursosVehiculosComponent},
+      {path: 'celularesSec', component: RecursosCelularComponent},
+      {path: 'armasSec', component: RecursosArmasComponent},
+      {path: 'candadosSec', component: RecursosCandadosComponent}
     ]),
     BrowserAnimationsModule,
+    MatToolbarModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatTooltipModule,
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

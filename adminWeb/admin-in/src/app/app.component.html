@@ -1,5 +1,14 @@
-<div class="wrapper " style="height: 20%;">
-  <nav class=" pt-0 navbar navbar-expand-lg text-uppercase fixed-top" id="mainNav">
+
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href="#">About</a>
+  <a href="#">Services</a>
+  <a href="#">Clients</a>
+  <a href="#">Contact</a>
+</div>
+
+<div class="wrapper">
+  <nav class="navbar navbar-expand-lg text-uppercase fixed-top" id="mainNav">
     <div class="logo">
       <a class="navbar-brand" href="#page-top"><img src="https://www.seproamerica.com.ec/wp-content/uploads/2019/07/Seproamerica-privada-y-electronica-grande-logo-seguridad-ecuador.png"
         height="90px"></a>
@@ -19,24 +28,32 @@
             </ul>
         </div>
        
-    </div>
-    <div class="icons" id="botones">
-      <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span>
-    </div>
-    <div class="bottom_nav" >
-      <div id="navbarResponsive2">
+    </div> 
+    <div id="sidebar" class="icons" >
       <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Profile</a></li>
-        <li><a href="#">Writing</a></li>
-        <li><a href="#">Design</a></li>
-        <li><a routerLink="/mensajeriaVentana">Mensajería</a></li>
-        
+
+        <li><span style="font-size:30px;cursor:pointer" onclick="openNav()"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAAB30lEQVRoge2YT0tUURiHf6+YgoER0s6NK00jaFm6ax2IYPoB3Fdrty5qUSC1rrXpJ1B3Ee0TCleCgQtRHBIhbPRpMY7ZdOdO975n5kxwHrirw8v7/Dh/7rlXSiQSwQGuA0+Bz8BsbJ9CADPAHr/ZB27F9moJYMBzslmJ7dcS4E0T+TpHwCpwP7brXwCPW8hf5Rx4AVhsb0mXG3a/QIA6S7HdJUnAQgl5gJ/AXW//ngAZHpWs65W04G0eIsA9R+1Db3P3RgJ+SOovWX5sZoOe/iFm4NRRi7d5iADfHLW73uYhAmw4atcD9PcB3AGqJY7RKjAe21/SP10jsliO7X0J0AdsFpDfAK7F9v6DixCvyV9OVWC56+SvAkwAr4At4Pji2QJe0i1rPpFIJIIR4jptkm5LmpQ0LmlU0oikIUn1q/J3SYeSdiRtS/oi6aOkr2bmvpEWhtp38BywBhwUeAM3ckDtT8UcMNAJ8THgHXDikG7GCfAWGGuH+DDwHjhrg3gjZ8AKMBxKfhrfMilLBZj3yj+LIN7IkzzHpqcQ8EDSB4X5avNwLmnKzD5lDebJLbYY7xQ9qrlkkjcDFUk32mFUgoqZ3cwayAvQ+RdMDmaW6doNS8RFChCb/z5AIpFIxOUXcZtnT8jCJ5AAAAAASUVORK5CYII=">
+        </span></li>
+        <li><span style="font-size:30px;cursor:pointer" onclick="openNav()"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAABcklEQVRoge2YMUoDQRSG3wjmBqJorEQEj6G9laB3EOIVUsY7iGCRRjyCXsVG1EqNtpp8FtkFWTabmfHNPlbmg1TLm/f9m8zm7YhkMhl1gB5wATwDT8AI6Fl7eVMIVxlZe3lT3PkqLyl6uRSLAtQ2c06934rmYsAmcN5wfQBsaPZUAegDV8C05qdT5Ru4BLasvUVEBDgC3j3Eq3wCx9byA2AWIV8yA86s5E/+KF8ybf2bYL5Z3xTkSyZAv80AY0X5kusYl+DncnGnHkRkNaZhA18isuOcewwpivkfOBV9eSnWDN4LMQEOImp8OQwtiAmwH1GTbO2YAGsRNb6shxbEbOLaQU2L0IFPdZizIAewJgewJgewJgewJgewJigAMEwl8qtHmiNIYJjgNXIRuiFaltcNYSTvHWLp7A1p5/9lLHs/6PxTKPPvYH7qvIiJdr8Ue+C+4dpdgn66AHvUH/y+ArvWfl4A28AN8FF8bjsjn8l0jB+PwNkf2WAX2QAAAABJRU5ErkJggg==">
+        </span></li>
+        <li><span style="font-size:30px;cursor:pointer" onclick="openNav()"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAABEElEQVRoge2YPU7DQBBG3yAOEEFJTcpQcjw4AOIi/FwgoqamRbSURIrbFB8NQk48EBKUnV1rXjlaye957S0WkiRJqkPSVNKjpE7xdJIeJJ17rubInwEvwOmhX9SOLICZmb33h0fOwhvqkwc4AW43h94OfHwtrpGlmU36Ay9gBRwXU9oRM1tz9j6hpsiAaEYZMPixa2aUO9AUGRDNKAPyFCpJBkSTAdHkKRRNBkSTAdGM8hRaFrf4OwM3L+CpgMi+zDcH3s3cFHimvuvFBXBpZm/94WAHzOwVuADugK6M2690wD2O/F5sucu/+vcDDk3T8vBjQBvy4Aa0Iw+DgLbkYS2gPXn4DmhTHkDSdbRDUhOfJeM/rcVsNUQAAAAASUVORK5CYII=">
+        </span></li>
         
       </ul>
     </div>
-  </div>
 </nav>
-</div>
+</div>    
+<script>
+  function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+    document.getElementById("main").style.marginRight = "250px";
+  }
   
+  function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("main").style.marginRight= "0";
+  }
+  </script>
+
+
 <router-outlet></router-outlet>

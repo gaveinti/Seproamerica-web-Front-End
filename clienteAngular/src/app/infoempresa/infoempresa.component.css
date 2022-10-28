@@ -100,3 +100,31 @@ fondo-header{
 .contenedorPrincipal{
     background-color: #b6b6b6;
 }
+
+.contenedorPrincipal .infoIzquierda .containerInfoGeneral{
+    background-color: #6d1319;
+}
+
+.contenedorPrincipal .infoIzquierda .containerInfoGeneral > #tituloNosotros {
+    color:white;
+    font-weight: bold;
+    font-size: 40px;
+    padding-left: 5px;
+    padding-top: 10px;
+}
+
+.contenedorPrincipal .infoIzquierda .containerInfoGeneral > .cuerpoNosotros {
+    color: white;
+    padding-left: 5px;
+}
+
+.contenedorPrincipal .infoIzquierda .containerInfoGeneral > .subtituloNosotros{
+    color: white;
+    padding-left: 5px;
+}
+
+.contenedorPrincipal .infoIzquierda .containerInfoGeneral > .listaNosotros .elementoNosotros{
+    color: white;
+    padding-left: 10px;
+    padding-bottom: 5px;
+}

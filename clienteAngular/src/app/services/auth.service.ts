@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { RegisterModel } from '../models/register.model';
 import { InicioSesionModel } from '../models/inicioSesion.model';
+import  *  as CryptoJS from  'crypto-js';
 
 
 @Injectable({
@@ -32,6 +33,8 @@ export class AuthService{
 
   constructor() { }
 
+  //llave para guardar datos en el localStorage
+  key = "123";
 
   //log
   //sesionIniciada: boolean = false;
@@ -77,6 +80,7 @@ export class AuthService{
   /*Metodo para obtener el usuario del inicio de sesion */
   infoPutUsuario(usuarioIS: RegisterModel){
     this.usuario = usuarioIS;
+    //this.guardarLocalStorage(this.key, this.usuario);
   }
 
   /*Metodo para enviar datos de usuario a distintos componentes */
@@ -99,5 +103,32 @@ export class AuthService{
     this.sesionIniciada.next(false)
   }
 
+
+  //funcion para encriptar
+  /*private encrypt(txt: string): string {
+    return CryptoJS.AES.encrypt(txt, this.key).toString();
+  }
+
+  //funcion para desencriptar
+  private decrypt(txtToDecrypt: string) {
+    return CryptoJS.AES.decrypt(txtToDecrypt, this.key)
+  }
+
+  //Guardar objeto usuario en localStorage
+  public guardarLocalStorage(key: string, usuario: RegisterModel){
+    localStorage.setItem(key, JSON.stringify(usuario))
+  }
+
+  //Obtener usuario guardado en localStorage
+  public obtenerLocalStorage(key: string){
+    let data = localStorage.getItem(key)|| "";
+    console.log("aadasasa")
+    return data
+  }
+
+  //Eliminar usuario del localStorage
+  public eliminarDatosLocalStorage(key: string){
+    localStorage.removeItem(key);
+  }*/
 
 }

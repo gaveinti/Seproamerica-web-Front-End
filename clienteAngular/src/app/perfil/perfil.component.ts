@@ -36,6 +36,7 @@ export class PerfilComponent implements OnInit {
   constructor(private clienteWAS: ClienteWAService , private authService: AuthService, private route: ActivatedRoute, private router: Router, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+    this.authService.loginDos()
     this.registerForm = this.formBuilder.group({
       'apellidos': [this.usuario.apellidos, [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
       'nombres': [this.usuario.nombres, [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
@@ -125,6 +126,11 @@ export class PerfilComponent implements OnInit {
     };
   
     this.authService.reseteoUsuario();
+  }
+
+  //Funcion que permite volver a la pagina principal ya que tiene el canactivate activo
+  mandarGuard(){
+    this.authService.loginDos()
   }
 
 }
