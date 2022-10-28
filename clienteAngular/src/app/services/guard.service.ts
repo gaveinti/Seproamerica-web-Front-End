@@ -18,6 +18,7 @@ export class GuardService implements CanActivate{
   private valorRetorno: boolean = false;
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> | boolean  {
+    console.log("se usa")
     let navigarLogIn = () => this.router.navigate([''])
     return new Promise((resolve) => {
       this.authService.estaAutenticado()

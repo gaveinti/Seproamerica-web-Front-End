@@ -48,6 +48,8 @@ export class InicioSesionComponent implements OnInit {
   obj: any;
 
   ngOnInit(): void{
+    //Eliminar datos guardados en el localStorage
+    this.authService.eliminarDatosLocalStorage("123")
     this.inicioSesionForm = this.fb.group({
       'correo': [this.user.correo, [Validators.required, Validators.email]],
       'contrasenha': [this.user.contrasenia, [Validators.required]]
