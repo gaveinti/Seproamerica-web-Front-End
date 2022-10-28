@@ -16,8 +16,8 @@ export class ClienteWAService {
   "https://seproamerica2022.pythonanywhere.com/api/usuarioInicioSesion";
    */
   /*Url del servidor */
-  DJANGO_SERVER: string = "http://127.0.0.1:8000/api/usuarioRegistro";
-  DJANGO_SERVER_INICIO_SESION: string = "http://127.0.0.1:8000/api/usuarioInicioSesion";
+  DJANGO_SERVER: string = "https://seproamerica2022.pythonanywhere.com/api/usuarioRegistro";
+  DJANGO_SERVER_INICIO_SESION: string = "https://seproamerica2022.pythonanywhere.com/api/usuarioInicioSesion";
   constructor(private http: HttpClient) { }
 
   
