@@ -5,6 +5,7 @@ import { RegistroComponent } from './registro/registro.component';
 import { PrincipalComponent } from './principal/principal.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { AuthGuard } from './auth.guard';
+import { MensajeriaComponent } from './components/mensajeria/mensajeria.component';
 import { AuthService } from './services/auth.service';
 import { GuardService } from './services/guard.service';
 import { InfoempresaComponent } from './infoempresa/infoempresa.component';
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: "informacion", component: InfoempresaComponent},
   { path: "perfil", component: PerfilComponent},
   { path: "editarPerfil", component: EditarperfilComponent},
+  { path: "mensajeria", component: MensajeriaComponent},
   //{ path: '',   redirectTo: '/inicioSesion/:correo', pathMatch: 'full'},
   { path: '', component: InicioSesionComponent}
 ];

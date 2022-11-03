@@ -31,7 +31,7 @@ export class RegistroComponent implements OnInit {
   user: RegisterModel = new RegisterModel();
   direccion: string = 'a@a.com';
   fechaRegistro: string = '2000-09-01';
-  rol: string ='11';
+  rol: string ='2';
 
   //Variables de campos completados del registro y de confirmacion de que se han aceptado los términos y condiciones
   camposCompletos: boolean = false;

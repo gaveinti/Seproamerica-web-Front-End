@@ -16,13 +16,13 @@ import { PrincipalComponent } from './principal/principal.component';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './services/auth.service';
 import { PerfilComponent } from './perfil/perfil.component';
+import { MensajeriaComponent } from './components/mensajeria/mensajeria.component';
 import * as Material from "@angular/material";
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { GuardService } from './services/guard.service';
 import { GeneralinfobarComponent } from './principal/generalinfobar/generalinfobar.component';
 import { InfoempresaComponent } from './infoempresa/infoempresa.component';
 import { EditarperfilComponent } from './editarperfil/editarperfil.component';
-
 
 const routes: Routes = [
   { path: 'inicioSesion', component: InicioSesionComponent },
@@ -36,6 +36,7 @@ const routes: Routes = [
     RegistroComponent,
     PrincipalComponent,
     PerfilComponent,
+    MensajeriaComponent,
     GeneralinfobarComponent,
     InfoempresaComponent,
     EditarperfilComponent,
