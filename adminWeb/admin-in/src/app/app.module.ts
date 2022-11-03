@@ -7,6 +7,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 
 
@@ -45,7 +46,8 @@ import { PersonalRegistroComponent } from './personal-registro/personal-registro
       {path: 'vehiculosSec',component: RecursosVehiculosComponent},
       {path: 'celularesSec', component: RecursosCelularComponent},
       {path: 'armasSec', component: RecursosArmasComponent},
-      {path: 'candadosSec', component: RecursosCandadosComponent}
+      {path: 'candadosSec', component: RecursosCandadosComponent},
+      {path: 'registrarPer', component: PersonalRegistroComponent},
     ]),
     BrowserAnimationsModule,
     MatToolbarModule,

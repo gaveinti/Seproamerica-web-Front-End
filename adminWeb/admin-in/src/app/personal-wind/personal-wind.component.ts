@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { InfPersonalService } from '../services/inf-personal.service';
 
 @Component({
   selector: 'app-personal-wind',
@@ -8,18 +9,32 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./personal-wind.component.css']
 })
 export class PersonalWindComponent{
-  columnas: string[] = ['codigo', 'descripcion', 'precio','opciones'];
-  datos: Articulo[] = [];
-  dataSource:any;
 
+  datos: Articulo[] = [];
+  columnas: string[] = ['codigo', 'descripcion', 'precio','opciones'];
+  dataSource!: MatTableDataSource<any>;
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+ 
   
-  ngOnInit() {
-    for (let x = 1; x <= 80; x++)
-      this.datos.push(new Articulo(x, `artículo ${x}`, Math.trunc(Math.random() * 1000)));
+  constructor (private _infPersonalService: InfPersonalService){}
+ 
+  ngOnInit(): void{
+    this.cargarUsuarios();
+    
+  }
+  
+  cargarUsuarios(){
+    this.datos = this._infPersonalService.getArticulo();
+    //this.dataSource = new MatTableDataSource(this.datos);
     this.dataSource = new MatTableDataSource<Articulo>(this.datos);
     this.dataSource.paginator = this.paginator;
+  }
+  
 
+  eliminarUsuario(index: number){
+    console.log(index);
+    this._infPersonalService.eliminarRegistro(index);
+    this.cargarUsuarios();
   }
 }
 
