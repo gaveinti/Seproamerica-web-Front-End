@@ -50,6 +50,8 @@ export class InicioSesionComponent implements OnInit {
   ngOnInit(): void{
     //Eliminar datos guardados en el localStorage
     //this.authService.eliminarDatosLocalStorage("123")
+    localStorage.clear()
+
     this.inicioSesionForm = this.fb.group({
       'correo': [this.user.correo, [Validators.required, Validators.email]],
       'contrasenha': [this.user.contrasenia, [Validators.required]]
@@ -88,6 +90,8 @@ export class InicioSesionComponent implements OnInit {
             console.log("inicio de sesion exitoso")
             this.exito = true
             this.authService.loginDos()
+            localStorage.setItem("usuario_logeado",this.usuarioActual.correo.toString())
+
           } else{
             alert("Usuario o contraseña incorrectos")
             console.log("inicio de sesion fallido")

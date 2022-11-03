@@ -1,101 +1,38 @@
 <section id="ventada-mensajeria">
-    <div id="historial-mensajes" >
-        <div id="historial-mensaje">
-            <div id="item-mensaje">
-                <div id="nombre-servicio">Servicio <br> 314</div>
-            <div>
-                <span id="info-envio" >De Trabajador encargado a Todos</span>
-                <p id="mensaje">Listo!, llegando</p>
-            </div>
-            </div>
+    <div id="historial-mensajes">
+        <div *ngFor="let message of mensajeriaService.chats" id="historial-mensaje">
+                <div (click)="clickOnChat(message.correo_usuario)" id="item-mensaje">
+                    <div id="nombre-servicio">Servicio <br> 314</div>
+                    <div>
+                        <!--                <span id="info-envio" >De Trabajador encargado a Todos</span>-->
+                        <span id="info-envio">{{message.nombre_perfil}}</span>
+
+                        <p id="mensaje">{{message.texto}} </p>
+                    </div>
+                </div>
+                <hr>
         </div>
-        <hr>
-        <div id="historial-mensaje">
-            <div id="item-mensaje">
-                <div id="nombre-servicio">Servicio <br> 314</div>
-            <div>
-                <span id="info-envio" >De Trabajador encargado a Todos</span>
-                <p id="mensaje">Listo!, llegando</p>
-            </div>
-            </div>
-        </div>
-        <hr>
-        <div id="historial-mensaje">
-            <div id="item-mensaje">
-                <div id="nombre-servicio">Servicio <br> 314</div>
-            <div>
-                <span id="info-envio" >De Trabajador encargado a Todos</span>
-                <p id="mensaje">Listo!, llegando</p>
-            </div>
-            </div>
-        </div>
-        <hr>
-        <div id="historial-mensaje">
-            <div id="item-mensaje">
-                <div id="nombre-servicio">Servicio <br> 314</div>
-            <div>
-                <span id="info-envio" >De Trabajador encargado a Todos</span>
-                <p id="mensaje">Listo!, llegando</p>
-            </div>
-            </div>
-        </div>
-        <hr>
-        <div id="historial-mensaje">
-            <div id="item-mensaje">
-                <div id="nombre-servicio">Servicio <br> 314</div>
-            <div>
-                <span id="info-envio" >De Trabajador encargado a Todos</span>
-                <p id="mensaje">Listo!, llegando</p>
-            </div>
-            </div>
-        </div>
-        <hr>
-        <div id="historial-mensaje">
-            <div id="item-mensaje">
-                <div id="nombre-servicio">Servicio <br> 314</div>
-            <div>
-                <span id="info-envio" >De Trabajador encargado a Todos</span>
-                <p id="mensaje">Listo!, llegando</p>
-            </div>
-            </div>
-        </div>
-        <hr>
-        <div id="historial-mensaje">
-            <div id="item-mensaje">
-                <div id="nombre-servicio">Servicio <br> 314</div>
-            <div>
-                <span id="info-envio" >De Trabajador encargado a Todos</span>
-                <p id="mensaje">Listo!, llegando</p>
-            </div>
-            </div>
-        </div>
-        <hr>
-        <div id="historial-mensaje">
-            <div id="item-mensaje">
-                <div id="nombre-servicio">Servicio <br> 314</div>
-            <div>
-                <span id="info-envio" >De Trabajador encargado a Todos</span>
-                <p id="mensaje">Listo!, llegando</p>
-            </div>
-            </div>
-        </div>
+
     </div>
-    <div id="sala-mensajes"> 
+    <div id="sala-mensajes">
         <div id="nombre-servicio">Servicio <br> 314</div>
 
-       <form style="" (submit)="sendMessage()">
-        <div class="mensajes">
+        <form (submit)="sendMessage()">
+            <div class="mensajes">
+
+                <!--p [ngClass]="{'sms-enviado' : message.estado===1,'sms-recibido' : message.estado===2}"
             
-            <p [ngClass]= "{'sms-enviado' : message.messageType===1,'sms-recibido' : message.messageType===2}"  *ngFor="let message of chat.chats">{{message.text}}</p>
-        
-        </div>
-        <input [(ngModel)]="textSms" [ngModelOptions]="{standalone:true}" placeholder="Escribir un mensaje..." type="text" id="entrada-mensaje">
-       </form>
+                *ngFor="let message of mensajeriaService.contactosMensajes">{{message.ultimo_mensaje}}</p-->
+            <p     *ngFor="let message of mensajeriaService.contactosMensajes">{{message.texto}}</p>
+            </div>
+            <input [(ngModel)]="textSms" [ngModelOptions]="{standalone:true}" placeholder="Escribir un mensaje..."
+                type="text" id="entrada-mensaje">
+        </form>
     </div>
 
 </section>
 
-<script>
+<!--<script>
     console.log('ws://'
         + window.location.host
         + '/ws/socket-server/')
@@ -111,4 +48,4 @@
         console.log('data: ', data)
     };
 
-</script>
+</script>-->
