@@ -1,18 +1,16 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { RegisterModel } from '../models/register.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClienteWAService } from '../services/cliente-wa.service';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 
-
 @Component({
-  selector: 'app-perfil',
-  templateUrl: './perfil.component.html',
-  styleUrls: ['./perfil.component.css']
+  selector: 'app-editarperfil',
+  templateUrl: './editarperfil.component.html',
+  styleUrls: ['./editarperfil.component.css']
 })
-export class PerfilComponent implements OnInit {
-
+export class EditarperfilComponent implements OnInit {
   sesionIniciada: boolean = true;
 
   registerForm!: FormGroup;
@@ -124,7 +122,7 @@ export class PerfilComponent implements OnInit {
         seccion.innerHTML += plantilla
       }
       this.camposIncorrectos = true
-      alert("Debe completar los campos")
+      alert("Datos no válidos o campos incorrectos")
     }
   }
 

@@ -8,6 +8,7 @@ import { AuthGuard } from './auth.guard';
 import { AuthService } from './services/auth.service';
 import { GuardService } from './services/guard.service';
 import { InfoempresaComponent } from './infoempresa/infoempresa.component';
+import { EditarperfilComponent } from './editarperfil/editarperfil.component';
 
 const routes: Routes = [
   { path: "inicioSesion/:correo", component: InicioSesionComponent},
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: "principal", component: PrincipalComponent, canActivate: [GuardService]},
   { path: "informacion", component: InfoempresaComponent},
   { path: "perfil", component: PerfilComponent},
+  { path: "editarPerfil", component: EditarperfilComponent},
   //{ path: '',   redirectTo: '/inicioSesion/:correo', pathMatch: 'full'},
   { path: '', component: InicioSesionComponent}
 ];

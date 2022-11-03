@@ -19,8 +19,7 @@
               <h5 class="my-3">{{usuario.nombres}} {{usuario.apellidos}}</h5>
               <!--<p class="text-muted mb-4">Bay Area, San Francisco, CA</p>-->
               <div class="d-flex justify-content-center mb-2">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalIngresarDatos" 
-                data-bs-dismiss="modal">Editar perfil</button>
+                <button type="button" class="btn btn-primary" routerLink="/editarPerfil">Editar perfil</button>
                 <button routerLink="/inicioSesion" (click)="resetearUsuario()">log out</button>
               </div>
             </div>
@@ -153,15 +152,7 @@
                       <mat-error *ngIf="registerForm.controls['nombres'].errors?.['pattern']"> Solo insertar letras</mat-error>
                     </div>
     
-                    <div class="form-outline mb-4">
-                      <label class="form-label" for="form3Example3cg">Cedula</label>
-                      <input type="text" id="form3Example3cg" class="form-control form-control-lg" 
-                      formControlName="cedula"
-                      [(ngModel)]="usuario.cedula"
-                      />
-                      <mat-error *ngIf="registerForm.controls['cedula'].errors?.['required']"> *</mat-error>
-                      <mat-error *ngIf="registerForm.controls['cedula'].errors?.['pattern']"> Solo insertar números</mat-error>
-                    </div>
+                    
     
                     <div class="form-outline mb-4">
                       <label class="form-label" for="form3Example4cg">Fecha de Nacimiento</label>
@@ -231,82 +222,18 @@
                     </div>
                     </form>
                 </div>
+                <div id="mensajePositivoNegativo" *ngIf="camposCompletos">
+                  <p>Datos actualizados exitosamente</p>
+                </div>
+                <div id="mensajePositivoNegativo" *ngIf="camposIncorrectos">
+                  <p>Fallo al actualizar los datos</p>
+                </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-primary" style="background-color:green;" (click)="actualizarDatos()">Guardar</button>
+                  <button type="button" class="btn btn-primary" style="background-color:green;" routerLink="/editarPerfil" (click)="actualizarDatos()">Guardar</button>
                 </div>
               </div>
             </div>
           </div>
-
-
-          <!--<div class="row">
-            <div class="col-md-6">
-              <div class="card mb-4 mb-md-0">
-                <div class="card-body">
-                  <p class="mb-4"><span class="text-primary font-italic me-1">assigment</span> Project Status
-                  </p>
-                  <p class="mb-1" style="font-size: .77rem;">Web Design</p>
-                  <div class="progress rounded" style="height: 5px;">
-                    <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
-                      aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <p class="mt-4 mb-1" style="font-size: .77rem;">Website Markup</p>
-                  <div class="progress rounded" style="height: 5px;">
-                    <div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72"
-                      aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <p class="mt-4 mb-1" style="font-size: .77rem;">One Page</p>
-                  <div class="progress rounded" style="height: 5px;">
-                    <div class="progress-bar" role="progressbar" style="width: 89%" aria-valuenow="89"
-                      aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <p class="mt-4 mb-1" style="font-size: .77rem;">Mobile Template</p>
-                  <div class="progress rounded" style="height: 5px;">
-                    <div class="progress-bar" role="progressbar" style="width: 55%" aria-valuenow="55"
-                      aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <p class="mt-4 mb-1" style="font-size: .77rem;">Backend API</p>
-                  <div class="progress rounded mb-2" style="height: 5px;">
-                    <div class="progress-bar" role="progressbar" style="width: 66%" aria-valuenow="66"
-                      aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="card mb-4 mb-md-0">
-                <div class="card-body">
-                  <p class="mb-4"><span class="text-primary font-italic me-1">assigment</span> Project Status
-                  </p>
-                  <p class="mb-1" style="font-size: .77rem;">Web Design</p>
-                  <div class="progress rounded" style="height: 5px;">
-                    <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
-                      aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <p class="mt-4 mb-1" style="font-size: .77rem;">Website Markup</p>
-                  <div class="progress rounded" style="height: 5px;">
-                    <div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72"
-                      aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <p class="mt-4 mb-1" style="font-size: .77rem;">One Page</p>
-                  <div class="progress rounded" style="height: 5px;">
-                    <div class="progress-bar" role="progressbar" style="width: 89%" aria-valuenow="89"
-                      aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <p class="mt-4 mb-1" style="font-size: .77rem;">Mobile Template</p>
-                  <div class="progress rounded" style="height: 5px;">
-                    <div class="progress-bar" role="progressbar" style="width: 55%" aria-valuenow="55"
-                      aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <p class="mt-4 mb-1" style="font-size: .77rem;">Backend API</p>
-                  <div class="progress rounded mb-2" style="height: 5px;">
-                    <div class="progress-bar" role="progressbar" style="width: 66%" aria-valuenow="66"
-                      aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>-->
         </div>
       </div>
     </div>

@@ -21,6 +21,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { GuardService } from './services/guard.service';
 import { GeneralinfobarComponent } from './principal/generalinfobar/generalinfobar.component';
 import { InfoempresaComponent } from './infoempresa/infoempresa.component';
+import { EditarperfilComponent } from './editarperfil/editarperfil.component';
 
 
 const routes: Routes = [
@@ -37,6 +38,7 @@ const routes: Routes = [
     PerfilComponent,
     GeneralinfobarComponent,
     InfoempresaComponent,
+    EditarperfilComponent,
   ],
   imports: [
     BrowserModule,
