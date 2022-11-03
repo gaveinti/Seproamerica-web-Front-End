@@ -9,8 +9,11 @@ import { RegisterModel } from 'src/app/models/register.model';
   styleUrls: ['./generalinfobar.component.css']
 })
 export class GeneralinfobarComponent implements OnInit {
+  //Dato booleano para saber que es para ir a pagina de servicios
+  esServicio = false;
+
   listaGenInfoBar: GeneralBarInfoModel[] = [
-    {linkOpcion: "/", nombre: "Servicios"},
+    {linkOpcion: "/principal", nombre: "Servicios"},
     {linkOpcion: "/", nombre: "Historial de servicios"},
     {linkOpcion: "/", nombre: "Carrito"},
     {linkOpcion: "/", nombre: "Tarjetas"},
@@ -30,10 +33,22 @@ export class GeneralinfobarComponent implements OnInit {
     contrasenia: ''
   };
 
-  constructor() { }
+  constructor(private authS: AuthService) { }
 
   ngOnInit(): void {
+    this.authS.loginDos()
     console.log(this.usuario.correo)
+    /*const areaSeleccionada = document.getElementById('prueba')
+    if(areaSeleccionada != undefined){
+      areaSeleccionada.innerHTML += `
+      <br>
+      <h2><a router-Link="/principal" (click)="mandarGuard()"></a>Servicios</h2>`
+    }*/
+  }
+
+  //Funcion que permite volver a la pagina principal ya que tiene el canactivate activo
+  mandarGuard(){
+    this.authS.loginDos()
   }
 
 }

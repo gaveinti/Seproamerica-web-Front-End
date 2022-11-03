@@ -9,6 +9,7 @@ import * as $ from 'jquery';
 import * as moment from "moment";
 
 
+
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.component.html',
@@ -30,7 +31,7 @@ export class RegistroComponent implements OnInit {
   user: RegisterModel = new RegisterModel();
   direccion: string = 'a@a.com';
   fechaRegistro: string = '2000-09-01';
-  rol: string ='11';
+  rol: string ='2';
 
   //Variables de campos completados del registro y de confirmacion de que se han aceptado los términos y condiciones
   camposCompletos: boolean = false;
@@ -112,6 +113,9 @@ export class RegistroComponent implements OnInit {
       console.log("Datos guardados")
     } else {
       console.log("Datos no guardados")
+      //Cerrar ventana(modal) que indica guardar
+      //const modalPresentado = document.getElementById('modalDos')
+      //modalPresentado?.hidden
     }
   }
 
