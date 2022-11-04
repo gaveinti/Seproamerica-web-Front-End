@@ -18,6 +18,13 @@ export class GuardService implements CanActivate{
   private valorRetorno: boolean = false;
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> | boolean  {
+    //Para manener la sesion despues del refresh de la pagina principal
+    const data = localStorage.getItem("usuario_logeado")
+    if(data != null){
+      this.authService.envioCorreoLS(data)
+    }
+    console.log(data)
+    //
     console.log("se usa")
     let navigarLogIn = () => this.router.navigate([''])
     return new Promise((resolve) => {

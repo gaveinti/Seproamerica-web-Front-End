@@ -40,9 +40,18 @@ export class PrincipalComponent implements OnInit {
     contrasenia: ''
   };
 
-  constructor(private authService: AuthService, private guardS: GuardService) { }
+  data: string = "";
+
+  constructor(private authService: AuthService, private guardS: GuardService) {
+    const correo = this.authService.obtenerCorreo()
+    console.log("Correo de sesion iniciada: " + correo)
+   }
 
   ngOnInit(): void {
+    const correo = this.authService.obtenerCorreo()
+    console.log("Correo de sesion iniciada: " + correo)
+    const data = localStorage.getItem("usuario_logeado")
+    console.log(data)
     this.usuario = this.authService.getUsuario();
 
     //let d = this.authService.obtenerLocalStorage("23")
