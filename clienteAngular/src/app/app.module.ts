@@ -23,6 +23,7 @@ import { GuardService } from './services/guard.service';
 import { GeneralinfobarComponent } from './principal/generalinfobar/generalinfobar.component';
 import { InfoempresaComponent } from './infoempresa/infoempresa.component';
 import { EditarperfilComponent } from './editarperfil/editarperfil.component';
+import { CookieService } from 'ngx-cookie-service';
 
 const routes: Routes = [
   { path: 'inicioSesion', component: InicioSesionComponent },
@@ -55,7 +56,7 @@ const routes: Routes = [
     
   ],
   exports: [RouterModule],
-  providers: [ClienteWAService, AuthService, AuthGuard, GuardService],
+  providers: [ClienteWAService, AuthService, AuthGuard, GuardService, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

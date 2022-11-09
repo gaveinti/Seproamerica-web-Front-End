@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { ClienteWAService } from '../services/cliente-wa.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-inicio-sesion',
@@ -13,6 +14,10 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./inicio-sesion.component.css']
 })
 export class InicioSesionComponent implements OnInit {
+
+  //variables para las cookies
+  private cookie_correo='';
+  private all_cookies:any='';
 
   usuariosLista?: RegisterModel[];
   user: RegisterModel = new RegisterModel();
@@ -38,18 +43,35 @@ export class InicioSesionComponent implements OnInit {
   };
 
   constructor(public fb: FormBuilder, private http: HttpClient, private clienteWAService: ClienteWAService,
-    private authService: AuthService , private route: ActivatedRoute, private router: Router) {
+    private authService: AuthService , private route: ActivatedRoute, private router: Router, private cookieService: CookieService) {
     this.inicioSesionForm = this.fb.group({
       correo: [this.user.correo, [Validators.required, Validators.email, Validators.pattern('^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$')]],
       contrasenha: [this.user.contrasenia, [Validators.required, Validators.minLength(8)]]
     });
   }
 
+
+  //Para las cookies
+  setCookie(correoCookie: string){
+    this.cookieService.set('usuario', correoCookie);
+  }
+   
+  deleteCookie(){
+    this.cookieService.delete('usuario');
+  }
+   
+  deleteAll(){
+    this.cookieService.deleteAll();
+  }
+  ////////////////////////////////////////////////
+
   obj: any;
 
   ngOnInit(): void{
     //Eliminar datos guardados en el localStorage
     //this.authService.eliminarDatosLocalStorage("123")
+    
+
     localStorage.clear()
 
     this.inicioSesionForm = this.fb.group({
@@ -88,9 +110,12 @@ export class InicioSesionComponent implements OnInit {
           if(this.inicioSesionForm.value.contrasenha == contrasenhaValidar){
             this.authService.infoPutUsuario(this.usuarioActual)
             console.log("inicio de sesion exitoso")
+            //cookie exitoso
+            this.setCookie(JSON.stringify(this.usuarioActual))
             this.exito = true
             this.authService.loginDos()
-            localStorage.setItem("usuario_logeado",this.usuarioActual.correo.toString())
+            //localStorage.setItem("estaLogeado", "true")
+            localStorage.setItem("datoUsuario", JSON.stringify(this.usuarioActual))
 
           } else{
             alert("Usuario o contraseña incorrectos")

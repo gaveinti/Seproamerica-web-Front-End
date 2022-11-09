@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ClienteWAService } from '../services/cliente-wa.service';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 
+
 @Component({
   selector: 'app-editarperfil',
   templateUrl: './editarperfil.component.html',
@@ -32,7 +33,8 @@ export class EditarperfilComponent implements OnInit {
     contrasenia: ''
   };
 
-  constructor(private clienteWAS: ClienteWAService , private authService: AuthService, private route: ActivatedRoute, private router: Router, private formBuilder: FormBuilder) { }
+  constructor(private clienteWAS: ClienteWAService , private authService: AuthService, private route: ActivatedRoute, 
+    private router: Router, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.authService.loginDos()
@@ -49,6 +51,7 @@ export class EditarperfilComponent implements OnInit {
     //Funcion donde se guardan los datos del usuario que inició sesión
     this.usuario = this.authService.getUsuario();
   }
+
 
   actualizarDatos(): void {
     this.camposCompletos = !this.registerForm.invalid;
@@ -92,7 +95,7 @@ export class EditarperfilComponent implements OnInit {
             seccion.innerHTML += plantilla
           }
           alert("Datos actualizados exitosamente")
-          this.registerForm.reset()
+          this.authService.infoPutUsuario(usuarioInfoActualizada)
 
           //Poner datos actualizados visibles en el perfil del usuario
           this.clienteWAS.get(this.usuario.correo)
@@ -106,6 +109,8 @@ export class EditarperfilComponent implements OnInit {
             this.usuario.fechaNac = data.fechaNac
             this.usuario.sexo = data.sexo
             this.usuario.contrasenia = data.contrasenia
+            this.authService.infoPutUsuario(usuarioInfoActualizada)
+
           },
           error: (e) => console.error(e)
         });
