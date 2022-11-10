@@ -4,6 +4,7 @@ import { RegisterModel } from '../models/register.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClienteWAService } from '../services/cliente-wa.service';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @Component({
@@ -34,7 +35,7 @@ export class EditarperfilComponent implements OnInit {
   };
 
   constructor(private clienteWAS: ClienteWAService , private authService: AuthService, private route: ActivatedRoute, 
-    private router: Router, private formBuilder: FormBuilder) { }
+    private router: Router, private formBuilder: FormBuilder, private cookieService: CookieService) { }
 
   ngOnInit(): void {
     this.authService.loginDos()
@@ -89,13 +90,14 @@ export class EditarperfilComponent implements OnInit {
           this.usuario.contrasenia = res.contrasenia
           res.rol = 11
           //Poner mensaje de exito
-          let seccion = document.getElementById('#mensajePositivoNegativo')
+          /*let seccion = document.getElementById('#mensajePositivoNegativo')
           let plantilla = `<p>Datos actualizados exitosamente</p>`
           if(seccion != null){
             seccion.innerHTML += plantilla
-          }
+          }*/
           alert("Datos actualizados exitosamente")
           this.authService.infoPutUsuario(usuarioInfoActualizada)
+          this.setCookie(JSON.stringify(usuarioInfoActualizada))
 
           //Poner datos actualizados visibles en el perfil del usuario
           this.clienteWAS.get(this.usuario.correo)
@@ -109,6 +111,9 @@ export class EditarperfilComponent implements OnInit {
             this.usuario.fechaNac = data.fechaNac
             this.usuario.sexo = data.sexo
             this.usuario.contrasenia = data.contrasenia
+            //
+            
+            this.registerForm.reset()
             this.authService.infoPutUsuario(usuarioInfoActualizada)
 
           },
@@ -132,7 +137,7 @@ export class EditarperfilComponent implements OnInit {
   }
 
   resetearUsuario(): void{
-    this.sesionIniciada = false;
+    //this.sesionIniciada = false;
     this.usuario = {
       apellidos: '',
       nombres: '',
@@ -151,5 +156,11 @@ export class EditarperfilComponent implements OnInit {
   mandarGuard(){
     this.authService.loginDos()
   }
+
+  //Para las cookies
+  setCookie(correoCookie: string){
+    this.cookieService.set('usuario', correoCookie);
+  }
+
 
 }

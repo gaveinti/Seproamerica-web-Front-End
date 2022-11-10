@@ -58,7 +58,7 @@ export class RegistroComponent implements OnInit {
       'cedula': [this.user.cedula, [Validators.required, Validators.pattern('^(0){1}(9){1}[0-9]{8}$'), Validators.maxLength(10)]],
       'fechaNac': [this.user.fechaNac, [this.validacionFecha]],
       'sexo': [this.user.sexo, [Validators.required]],
-      'correo': [this.user.correo, [Validators.required, Validators.email, Validators.pattern('^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$')]],
+      'correo': [this.user.correo, [Validators.required, Validators.pattern('^([a-zA-Z0-9_\.-]+)@([a-z0-9]+)\\.([a-z\.]{2,6})$')/*, Validators.email*/]],
       'telefono': [this.user.telefono, [Validators.required, Validators.minLength(9), Validators.maxLength(10), Validators.pattern('^(0){1}(9){1}[0-9]{8}$')]],
       'contrasenha': [this.user.contrasenia, [Validators.required, Validators.minLength(8)]],
     });
@@ -170,7 +170,11 @@ export class RegistroComponent implements OnInit {
       const restaAnio = anioActual - anioEscogido
       const restaMes = mesActual - mesEscogido
       const restaDia = diaActual - diaEscogido
-      if ((restaAnio >= 18) && (restaMes >= 0) && (restaDia >= 0)){
+      if(restaAnio > 18){
+        console.log("Es mayor de edad")
+        return null
+      }
+      if ((restaAnio == 18) && (restaMes >= 0) && (restaDia >= 0)){
         console.log("Es mayor de edad")
         return null/*{ 'validDate': true}*/
       }

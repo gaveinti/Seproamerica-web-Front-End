@@ -110,8 +110,9 @@
                   [(ngModel)]="user.correo"
                   />
                   <mat-error *ngIf="registerForm.controls['correo'].errors?.['required']"> *</mat-error>
-                  <mat-error *ngIf="registerForm.controls['correo'].errors?.['email']"> Correo no válido</mat-error>
-                  <mat-error *ngIf="registerForm.controls['correo'].errors?.['pattern']"> Debe contener una extensión</mat-error>
+                  <mat-error *ngIf="registerForm.controls['correo'].errors?.['pattern']"> Debe contener una extensión válida</mat-error>
+                  <!--<mat-error *ngIf="registerForm.controls['correo'].errors?.['email']"> Correo no válido</mat-error>-->
+                  
 
                 </div>
 

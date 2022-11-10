@@ -41,6 +41,7 @@ export class PerfilComponent implements OnInit {
 
   ngOnInit(): void {
     this.descifrarDatosUsuario()
+    this.recogerDatosActualizados()
     this.authService.loginDos()
     this.registerForm = this.formBuilder.group({
       'apellidos': [this.usuario.apellidos, [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
@@ -54,6 +55,22 @@ export class PerfilComponent implements OnInit {
     });
     //Funcion donde se guardan los datos del usuario que inició sesión
     this.usuario = this.authService.getUsuario();
+  }
+
+  //Poner datos actualizados
+  recogerDatosActualizados(){
+    let usuarioRecogido: RegisterModel = {
+      apellidos: '',
+      nombres: '',
+      cedula: 0,
+      fechaNac: new Date(),
+      sexo: '',
+      correo: '',
+      telefono: 0,
+      contrasenia: ''
+    };
+    usuarioRecogido = this.authService.getUsuario()
+    console.log(usuarioRecogido.apellidos)
   }
 
   //Para las cookies
