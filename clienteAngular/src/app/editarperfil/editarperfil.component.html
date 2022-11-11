@@ -7,7 +7,7 @@
     <div class="segundaDivision">
       <div class="container-Registro1">
         <div class="container-Registro2">
-          <h2>Registro</h2>
+          <h2>Actualizar datos</h2>
         </div>
       </div>
     </div>
@@ -57,13 +57,13 @@
 
             
 
-            <div class="form-outline mb-4">
+            <!--<div class="form-outline mb-4">
               <label class="form-label" for="form3Example4cg">Fecha de Nacimiento</label>
               <input type="date" id="form3Example4cg" class="form-control form-control-lg" 
               formControlName="fechaNac"
               [(ngModel)]="usuario.fechaNac"
               />
-            </div>
+            </div>-->
 
             <label class="form-label" for="form3Example1cg">Sexo</label>
             <div class="form-outline mb-4">
@@ -124,6 +124,7 @@
               </mat-icon>
             </div>
             </form>
+            <button type="button" class="btn btn-primary" style="background-color:rgb(85, 87, 85);" routerLink="/perfil">Perfil</button>
             <button type="button" class="btn btn-primary" style="background-color:green;" routerLink="/editarPerfil" (click)="actualizarDatos()">Guardar</button>
         </div>
         <div id="modalEx" class="modal">

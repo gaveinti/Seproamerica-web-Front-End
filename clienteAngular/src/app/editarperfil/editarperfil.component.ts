@@ -4,6 +4,8 @@ import { RegisterModel } from '../models/register.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClienteWAService } from '../services/cliente-wa.service';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
+import { CookieService } from 'ngx-cookie-service';
+
 
 @Component({
   selector: 'app-editarperfil',
@@ -32,7 +34,8 @@ export class EditarperfilComponent implements OnInit {
     contrasenia: ''
   };
 
-  constructor(private clienteWAS: ClienteWAService , private authService: AuthService, private route: ActivatedRoute, private router: Router, private formBuilder: FormBuilder) { }
+  constructor(private clienteWAS: ClienteWAService , private authService: AuthService, private route: ActivatedRoute, 
+    private router: Router, private formBuilder: FormBuilder, private cookieService: CookieService) { }
 
   ngOnInit(): void {
     this.authService.loginDos()
@@ -49,6 +52,7 @@ export class EditarperfilComponent implements OnInit {
     //Funcion donde se guardan los datos del usuario que inició sesión
     this.usuario = this.authService.getUsuario();
   }
+
 
   actualizarDatos(): void {
     this.camposCompletos = !this.registerForm.invalid;
@@ -86,13 +90,14 @@ export class EditarperfilComponent implements OnInit {
           this.usuario.contrasenia = res.contrasenia
           res.rol = 11
           //Poner mensaje de exito
-          let seccion = document.getElementById('#mensajePositivoNegativo')
+          /*let seccion = document.getElementById('#mensajePositivoNegativo')
           let plantilla = `<p>Datos actualizados exitosamente</p>`
           if(seccion != null){
             seccion.innerHTML += plantilla
-          }
+          }*/
           alert("Datos actualizados exitosamente")
-          this.registerForm.reset()
+          this.authService.infoPutUsuario(usuarioInfoActualizada)
+          this.setCookie(JSON.stringify(usuarioInfoActualizada))
 
           //Poner datos actualizados visibles en el perfil del usuario
           this.clienteWAS.get(this.usuario.correo)
@@ -106,6 +111,11 @@ export class EditarperfilComponent implements OnInit {
             this.usuario.fechaNac = data.fechaNac
             this.usuario.sexo = data.sexo
             this.usuario.contrasenia = data.contrasenia
+            //
+            
+            this.registerForm.reset()
+            this.authService.infoPutUsuario(usuarioInfoActualizada)
+
           },
           error: (e) => console.error(e)
         });
@@ -127,7 +137,7 @@ export class EditarperfilComponent implements OnInit {
   }
 
   resetearUsuario(): void{
-    this.sesionIniciada = false;
+    //this.sesionIniciada = false;
     this.usuario = {
       apellidos: '',
       nombres: '',
@@ -146,5 +156,11 @@ export class EditarperfilComponent implements OnInit {
   mandarGuard(){
     this.authService.loginDos()
   }
+
+  //Para las cookies
+  setCookie(correoCookie: string){
+    this.cookieService.set('usuario', correoCookie);
+  }
+
 
 }

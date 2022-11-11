@@ -36,6 +36,9 @@ export class AuthService{
   //llave para guardar datos en el localStorage
   key = "123";
 
+  //variable para obtener correo obtenido de localStorage
+  correoLS = "";
+
   //log
   //sesionIniciada: boolean = false;
   sesionIniciada = new Subject<boolean>()
@@ -103,6 +106,15 @@ export class AuthService{
     this.sesionIniciada.next(false)
   }
 
+  //Metodo para enviar correo obtenido de localstorage desde guardservice
+  envioCorreoLS(correo: string){
+    this.correoLS = correo
+  }
+
+  //Metodo para obtener correo de localStorage a partir de la funcion envioCorreoLS
+  obtenerCorreo(){
+    return this.correoLS
+  }
 
   //funcion para encriptar
   /*private encrypt(txt: string): string {

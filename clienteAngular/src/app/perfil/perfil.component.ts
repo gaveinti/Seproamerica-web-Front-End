@@ -4,6 +4,8 @@ import { RegisterModel } from '../models/register.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClienteWAService } from '../services/cliente-wa.service';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
+import { CookieService } from 'ngx-cookie-service';
+
 
 
 @Component({
@@ -34,9 +36,12 @@ export class PerfilComponent implements OnInit {
     contrasenia: ''
   };
 
-  constructor(private clienteWAS: ClienteWAService , private authService: AuthService, private route: ActivatedRoute, private router: Router, private formBuilder: FormBuilder) { }
+  constructor(private clienteWAS: ClienteWAService , private authService: AuthService, private route: ActivatedRoute, 
+    private router: Router, private formBuilder: FormBuilder, private cookieService: CookieService) { }
 
   ngOnInit(): void {
+    this.descifrarDatosUsuario()
+    this.recogerDatosActualizados()
     this.authService.loginDos()
     this.registerForm = this.formBuilder.group({
       'apellidos': [this.usuario.apellidos, [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
@@ -50,6 +55,27 @@ export class PerfilComponent implements OnInit {
     });
     //Funcion donde se guardan los datos del usuario que inició sesión
     this.usuario = this.authService.getUsuario();
+  }
+
+  //Poner datos actualizados
+  recogerDatosActualizados(){
+    let usuarioRecogido: RegisterModel = {
+      apellidos: '',
+      nombres: '',
+      cedula: 0,
+      fechaNac: new Date(),
+      sexo: '',
+      correo: '',
+      telefono: 0,
+      contrasenia: ''
+    };
+    usuarioRecogido = this.authService.getUsuario()
+    console.log(usuarioRecogido.apellidos)
+  }
+
+  //Para las cookies
+  deleteCookie(){
+    this.cookieService.delete('usuario');
   }
 
   actualizarDatos(): void {
@@ -142,11 +168,36 @@ export class PerfilComponent implements OnInit {
     };
   
     this.authService.reseteoUsuario();
+    this.deleteCookie();
   }
 
   //Funcion que permite volver a la pagina principal ya que tiene el canactivate activo
   mandarGuard(){
     this.authService.loginDos()
+  }
+
+  public descifrarDatosUsuario(){
+
+    let datoUsuario: {apellidos: String; cedula:Number; contrasenia: String; 
+      correo:String; direccion: string; fechaNac: Date; fechaRegistro: Date; 
+      nombres: String; rol: Number; sexo: String; telefono: Number} = JSON.parse(this.cookieService.get('usuario') as string);
+    if(!datoUsuario){
+      return;
+    }
+
+    let usuarioDeLocalStorage : RegisterModel = {
+      apellidos: datoUsuario.apellidos,
+      nombres: datoUsuario.nombres,
+      cedula: datoUsuario.cedula,
+      fechaNac: datoUsuario.fechaNac,
+      sexo: datoUsuario.sexo,
+      correo: datoUsuario.correo,
+      telefono: datoUsuario.telefono,
+      contrasenia: datoUsuario.contrasenia
+    };
+
+    this.authService.infoPutUsuario(usuarioDeLocalStorage);
+
   }
 
 }
