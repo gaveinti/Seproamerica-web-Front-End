@@ -10,6 +10,7 @@ import { AuthService } from './services/auth.service';
 import { GuardService } from './services/guard.service';
 import { InfoempresaComponent } from './infoempresa/infoempresa.component';
 import { EditarperfilComponent } from './editarperfil/editarperfil.component';
+import { ServicioseleccionadoComponent } from './servicioseleccionado/servicioseleccionado.component';
 
 const routes: Routes = [
   { path: "inicioSesion/:correo", component: InicioSesionComponent},
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: "perfil", component: PerfilComponent},
   { path: "editarPerfil", component: EditarperfilComponent},
   { path: "mensajeria", component: MensajeriaComponent},
+  { path: "servicioSeleccionado", component: ServicioseleccionadoComponent},
   //{ path: '',   redirectTo: '/inicioSesion/:correo', pathMatch: 'full'},
   { path: '', component: InicioSesionComponent}
 ];
