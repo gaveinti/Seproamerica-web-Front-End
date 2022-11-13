@@ -17,6 +17,10 @@ import * as moment from "moment";
 })
 export class RegistroComponent implements OnInit {
 
+  //Mensaje de error
+  mensajeError = "";
+  mensajeErrorCorreo = "";
+
   title = 'email-validation-tutorial';
   userEmail = new FormControl({
     correo: new FormControl('',[
@@ -104,7 +108,20 @@ export class RegistroComponent implements OnInit {
             alert("Cuenta creada exitosamente")
             this.registerForm.reset()
           },
-          error: (e) => console.error(e)
+          error: (e) => {
+          console.error(e.error.cedula)
+          this.mensajeError = e.error.cedula
+          this.mensajeErrorCorreo = e.error.correo
+          if(this.mensajeError != undefined){
+            console.log(this.mensajeError)
+            alert(this.mensajeError)
+          }
+          if(this.mensajeErrorCorreo != undefined){
+            console.log(this.mensajeErrorCorreo)
+            alert(this.mensajeErrorCorreo)
+
+          }
+          }
         });
     } else{
       alert("Debe completar los campos y aceptar los términos y condiciones")
@@ -113,6 +130,10 @@ export class RegistroComponent implements OnInit {
       console.log("Datos guardados")
     } else {
       console.log("Datos no guardados")
+      /*console.log(this.mensajeError)
+      console.log(this.mensajeErrorCorreo)
+      alert(this.mensajeError)
+      alert(this.mensajeErrorCorreo)*/
       //Cerrar ventana(modal) que indica guardar
       //const modalPresentado = document.getElementById('modalDos')
       //modalPresentado?.hidden

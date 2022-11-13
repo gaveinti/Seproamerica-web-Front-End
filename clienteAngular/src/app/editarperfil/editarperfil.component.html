@@ -55,7 +55,16 @@
               <mat-error *ngIf="registerForm.controls['nombres'].errors?.['pattern']"> Solo insertar letras</mat-error>
             </div>
 
-            
+            <div class="form-outline mb-4">
+              <label class="form-label" for="form3Example4cg">Fecha de Nacimiento</label>
+              <input type="date" id="form3Example4cg" class="form-control form-control-lg" 
+              formControlName="fechaNac"
+              [(ngModel)]="usuario.fechaNac" required validarFecha
+              />
+              <mat-error *ngIf="noMayorEdad">
+                Debe ser mayor de 18 años
+              </mat-error>
+            </div>
 
             <!--<div class="form-outline mb-4">
               <label class="form-label" for="form3Example4cg">Fecha de Nacimiento</label>

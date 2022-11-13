@@ -3,8 +3,10 @@ import { AuthService } from '../services/auth.service';
 import { RegisterModel } from '../models/register.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClienteWAService } from '../services/cliente-wa.service';
-import { FormGroup, FormBuilder, Validators} from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl} from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
+import * as moment from "moment";
+
 
 
 @Component({
@@ -18,6 +20,9 @@ export class EditarperfilComponent implements OnInit {
   registerForm!: FormGroup;
 
   hide = true;
+
+  noMayorEdad: boolean = true;
+  mensajeErrorEdad = "";
 
   //Variables de campos completados del registro 
   camposCompletos: boolean = false;
@@ -43,7 +48,7 @@ export class EditarperfilComponent implements OnInit {
       'apellidos': [this.usuario.apellidos, [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
       'nombres': [this.usuario.nombres, [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
       'cedula': [this.usuario.cedula, /*[Validators.required, Validators.pattern("^[0-9]*$")]*/],
-      'fechaNac': '2000-09-01',
+      'fechaNac': [this.usuario.fechaNac, [this.validacionFecha]],
       'sexo': [this.usuario.sexo, [Validators.required]],
       //'correo': [this.usuario.correo, [Validators.required, Validators.email]],
       'telefono': [this.usuario.telefono, [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern("^[0-9]*$")]],
@@ -160,6 +165,37 @@ export class EditarperfilComponent implements OnInit {
   //Para las cookies
   setCookie(correoCookie: string){
     this.cookieService.set('usuario', correoCookie);
+  }
+
+  /*validar si fecha escogida indica si usuario es mayor de edad */
+  validacionFecha(control: FormControl){
+    if(control.value){
+      const date = moment(control.value).format('DD-MM-YYYY')
+      console.log("Fecha introducida: " + date)
+      const diaEscogido: number = parseInt(date.split('-')[0])
+      const mesEscogido: number = parseInt(date.split('-')[1])
+      const anioEscogido: number = parseInt(date.split('-')[2])
+      const today = moment().format('DD-MM-YYYY')
+      console.log("Fecha de hoy: " + today)
+      const diaActual: number = parseInt(today.split('-')[0])
+      const mesActual: number = parseInt(today.split('-')[1])
+      const anioActual: number = parseInt(today.split('-')[2])
+      const restaAnio = anioActual - anioEscogido
+      const restaMes = mesActual - mesEscogido
+      const restaDia = diaActual - diaEscogido
+      if(restaAnio > 18){
+        console.log("Es mayor de edad")
+        return null
+      }
+      if ((restaAnio == 18) && (restaMes >= 0) && (restaDia >= 0)){
+        console.log("Es mayor de edad")
+        return null/*{ 'validDate': true}*/
+      }
+    }
+    let mensajeError = "Debe ser mayor de edad"
+    console.log("No es mayor de edad")
+    //this.mensajeErrorEdad = "Debe ser mayor de edad"
+    return mensajeError/*{'validDate': false};*/
   }
 
 
