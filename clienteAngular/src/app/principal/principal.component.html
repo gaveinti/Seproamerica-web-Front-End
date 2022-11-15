@@ -23,11 +23,16 @@
         <img src="https://imgs.search.brave.com/G8CWfsbNKk5M3Y-FcE7zQdlwub1QwhI_FS3PV3XSjgs/rs:fit:754:800:1/g:ce/aHR0cHM6Ly93d3cu/cG5nYWxsLmNvbS93/cC1jb250ZW50L3Vw/bG9hZHMvOC9TZWN1/cml0eS1HdWFyZC1Q/TkctSW1hZ2VzLnBu/Zw" alt="_blank">
       </div>
       <div class="contenedorNombreServicio">
-        <button class="botonServicio" role="button" routerLink="/servicioSeleccionado">{{servicio.nombre}}</button>
+        <button class="botonServicio" id="BotonServicio" role="button" routerLink="/servicioSeleccionado" value={{servicio.nombre}} (click)="envioNombre(servicio.nombre)">
+          {{servicio.nombre}}
+        </button>
       </div>
     </div>
 
-    <app-generalinfobar [usuario]="usuario"></app-generalinfobar>
+    <div class="contenedorInfoBarra">
+      <app-generalinfobar [usuario]="usuario"></app-generalinfobar>
+    </div>
+
 </div>
 
 
