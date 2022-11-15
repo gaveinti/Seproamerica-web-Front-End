@@ -97,11 +97,12 @@ fondo-header{
 /*Estilos para el cuerpo de la pagina*/
 .contenedorPrincipal{
     background-color: #b6b6b6;
-    padding-top: 10px;
+    height: 100%;
 }
 
 /*Div circulo*/
 .contenedorServicios{
+    margin-top: 20px;
     border-radius: 50%;
 }
 
@@ -167,4 +168,8 @@ fondo-header{
 
 .botonServicio:active {
   opacity: .5;
+}
+
+.contenedorInfoBarra{
+    margin-left: 100px;
 }

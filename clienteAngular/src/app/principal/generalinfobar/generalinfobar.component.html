@@ -1,15 +1,13 @@
 <div class="p-2 flex-shrink-1 infoDerecha">
     <div class="d-flex flex-column mb-3">
-        <div class="p-2">
+        <div class="info">
             {{usuario.nombres}} {{usuario.apellidos}}
         </div>
-        <div class="p-2 opciones">
+        <div class=" opciones">
             <div *ngFor="let op of listaGenInfoBar">
                 <br>
                 <h2 (click)="mandarGuard()"><a routerLink={{op.linkOpcion}}>{{op.nombre}}</a></h2>
             </div>
-        </div>
-        <div class="p-2 prueba" id="prueba">
         </div>
     </div>
 </div>

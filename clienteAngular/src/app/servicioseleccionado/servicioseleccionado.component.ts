@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { RegisterModel } from '../models/register.model';
 import { AuthService } from '../services/auth.service';
 import { FormGroup, FormBuilder, Validators, FormControl, FormControlDirective} from '@angular/forms';
+import { ServicioseleccionadoService } from '../services/servicioseleccionado.service';
+import { FormularioServicio } from '../models/formularioServicio';
+import * as moment from "moment";
+
 
 
 @Component({
@@ -10,6 +14,8 @@ import { FormGroup, FormBuilder, Validators, FormControl, FormControlDirective} 
   styleUrls: ['./servicioseleccionado.component.css']
 })
 export class ServicioseleccionadoComponent implements OnInit {
+
+  fechaActual = moment().format('DD/MM/YYYY')
 
   usuario: RegisterModel = {
     apellidos: '',
@@ -22,14 +28,17 @@ export class ServicioseleccionadoComponent implements OnInit {
     contrasenia: ''
   };
 
-  servicio: RegisterModel = new RegisterModel();
+  nombreServicio = "";
+
+  servicio: FormularioServicio = new FormularioServicio();
 
   registerForm!: FormGroup;
 
 
-  constructor(private authService: AuthService, private formBuilder: FormBuilder) { }
+  constructor(private authService: AuthService, private formBuilder: FormBuilder, private servicioSeleccionadoService: ServicioseleccionadoService) { }
 
   ngOnInit(): void {
+    this.nombreServicio = this.servicioSeleccionadoService.nombreServicioEscogidoComponente()
     const correo = this.authService.obtenerCorreo()
     console.log("Correo de sesion iniciada: " + correo)
     const data = localStorage.getItem("usuario_logeado")
@@ -37,14 +46,12 @@ export class ServicioseleccionadoComponent implements OnInit {
     this.usuario = this.authService.getUsuario();
     this.registerForm = this.formBuilder.group({
       'fechaInicio': [],
-      'nombres': [],
-      'cedula': [],
-      'fechaNac': [],
-      'sexo': [],
-      'correo': [],
-      'telefono': [],
-      'contrasenha': [],
+      'fechaFinalizacion': [],
+      'horaInicio': [],
+      'horaFinalizacion': [],
+      'numeroEmpleados': [],
     });
+    console.log(this.fechaActual)
   }
 
 }

@@ -17,65 +17,76 @@
     </div>
 </header>
 
-<div class="contenedorPrincipal d-flex">
+<div class="flex-general">
 
-    <!--<div class="container-datos">
-            <h2 class="text-uppercase text-center mb-5">Datos de registro</h2>
-    
-            <form id="demoForm" class="needs-validation" [formGroup]="registerForm" autocomplete="off" (ngSubmit)="registerForm.valid" novalidate>
+  <div class="flexbox-container">
+    <div class="flexbox-item flexbox-item-1">
+      <div class="flexbox-item-11">
+        <p><!--{{nombreServicio}}--->Ejemplo nombre</p>
+      </div>
+      <div class="flexbox-item-12">
+        <p>Fecha actual: {{fechaActual}}</p>
+      </div>
+    </div>
 
-                <div class="form-outline mb-4">
-                <label class="form-label" for="form3Example1cg">Fecha de inicio</label>
-                <input type="text" id="form3Example1cg" matInput class="form-control form-control-lg" required
-                formControlName="fechaInicio"
-                [(ngModel)]="servicio.apellidos"
-                />
-                </div>
+    <div class="flexbox-item flexbox-item-2">
+      <div class="flexbox-item-21">
+        <form id="demoForm" class="needs-validation" [formGroup]="registerForm" autocomplete="off" (ngSubmit)="registerForm.valid" novalidate>
 
-                <div class="form-outline mb-4">
-                <label class="form-label" for="form3Example2cg">Fecha de finalizacion</label>
-                <input type="text" id="form3Example2cg" class="form-control form-control-lg" 
-                formControlName="fechaFinalizacion"
-                [(ngModel)]="servicio.nombres"
-                />
-                </div>
+          <div class="form-outline mb-4">
+            <label class="form-label" for="form3Example4cg">Fecha de inicio</label>
+            <input type="date" id="form3Example4cg" class="form-control form-control-lg campoFormulario" 
+            formControlName="fechaInicio"
+            [(ngModel)]="servicio.fechaInicio" required validarFecha
+            />
+          </div>
 
-                <div class="form-outline mb-4">
-                <label class="form-label" for="form3Example3cg">Hora de inicio</label>
-                <input type="text" id="form3Example3cg" class="form-control form-control-lg" 
-                formControlName="horaInicio"
-                [(ngModel)]="servicio.cedula"
-                />
-                </div>
+          <div class="form-outline mb-4">
+            <label class="form-label" for="form3Example4cg">Fecha de finalizacion</label>
+            <input type="date" id="form3Example4cg" class="form-control form-control-lg campoFormulario" 
+            formControlName="fechaFinalizacion"
+            [(ngModel)]="servicio.fechaFinalizacion" required validarFecha
+            />
+          </div>
 
-                <div class="form-outline mb-4">
-                <label class="form-label" for="form3Example4cg">Hora de finalizacion</label>
-                <input type="date" id="form3Example4cg" class="form-control form-control-lg" 
-                formControlName="horaFinalizacion"
-                [(ngModel)]="servicio.fechaNac" required validarFecha
-                />
-                </div>
-                
+          <div class="form-outline mb-4">
+            <label class="form-label" for="form3Example4cg">Hora de inicio</label>
+            <input type="time" id="form3Example4cg" class="form-control form-control-lg campoFormulario" 
+            formControlName="horaInicio"
+            [(ngModel)]="servicio.horaInicio" required validarFecha
+            />
+          </div>
 
-                <div class="form-outline mb-4">
-                <label class="form-label" for="form3Example6cg">Numero de guardias</label>
-                <input type="email" id="form3Example6cg" class="form-control form-control-lg" 
-                formControlName="numGuardias"
-                [(ngModel)]="servicio.correo"
-                />
-                </div>
+          <div class="form-outline mb-4">
+            <label class="form-label" for="form3Example4cg">Hora de finalizacion</label>
+            <input type="time" id="form3Example4cg" class="form-control form-control-lg campoFormulario" 
+            formControlName="horaFinalizacion"
+            [(ngModel)]="servicio.horaFinalizacion" required validarFecha
+            />
+          </div>
 
-                <div class="d-flex justify-content-center">
-                <button mat-button type="submit button" data-bs-toggle="modal" data-bs-target="#modalDos" 
-                data-bs-dismiss="modal" id="botonRegistro" [disabled]="false" 
-                class="btn-confirmar">Confirmar</button>
-                </div>
+          <div class="form-outline mb-4">
+            <label class="form-label" for="form3Example4cg">Número de guardias</label>
+            <input type="number" id="form3Example4cg" class="form-control form-control-lg campoFormulario" min="0" max="100" step="1"
+            formControlName="numeroEmpleados"
+            [(ngModel)]="servicio.numeroEmpleados" 
+            />
+          </div>
+        </form>
 
-            </form>
+        <label class="textoUbicacion" for="Ubicacion">Elegir ubicacion</label>
+        <button class="botonAbrirMapa">Abrir mapa</button>
 
-    </div>-->
+        <button class="botonSolicitarServicio">Solicitar servicio</button>
 
+      </div>
+    </div>
+  </div>
+
+  <div class="contenedorInfoBarra">
     <app-generalinfobar [usuario]="usuario"></app-generalinfobar>
+  </div>
+
 </div>
 
 
