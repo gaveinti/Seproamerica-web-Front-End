@@ -1,0 +1,122 @@
+.gradient-custom-3 {
+    /* fallback for old browsers */
+    background: #84fab0;
+    
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5));
+    
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5))
+    }
+    .gradient-custom-4 {
+    /* fallback for old browsers */
+    background: #84fab0;
+    
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1));
+    
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1))
+}
+
+/* Estilos personalizados para el header*/
+img{
+    width: 100%;
+    height: auto;
+}
+/*Header*/
+fondo-header{
+    background-color: white;
+}
+
+.estructura-header{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 1%;
+    grid-template-areas: 
+        "h1 h2 h3";
+}
+
+.estructura-header .primeraDivision{
+    grid-area: h1;
+}
+
+.estructura-header .segundaDivision{
+    grid-area: h2;
+}
+
+.estructura-header .terceraDivision{
+    grid-area: h3;
+}
+
+.container-imagen{
+    width: 40%;
+}
+
+.container-Registro1 .container-Registro2{
+    display: flex;
+    justify-content: center;
+    background-color: #BF1924;
+    color: white;
+    margin-top: 70px;
+}
+
+.container-Iconos1 .container-Iconos2{
+    display: flex;
+    justify-content: center;
+    background-color: #BF1924;
+}
+
+.container-Iconos1 .container-Iconos2 .iconList{
+    float: left;
+    list-style: none;
+}
+
+/*Body*/
+.flex-general{
+    display: flex;
+    flex-direction: row;
+    background-color: #b6b6b6;
+    height: 100%;
+}
+
+.flexbox-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    min-width: 70%;
+    height: 100%;
+    background-color: #b6b6b6;
+
+}
+
+.flexbox-item {
+    min-width: 70%;
+    background-color: #b6b6b6;
+}
+
+/*Fila 1*/
+.flexbox-item-1 {
+    display: flex;
+    flex-direction: row;
+    min-height: 50px;
+}
+
+.flexbox-item-11{
+    width: 100px;
+    height: 100px;
+    border: #e0d530 solid;
+    background-color: yellow;
+    font-weight: bold;
+    text-align: center;
+    margin-left: 80px;
+    margin-top: 40px;
+}
+
+.flexbox-item-12{
+    margin-top: 50px;
+    margin-left: 70px;
+}
+
+
+/*********************************************/

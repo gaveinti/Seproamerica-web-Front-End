@@ -25,6 +25,7 @@ import { InfoempresaComponent } from './infoempresa/infoempresa.component';
 import { EditarperfilComponent } from './editarperfil/editarperfil.component';
 import { CookieService } from 'ngx-cookie-service';
 import { ServicioseleccionadoComponent } from './servicioseleccionado/servicioseleccionado.component';
+import { UbicacionComponent } from './ubicacion/ubicacion.component';
 
 const routes: Routes = [
   { path: 'inicioSesion', component: InicioSesionComponent },
@@ -43,6 +44,7 @@ const routes: Routes = [
     InfoempresaComponent,
     EditarperfilComponent,
     ServicioseleccionadoComponent,
+    UbicacionComponent,
   ],
   imports: [
     BrowserModule,
