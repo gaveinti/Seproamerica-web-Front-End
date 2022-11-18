@@ -103,20 +103,42 @@ fondo-header{
 }
 
 .flexbox-item-11{
-    width: 100px;
+    /*width: 100px;
     height: 100px;
     border: #e0d530 solid;
     background-color: yellow;
     font-weight: bold;
     text-align: center;
     margin-left: 80px;
-    margin-top: 40px;
+    margin-top: 40px;*/
+    font-weight: bold;
+    margin-top: 50px;
+    margin-left: 100px;
 }
 
 .flexbox-item-12{
     margin-top: 50px;
     margin-left: 70px;
 }
-
-
 /*********************************************/
+
+/*Fila 2*/
+.flexbox-item-21{
+    margin-top: 10px;
+    margin-left: 250px;
+}
+
+.botonAtras{
+    margin-top: 40px;
+    margin-left: 200px;
+    width: 100px;
+    height: 30px;
+}
+
+.botonGuardar{
+    float: right;
+    margin-top: 40px;
+    margin-right: 200px;
+    width: 100px;
+    height: 30px;
+}

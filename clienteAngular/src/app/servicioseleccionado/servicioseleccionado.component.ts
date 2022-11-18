@@ -28,7 +28,7 @@ export class ServicioseleccionadoComponent implements OnInit {
     contrasenia: ''
   };
 
-  nombreServicio = "";
+  nombreServicio: string | null = "";
 
   servicio: FormularioServicio = new FormularioServicio();
 
@@ -39,6 +39,9 @@ export class ServicioseleccionadoComponent implements OnInit {
 
   ngOnInit(): void {
     this.nombreServicio = this.servicioSeleccionadoService.nombreServicioEscogidoComponente()
+    if(localStorage.getItem("servicio") != null){
+       this.nombreServicio = localStorage.getItem("servicio")
+    }
     const correo = this.authService.obtenerCorreo()
     console.log("Correo de sesion iniciada: " + correo)
     const data = localStorage.getItem("usuario_logeado")
