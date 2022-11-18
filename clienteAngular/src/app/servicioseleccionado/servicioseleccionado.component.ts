@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { RegisterModel } from '../models/register.model';
 import { AuthService } from '../services/auth.service';
-import { FormGroup, FormBuilder, Validators, FormControl, FormControlDirective} from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, FormControlDirective } from '@angular/forms';
 import { ServicioseleccionadoService } from '../services/servicioseleccionado.service';
 import { FormularioServicio } from '../models/formularioServicio';
 import * as moment from "moment";
+import { Router } from '@angular/router';
+import { Constantes } from '../util/constantes';
 
 
 
@@ -35,7 +37,12 @@ export class ServicioseleccionadoComponent implements OnInit {
   registerForm!: FormGroup;
 
 
-  constructor(private authService: AuthService, private formBuilder: FormBuilder, private servicioSeleccionadoService: ServicioseleccionadoService) { }
+  constructor(
+    private authService: AuthService,
+    private formBuilder: FormBuilder,
+    private servicioSeleccionadoService: ServicioseleccionadoService,
+    private route: Router
+    ) { }
 
   ngOnInit(): void {
     this.nombreServicio = this.servicioSeleccionadoService.nombreServicioEscogidoComponente()
@@ -54,4 +61,18 @@ export class ServicioseleccionadoComponent implements OnInit {
     console.log(this.fechaActual)
   }
 
+
+  comenzarChat(){
+    const data={
+      receptor:Constantes.correoAdmin,
+      emisor:this.usuario.correo,
+      servicio:this.servicioSeleccionadoService.nombreServicio
+    }
+    console.log(data)
+
+    this.route.navigate(
+      ['/mensajeria'],
+      { queryParams: data }
+      )
+  }
 }

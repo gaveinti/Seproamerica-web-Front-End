@@ -1,11 +1,37 @@
+<header class="fondo-header estructura-header">
+    <div class="primeraDivision">
+      <div class="container-imagen">
+        <img src="https://www.seproamerica.com.ec/wp-content/uploads/2019/07/Seproamerica-privada-y-electronica-grande-logo-seguridad-ecuador.png">
+      </div>
+    </div>
+    <div class="segundaDivision">
+      <div class="container-Registro1">
+        <div class="container-Registro2">
+          <h2 routerLink="/informacion">Mensajería</h2>
+        </div>
+      </div>
+    </div>
+    <div class="terceraDivision">
+        <h2><a routerLink="/principal">Inicio</a></h2>
+    </div>
+</header>
 <section id="ventada-mensajeria">
     <div id="historial-mensajes">
         <div *ngFor="let message of mensajeriaService.chats" id="historial-mensaje">
-                <div (click)="clickOnChat(message.correo_usuario)" id="item-mensaje">
-                    <div id="nombre-servicio">Servicio <br> 314</div>
-                    <div>
+                <div (click)="clickOnChat(message)" id="item-mensaje">
+                    <div id="nombre-servicio">Servicio <br>{{message.servicio}}</div>
+                    <div >
+                        
                         <!--                <span id="info-envio" >De Trabajador encargado a Todos</span>-->
-                        <span id="info-envio">{{message.nombre_perfil}}</span>
+                        <span  id="info-envio">{{message.nombre_perfil}} 
+                            <span id="info-envio" *ngIf='message.rol=="1"'>(Yo)</span>
+                            <span id="info-envio" *ngIf='message.rol=="1"'> - Administrador</span>
+                            <span id="info-envio" *ngIf='message.rol=="2"'> - Cliente</span>
+                            <span id="info-envio" *ngIf='message.rol=="3"'> - Empleado</span>
+
+                        </span>
+                        
+
 
                         <p id="mensaje">{{message.texto}} </p>
                     </div>
@@ -15,37 +41,29 @@
 
     </div>
     <div id="sala-mensajes">
-        <div id="nombre-servicio">Servicio <br> 314</div>
+        <div  class="mensajes">
+            <div class="position-fixed">
+                
+                <div id="nombre-servicio">
+                    <div>{{mensajeriaService.nombre_usuario_receptor}}</div>
+                    <div>Servicio <br> {{mensajeriaService.servicio_actual}}</div>
+                    <div></div>
+                </div>
 
-        <form (submit)="sendMessage()">
-            <div class="mensajes">
-
-                <!--p [ngClass]="{'sms-enviado' : message.estado===1,'sms-recibido' : message.estado===2}"
-            
-                *ngFor="let message of mensajeriaService.contactosMensajes">{{message.ultimo_mensaje}}</p-->
-            <p     *ngFor="let message of mensajeriaService.contactosMensajes">{{message.texto}}</p>
             </div>
+            <br><br><br>
+            <p *ngFor="let message of mensajeriaService.contactosMensajes" 
+                class="sms-general" [ngClass]="{'sms-recibido' : message.correo_usuario==mensajeriaService.usuario_receptor,'sms-enviado' : message.correo_usuario==mensajeriaService.usuario_logeado}">
+                <span class="fecha">{{message.fecha_envio}}</span>
+                {{message.texto}}
+                <span class="tiempo">{{message.tiempo_envio}}</span>
+            </p>
+        </div>
+        <form (submit)="sendMessage()">
             <input [(ngModel)]="textSms" [ngModelOptions]="{standalone:true}" placeholder="Escribir un mensaje..."
                 type="text" id="entrada-mensaje">
         </form>
     </div>
 
+   
 </section>
-
-<!--<script>
-    console.log('ws://'
-        + window.location.host
-        + '/ws/socket-server/')
-
-    const chatSocket = new WebSocket(
-        'ws://'
-        + window.location.host
-        + '/ws/socket-server/' 
-    );
-
-    chatSocket.onmessage = function(e) {
-        const data = JSON.parse(e.data);
-        console.log('data: ', data)
-    };
-
-</script>-->

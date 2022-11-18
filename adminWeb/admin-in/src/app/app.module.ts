@@ -25,6 +25,7 @@ import { RecursosCelularComponent } from './recursos-celular/recursos-celular.co
 import { RecursosArmasComponent } from './recursos-armas/recursos-armas.component';
 import { PersonalRegistroComponent } from './personal-registro/personal-registro.component';
 
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,6 +45,7 @@ import { PersonalRegistroComponent } from './personal-registro/personal-registro
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
+    HttpClientModule,
     RouterModule.forRoot([
       {path: 'recursosVentana', component: RecursosWindComponent},
       {path: 'serviciosVentana', component: ServiciosWindComponent},

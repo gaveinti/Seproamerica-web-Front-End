@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ChatService,smsInfo } from 'src/app/services/mensajeria/chat.service';
-import { MensajeriaService } from 'src/app/services/mensajeria/mensajeria.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ChatService, smsInfo } from 'src/app/services/mensajeria/chat.service';
+import { MensajeriaService, smsInfo1, smsInfo2 } from 'src/app/services/mensajeria/mensajeria.service';
+import { ServicioseleccionadoService } from 'src/app/services/servicioseleccionado.service';
 
 @Component({
   selector: 'app-mensajeria',
@@ -9,39 +11,63 @@ import { MensajeriaService } from 'src/app/services/mensajeria/mensajeria.servic
 })
 export class MensajeriaComponent implements OnInit {
 
-  textSms="";
+  textSms = "";
+  data_ventana_principal_canal_nuevo:any
+
 
   constructor(
-    //public chat:ChatService,
-    public mensajeriaService:MensajeriaService
-    ) {
+    public mensajeriaService: MensajeriaService,
+    private route: ActivatedRoute 
 
-      const data=localStorage.getItem("usuario_logeado")
-      console.log("usuario actual ",data)
-     }
+
+  ) { 
+
+    this.route.queryParams
+    .subscribe(params=>{
+      //console.log(JSON.parse(JSON.stringify(params)))
+      console.log(params)
+      console.log(params['receptor'])
+      console.log(params['servicio'])
+      this.mensajeriaService.usuario_receptor=params['receptor']
+      this.mensajeriaService.servicio_actual=params['servicio']
+
+    })
+  }
 
   ngOnInit(): void {
+    this.mensajeriaService.obtenerListaMensajes()
+
+    this.mensajeriaService.socket.onmessage = (e: { data: string; }) => {
+      const data = JSON.parse(e.data);
+      this.mensajeriaService.obtenerListaMensajes()
+      
+      this.mensajeriaService.obtenerMensajesPorUsuarioLogeado()
+
+    };
     
+
   }
-  sendMessage(){
+  sendMessage() {
     console.log(this.mensajeriaService.contactosMensajes)
-    let smsInfo:smsInfo={
-      text: this.textSms,
-      messageType: 1,
-      date: '',
-      estado_envio: false
+    if (this.textSms.length > 0) {
+      this.mensajeriaService.sendMessage(this.textSms)
+      this.mensajeriaService.enviar()
+      this.textSms = "";
     }
-    //this.chat.sendMessage(smsInfo);
-    this.textSms="";
+
+
 
   }
 
-  clickOnChat(usuario: string){
-    this.mensajeriaService.obtenerListaMensajes(usuario)
-    console.log("mensajes",this.mensajeriaService.contactosMensajes)
-    console.log("chat presionado ", usuario)
+  clickOnChat(mensaje: smsInfo2) {
+    this.mensajeriaService.usuario_receptor = mensaje.receptor
+    this.mensajeriaService.servicio_actual = mensaje.servicio
+    this.mensajeriaService.obtenerListaMensajes()
+
+
   }
-  
+
+
 
 }
 

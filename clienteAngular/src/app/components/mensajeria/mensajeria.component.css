@@ -1,3 +1,48 @@
+::-webkit-scrollbar {display: none;}
+
+/* Estilos personalizados para el header*/
+img{
+    width: 100%;
+    height: auto;
+}
+/*Header*/
+fondo-header{
+    background-color: white;
+}
+.estructura-header{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 1%;
+    grid-template-areas: 
+        "h1 h2 h3";
+}
+
+.estructura-header .primeraDivision{
+    grid-area: h1;
+}
+
+.estructura-header .segundaDivision{
+    grid-area: h2;
+}
+
+.estructura-header .terceraDivision{
+    grid-area: h3;
+}
+
+.container-Registro1 .container-Registro2{
+    display: flex;
+    justify-content: center;
+    background-color: #BF1924;
+    color: white;
+    margin-top: 70px;
+}
+
+
+
+.container-imagen{
+    width: 40%;
+}
+
 #ventada-mensajeria {
     height: 80%;
     display: flex;
@@ -10,13 +55,15 @@
     overflow-y: scroll;
 }
 #sala-mensajes {
-    display: flex;
-    flex-direction: column;
     position: relative;
     padding: 10px;
     width: 70%;
     height: 100%;
-
+}
+container-chat{
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
 
 }
 #item-mensaje{
@@ -33,7 +80,13 @@
     align-items: center;
     text-align: center;
     align-self: top;
+    z-index: 3;
+    
 
+}
+.mensajes div{
+    margin: 0 auto;
+    width: 70%;
 }
 
 #info-envio{
@@ -56,27 +109,49 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    padding-bottom: 30px;
+}
+.sms-general{
+    position: relative;
+    color: white;
+    padding: 10px 15px 15px 10px;
+    margin-top: 15px;
+    border-radius: 8px;
+    max-width: 80%;
+    font-size: 17px;
+
+}
+.tiempo{
+    color: rgb(82, 10, 10);
+    position: absolute;
+    bottom: -16px;
+    right: 2px;
+    font-size: 10px;
+    width: 80%;
+}
+.fecha{
+    display: flex;
+    align-self: flex-end;
+    color: rgb(82, 10, 10);
+    position: absolute;
+    top: -16px;
+    right: 0;
+    font-size: 10px;
+    width: 80%;
 }
 
 .sms-enviado{
-    padding: 20px;
-    margin-top: 20px;
-    border-radius: 20px;
     background-color: darkcyan;
-    max-width: 80%;
-    color: white;
-    font-size: 17px;
     align-self: flex-end;
+    border-bottom-right-radius: 0;
+
 }
 
 .sms-recibido{
-    padding: 20px;
-    margin-top: 20px;
-    border-radius: 20px;
     background-color: rgb(121, 122, 72);
-    max-width: 80%;
-    color: white;
-    font-size: 17px;
     align-self: flex-start;
+    border-bottom-left-radius: 0;
 
 }

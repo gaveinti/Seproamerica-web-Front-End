@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {io} from 'socket.io-client';
+import { Observable } from 'rxjs';
 
 
 
@@ -8,17 +9,21 @@ import {io} from 'socket.io-client';
 })
 export class SocketService {
 
-  url ="http://localhost:3000/"
+  socket:any
+  server="http://localhost:8000/ws/chat/room"
+
+  url ="http://localhost:8000/"
   url1='ws://'
-  + '127.0.0.1:8000'
-  + '/ws/socket-server/'
+  + 'localhost:8000'
+  + '/ws/chat/room/'
 
   url2="http://localhost:3000/"
-  io =  io(this.url,{
+  io =  io(this.url1,{
     withCredentials:true,    
     autoConnect:true
 
   })
+
   constructor() {
     console.log(this.url1)
    

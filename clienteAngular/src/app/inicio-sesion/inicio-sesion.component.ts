@@ -73,6 +73,7 @@ export class InicioSesionComponent implements OnInit {
     
 
     localStorage.clear()
+    this.deleteAll()
 
     this.inicioSesionForm = this.fb.group({
       'correo': [this.user.correo, [Validators.required, Validators.email]],
@@ -116,6 +117,8 @@ export class InicioSesionComponent implements OnInit {
             this.authService.loginDos()
             //localStorage.setItem("estaLogeado", "true")
             localStorage.setItem("datoUsuario", JSON.stringify(this.usuarioActual))
+            localStorage.setItem("usuario_logeado", this.usuarioActual.correo.toString())
+
 
           } else{
             alert("Usuario o contraseña incorrectos")
