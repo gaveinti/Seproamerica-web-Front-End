@@ -21,5 +21,11 @@ export class Constantes{
     
     /*PARA PRODUCCION*/
     
+    //URLS PARA MENSAJERIA
+
+    public static URL_CHAT_PRODUCCION="https://seproamerica2022.pythonanywhere.com/api/chat/"
+    public static URL_CHAT_INBOX_PRODUCCION="https://seproamerica2022.pythonanywhere.com/api/chat/inbox/"
+
+
     
     }

@@ -39,7 +39,7 @@ export class MensajeriaService {
   }
 
   getMensajes(): Observable<any[]> {
-    return this.http.get<any[]>(Constantes.URL_CHAT + this.servicio_actual + "/" + this.usuario_receptor + "/" + this.usuario_logeado)
+    return this.http.get<any[]>(Constantes.URL_CHAT_PRODUCCION + this.servicio_actual + "/" + this.usuario_receptor + "/" + this.usuario_logeado)
 
   }
   obtenerListaMensajes() {
@@ -49,7 +49,7 @@ export class MensajeriaService {
       && this.servicio_actual.length>0){
 
     }
-    this.http.get<any[]>(Constantes.URL_CHAT + this.servicio_actual + "/" + this.usuario_receptor + "/" + this.usuario_logeado)
+    this.http.get<any[]>(Constantes.URL_CHAT_PRODUCCION + this.servicio_actual + "/" + this.usuario_receptor + "/" + this.usuario_logeado)
       .subscribe(res => {
         let data = JSON.stringify(res)
         let mensajes = JSON.parse(data).mensajes
@@ -67,7 +67,7 @@ export class MensajeriaService {
       canal: this.canal_actual,
 
     }
-    this.http.post<any>(Constantes.URL_CHAT + this.servicio_actual + "/" + this.usuario_receptor + "/" + this.usuario_logeado + "/", sms_info)
+    this.http.post<any>(Constantes.URL_CHAT_PRODUCCION + this.servicio_actual + "/" + this.usuario_receptor + "/" + this.usuario_logeado + "/", sms_info)
       .subscribe(res => {
         this.obtenerMensajesPorUsuarioLogeado()
 
@@ -76,7 +76,7 @@ export class MensajeriaService {
 
   obtenerMensajesPorUsuarioLogeado() {
 
-    this.http.get<any>(Constantes.URL_CHAT_INBOX + this.usuario_logeado)
+    this.http.get<any>(Constantes.URL_CHAT_INBOX_PRODUCCION + this.usuario_logeado)
       .subscribe(res => {
         this.chats = []
         let data = JSON.stringify(res)
