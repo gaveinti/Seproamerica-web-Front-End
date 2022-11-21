@@ -58,11 +58,14 @@ export class PrincipalComponent implements OnInit {
     
   }
 
-  //Envio de nombre de servicio a componente "servicioseleccionado"
+  //Envio de nombre de servicio a componente "servicioseleccionado" y además setea en cookie el nombre del servicio escogido
   envioNombre(servicioNombre: any){
     //console.log(servicioNombre)
     this.servicioSeleccionadoService.nombreServicioEscogido(servicioNombre)
+    localStorage.setItem("servicio", JSON.stringify(servicioNombre))
   }
+
+  
 
   
 }
