@@ -24,8 +24,8 @@
                         
                         <!--                <span id="info-envio" >De Trabajador encargado a Todos</span>-->
                         <span  id="info-envio">{{message.nombre_perfil}} 
-                            <span id="info-envio" *ngIf='message.rol=="1"'>(Yo)</span>
                             <span id="info-envio" *ngIf='message.rol=="1"'> - Administrador</span>
+                            <span id="info-envio" *ngIf='message.rol=="2"'>(Yo)</span>
                             <span id="info-envio" *ngIf='message.rol=="2"'> - Cliente</span>
                             <span id="info-envio" *ngIf='message.rol=="3"'> - Empleado</span>
 
@@ -33,7 +33,7 @@
                         
 
 
-                        <p id="mensaje">{{message.texto}} </p>
+                        <p id="mensaje">{{message.texto.split(" ").splice(0, 8).join(" ")}} </p>
                     </div>
                 </div>
                 <hr>
@@ -54,9 +54,9 @@
             <br><br><br>
             <p *ngFor="let message of mensajeriaService.contactosMensajes" 
                 class="sms-general" [ngClass]="{'sms-recibido' : message.correo_usuario==mensajeriaService.usuario_receptor,'sms-enviado' : message.correo_usuario==mensajeriaService.usuario_logeado}">
-                <span class="fecha">{{message.fecha_envio}}</span>
                 {{message.texto}}
-                <span class="tiempo">{{message.tiempo_envio}}</span>
+                <span class="tiempo " text-right><br>{{ message.tiempo | date:'short' }}</span>
+
             </p>
         </div>
         <form (submit)="sendMessage()">

@@ -17,7 +17,7 @@ export class MensajeriaComponent implements OnInit {
 
   constructor(
     public mensajeriaService: MensajeriaService,
-    private route: ActivatedRoute 
+    private route: ActivatedRoute
 
 
   ) { 
@@ -62,6 +62,7 @@ export class MensajeriaComponent implements OnInit {
   clickOnChat(mensaje: smsInfo2) {
     this.mensajeriaService.usuario_receptor = mensaje.receptor
     this.mensajeriaService.servicio_actual = mensaje.servicio
+    console.log(mensaje.servicio.split(" "))
     this.mensajeriaService.obtenerListaMensajes()
 
 

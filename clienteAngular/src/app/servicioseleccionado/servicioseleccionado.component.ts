@@ -66,9 +66,13 @@ export class ServicioseleccionadoComponent implements OnInit {
     const data={
       receptor:Constantes.correoAdmin,
       emisor:this.usuario.correo,
-      servicio:this.servicioSeleccionadoService.nombreServicio
+      servicio:this.servicioSeleccionadoService.nombreServicio.split(" ")[0]
     }
     console.log(data)
+    console.log(this.servicioSeleccionadoService.nombreServicio)
+    console.log(this.servicioSeleccionadoService.nombreServicio.split(" ")[0])
+    
+
 
     this.route.navigate(
       ['/mensajeria'],

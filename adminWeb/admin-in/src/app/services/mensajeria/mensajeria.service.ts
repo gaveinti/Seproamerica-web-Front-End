@@ -44,6 +44,11 @@ export class MensajeriaService {
   }
   obtenerListaMensajes() {
     console.log(this.room)
+    if(this.usuario_logeado 
+      && this.usuario_receptor.length>0
+      && this.servicio_actual.length>0){
+
+    }
     this.http.get<any[]>(Constantes.URL_CHAT + this.servicio_actual + "/" + this.usuario_receptor + "/" + this.usuario_logeado)
       .subscribe(res => {
         let data = JSON.stringify(res)
@@ -64,7 +69,7 @@ export class MensajeriaService {
     }
     this.http.post<any>(Constantes.URL_CHAT + this.servicio_actual + "/" + this.usuario_receptor + "/" + this.usuario_logeado + "/", sms_info)
       .subscribe(res => {
-
+        this.obtenerMensajesPorUsuarioLogeado()
 
       })
   }
@@ -76,6 +81,9 @@ export class MensajeriaService {
         this.chats = []
         let data = JSON.stringify(res)
         let canales = JSON.parse(data).canales
+        console.log(data)
+        console.log(canales)
+        
         for (let i in canales) {
           let cantidad_mensajes = canales[i].mensajes.length
           let ultimo_mensaje = canales[i].mensajes[cantidad_mensajes - 1]

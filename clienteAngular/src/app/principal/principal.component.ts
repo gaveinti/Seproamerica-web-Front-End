@@ -55,6 +55,7 @@ export class PrincipalComponent implements OnInit {
     const data = localStorage.getItem("usuario_logeado")
     console.log(data)
     this.usuario = this.authService.getUsuario();
+    
   }
 
   //Envio de nombre de servicio a componente "servicioseleccionado"
