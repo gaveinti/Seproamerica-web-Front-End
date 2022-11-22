@@ -38,12 +38,10 @@ export class GeneralinfobarComponent implements OnInit {
   ngOnInit(): void {
     this.authS.loginDos()
     console.log(this.usuario.correo)
-    /*const areaSeleccionada = document.getElementById('prueba')
-    if(areaSeleccionada != undefined){
-      areaSeleccionada.innerHTML += `
-      <br>
-      <h2><a router-Link="/principal" (click)="mandarGuard()"></a>Servicios</h2>`
-    }*/
+    const data = localStorage.getItem("datoUsuario")
+    console.log("Info bar: " + data)
+    this.usuario = JSON.parse(localStorage.getItem("datoUsuario")!)
+
   }
 
   //Funcion que permite volver a la pagina principal ya que tiene el canactivate activo
