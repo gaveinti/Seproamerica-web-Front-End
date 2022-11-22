@@ -51,7 +51,7 @@ export class ServicioseleccionadoComponent implements OnInit {
     }
     const correo = this.authService.obtenerCorreo()
     console.log("Correo de sesion iniciada: " + correo)
-    const data = localStorage.getItem("usuario_logeado")
+    const data = localStorage.getItem("datoUsuario")
     console.log(data)
     this.usuario = this.authService.getUsuario();
     this.registerForm = this.formBuilder.group({
