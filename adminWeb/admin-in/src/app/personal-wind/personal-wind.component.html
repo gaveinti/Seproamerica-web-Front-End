@@ -9,34 +9,45 @@
     </div>
     </div>
 </div>
+
 <div class="informacion mat-elevation-z8">
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" #tabla1>
 
-    <ng-container matColumnDef="codigo">
-      <th mat-header-cell *matHeaderCellDef> Código </th>
-      <td mat-cell *matCellDef="let articulo"> {{articulo.codigo}} </td>
+    <ng-container matColumnDef="Nombres">
+      <th mat-header-cell *matHeaderCellDef> Nombres </th>
+      <td mat-cell *matCellDef="let personalList"> {{personalList.nombres}}</td>
     </ng-container>
 
-    <ng-container matColumnDef="descripcion">
-      <th mat-header-cell *matHeaderCellDef> Descripción </th>
-      <td mat-cell *matCellDef="let articulo"> {{articulo.descripcion}} </td>
+    <ng-container matColumnDef="Apellidos">
+      <th mat-header-cell *matHeaderCellDef> Apellidos </th>
+      <td mat-cell *matCellDef="let personalList"> {{personalList.apellidos}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="precio">
-      <th mat-header-cell *matHeaderCellDef> Precio </th>
-      <td mat-cell *matCellDef="let articulo"> {{articulo.precio}}</td>
+    <ng-container matColumnDef="Cedula">
+      <th mat-header-cell *matHeaderCellDef> Cedula </th>
+      <td mat-cell *matCellDef="let personalList"> {{personalList.numCedula}}</td>
     </ng-container>
 
-    <ng-container matColumnDef="opciones">
+    <ng-container matColumnDef="Sexo">
+      <th mat-header-cell *matHeaderCellDef> Sexo </th>
+      <td mat-cell *matCellDef="let personalList"> {{personalList.sexo}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Correo">
+      <th mat-header-cell *matHeaderCellDef> Correo </th>
+      <td mat-cell *matCellDef="let personalList"> {{personalList.correo}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Opciones">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let elemento; let i = index" style="text-align: right;">
         <a><mat-icon class="pointer"  style="color: rgb(75, 75, 201);" matTooltip="Ver detalles">remove_red_eye</mat-icon> </a>
         <a><mat-icon class="pointer" (click)="eliminarUsuario(i)" style="color: rgb(177, 85, 86);" matTooltip="Eliminar">delete</mat-icon></a>
        </td>
     </ng-container>
-
     <tr mat-header-row *matHeaderRowDef="columnas"></tr>
     <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
   </table>
   <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+
 </div>

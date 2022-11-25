@@ -11,7 +11,7 @@ import { InfPersonalService } from '../services/inf-personal.service';
 
 
 export class RecursosArmasComponent{
-
+/*
   datos: Articulo[] = [];
   columnas: string[] = ['codigo', 'marca', 'tipo','modelo','color','No. de serie','Calibre','opciones'];
   dataSource!: MatTableDataSource<any>;
@@ -42,5 +42,5 @@ export class RecursosArmasComponent{
 
 export class Articulo {
   constructor(public codigo: number, public descripcion: string, public precio: number) {
-  }
+  }\*/
 }

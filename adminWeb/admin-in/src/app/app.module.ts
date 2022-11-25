@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -25,6 +26,12 @@ import { RecursosCelularComponent } from './recursos-celular/recursos-celular.co
 import { RecursosArmasComponent } from './recursos-armas/recursos-armas.component';
 import { PersonalRegistroComponent } from './personal-registro/personal-registro.component';
 
+
+const routes: Routes = [
+  {path: 'personalVentana', component: PersonalWindComponent},
+  {path: 'registrarPer', component: PersonalRegistroComponent},
+]
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,25 +51,14 @@ import { PersonalRegistroComponent } from './personal-registro/personal-registro
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
-    RouterModule.forRoot([
-      {path: 'recursosVentana', component: RecursosWindComponent},
-      {path: 'serviciosVentana', component: ServiciosWindComponent},
-      {path: 'personalVentana', component: PersonalWindComponent},
-      {path: 'reportesVentana', component: ReportesWindComponent},
-      {path: 'mensajeriaVentana', component: MensajeriaWindComponent},
-      
-      {path: 'vehiculosSec',component: RecursosVehiculosComponent},
-      {path: 'celularesSec', component: RecursosCelularComponent},
-      {path: 'armasSec', component: RecursosArmasComponent},
-      {path: 'candadosSec', component: RecursosCandadosComponent},
-      {path: 'registrarPer', component: PersonalRegistroComponent},
-    ]),
+    RouterModule.forRoot(routes),
     BrowserAnimationsModule,
     MatToolbarModule,
     MatTableModule,
     MatPaginatorModule,
     MatTooltipModule,
     MatIconModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
