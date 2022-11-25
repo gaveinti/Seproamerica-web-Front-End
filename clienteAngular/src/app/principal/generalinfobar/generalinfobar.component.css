@@ -1,5 +1,49 @@
 .p-2{
-    background-color: #c01c24;
+    /*background-color: #df292c;*/
+    background: linear-gradient(rgb(212, 10, 10), rgba(27, 25, 25, 0.507));
     height: 100%;
     width: 300px;
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+.icono{
+    font-size: 50px;
+    height: 50px ;
+    width: 50px;
+    text-decoration: none;
+    color: white;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.icono :hover{
+    transition: all 1s cubic-bezier(0.075, 0.81, 0.165, 1);
+}
+
+.info{
+    padding-top: 5px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    color: aliceblue;
+    font-size: 20px;
+}
+
+.opciones{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    color: aliceblue;
+}
+
+.textoOpcion :hover{
+    color: rgba(160, 158, 158, 0.993);
+    height: 100%;
+    transition: all 1s cubic-bezier(0.075, 0.81, 0.165, 1);
 }

@@ -4,7 +4,7 @@
         <div class="col">
           <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
             <ol class="breadcrumb mb-0">
-              <li class="breadcrumb-item" (click)="mandarGuard()"><a routerLink="/principal">Inicio</a></li>
+              <li class="breadcrumb-item linkInicio" (click)="mandarGuard()"><a routerLink="/principal">Inicio</a></li>
             </ol>
           </nav>
         </div>
@@ -19,8 +19,8 @@
               <h5 class="my-3">{{usuario.nombres}} {{usuario.apellidos}}</h5>
               <!--<p class="text-muted mb-4">Bay Area, San Francisco, CA</p>-->
               <div class="d-flex justify-content-center mb-2">
-                <button type="button" class="btn btn-primary" routerLink="/editarPerfil">Editar perfil</button>
-                <button routerLink="/inicioSesion" (click)="resetearUsuario()">log out</button>
+                <button type="button" class="btn btn-primary btnEditar" routerLink="/editarPerfil">Editar perfil</button>
+                <button type="button" class="btn btn-primary btnLogOut" routerLink="/inicioSesion" (click)="resetearUsuario()">log out</button>
               </div>
             </div>
           </div>

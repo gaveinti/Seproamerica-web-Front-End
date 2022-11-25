@@ -1,0 +1,19 @@
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+.linkInicio :hover{
+    color: rgba(226, 35, 35, 0.918);
+}
+
+.btnLogOut{
+    background-color: rgba(204, 17, 17, 0.849);
+    border-color: black;
+    margin-left: 50px;
+}
+
+.btnLogOut :hover{
+    background-color: rgb(31, 30, 30);
+    transition: all 1s cubic-bezier(0.075, 0.81, 0.165, 1);
+}

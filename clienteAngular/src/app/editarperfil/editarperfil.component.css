@@ -89,7 +89,12 @@ fondo-header{
     padding: 0 300px;
 }
 
-.btn-confirmar{
+.btnPerfil{
+    border: black;
+}
+
+.btnGuardar{
+    margin-left: 50px;
     background-color: #43A829;
-    color: black;
+    border: black;
 }

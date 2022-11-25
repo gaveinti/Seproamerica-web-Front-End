@@ -19,11 +19,19 @@
     background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1))
 }
 
+a{
+    text-decoration: none;
+    color: inherit;
+
+}
+
+
 /* Estilos personalizados para el header*/
 img{
     width: 100%;
     height: auto;
 }
+
 /*Header*/
 fondo-header{
     background-color: white;
@@ -49,6 +57,43 @@ fondo-header{
     grid-area: h3;
 }
 
+.flexbox-terceraDivision{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color: #BF1924;
+    height: 70%;
+}
+
+.flexbox-terceraDivision-item1{
+    margin-left: 50px;
+    margin-top: 10px;
+    width: 30%;
+}
+
+.flexbox-terceraDivision-item2{
+    /*margin-left: 40px;
+    margin-top: 10px;*/
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    width: 50%;
+}
+
+.icono{
+    font-size: 50px;
+    height: 50px ;
+    width: 50px;
+    text-decoration: none;
+    color: white;
+}
+
+.icono:hover{
+    color: #FF4742;
+    transition: all 1s cubic-bezier(0.075, 0.81, 0.165, 1);
+}
+
 .container-imagen{
     width: 40%;
 }
@@ -71,6 +116,7 @@ fondo-header{
     float: left;
     list-style: none;
 }
+/*-------------------------------------------------------------------------------*/
 
 /*Body*/
 .fondo{
@@ -102,7 +148,7 @@ fondo-header{
 
 /*Div circulo*/
 .contenedorServicios{
-    margin-top: 20px;
+    margin-top: 150px;
     border-radius: 50%;
 }
 

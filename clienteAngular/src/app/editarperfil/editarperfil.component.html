@@ -100,16 +100,6 @@
             </div>
 
 
-            <!--<div class="form-outline mb-4">
-              <label class="form-label" for="form3Example6cg">Correo</label>
-              <input type="email" id="form3Example6cg" class="form-control form-control-lg" 
-              formControlName="correo"
-              [(ngModel)]="usuario.correo"
-              />
-              <mat-error *ngIf="registerForm.controls['correo'].errors?.['required']"> *</mat-error>
-              <mat-error *ngIf="registerForm.controls['correo'].errors?.['email']"> Correo no válido</mat-error>
-            </div>-->
-
             <div class="form-outline mb-4">
               <label class="form-label" for="form3Example7cg">Telefono</label>
               <input type="tel" id="form3Example7cg" class="form-control form-control-lg" 
@@ -133,8 +123,8 @@
               </mat-icon>
             </div>
             </form>
-            <button type="button" class="btn btn-primary" style="background-color:rgb(85, 87, 85);" routerLink="/perfil">Perfil</button>
-            <button type="button" class="btn btn-primary" style="background-color:green;" routerLink="/editarPerfil" (click)="actualizarDatos()">Guardar</button>
+            <button type="button" class="btn btn-primary btnPerfil" style="background-color:rgb(85, 87, 85);" routerLink="/perfil">Perfil</button>
+            <button type="button" class="btn btn-primary btnGuardar" style="background-color:green;" routerLink="/editarPerfil" (click)="actualizarDatos()">Guardar</button>
         </div>
         <div id="modalEx" class="modal">
             <div class="modal-content" *ngIf="camposCompletos">

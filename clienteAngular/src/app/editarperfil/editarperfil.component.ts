@@ -101,6 +101,7 @@ export class EditarperfilComponent implements OnInit {
             seccion.innerHTML += plantilla
           }*/
           alert("Datos actualizados exitosamente")
+          localStorage.setItem("datoUsuario", JSON.stringify(usuarioInfoActualizada))
           this.authService.infoPutUsuario(usuarioInfoActualizada)
           this.setCookie(JSON.stringify(usuarioInfoActualizada))
 

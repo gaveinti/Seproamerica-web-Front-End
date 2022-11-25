@@ -1,12 +1,13 @@
 <div class="p-2 flex-shrink-1 infoDerecha">
     <div class="d-flex flex-column mb-3">
+        <mat-icon class="icono iconoPerfil">account_circle</mat-icon>
         <div class="info">
             {{usuario.nombres}} {{usuario.apellidos}}
         </div>
-        <div class=" opciones">
-            <div *ngFor="let op of listaGenInfoBar">
-                <br>
-                <h2 (click)="mandarGuard()"><a routerLink={{op.linkOpcion}}>{{op.nombre}}</a></h2>
+        <div class="opciones">
+            <div class="opcionesTexto" *ngFor="let op of listaGenInfoBar">
+                <p>---------------------------------------------------------</p>
+                <h2 class="textoOpcion" (click)="mandarGuard()"><a routerLink={{op.linkOpcion}}>{{op.nombre}}</a></h2>
             </div>
         </div>
     </div>
