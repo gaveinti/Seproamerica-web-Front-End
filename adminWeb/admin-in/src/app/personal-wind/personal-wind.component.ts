@@ -18,6 +18,7 @@ export class PersonalWindComponent implements OnInit{
     correo!: string;
     fechaNac!: string;
     telefono!: string;
+    rol!: string;
 
     //datos: PersonalOpN[] = [];
     personalList:any=[];
