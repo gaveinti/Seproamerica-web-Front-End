@@ -8,22 +8,16 @@ import { InventarioService } from '../services/inventario.service';
   styleUrls: ['./recursos-vehiculos.component.css']
 })
 export class RecursosVehiculosComponent implements OnInit {
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
-  }
-/*
-  emp:any;
-    nombres!: string;
-    apellidos!: string;
-    numCedula!: string;
-    sexo!: string;
-    correo!: string;
-    fechaNac!: string;
-    telefono!: string;
 
-    //datos: PersonalOpN[] = [];
-    personalList:any=[];
-    columnas: string[] = ['Nombres','Apellidos','Cedula','Sexo','Correo','Opciones'];
+  emp:any;
+    placa!: string;
+    marca!: string;
+    modelo!: string;
+    color!: string;
+    anio!: string;
+  
+    VehiculoList:any=[];
+    columnas: string[] = ['Placa','Marca','Modelo','Color','Año','Opciones'];
     dataSource!: MatTableDataSource<any>;
     @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   
@@ -32,18 +26,17 @@ export class RecursosVehiculosComponent implements OnInit {
  
 
     ngOnInit(): void {
-      this._inventarioService.getAllInventario().subscribe(respuesta => {
+      this._inventarioService.getAllVehiculo().subscribe(respuesta => {
         this.dataSource = respuesta as any;
       })
-      this.dataSource = new MatTableDataSource<any>(this.personalList);
+      this.dataSource = new MatTableDataSource<any>(this.VehiculoList);
       this.dataSource.paginator = this.paginator;
     }
     
-      
-    eliminarUsuario(index: number){
+    eliminarVehiculo(index: number){
       console.log(index);
-      this._inventarioService.eliminarRegistro(index);
-      //this.cargarUsuarios();
+      this._inventarioService.eliminarVehiculo(index);
     }
-*/
+
+
 }

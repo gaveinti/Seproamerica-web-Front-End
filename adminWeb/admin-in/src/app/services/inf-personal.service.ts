@@ -13,29 +13,10 @@ const baseUrl = 'http://localhost:8000/api/visualizarPersonal';
 export class InfPersonalService {
 
  datos: any[] = [];
-    /*
-    {nombres:'Mathias' ,apellidos:'Guijarro Alban', cedula: '0915623452',direccion: 'Boyaca y velez',
-    correo:'mguija@gmail.com', rol: 'guardaespaldas'},
-    {nombres:'Luis' ,apellidos:'Guijarro Alban', cedula: '0815623452',direccion: 'Boyaca y velez',
-    correo:'mguija@gmail.com', rol: 'guardaespaldas'},
-    {nombres:'Rafael' ,apellidos:'Guijarro Alban', cedula: '0715623452',direccion: 'Boyaca y velez',
-    correo:'mguija@gmail.com', rol: 'guardaespaldas'},
-    {nombres:'Jose' ,apellidos:'Guijarro Alban', cedula: '0665623452',direccion: 'Boyaca y velez',
-    correo:'mguija@gmail.com', rol: 'guardaespaldas'},
-    
-  ];*/
 
   dataSource:any;
   paginator: any;
 
-/*
-  ngOnInit() {
-    for (let x = 1; x <= 80; x++)
-      this.datos.push(new Articulo(x, `artículo ${x}`, Math.trunc(Math.random() * 1000)));
-    //this.dataSource = new MatTableDataSource<Articulo>(this.datos);
-    //this.dataSource.paginator = this.paginator;
-
-  }*/  
 
   constructor(private http: HttpClient) { }
 
