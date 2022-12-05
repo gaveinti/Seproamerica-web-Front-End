@@ -2,6 +2,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import { GeneralBarInfoModel } from 'src/app/models/generalbarinfoModel';
 import { AuthService } from 'src/app/services/auth.service';
 import { RegisterModel } from 'src/app/models/register.model';
+import { ServicioseleccionadoService } from 'src/app/services/servicioseleccionado.service';
+import { Constantes } from 'src/app/util/constantes';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-generalinfobar',
@@ -21,7 +24,7 @@ export class GeneralinfobarComponent implements OnInit {
     {linkOpcion: "/", nombre: "Sucursales"},
     {linkOpcion: "/informacion", nombre:"Información general"}
   ]
-
+  data_chat!:any
   @Input() usuario: RegisterModel = {
     apellidos: '',
     nombres: '',
@@ -30,10 +33,17 @@ export class GeneralinfobarComponent implements OnInit {
     sexo: '',
     correo: '',
     telefono: 0,
-    contrasenia: ''
+    contrasenia: '',
+    rol:"2"
   };
 
-  constructor(private authS: AuthService) { }
+  constructor(
+    private router: Router,
+    private authS: AuthService,
+    public servicioSeleccionadoService: ServicioseleccionadoService
+    ) {
+      console.log(servicioSeleccionadoService.estaEnSErvicioSeleccionado)
+     }
 
   ngOnInit(): void {
     this.authS.loginDos()
@@ -47,6 +57,26 @@ export class GeneralinfobarComponent implements OnInit {
   //Funcion que permite volver a la pagina principal ya que tiene el canactivate activo
   mandarGuard(){
     this.authS.loginDos()
+  }
+
+  comenzarChat(){
+    this.mandarGuard()
+    this.data_chat={
+      receptor:Constantes.correoAdmin,
+      emisor:this.usuario.correo,
+      servicio:this.servicioSeleccionadoService.nombreServicio.split(" ")[0]
+    }
+    localStorage.setItem("data_chat",JSON.stringify(this.data_chat))
+    console.log(this.data_chat)
+    console.log(this.servicioSeleccionadoService.nombreServicio)
+    console.log(this.servicioSeleccionadoService.nombreServicio.split(" ")[0])
+    
+
+
+    /*this.router.navigate(
+      ['/mensajeria'],
+      { queryParams: this.data_chat }
+      )*/
   }
 
 }

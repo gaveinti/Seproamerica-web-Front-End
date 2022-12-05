@@ -1,231 +1,231 @@
-<section style="background-color: #eee;">
-    <div class="container py-5">
-      <div class="row">
-        <div class="col">
-          <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
-            <ol class="breadcrumb mb-0">
-              <li class="breadcrumb-item linkInicio" (click)="mandarGuard()"><a routerLink="/principal">Inicio</a></li>
-            </ol>
-          </nav>
-        </div>
-      </div>
-  
-      <div class="row">
-        <div class="col-lg-4">
-          <div class="card mb-4">
-            <div class="card-body text-center">
-              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
-                class="rounded-circle img-fluid" style="width: 150px;">
-              <h5 class="my-3">{{usuario.nombres}} {{usuario.apellidos}}</h5>
-              <!--<p class="text-muted mb-4">Bay Area, San Francisco, CA</p>-->
-              <div class="d-flex justify-content-center mb-2">
-                <button type="button" class="btn btn-primary btnEditar" routerLink="/editarPerfil">Editar perfil</button>
-                <button type="button" class="btn btn-primary btnLogOut" routerLink="/inicioSesion" (click)="resetearUsuario()">log out</button>
-              </div>
-            </div>
-          </div>
-          
-        </div>
-        <div class="col-lg-8">
-          <div class="card mb-4">
-            <div class="card-body">
-              <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0">Apellidos</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0">{{usuario.apellidos}}</p>
-                </div>
-              </div>
-              <hr>
-              <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0">Nombre</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0">{{usuario.nombres}}</p>
-                </div>
-              </div>
-              <hr>
-              <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0">Cedula</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0">{{usuario.cedula}}</p>
-                </div>
-              </div>
-              <hr>
-              <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0">Fecha de nacimiento</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0">{{usuario.fechaNac}}</p>
-                </div>
-              </div>
-              <hr>
-              <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0">Sexo</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0">{{usuario.sexo}}</p>
-                </div>
-              </div>
-              <hr>
-              <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0">Correo</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0">{{usuario.correo}}</p>
-                </div>
-              </div>
-              <hr>
-              <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0">Telefono</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0">{{usuario.telefono}}</p>
-                </div>
-              </div>
-              <hr>
-              <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0">Contraseña</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0">{{usuario.contrasenia}}</p>
-                </div>
-              </div>
-              <!--<hr>
-              <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0">Address</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0">Bay Area, San Francisco, CA</p>
-                </div>
-              </div>-->
-            </div>
-          </div>
-
-          <!--Pantalla para confirmar registro-->
-          <div class="modal fade" id="modalIngresarDatos" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Ingrese nuevos datos</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <form id="demoForm" class="needs-validation" [formGroup]="registerForm" autocomplete="off" (ngSubmit)="registerForm.valid" novalidate>
-
-                    <div class="form-outline mb-4">
-                      <label class="form-label" for="form3Example1cg">Apellidos</label>
-                      <input type="text" id="form3Example1cg" matInput class="form-control form-control-lg" required
-                      formControlName="apellidos"
-                      [(ngModel)]="usuario.apellidos"
-                      />
-                      <mat-error *ngIf="registerForm.controls['apellidos'].errors?.['required']"> *</mat-error>
-                      <mat-error *ngIf="registerForm.controls['apellidos'].errors?.['pattern']"> Solo insertar letras</mat-error>
-                    </div>
-    
-                    <div class="form-outline mb-4">
-                      <label class="form-label" for="form3Example2cg">Nombres</label>
-                      <input type="text" id="form3Example2cg" class="form-control form-control-lg" 
-                      formControlName="nombres"
-                      [(ngModel)]="usuario.nombres"
-                      />
-                      <mat-error *ngIf="registerForm.controls['nombres'].errors?.['required']"> *</mat-error>
-                      <mat-error *ngIf="registerForm.controls['nombres'].errors?.['pattern']"> Solo insertar letras</mat-error>
-                    </div>
-    
-                    
-    
-                    <div class="form-outline mb-4">
-                      <label class="form-label" for="form3Example4cg">Fecha de Nacimiento</label>
-                      <input type="date" id="form3Example4cg" class="form-control form-control-lg" 
-                      formControlName="fechaNac"
-                      [(ngModel)]="usuario.fechaNac"
-                      />
-                    </div>
-    
-                    <label class="form-label" for="form3Example1cg">Sexo</label>
-                    <div class="form-outline mb-4">
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" formControlName="sexo" [(ngModel)]="usuario.sexo" 
-                          id="gridRadios1" value="M">
-                          <label class="form-check-label" for="gridRadios1">
-                            Masculino
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" formControlName="sexo" [(ngModel)]="usuario.sexo" 
-                          id="gridRadios2" value="F">
-                          <label class="form-check-label" for="gridRadios2">
-                            Femenino
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" formControlName="sexo" [(ngModel)]="usuario.sexo" 
-                          id="gridRadios3" value="Nd">
-                          <label class="form-check-label" for="gridRadios3">
-                            No definir
-                          </label>
-                        </div>
-                    </div>
-    
-    
-                    <!--<div class="form-outline mb-4">
-                      <label class="form-label" for="form3Example6cg">Correo</label>
-                      <input type="email" id="form3Example6cg" class="form-control form-control-lg" 
-                      formControlName="correo"
-                      [(ngModel)]="usuario.correo"
-                      />
-                      <mat-error *ngIf="registerForm.controls['correo'].errors?.['required']"> *</mat-error>
-                      <mat-error *ngIf="registerForm.controls['correo'].errors?.['email']"> Correo no válido</mat-error>
-                    </div>-->
-    
-                    <div class="form-outline mb-4">
-                      <label class="form-label" for="form3Example7cg">Telefono</label>
-                      <input type="tel" id="form3Example7cg" class="form-control form-control-lg" 
-                      formControlName="telefono"
-                      [(ngModel)]="usuario.telefono"
-                      />
-                      <mat-error *ngIf="registerForm.controls['telefono'].errors?.['required']"> *</mat-error>
-                      <mat-error *ngIf="registerForm.controls['telefono'].errors?.['minlength']"> Mínimo 10 caracteres</mat-error>
-                      <mat-error *ngIf="registerForm.controls['telefono'].errors?.['pattern']"> Solo insertar números</mat-error>
-                    </div>
-    
-                    <div class="form-outline mb-4">
-                      <label class="form-label" for="form3Example8cg">Contraseña</label>
-                      <input type="password" id="form3Example8cg" class="form-control form-control-lg" 
-                      formControlName="contrasenha"
-                      [(ngModel)]="usuario.contrasenia"
-                      [type]="hide ? 'password':'text'"
-                      />
-                      <mat-icon matSuffix (click)="hide = !hide">
-                        {{hide ? 'visibility' : 'visibility_off'}}
-                      </mat-icon>
-                    </div>
-                    </form>
-                </div>
-                <div id="mensajePositivoNegativo" *ngIf="camposCompletos">
-                  <p>Datos actualizados exitosamente</p>
-                </div>
-                <div id="mensajePositivoNegativo" *ngIf="camposIncorrectos">
-                  <p>Fallo al actualizar los datos</p>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-primary" style="background-color:green;" routerLink="/editarPerfil" (click)="actualizarDatos()">Guardar</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+<header class="fondo-header estructura-header">
+  <div class="primeraDivision">
+    <div class="container-imagen">
+      <img src="https://www.seproamerica.com.ec/wp-content/uploads/2019/07/Seproamerica-privada-y-electronica-grande-logo-seguridad-ecuador.png">
     </div>
-  </section>
+  </div>
+  
+  <div class="terceraDivision flexbox-terceraDivision">
+    <div class="flexbox-terceraDivision-item1">
+      <mat-icon class="icono iconoPerfil"><a routerLink="/perfil">account_circle</a></mat-icon>
+    </div>
+    <div class="flexbox-terceraDivision-item2">
+      <mat-icon class="icono iconoNotificacion">notifications</mat-icon>
+    </div>
+  </div>
+</header>
+
+<div class="d-flex titulo ">
+  <h1 class="titulo">Datos Usuario</h1>
+  <h3  style="cursor: pointer;" routerLink="/principal" class="titulo">home</h3>
+</div>
+
+        <section class="vh-100 bg-image fondo">
+
+          <div class="container-datos">
+              <div class=" fondo-datos" style="border-radius: 15px;">
+                  <div class=" p-5">
+                      <div id="opciones">
+                          <div id="img-perfil">
+                              <img src="../../assets/Iconos/app sepro vectores-82.png" alt="">
+                          </div>
+      
+                          <div>
+                              <h2 id="salir" (click)="logout()" >
+                                  <mat-icon >exit_to_app</mat-icon>
+                                  Cerrar Sesión
+                              </h2>
+                          </div>
+                      </div>
+      
+                      <!--h2 class="text-uppercase text-center mb-5">Datos de registro</h2-->
+      
+                      <form id="demoForm" class="needs-validation" [formGroup]="registerForm" autocomplete="on"
+                          (ngSubmit)="registerForm.valid " novalidate>
+      
+                          <div class="form-outline mb-4">
+                              <label class="form-label" for="form3Example1cg">Apellidos</label>
+                              <input type="text" id="form3Example1cg" class="form-control form-control-lg" required
+                                  formControlName="apellidos" [(ngModel)]="user.apellidos" />
+                              <mat-error *ngIf="registerForm.controls['apellidos'].errors?.['required']"> *</mat-error>
+                              <mat-error *ngIf="registerForm.controls['apellidos'].errors?.['pattern']"> Solo insertar letras
+                              </mat-error>
+                          </div>
+      
+                          <div class="form-outline mb-4">
+                              <label class="form-label" for="form3Example2cg">Nombres</label>
+                              <input type="text" id="form3Example2cg" class="form-control form-control-lg"
+                                  formControlName="nombres" [(ngModel)]="user.nombres" />
+                              <mat-error *ngIf="registerForm.controls['nombres'].errors?.['required']"> *</mat-error>
+                              <mat-error *ngIf="registerForm.controls['nombres'].errors?.['pattern']"> Solo insertar letras
+                              </mat-error>
+                          </div>
+      
+                          <div class="form-outline mb-4">
+                              <label class="form-label" for="form3Example3cg">Cedula</label>
+                              <input maxlength="10" type="text" id="form3Example3cg" class="form-control form-control-lg"
+                                  formControlName="cedula" [(ngModel)]="user.cedula" />
+                              <mat-error *ngIf="registerForm.controls['cedula'].errors?.['required']"> *</mat-error><br>
+                              <mat-error *ngIf="registerForm.controls['cedula'].errors?.['minlength']"> Su cédula debe tener
+                                  10 dígitos</mat-error><br>
+                              <mat-error *ngIf="registerForm.controls['cedula'].errors?.['pattern']"> Su cédula solo debe
+                                  contener digitos</mat-error><br>
+      
+                          </div>
+      
+      
+                          <div class="form-outline mb-4">
+                              <label class="form-label" for="form3Example4cg">Fecha de Nacimiento</label>
+                              <input type="date" id="form3Example4cg" class="form-control form-control-lg"
+                                  formControlName="fechaNac" [(ngModel)]="user.fechaNac" required validarFecha />
+                              <mat-error *ngIf="validacionFecha(user.fechaNac)">
+                                  Debe ser mayor de 18 años
+                              </mat-error>
+                          </div>
+      
+      
+                          <label class="form-label" for="form3Example1cg">Sexo</label>
+                          <div class="form-outline mb-4">
+                              <div class="form-check">
+                                  <input class="form-check-input" type="radio" formControlName="sexo" [(ngModel)]="user.sexo"
+                                      id="gridRadios1" value="M">
+                                  <label class="form-check-label" for="gridRadios1">
+                                      Masculino
+                                  </label>
+                              </div>
+                              <div class="form-check">
+                                  <input class="form-check-input" type="radio" formControlName="sexo" [(ngModel)]="user.sexo"
+                                      id="gridRadios2" value="F">
+                                  <label class="form-check-label" for="gridRadios2">
+                                      Femenino
+                                  </label>
+                              </div>
+                              <div class="form-check">
+                                  <input class="form-check-input" type="radio" formControlName="sexo" [(ngModel)]="user.sexo"
+                                      id="gridRadios3" value="Nd">
+                                  <label class="form-check-label" for="gridRadios3">
+                                      No definir
+                                  </label>
+                              </div>
+                              <mat-error *ngIf="registerForm.controls['sexo'].errors?.['required']"> *</mat-error>
+                          </div>
+      
+      
+                          <div class="form-outline mb-4">
+                              <label class="form-label" for="form3Example6cg">Correo</label>
+                              <input type="email" id="form3Example6cg" class="form-control form-control-lg"
+                                  formControlName="correo" [(ngModel)]="user.correo" />
+                              <mat-error *ngIf="registerForm.controls['correo'].errors?.['required']"> *</mat-error>
+                              <mat-error *ngIf="registerForm.controls['correo'].errors?.['pattern']"> Debe contener una
+                                  extensión válida</mat-error>
+                              <!--<mat-error *ngIf="registerForm.controls['correo'].errors?.['email']"> Correo no válido</mat-error>-->
+      
+      
+                          </div>
+      
+                          <div class="form-outline mb-4">
+                              <label class="form-label" for="form3Example7cg">Telefono</label>
+                              <input maxlength="10" type="tel" id="form3Example7cg" class="form-control form-control-lg"
+                                  formControlName="telefono" [(ngModel)]="user.telefono" />
+                              <mat-error *ngIf="registerForm.controls['telefono'].errors?.['required']"> *</mat-error>
+                              <mat-error *ngIf="registerForm.controls['telefono'].errors?.['pattern']"> Su telefono debe
+                                  comenzar con 09 y tener como máximo 10 dígitos</mat-error>
+                              <mat-error *ngIf="registerForm.controls['telefono'].errors?.['minlength']"> Minimo 9 caracteres
+                              </mat-error>
+                              <mat-error *ngIf="registerForm.controls['telefono'].errors?.['maxlength']"> Maximo 10 caracteres
+                              </mat-error>
+                          </div>
+      
+      
+                          <label class="form-label" for="form3Example8cg">Contraseña</label>
+      
+                          <div class="form-outline form-white mb-4 input-group ">
+      
+                              <span class="input-group-text" id="basic-addon1">
+                                  <mat-icon matPrefix (click)="hide = !hide">
+                                      {{hide ? 'visibility' : 'visibility_off'}}
+                                  </mat-icon>
+                              </span>
+      
+                              <input maxlength="10" type="password" id="form3Example8cg" class="form-control form-control-lg"
+                                  formControlName="contrasenha" placeholder="Ingrese contraseña..."
+                                  [(ngModel)]="user.contrasenia" [type]="hide ? 'password':'text'" />
+      
+                          </div>
+                          <mat-error *ngIf="registerForm.controls['contrasenha'].errors?.['minlength']"> Minimo 8 caracteres
+                          </mat-error>
+      
+      
+                          <div *ngIf="!editable" class="d-flex justify-content-center">
+                              <button (click)="editar()" mat-button type="submit button" id="botonRegistro"
+                                  class="btn-confirmar">Editar</button>
+                          </div>
+      
+                          <div *ngIf="editable" class="d-flex justify-content-center">
+                              <button *ngIf="!esMayorEdad || !registerForm.valid" mat-button type="submit button"
+                                  id="botonRegistro" [disabled]="!esMayorEdad || !registerForm.valid"
+                                  class="btn-confirmar">Guardar</button>
+      
+                              <button *ngIf="esMayorEdad && registerForm.valid" mat-button type="submit button"
+                                  data-bs-toggle="modal" data-bs-target="#modalDos" data-bs-dismiss="modal" id="botonRegistro"
+                                  class="btn-confirmar">Guardar</button>
+      
+                          </div>
+      
+                          <!--Pantalla para confirmar registro-->
+                          <div class="modal fade" id="modalDos" data-bs-backdrop="static" data-bs-keyboard="false"
+                              tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                  <div class=" modal-content">
+                                      <div class="modal-header">
+                                          <h1 class="modal-title fs-5" id="staticBackdropLabel">Acepte para actualizar esta
+                                              información</h1>
+                                          <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                              aria-label="Close"></button>
+                                      </div>
+                                      <div class="modal-footer">
+                                          <button type="button" (click)="actualizarDatos()" class="btn btn-primary"
+                                              style="background-color:green;">Guardar</button>
+      
+                                      </div>
+                                      <div *ngIf="actualizado==true" class="mensaje-actualizar exito">
+                                          Datos actualizados con éxito, puede cerrar esta ventana para ver sus cambios
+                                      </div>
+                                      <div *ngIf="actualizado==false" class="mensaje-actualizar error">
+                                          Problemas al actualizar sus datos!. <br>
+                                          Cierre la ventana para reinintentar
+                                      </div>
+      
+                                  </div>
+                              </div>
+                          </div>
+      
+                          <!--Pantalla de datos no guardados-->
+                          <ng-container *ngIf="submitted">
+                              <div *ngIf="submitted" class="modal fade" id="modalFallido" data-bs-backdrop="static"
+                                  data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                  aria-hidden="true">
+                                  <div class="modal-dialog">
+                                      <div class="modal-content">
+                                          <div class="modal-header">
+                                              <h1 class="modal-title fs-5" id="staticBackdropLabel">Cuenta no creada</h1>
+                                              <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                  aria-label="Close"></button>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </ng-container>
+      
+      
+                      </form>
+      
+      
+                  </div>
+              </div>
+          </div>
+      
+      </section>
+      
+
+

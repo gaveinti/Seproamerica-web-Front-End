@@ -7,6 +7,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 
 
@@ -26,6 +28,12 @@ import { RecursosArmasComponent } from './recursos-armas/recursos-armas.componen
 import { PersonalRegistroComponent } from './personal-registro/personal-registro.component';
 
 import { HttpClientModule } from '@angular/common/http';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { InicioSesionComponent } from './inicio-sesion/inicio-sesion.component';
+import { RegistroComponent } from './registro/registro.component';
+import { HeaderComponent } from './header/header.component';
+import { PerfilComponent } from './perfil/perfil.component';
+import { ActualizarPerfilComponent } from './actualizar-perfil/actualizar-perfil.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,32 +47,29 @@ import { HttpClientModule } from '@angular/common/http';
     RecursosCandadosComponent,
     RecursosCelularComponent,
     RecursosArmasComponent,
-    PersonalRegistroComponent
+    PersonalRegistroComponent,
+    NotFoundComponent,
+    InicioSesionComponent,
+    RegistroComponent,
+    HeaderComponent,
+    PerfilComponent,
+    ActualizarPerfilComponent,
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot([
-      {path: 'recursosVentana', component: RecursosWindComponent},
-      {path: 'serviciosVentana', component: ServiciosWindComponent},
-      {path: 'personalVentana', component: PersonalWindComponent},
-      {path: 'reportesVentana', component: ReportesWindComponent},
-      {path: 'mensajeriaVentana', component: MensajeriaWindComponent},
-      
-      {path: 'vehiculosSec',component: RecursosVehiculosComponent},
-      {path: 'celularesSec', component: RecursosCelularComponent},
-      {path: 'armasSec', component: RecursosArmasComponent},
-      {path: 'candadosSec', component: RecursosCandadosComponent},
-      {path: 'registrarPer', component: PersonalRegistroComponent},
-    ]),
     BrowserAnimationsModule,
     MatToolbarModule,
     MatTableModule,
     MatPaginatorModule,
     MatTooltipModule,
     MatIconModule,
+    MatInputModule,
+   MatButtonModule,
+    AppRoutingModule,
+   
   ],
   providers: [],
   bootstrap: [AppComponent]

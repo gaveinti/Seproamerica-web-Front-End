@@ -100,7 +100,8 @@ export class GuardService implements CanActivate/*,CanLoad*/{
       sexo: datoUsuario.sexo,
       correo: datoUsuario.correo,
       telefono: datoUsuario.telefono,
-      contrasenia: datoUsuario.contrasenia
+      contrasenia: datoUsuario.contrasenia,
+      rol:"2"
     };
 
     this.authService.infoPutUsuario(usuarioDeLocalStorage);

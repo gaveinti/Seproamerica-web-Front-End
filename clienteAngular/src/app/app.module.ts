@@ -26,11 +26,14 @@ import { EditarperfilComponent } from './editarperfil/editarperfil.component';
 import { CookieService } from 'ngx-cookie-service';
 import { ServicioseleccionadoComponent } from './servicioseleccionado/servicioseleccionado.component';
 import { UbicacionComponent } from './ubicacion/ubicacion.component';
+import { NotFoundComponentComponent } from './components/not-found-component/not-found-component.component';
 
-const routes: Routes = [
-  { path: 'inicioSesion', component: InicioSesionComponent },
-  { path: 'registro', component: RegistroComponent }
-]
+//import { AngularFireModule } from '@angular/fire/compat';
+//import { AngularFireMessagingModule } from '@angular/fire/compat/messaging';
+//import { environment } from 'src/environments/environment';
+//import { initializeApp } from "firebase/app";
+//initializeApp(environment.firebase);
+
 
 @NgModule({
   declarations: [
@@ -45,18 +48,20 @@ const routes: Routes = [
     EditarperfilComponent,
     ServicioseleccionadoComponent,
     UbicacionComponent,
+    NotFoundComponentComponent,
   ],
-  imports: [
+  imports: [ 
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
     MatIconModule,  
     MatButtonModule,
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(routes),
     MatFormFieldModule,
+    AppRoutingModule,
+    //AngularFireModule.initializeApp(environment.firebase),
+    //AngularFireMessagingModule,
     
   ],
   exports: [RouterModule],

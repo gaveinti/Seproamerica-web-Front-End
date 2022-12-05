@@ -12,23 +12,27 @@ import { InfoempresaComponent } from './infoempresa/infoempresa.component';
 import { EditarperfilComponent } from './editarperfil/editarperfil.component';
 import { ServicioseleccionadoComponent } from './servicioseleccionado/servicioseleccionado.component';
 import { UbicacionComponent } from './ubicacion/ubicacion.component';
+import { NotFoundComponentComponent } from './components/not-found-component/not-found-component.component';
 
 const routes: Routes = [
-  { path: "inicioSesion/:correo", component: InicioSesionComponent},
-  { path: "registro", component: RegistroComponent},
-  { path: "principal", component: PrincipalComponent, canActivate: [GuardService]},
-  { path: "informacion", component: InfoempresaComponent},
-  { path: "perfil", component: PerfilComponent},
-  { path: "editarPerfil", component: EditarperfilComponent},
-  { path: "mensajeria", component: MensajeriaComponent},
-  { path: "servicioSeleccionado", component: ServicioseleccionadoComponent},
-  { path: "ubicacion", component: UbicacionComponent},
-  //{ path: '',   redirectTo: '/inicioSesion/:correo', pathMatch: 'full'},
-  { path: '', component: InicioSesionComponent}
+  //{ path: "inicioSesion/:correo", component: InicioSesionComponent},
+  { path: '', component: InicioSesionComponent,pathMatch: 'prefix' },
+  { path: 'registro', component: RegistroComponent,pathMatch: 'prefix' },
+  { path: "principal", component: PrincipalComponent, canActivate: [GuardService],pathMatch: 'prefix'},
+  { path: "informacion", component: InfoempresaComponent,pathMatch: 'prefix'},
+  { path: "perfil", component: PerfilComponent,pathMatch: 'prefix'},
+  { path: "editarPerfil", component: EditarperfilComponent,pathMatch: 'prefix'},
+  { path: "mensajeria", component: MensajeriaComponent,pathMatch: 'prefix'},
+  { path: "servicioSeleccionado", component: ServicioseleccionadoComponent,pathMatch: 'prefix'},
+  { path: "ubicacion", component: UbicacionComponent,pathMatch: 'prefix'},
+  //{ path: '',   redirectTo: 'inicioSesion', pathMatch: 'prefix'},
+  { path: '**',  component:NotFoundComponentComponent, pathMatch: 'prefix'},
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes),
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -1,33 +1,38 @@
 <header class="fondo-header estructura-header">
     <div class="primeraDivision">
-      <div class="container-imagen">
+      <div routerLink="/principal" class="container-imagen">
         <img src="https://www.seproamerica.com.ec/wp-content/uploads/2019/07/Seproamerica-privada-y-electronica-grande-logo-seguridad-ecuador.png">
       </div>
     </div>
     <div class="segundaDivision">
       <div class="container-Registro1">
         <div class="container-Registro2">
-          <h2 routerLink="/informacion">Mensajería</h2>
+          <h2 routerLink="/informacion">Servicios</h2>
         </div>
       </div>
     </div>
-    <div class="terceraDivision">
-        <h2><a routerLink="/principal">Inicio</a></h2>
+    <div class="terceraDivision flexbox-terceraDivision">
+      <div class="flexbox-terceraDivision-item1">
+        <mat-icon class="icono iconoPerfil"><a routerLink="/perfil">account_circle</a></mat-icon>
+      </div>
+      <div class="flexbox-terceraDivision-item2">
+        <mat-icon class="icono iconoNotificacion">notifications</mat-icon>
+      </div>
     </div>
 </header>
 <section id="ventada-mensajeria">
     <div id="historial-mensajes">
         <div *ngFor="let message of mensajeriaService.chats" id="historial-mensaje">
+
                 <div (click)="clickOnChat(message)" id="item-mensaje">
-                    <div id="nombre-servicio">Servicio <br>{{message.servicio}}</div>
+                    <div id="nombre-servicio">Servicio <br>{{message.canal__servicio}}</div>
                     <div >
                         
-                        <!--                <span id="info-envio" >De Trabajador encargado a Todos</span>-->
-                        <span  id="info-envio">{{message.nombre_perfil}} 
-                            <span id="info-envio" *ngIf='message.rol=="1"'> - Administrador</span>
-                            <span id="info-envio" *ngIf='message.rol=="2"'>(Yo)</span>
-                            <span id="info-envio" *ngIf='message.rol=="2"'> - Cliente</span>
-                            <span id="info-envio" *ngIf='message.rol=="3"'> - Empleado</span>
+                        <span  class="info-envio">{{message.nombre_perfil}} 
+                            <span class="info-envio" *ngIf='message.usuario__rol==1'> - Administrador</span>
+                            <span class="info-envio" *ngIf='message.usuario__rol==2'>(Yo)</span>
+                            <span class="info-envio" *ngIf='message.usuario__rol==2'> - Cliente</span>
+                            <span class="info-envio" *ngIf='message.usuario__rol==3'> - Empleado</span>
 
                         </span>
                         
@@ -44,16 +49,18 @@
         <div  class="mensajes">
             <div class="position-fixed">
                 
-                <div id="nombre-servicio">
-                    <div>{{mensajeriaService.nombre_usuario_receptor}}</div>
-                    <div>Servicio <br> {{mensajeriaService.servicio_actual}}</div>
-                    <div></div>
-                </div>
+              <div id="nombre-servicio">
+                    
+                <div> <div>Servicio </div>  {{mensajeriaService.servicio_actual}} : {{mensajeriaService.nombre_usuario_receptor}}</div>
+                
+            </div>
 
             </div>
+
+            <!-- class="sms-general" [ngClass]="{'sms-recibido' : message.correo_usuario==mensajeriaService.usuario_receptor,'sms-enviado' : message.correo_usuario==mensajeriaService.usuario_logeado}">-->
             <br><br><br>
             <p *ngFor="let message of mensajeriaService.contactosMensajes" 
-                class="sms-general" [ngClass]="{'sms-recibido' : message.correo_usuario==mensajeriaService.usuario_receptor,'sms-enviado' : message.correo_usuario==mensajeriaService.usuario_logeado}">
+             class="sms-general" [ngClass]="{'sms-recibido' : message.usuario__correo==mensajeriaService.usuario_receptor,'sms-enviado' : message.usuario__correo==mensajeriaService.usuario_logeado}">
                 {{message.texto}}
                 <span class="tiempo " text-right><br>{{ message.tiempo | date:'short' }}</span>
 

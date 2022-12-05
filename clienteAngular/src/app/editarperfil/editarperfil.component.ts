@@ -36,7 +36,8 @@ export class EditarperfilComponent implements OnInit {
     sexo: '',
     correo: '',
     telefono: 0,
-    contrasenia: ''
+    contrasenia: '',
+    rol:'2'
   };
 
   constructor(private clienteWAS: ClienteWAService , private authService: AuthService, private route: ActivatedRoute, 
@@ -74,7 +75,7 @@ export class EditarperfilComponent implements OnInit {
       contrasenia: this.usuario.contrasenia,
       
       direccion : this.usuario.correo,
-      rol : '11'
+      rol : '2'
     };
 
     if(this.camposCompletos){
@@ -93,7 +94,7 @@ export class EditarperfilComponent implements OnInit {
           //correo no
           this.usuario.telefono = res.telefono
           this.usuario.contrasenia = res.contrasenia
-          res.rol = 11
+          res.rol = 2
           //Poner mensaje de exito
           /*let seccion = document.getElementById('#mensajePositivoNegativo')
           let plantilla = `<p>Datos actualizados exitosamente</p>`
@@ -152,7 +153,8 @@ export class EditarperfilComponent implements OnInit {
       sexo: '',
       correo: '',
       telefono: 0,
-      contrasenia: ''
+      contrasenia: '',
+      rol:'2'
     };
   
     this.authService.reseteoUsuario();

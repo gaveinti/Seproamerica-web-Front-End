@@ -1,14 +1,23 @@
 ::-webkit-scrollbar {display: none;}
 
+a{
+    text-decoration: none;
+    color: inherit;
+
+}
+
+
 /* Estilos personalizados para el header*/
 img{
     width: 100%;
     height: auto;
 }
+
 /*Header*/
 fondo-header{
     background-color: white;
 }
+
 .estructura-header{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -29,6 +38,47 @@ fondo-header{
     grid-area: h3;
 }
 
+.flexbox-terceraDivision{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color: #BF1924;
+    height: 70%;
+}
+
+.flexbox-terceraDivision-item1{
+    margin-left: 50px;
+    margin-top: 10px;
+    width: 30%;
+}
+
+.flexbox-terceraDivision-item2{
+    /*margin-left: 40px;
+    margin-top: 10px;*/
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    width: 50%;
+}
+
+.icono{
+    font-size: 50px;
+    height: 50px ;
+    width: 50px;
+    text-decoration: none;
+    color: white;
+}
+
+.icono:hover{
+    color: #FF4742;
+    transition: all 1s cubic-bezier(0.075, 0.81, 0.165, 1);
+}
+
+.container-imagen{
+    width: 40%;
+}
+
 .container-Registro1 .container-Registro2{
     display: flex;
     justify-content: center;
@@ -37,11 +87,18 @@ fondo-header{
     margin-top: 70px;
 }
 
-
-
-.container-imagen{
-    width: 40%;
+.container-Iconos1 .container-Iconos2{
+    display: flex;
+    justify-content: center;
+    background-color: #BF1924;
 }
+
+.container-Iconos1 .container-Iconos2 .iconList{
+    float: left;
+    list-style: none;
+}
+/*-------------------------------------------------------------------------------*/
+
 
 #ventada-mensajeria {
     height: 80%;
@@ -89,7 +146,7 @@ container-chat{
     width: 70%;
 }
 
-#info-envio{
+.info-envio{
     font-size: smaller;
     color: gray;
 
@@ -142,3 +199,8 @@ container-chat{
     border-bottom-left-radius: 0;
 
 }
+
+
+
+
+

@@ -38,13 +38,15 @@ export class PrincipalComponent implements OnInit {
     sexo: '',
     correo: '',
     telefono: 0,
-    contrasenia: ''
+    contrasenia: '',
+    rol:"2"
   };
 
   data: string = "";
 
   constructor(private authService: AuthService, private guardS: GuardService, private cookieService: CookieService,
     private servicioSeleccionadoService: ServicioseleccionadoService) {
+
     const correo = this.authService.obtenerCorreo()
     console.log("Correo de sesion iniciada: " + correo)
    }
@@ -55,6 +57,7 @@ export class PrincipalComponent implements OnInit {
     const data = localStorage.getItem("usuario_logeado")
     console.log(data)
     this.usuario = this.authService.getUsuario();
+
     
   }
 

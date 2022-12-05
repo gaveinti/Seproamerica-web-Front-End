@@ -5,10 +5,17 @@
             {{usuario.nombres}} {{usuario.apellidos}}
         </div>
         <div class="opciones">
+            <div *ngIf="servicioSeleccionadoService.estaEnSErvicioSeleccionado" class="opcionesTexto ">
+                <p>---------------------------------------------------------</p>
+                <h2 class="textoOpcion"  >
+                    <a routerLink="/mensajeria" (click)="comenzarChat()">Mensajeria</a>
+                </h2>
+            </div>
             <div class="opcionesTexto" *ngFor="let op of listaGenInfoBar">
                 <p>---------------------------------------------------------</p>
                 <h2 class="textoOpcion" (click)="mandarGuard()"><a routerLink={{op.linkOpcion}}>{{op.nombre}}</a></h2>
             </div>
+            
         </div>
     </div>
 </div>

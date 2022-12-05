@@ -1,62 +1,87 @@
-<section class="vh-100 gradient-custom">
-    <div class="container py-5 h-100">
-      <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-          <div class="card bg-dark text-white" style="border-radius: 1rem;">
-            <div class="card-body p-5 text-center">
-  
-              <div class="mb-md-5 mt-md-4 pb-5">
-  
-                <h2>Seproamérica</h2>
+<section>
 
-                <form [formGroup]="inicioSesionForm" autocomplete="off" (ngSubmit)="inicioSesionForm.valid && onInicioSesionSubmit()" novalidate>
-  
-                  <div class="form-outline form-white mb-4">
-                    <input type="email" id="typeEmailX" class="form-control form-control-lg" 
-                    formControlName="correo"
-                    [(ngModel)]="user.correo"
-                    />
-                    <label class="form-label" for="typeEmailX">Correo</label>
-                  </div>
-    
-                  <div class="form-outline form-white mb-4">
-                    <mat-icon matSuffix (click)="hide = !hide">
-                      {{hide ? 'visibility' : 'visibility_off'}}
-                    </mat-icon>
-                    <input type="password" id="typePasswordX" class="form-control form-control-lg" 
-                    formControlName="contrasenha"
-                    [(ngModel)]="user.contrasenia"
-                    [type]="hide ? 'password':'text'"
-                    />
-                    
-                    <label class="form-label" for="typePasswordX">Contraseña</label>
-                  </div>
-    
-    
-                  <button class="btn btn-outline-light btn-lg px-5" type="submit"
-                  [disabled]="false" routerLink="/principal" (click)="getUsuarioA()">Inicio sesion </button>
-    
-                  <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Olvidé mi contraseña</a></p>
-
-
-                  <div class="d-flex justify-content-center text-center mt-4 pt-1">
-                    <a href="#!" class="text-white"><i class="fab fa-facebook-f fa-lg"></i></a>
-                    <a href="#!" class="text-white"><i class="fab fa-twitter fa-lg mx-4 px-2"></i></a>
-                    <a href="#!" class="text-white"><i class="fab fa-google fa-lg"></i></a>
-                  </div>
-                </form>
-  
-              </div>
-  
-              <div>
-                <p class="mb-0">¿No tiene una cuenta? <a href="#!" class="text-white-50 fw-bold" routerLink="/registro">Registrarse</a>
-                </p>
-              </div>
-  
-            </div>
-          </div>
-        </div>
-      </div>
+  <div class="container">
+    <div class="mensaje-info" *ngIf="esCliente==false">
+      <h1>No tiene cuenta de cliente</h1>
     </div>
+    <div class="mensaje-info" *ngIf="estaRegistrado==false">
+      <h1>Usuario no Registrado</h1>
+    </div>
+    <div class="mensaje-info" *ngIf="exito==false">
+      <h1>Contraseña incorrecta</h1>
+    </div>
+    <div class="mb-4">
+      <img width="300px" src="../../assets/app sepro vectores-30.png" class="img-logo">
+    </div>
+    <div class="formulario mb-md-5 mt-5 mt-md-4 pb-5">
+
+      <form [formGroup]="inicioSesionForm" autocomplete="on"
+        (ngSubmit)="inicioSesionForm.valid && onInicioSesionSubmit()">
+
+        <label class="form-label" for="typeEmailX">Email</label>
+
+        <div class="form-outline form-white mb-4 input-group">
+
+          <span class="input-group-text" id="basic-addon1">
+            <mat-icon> email</mat-icon>
+          </span>
+
+          <input 
+          required
+          type="email" 
+          id="typeEmailX" 
+          class="form-control form-control-lg" 
+          formControlName="correo"
+            [(ngModel)]="user.correo"
+             placeholder="Ingrese email" />
+          <!--label class="form-label" for="typeEmailX">Correo</label-->
+        </div>
+        <p class="error" *ngIf="inicioSesionForm.get('correo')?.errors?.['required'] && inicioSesionForm.get('correo')?.touched ">
+          Es necesario un coreo electronico.
+        </p>
+        <p class="error" *ngIf="inicioSesionForm.get('correo')?.errors?.['pattern'] && inicioSesionForm.get('correo')?.touched">
+          Ingrese un correo valido.
+        </p>
+
+        <label class="form-label" for="typePasswordX">Contraseña</label>
+
+        <div class="form-outline form-white mb-4 input-group ">
+
+          <span class="input-group-text" id="basic-addon1">
+            <mat-icon matPrefix (click)="hide = !hide">
+              {{hide ? 'visibility' : 'visibility_off'}}
+            </mat-icon>
+          </span>
+
+          <input 
+          maxlength="10"
+          
+          type="password" 
+          id="typePasswordX" 
+          class="form-control form-control-lg" 
+          formControlName="contrasenha"
+          placeholder="Ingrese contraseña..."
+            [(ngModel)]="user.contrasenia" [type]="hide ? 'password':'text'" />
+          <!--label class="form-label" for="typeEmailX">Correo</label-->
+        </div>
+        <p class="error" *ngIf="inicioSesionForm.get('contrasenha')?.errors?.['required'] && inicioSesionForm.get('contrasenha')?.touched">
+          Es necesaria una contraseña.
+        </p>
+        <p class="error" *ngIf="user.contrasenia.length < 8 && inicioSesionForm.get('contrasenha')?.touched">
+          Debe ingresar una contraseña mayor a 8 caracteres
+        </p>
+
+
+        <button [ngClass]="{'valido': inicioSesionForm.valid, 'invalido': !inicioSesionForm.valid}" class="boton-login  btn-lg px-5" type="submit" [disabled]="inicioSesionForm.invalid"
+          (click)="getUsuarioA()">Ingresar </button>
+
+        <p routerLink="/registro" style="cursor: pointer" id="text-crear-cuenta" class="m-4"><a>Crear cuenta</a></p>
+
+      </form>
+
+    </div>
+
+  </div>
+<div id="firma">www.seproamerica.com.ec</div>
 </section>
 <!--Comentario para probar integracion-->

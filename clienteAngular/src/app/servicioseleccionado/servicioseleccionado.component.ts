@@ -18,7 +18,7 @@ import { Constantes } from '../util/constantes';
 export class ServicioseleccionadoComponent implements OnInit {
 
   fechaActual = moment().format('DD/MM/YYYY')
-
+  estaEnSErvicioSeleccionado!: boolean;
   usuario: RegisterModel = {
     apellidos: '',
     nombres: '',
@@ -27,7 +27,8 @@ export class ServicioseleccionadoComponent implements OnInit {
     sexo: '',
     correo: '',
     telefono: 0,
-    contrasenia: ''
+    contrasenia: '',
+    rol:'2'
   };
 
   nombreServicio: string | null = "";
@@ -41,10 +42,12 @@ export class ServicioseleccionadoComponent implements OnInit {
     private authService: AuthService,
     private formBuilder: FormBuilder,
     private servicioSeleccionadoService: ServicioseleccionadoService,
-    private route: Router
     ) { }
 
   ngOnInit(): void {
+    this.servicioSeleccionadoService.estaEnSErvicioSeleccionado=true
+    console.log("esta seleccionado?: " + this.servicioSeleccionadoService.estaEnSErvicioSeleccionado)
+
     this.nombreServicio = this.servicioSeleccionadoService.nombreServicioEscogidoComponente()
     if(localStorage.getItem("servicio") != null){
        this.nombreServicio = localStorage.getItem("servicio")
@@ -64,22 +67,12 @@ export class ServicioseleccionadoComponent implements OnInit {
     console.log(this.fechaActual)
   }
 
+  ngOnDestroy(){
+    this.servicioSeleccionadoService.estaEnSErvicioSeleccionado=false
+    console.log("salio del componente")
+    console.log("esta seleccionado?: " + this.servicioSeleccionadoService.estaEnSErvicioSeleccionado)
 
-  comenzarChat(){
-    const data={
-      receptor:Constantes.correoAdmin,
-      emisor:this.usuario.correo,
-      servicio:this.servicioSeleccionadoService.nombreServicio.split(" ")[0]
-    }
-    console.log(data)
-    console.log(this.servicioSeleccionadoService.nombreServicio)
-    console.log(this.servicioSeleccionadoService.nombreServicio.split(" ")[0])
-    
-
-
-    this.route.navigate(
-      ['/mensajeria'],
-      { queryParams: data }
-      )
   }
+
+  
 }

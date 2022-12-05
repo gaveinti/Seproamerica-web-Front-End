@@ -5,12 +5,14 @@ import { Observable, Subject } from 'rxjs';
 import { CanalInfoMensajes } from 'src/app/models/infoCanalMensaje';
 import { Constantes } from 'src/app/util/constantes';
 import { ServicioseleccionadoService } from '../servicioseleccionado.service';
+import { SocketService } from './socket.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MensajeriaService {
 
+  url_chat = Constantes.URL_CHAT
 
   usuario_logeado = localStorage.getItem("usuario_logeado")
   usuario_receptor = ""
@@ -20,32 +22,40 @@ export class MensajeriaService {
   chats: smsInfo2[] = [];
   contactosMensajes!: smsInfo2[];
 
+  //  +"localhost:8000"
 
   socket: any
-  room: string = "room"
 
+  url_websocket = ""
 
   constructor(
     private http: HttpClient,
     private servicioActualService: ServicioseleccionadoService,
+    //private socketService: SocketService
   ) {
+//https://sepro-chat-server.herokuapp.com/
+    if (window.location.host == "localhost:4200") {
+      this.url_websocket = 'ws://'
+        //+ Constantes.DOMINIO_SERVER
+        +"localhost:8000"
+        + '/ws/chat/mensajeria/'
+    }
 
-    this.room= servicioActualService.nombreServicio.split(' ').join('')
-    //this.usuario_receptor=
-    console.log(this.room)
-    
+    if (window.location.host == Constantes.DOMINIO_SERVER) {
+      this.url_websocket = 'wss://'
+        + Constantes.DOMINIO_SERVER_WEB_SOCKET
+        + '/ws/chat/mensajeria/'
+    }
+
+    console.log(this.url_websocket)
     this.obtenerMensajesPorUsuarioLogeado()
     this.obtenerListaMensajes()
-    this.socket = new WebSocket('ws://localhost:8000/ws/chat/' + 'mensajeria' + "/")
+    this.socket = new WebSocket(this.url_websocket)
     console.log("usuario", this.usuario_logeado)
   }
 
-
   enviar() {
-
-
     //this.socket = new WebSocket('ws://localhost:8000/ws/chat/' + "room" + "/")
-    console.log(this.canal_actual)
     this.socket.send(JSON.stringify({
       message: 'OK',
     }))
@@ -58,16 +68,15 @@ export class MensajeriaService {
   }
   obtenerListaMensajes() {
     //this.usuario_receptor=""
-    console.log(Constantes.URL_CHAT_PRODUCCION + this.servicio_actual + "/" + this.usuario_receptor + "/" + this.usuario_logeado,"ruta")
-    this.http.get<any[]>(Constantes.URL_CHAT_PRODUCCION + this.servicio_actual + "/" + this.usuario_receptor + "/" + this.usuario_logeado)
+    console.log(this.url_chat+ this.servicio_actual + "/" + this.usuario_receptor + "/" + this.usuario_logeado,"ruta")
+    this.http.get<any[]>(this.url_chat + this.servicio_actual + "/" + this.usuario_receptor + "/" + this.usuario_logeado)
       .subscribe(res => {
         let data = JSON.stringify(res)
+        console.log(data)
         let mensajes = JSON.parse(data).mensajes
         this.canal_actual = JSON.parse(data).canal
         this.contactosMensajes = mensajes
         console.log(this.contactosMensajes)
-        this.nombre_usuario_receptor = JSON.parse(data).perfil_receptor
-        this.room = this.canal_actual.toString()
       })
   }
 
@@ -78,29 +87,52 @@ export class MensajeriaService {
       canal: this.canal_actual,
 
     }
-    this.http.post<any>(Constantes.URL_CHAT_PRODUCCION + this.servicio_actual + "/" + this.usuario_receptor + "/" + this.usuario_logeado + "/", sms_info)
+    this.http.post<any>(this.url_chat + this.servicio_actual + "/" + this.usuario_receptor + "/" + this.usuario_logeado + "/", sms_info)
       .subscribe(res => {
+        //this.socketService.socket.emit('OK','Mensaje enviado')
+        this.enviar()
         this.obtenerListaMensajes()
       })
   }
 
   obtenerMensajesPorUsuarioLogeado() {
-
-    this.http.get<any>(Constantes.URL_CHAT_INBOX_PRODUCCION + this.usuario_logeado)
+    console.log("url", this.url_chat + "inbox/" + this.usuario_logeado + "/")
+    this.http.get<any>(this.url_chat + "inbox/" + this.usuario_logeado + "/")
       .subscribe(res => {
         this.chats = []
         let data = JSON.stringify(res)
-        let canales = JSON.parse(data).canales
+        console.log(JSON.parse(data))
+        let canales = JSON.parse(data)
         for (let i in canales) {
-          let cantidad_mensajes = canales[i].mensajes.length
-          let ultimo_mensaje = canales[i].mensajes[cantidad_mensajes - 1]
-          console.log(ultimo_mensaje)
 
-          ultimo_mensaje["receptor"] = ultimo_mensaje.usuarios_canal.find((usuario: string | null) => usuario != this.usuario_logeado)
-          ultimo_mensaje["servicio"] = canales[i].servicio
+          if (canales[i].mensajes.length>0) {
+            let cantidad_mensajes = canales[i].mensajes.length
+            let ultimo_mensaje = canales[i].mensajes[cantidad_mensajes - 1]
+            console.log(ultimo_mensaje)
+            let usuario = canales[i].usuarios_canal[0]
+            console.log(usuario)
+            ultimo_mensaje.usuario__correo == usuario[0] ?
+              ultimo_mensaje["nombre_perfil"] = usuario[1] :
+              ultimo_mensaje["nombre_perfil"] = canales[i].usuarios_canal[1][1]
+            //ultimo_mensaje["receptor"] = ultimo_mensaje.usuarios_canal.find((usuario: string | null) => usuario != this.usuario_logeado)
+
+            if (usuario[0] != this.usuario_logeado) {
+              console.log("no es logeado")
+              ultimo_mensaje["receptor"] = usuario[1]
+              console.log(ultimo_mensaje)
+
+            } else {
+              console.log("es logeado")
+              ultimo_mensaje["receptor"] = canales[i].usuarios_canal[1][1]
+            }
 
 
-          this.chats.push(ultimo_mensaje)
+            //ultimo_mensaje["receptor"] = ultimo_mensaje.usuarios_canal.find((usuario: string | null) => usuario != this.usuario_logeado)
+            //ultimo_mensaje["servicio"] = canales[i].servicio
+
+
+            this.chats.push(ultimo_mensaje)
+          }
 
         }
         this.chats.sort((a, b) => {
@@ -126,9 +158,27 @@ export interface smsInfo1 {
   texto: string
   usuario: string | null
 }
+export interface smsInfoCanal {
+  CANAL_ID: string
+  mensajes: Array<smsInfo2>
+  servicio: string
+  usuario_canal: Array<any>
+}
 
 export interface smsInfo2 {
-  fecha_envio: string,
+  canal__servicio: string
+  texto: string
+  tiempo: string
+  usuario: string
+  usuario__correo: string
+  usuario__rol: number
+  receptor: string
+  nombre_perfil: string
+
+
+}
+
+/*fecha_envio: string,
   nombre_perfil: string
   texto: string
   tiempo: string
@@ -138,6 +188,4 @@ export interface smsInfo2 {
   correo_usuario: string
   rol: string
   servicio: string
-
-
-}
+*/

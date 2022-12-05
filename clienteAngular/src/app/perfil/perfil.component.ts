@@ -1,11 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { AuthService } from '../services/auth.service';
+import { Component, OnInit } from '@angular/core';
+import { from, VirtualTimeScheduler } from 'rxjs';
 import { RegisterModel } from '../models/register.model';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators, FormControl, FormControlDirective} from '@angular/forms';
 import { ClienteWAService } from '../services/cliente-wa.service';
-import { FormGroup, FormBuilder, Validators} from '@angular/forms';
+import * as moment from "moment";
+import { AuthService } from '../services/auth.service';
 import { CookieService } from 'ngx-cookie-service';
-
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -15,15 +16,44 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class PerfilComponent implements OnInit {
 
-  sesionIniciada: boolean = true;
+  //Mensaje de error
+  mensajeError = "";
+  mensajeErrorCorreo = "";
+  editable:boolean=false
+  actualizado!:boolean | null
+
+  title = 'email-validation-tutorial';
+  userEmail = new FormControl({
+    correo: new FormControl('',[
+      Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+      secondaryEmail: new FormControl('',[
+        Validators.required,
+      Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")])
+  });
+  
+  user: RegisterModel = new RegisterModel();
+  direccion: string = 'a@a.com';
+  fechaRegistro: string = '2000-09-01';
+  rol: string ='2';
+
+  //Variables de campos completados del registro y de confirmacion de que se han aceptado los términos y condiciones
+  camposCompletos: boolean = false;
+  terminosAceptados: boolean = false;
+  ppp: boolean = false;
+  //varComb: boolean = this.varPUno && this.varPDos;
+
+  terminosValidados: boolean = false;
 
   registerForm!: FormGroup;
-
   hide = true;
+  //Indicador si registro fue guardado en la base de datos o no
+  submitted = false;
 
-  //Variables de campos completados del registro 
-  camposCompletos: boolean = false;
-  camposIncorrectos: boolean = false;
+  esMayorEdad: boolean = false;
+  p: boolean = false;
+
+
+
 
   usuario: RegisterModel = {
     apellidos: '',
@@ -33,171 +63,167 @@ export class PerfilComponent implements OnInit {
     sexo: '',
     correo: '',
     telefono: 0,
-    contrasenia: ''
+    contrasenia: '',
+    rol:'2'
   };
 
-  constructor(private clienteWAS: ClienteWAService , private authService: AuthService, private route: ActivatedRoute, 
-    private router: Router, private formBuilder: FormBuilder, private cookieService: CookieService) { }
+  constructor(private formBuilder: FormBuilder, 
+    private clienteWAService: ClienteWAService,
+    private authService: AuthService,
+    private cookieService: CookieService,
+    private router:Router
+    ) { }
 
-  ngOnInit(): void {
-    this.descifrarDatosUsuario()
-    this.recogerDatosActualizados()
-    this.authService.loginDos()
-    this.registerForm = this.formBuilder.group({
-      'apellidos': [this.usuario.apellidos, [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
-      'nombres': [this.usuario.nombres, [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
-      'cedula': [this.usuario.cedula, /*[Validators.required, Validators.pattern("^[0-9]*$")]*/],
-      'fechaNac': '2000-09-01',
-      'sexo': [this.usuario.sexo, [Validators.required]],
-      //'correo': [this.usuario.correo, [Validators.required, Validators.email]],
-      'telefono': [this.usuario.telefono, [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern("^[0-9]*$")]],
-      'contrasenha': [this.usuario.contrasenia, [Validators.required]],
-    });
-    //Funcion donde se guardan los datos del usuario que inició sesión
-    this.usuario = this.authService.getUsuario();
-  }
+    ngOnInit(): void {
+      const datosUsuario=JSON.parse(localStorage.getItem("datoUsuario")!)
+      this.user.apellidos=datosUsuario.apellidos
+      this.user.nombres=datosUsuario.nombres
+      this.user.cedula=datosUsuario.cedula
+      this.user.fechaNac=datosUsuario.fechaNac
+      this.user.sexo=datosUsuario.sexo
+      this.user.correo=datosUsuario.correo
+      this.user.telefono=datosUsuario.telefono
+      this.user.contrasenia=datosUsuario.contrasenia
+     
+      
+      this.registerForm = this.formBuilder.group({
+        'apellidos': {value:[this.user.apellidos, [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],disabled:!this.editable},
+        'nombres': {value:[this.user.nombres, [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],disabled:!this.editable},
+        'cedula': {value:[this.user.cedula, [Validators.required, Validators.minLength(10),Validators.pattern('^[0-9]*$')]],disabled:!this.editable},
+        'fechaNac': {value:[this.user.fechaNac, []],disabled:!this.editable},
+        'sexo': {value:[this.user.sexo, [Validators.required]],disabled:!this.editable},
+        'correo': {value:[this.user.correo, [Validators.required, Validators.pattern('^([a-zA-Z0-9_\.-]+)@([a-z0-9]+)\\.([a-z\.]{2,6})$')/*, Validators.email*/]],disabled:!this.editable},
+        'telefono': {value:[this.user.telefono, [Validators.required, Validators.minLength(9), Validators.maxLength(10), Validators.pattern('^(0){1}(9){1}[0-9]{8}$')]],disabled:!this.editable},
+        'contrasenha': {value:[this.user.contrasenia, [Validators.required, Validators.minLength(8)]],disabled:!this.editable},
+  
+      });
 
-  //Poner datos actualizados
-  recogerDatosActualizados(){
-    let usuarioRecogido: RegisterModel = {
-      apellidos: '',
-      nombres: '',
-      cedula: 0,
-      fechaNac: new Date(),
-      sexo: '',
-      correo: '',
-      telefono: 0,
-      contrasenia: ''
-    };
-    usuarioRecogido = this.authService.getUsuario()
-    console.log(usuarioRecogido.apellidos)
-  }
+      this.usuario = this.authService.getUsuario();
+      
+  
+      //this.registerForm.disable()
+    }
 
-  //Para las cookies
-  deleteCookie(){
-    this.cookieService.delete('usuario');
-  }
-
+ 
+  /*Función para guardar usuario nuevo que se registre */
+  
   actualizarDatos(): void {
+    this.guardar()
+    console.log(this.registerForm.valid)
     this.camposCompletos = !this.registerForm.invalid;
     console.log(this.camposCompletos)
     //Informacion actualizada a enviar 
     const usuarioInfoActualizada  = {
-      apellidos: this.usuario.apellidos,
-      nombres: this.usuario.nombres,
-      cedula: this.usuario.cedula,
-      fechaNac: this.usuario.fechaNac,
-      sexo: this.usuario.sexo,
-      correo: this.usuario.correo,
-      telefono: this.usuario.telefono,
-      contrasenia: this.usuario.contrasenia,
-      
-      direccion : this.usuario.correo,
-      rol : '11'
+      apellidos: this.user.apellidos,
+      nombres: this.user.nombres,
+      cedula: this.user.cedula,
+      fechaNac: this.user.fechaNac,
+      sexo: this.user.sexo,
+      correo: this.user.correo,
+      telefono: this.user.telefono,
+      contrasenia: this.user.contrasenia,
+      direccion : this.user.correo,
+      rol : '2'
     };
 
     if(this.camposCompletos){
       //this.camposCompletos = false
-      this.clienteWAS.update(this.usuario.correo, usuarioInfoActualizada)
+      this.clienteWAService.update(this.user.correo, usuarioInfoActualizada)
       .subscribe({//Esto me devuelve el objeto cambiado
         next: (res) => {
           console.log("Se han guardado los datos")
           console.log("Info actualizada: "+ res);
           /*Actualizar datos a mostrar en la pagina de perfil*/
-          this.usuario.apellidos = res.apellidos
-          this.usuario.nombres = res.nombres
-          this.usuario.cedula = res.cedula
-          this.usuario.fechaNac = res.fechaNac
-          this.usuario.sexo = res.sexo
-          //correo no
-          this.usuario.telefono = res.telefono
-          this.usuario.contrasenia = res.contrasenia
-          res.rol = 11
-          //Poner mensaje de exito
-          let seccion = document.getElementById('#mensajePositivoNegativo')
-          let plantilla = `<p>Datos actualizados exitosamente</p>`
-          if(seccion != null){
-            seccion.innerHTML += plantilla
-          }
-          alert("Datos actualizados exitosamente")
-          this.registerForm.reset()
+          this.user.apellidos = res.apellidos
+          this.user.nombres = res.nombres
+          this.user.cedula = res.cedula
+          this.user.fechaNac = res.fechaNac
+          this.user.sexo = res.sexo
+          this.user.telefono = res.telefono
+          this.user.contrasenia = res.contrasenia
+          res.rol = 2
+          this.actualizado=true
 
-          //Poner datos actualizados visibles en el perfil del usuario
-          this.clienteWAS.get(this.usuario.correo)
-          .subscribe({
-          next: (data) => {
-            console.log(data)
-            this.usuario.apellidos = data.apellidos
-            this.usuario.nombres = data.nombres
-            this.usuario.telefono = data.telefono
-            this.usuario.cedula = data.cedula
-            this.usuario.fechaNac = data.fechaNac
-            this.usuario.sexo = data.sexo
-            this.usuario.contrasenia = data.contrasenia
-          },
-          error: (e) => console.error(e)
-        });
-           
+          //alert("Datos actualizados exitosamente")
+          localStorage.setItem("datoUsuario", JSON.stringify(usuarioInfoActualizada))
+          this.authService.infoPutUsuario(usuarioInfoActualizada)
            
         },
-        error: (e) => console.log(e)
+        error: (e) => {
+          this.actualizado=false
+          console.log(e)
+        }
       })
     } else{
-      //Poner mensaje de exito
-      let seccion = document.getElementById('#mensajePositivoNegativo')
-      let plantilla = `<p>Datos no actualizados</p>`
-      if(seccion != null){
-        seccion.innerHTML += plantilla
-      }
-      this.camposIncorrectos = true
-      alert("Debe completar los campos")
+      this.actualizado=false
+      alert("Datos no válidos o campos incorrectos")
     }
   }
 
-  resetearUsuario(): void{
-    this.sesionIniciada = false;
-    this.usuario = {
-      apellidos: '',
-      nombres: '',
-      cedula: 0,
-      fechaNac: new Date(),
-      sexo: '',
-      correo: '',
-      telefono: 0,
-      contrasenia: ''
-    };
-  
-    this.authService.reseteoUsuario();
-    this.deleteCookie();
-  }
-
-  //Funcion que permite volver a la pagina principal ya que tiene el canactivate activo
-  mandarGuard(){
-    this.authService.loginDos()
-  }
-
-  public descifrarDatosUsuario(){
-
-    let datoUsuario: {apellidos: String; cedula:Number; contrasenia: String; 
-      correo:String; direccion: string; fechaNac: Date; fechaRegistro: Date; 
-      nombres: String; rol: Number; sexo: String; telefono: Number} = JSON.parse(this.cookieService.get('usuario') as string);
-    if(!datoUsuario){
-      return;
-    }
-
-    let usuarioDeLocalStorage : RegisterModel = {
-      apellidos: datoUsuario.apellidos,
-      nombres: datoUsuario.nombres,
-      cedula: datoUsuario.cedula,
-      fechaNac: datoUsuario.fechaNac,
-      sexo: datoUsuario.sexo,
-      correo: datoUsuario.correo,
-      telefono: datoUsuario.telefono,
-      contrasenia: datoUsuario.contrasenia
-    };
-
-    this.authService.infoPutUsuario(usuarioDeLocalStorage);
-
-  }
-
+/*Funcion que habilita el modo para editar*/
+editar(){
+  this.editable=!this.editable
+  this.registerForm.enable()
+  //this.registerForm.get("apellidos")!.disabled
 }
+
+guardar(){
+  this.editable=false
+  this.registerForm.disable()
+}
+
+reset(){
+  this.actualizado=null
+}
+
+  /*validar si fecha escogida indica si usuario es mayor de edad */
+  validacionFecha(control: any){
+
+    console.log(control)
+    if(control){
+      const date = moment(control).format('DD-MM-YYYY')
+      console.log("Fecha introducida: " + date)
+      const diaEscogido: number = parseInt(date.split('-')[0])
+      const mesEscogido: number = parseInt(date.split('-')[1])
+      const anioEscogido: number = parseInt(date.split('-')[2])
+      const today = moment().format('DD-MM-YYYY')
+      console.log("Fecha de hoy: " + today)
+      const diaActual: number = parseInt(today.split('-')[0])
+      const mesActual: number = parseInt(today.split('-')[1])
+      const anioActual: number = parseInt(today.split('-')[2])
+      const restaAnio = anioActual - anioEscogido
+      const restaMes = mesActual - mesEscogido
+      const restaDia = diaActual - diaEscogido
+      if(restaAnio > 18){
+        console.log("Es mayor de edad")
+        this.esMayorEdad=true
+        console.log("conf",this.esMayorEdad)
+        return null
+      }
+      if ((restaAnio == 18) && (restaMes >= 0) && (restaDia >= 0)){
+        console.log("Es mayor de edad")
+        this.esMayorEdad=true
+        console.log("conf",this.esMayorEdad)
+
+        return null/*{ 'validDate': true}*/
+      }
+      this.esMayorEdad=false
+    }
+    this.esMayorEdad=false
+    console.log("conf",this.esMayorEdad)
+
+    let mensajeError = "Debe ser mayor de edad"
+    console.log("No es mayor de edad")
+    //this.esMayorEdad=false
+    return mensajeError/*{'validDate': false};*/
+  }
+
+  logout(){
+    localStorage.clear()
+    this.cookieService.deleteAll()
+    this.authService.logout()
+    this.router.navigate(["/"])
+  }
+}
+
+

@@ -6,6 +6,8 @@ import { Injectable } from '@angular/core';
 export class ServicioseleccionadoService {
 
   nombreServicio = ""
+  estaEnSErvicioSeleccionado!: boolean;
+
 
   constructor() { }
 

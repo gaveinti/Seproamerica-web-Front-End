@@ -7,6 +7,7 @@ export class RegisterModel{
     correo!: String;
     telefono!: Number;
     contrasenia!: String;
+    rol!:string
 
     /*constructor(apellidos: String, nombres: String, cedula: Number, fNacimiento: Date, sexo: String, correo: String, telefono: Number, contrasenha: String){
         this.apellidos = apellidos;

@@ -3,9 +3,6 @@ import { from, VirtualTimeScheduler } from 'rxjs';
 import { RegisterModel } from '../models/register.model';
 import { FormGroup, FormBuilder, Validators, FormControl, FormControlDirective} from '@angular/forms';
 import { ClienteWAService } from '../services/cliente-wa.service';
-import { AuthService } from '../services/auth.service';
-import * as bootstrap from "bootstrap";
-import * as $ from 'jquery';
 import * as moment from "moment";
 
 
@@ -24,9 +21,7 @@ export class RegistroComponent implements OnInit {
   title = 'email-validation-tutorial';
   userEmail = new FormControl({
     correo: new FormControl('',[
-      Validators.required,
-
-      Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+      Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       secondaryEmail: new FormControl('',[
         Validators.required,
       Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")])
@@ -50,17 +45,18 @@ export class RegistroComponent implements OnInit {
   //Indicador si registro fue guardado en la base de datos o no
   submitted = false;
 
-  noMayorEdad: boolean = true;
+  esMayorEdad: boolean = false;
   p: boolean = false;
-
-  constructor(private formBuilder: FormBuilder, private clienteWAService: ClienteWAService) { }
+  constructor(private formBuilder: FormBuilder, 
+    private clienteWAService: ClienteWAService,
+    ) { }
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
       'apellidos': [this.user.apellidos, [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
       'nombres': [this.user.nombres, [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
-      'cedula': [this.user.cedula, [Validators.required, Validators.pattern('^(0){1}(9){1}[0-9]{8}$'), Validators.maxLength(10)]],
-      'fechaNac': [this.user.fechaNac, [this.validacionFecha]],
+      'cedula': [this.user.cedula, [Validators.required, Validators.minLength(10),Validators.pattern('^[0-9]*$')]],
+      'fechaNac': [this.user.fechaNac, []],
       'sexo': [this.user.sexo, [Validators.required]],
       'correo': [this.user.correo, [Validators.required, Validators.pattern('^([a-zA-Z0-9_\.-]+)@([a-z0-9]+)\\.([a-z\.]{2,6})$')/*, Validators.email*/]],
       'telefono': [this.user.telefono, [Validators.required, Validators.minLength(9), Validators.maxLength(10), Validators.pattern('^(0){1}(9){1}[0-9]{8}$')]],
@@ -90,7 +86,7 @@ export class RegistroComponent implements OnInit {
       contrasenia : this.user.contrasenia,
 
       direccion : this.user.correo,
-      rol : '11'
+      rol : '2'
     };
     console.log("entra")
     console.log(data)
@@ -124,6 +120,7 @@ export class RegistroComponent implements OnInit {
           }
         });
     } else{
+
       alert("Debe completar los campos y aceptar los términos y condiciones")
     }
     if(this.submitted){
@@ -140,12 +137,19 @@ export class RegistroComponent implements OnInit {
     }
   }
 
+
+
+
   validarTerminosyCondiciones(): void{
     var checkBox = document.getElementById("invalidCheck") as HTMLInputElement | null;
     if(checkBox?.checked == true){
       console.log("checkeado")
       this.terminosValidados = true;
     }  
+    if(!checkBox?.checked == true){
+      console.log("no checkeado")
+      this.terminosValidados = false;
+    } 
   }
 
   permitirRegistro(): void{
@@ -174,11 +178,14 @@ export class RegistroComponent implements OnInit {
       console.log(varValid.checked);
     }
   }
+  
 
   /*validar si fecha escogida indica si usuario es mayor de edad */
-  validacionFecha(control: FormControl){
-    if(control.value){
-      const date = moment(control.value).format('DD-MM-YYYY')
+  validacionFecha(control: any){
+
+    console.log(control)
+    if(control){
+      const date = moment(control).format('DD-MM-YYYY')
       console.log("Fecha introducida: " + date)
       const diaEscogido: number = parseInt(date.split('-')[0])
       const mesEscogido: number = parseInt(date.split('-')[1])
@@ -193,15 +200,25 @@ export class RegistroComponent implements OnInit {
       const restaDia = diaActual - diaEscogido
       if(restaAnio > 18){
         console.log("Es mayor de edad")
+        this.esMayorEdad=true
+        console.log("conf",this.esMayorEdad)
         return null
       }
       if ((restaAnio == 18) && (restaMes >= 0) && (restaDia >= 0)){
         console.log("Es mayor de edad")
+        this.esMayorEdad=true
+        console.log("conf",this.esMayorEdad)
+
         return null/*{ 'validDate': true}*/
       }
+      this.esMayorEdad=false
     }
+    this.esMayorEdad=false
+    console.log("conf",this.esMayorEdad)
+
     let mensajeError = "Debe ser mayor de edad"
     console.log("No es mayor de edad")
+    //this.esMayorEdad=false
     return mensajeError/*{'validDate': false};*/
   }
 

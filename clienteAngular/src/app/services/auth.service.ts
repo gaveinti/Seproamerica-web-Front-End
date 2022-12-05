@@ -28,7 +28,8 @@ export class AuthService{
     sexo: '',
     correo: '',
     telefono: 0,
-    contrasenia: ''
+    contrasenia: '',
+    rol:"2"
   };
 
   constructor() { }
@@ -101,7 +102,8 @@ export class AuthService{
       sexo: '',
       correo: '',
       telefono: 0,
-      contrasenia: ''
+      contrasenia: '',
+      rol:"2"
     };
     this.sesionIniciada.next(false)
   }

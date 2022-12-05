@@ -21,7 +21,8 @@ export class InfoempresaComponent implements OnInit {
     sexo: '',
     correo: '',
     telefono: 0,
-    contrasenia: ''
+    contrasenia: '',
+    rol:'2'
   };
 
   constructor(private authService: AuthService) { }
