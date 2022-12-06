@@ -1,3 +1,4 @@
+/// <reference types="@types/googlemaps" />
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
@@ -26,6 +27,7 @@ import { EditarperfilComponent } from './editarperfil/editarperfil.component';
 import { CookieService } from 'ngx-cookie-service';
 import { ServicioseleccionadoComponent } from './servicioseleccionado/servicioseleccionado.component';
 import { UbicacionComponent } from './ubicacion/ubicacion.component';
+import { } from 'googlemaps';
 
 const routes: Routes = [
   { path: 'inicioSesion', component: InicioSesionComponent },

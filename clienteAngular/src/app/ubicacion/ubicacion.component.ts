@@ -6,35 +6,14 @@ import { ServicioseleccionadoService } from '../services/servicioseleccionado.se
 import { FormularioServicio } from '../models/formularioServicio';
 import * as moment from "moment";
 import * as L from 'leaflet';
+import { map } from 'jquery';
 
 @Component({
   selector: 'app-ubicacion',
   templateUrl: './ubicacion.component.html',
   styleUrls: ['./ubicacion.component.css']
 })
-export class UbicacionComponent implements AfterViewInit {
-
-  
-
-  private initMap(): void {
-    let map = L.map('map', {
-      center: [ -2.2058400, -79.9079500 ],
-      zoom: 12
-    });
-  
-
-    const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 18,
-      minZoom: 3,
-      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    });
-
-    //L.Control.geocoder().addTo(map)
-
-    tiles.addTo(map);
-
-  
-  }
+export class UbicacionComponent implements OnInit{
 
   usuario: RegisterModel = {
     apellidos: '',
@@ -47,13 +26,42 @@ export class UbicacionComponent implements AfterViewInit {
     contrasenia: ''
   };
 
+  placeMarker(map, location){
+    var marker = new google.maps.Marker({
+      position: location,
+      map: map
+    });
+  }
+  
+
+  initMap(): void {
+    const uluru = { lat: -2.2058400, lng: -79.9079500 };
+    const map = new google.maps.Map(
+      document.getElementById("map") as HTMLElement,
+      {
+        zoom: 11,
+        center: uluru,
+      }
+    );
+
+    google.maps.event.addListener(map, 'click', function(event) {
+      var marker = new google.maps.Marker({
+        position: event.latLng,
+        map: map
+      })
+    });
+
+
+  }
+
+
   
 
 
 
   constructor(private authService: AuthService, private formBuilder: FormBuilder, private servicioSeleccionadoService: ServicioseleccionadoService) { }
 
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
     this.usuario = this.authService.getUsuario();
     this.initMap();
   }
