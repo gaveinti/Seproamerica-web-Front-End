@@ -16,6 +16,12 @@ import { InicioSesionComponent } from '../inicio-sesion/inicio-sesion.component'
 })
 export class UbicacionComponent implements OnInit{
 
+  latitudInicioMarker;
+  longitudInicioMarker;
+
+  latitudDestinoMarker;
+  longitudDestinoMarker;
+
   usuario: RegisterModel = {
     apellidos: '',
     nombres: '',
@@ -26,6 +32,12 @@ export class UbicacionComponent implements OnInit{
     telefono: 0,
     contrasenia: ''
   };
+
+  obtenerInfoMarkerInicio(lat, long){
+    let latitudInicioMarker = lat
+    let longitudInicioMarker = long
+    //console.log(latitudI + "\n" + longI)
+  }
   
 
   //Metodo para iniciar el mapa de Google Maps
@@ -50,7 +62,7 @@ export class UbicacionComponent implements OnInit{
     var map = new google.maps.Map(
       document.getElementById("map") as HTMLElement,
       {
-        zoom: 12,
+        zoom: 11,
         center: uluru,
         /*restriction: {
           latLngBounds: LIMITES_GUAYAQUIL,
@@ -135,6 +147,10 @@ export class UbicacionComponent implements OnInit{
 
       console.log("Inicio")
       console.log(latitudInicio + "\n" + longitdInicio)
+
+      //Guardar coordennadas en LocalStorage
+      localStorage.setItem("latitudInicio", latitudInicio)
+      localStorage.setItem("longitudInicio", longitdInicio)
       
 
       map.panTo(event.latLng);
@@ -150,8 +166,14 @@ export class UbicacionComponent implements OnInit{
       console.log("Destino")
       console.log(latitudDestino + "\n" + longitudDestino)
 
+      //Guardar coordennadas en LocalStorage
+      localStorage.setItem("latitudDestino", latitudDestino)
+      localStorage.setItem("longitudDestino", longitudDestino)
+
       map.panTo(event.latLng);
     });
+
+    this.obtenerInfoMarkerInicio(latitudInicio, longitudDestino)
 
   }
   //------------------------------------------------------------------------------------
@@ -166,10 +188,22 @@ export class UbicacionComponent implements OnInit{
     this.initMap();
   }
 
+   /*public obtenerInfoMarkerInicio(lat, long){
+    let latitudI = lat
+    let longI = long
+    console.log(latitudI + "\n" + longI)
+  }*/
 
+  //Obtener coordenadas de ambos markers a partir de lo guardado en LocalStorage
   obtenerInfoMarkers(){
-    let markerInicio = google.maps.Marker
-    console.log(markerInicio)
+    this.latitudInicioMarker = localStorage.getItem("latitudInicio")
+    this.longitudInicioMarker = localStorage.getItem("longitudInicio")
+
+    this.latitudDestinoMarker = localStorage.getItem("latitudDestino")
+    this.longitudDestinoMarker = localStorage.getItem("longitudDestino")
+
+    console.log(this.latitudInicioMarker + "\n" + this.longitudInicioMarker
+      + "\n" + this.latitudDestinoMarker + "\n" + this.longitudDestinoMarker)
   }
 
 

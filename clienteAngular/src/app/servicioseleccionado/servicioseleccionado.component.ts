@@ -33,6 +33,7 @@ export class ServicioseleccionadoComponent implements OnInit {
   nombreServicio: string | null = "";
 
   servicio: FormularioServicio = new FormularioServicio();
+  
 
   registerForm!: FormGroup;
 
@@ -55,12 +56,16 @@ export class ServicioseleccionadoComponent implements OnInit {
     console.log(data)
     this.usuario = this.authService.getUsuario();
     this.registerForm = this.formBuilder.group({
-      'fechaInicio': [],
-      'fechaFinalizacion': [],
-      'horaInicio': [],
-      'horaFinalizacion': [],
-      'numeroEmpleados': [],
+      'fechaInicio': [this.servicio.fechaInicio],
+      'fechaFinalizacion': [this.servicio.fechaFinalizacion],
+      'horaInicio': [this.servicio.horaInicio],
+      'horaFinalizacion': [this.servicio.horaFinalizacion],
+      'numeroEmpleados': [this.servicio.numeroEmpleados],
     });
+    this.servicio.latitudInicio = localStorage.getItem("latitudInicio")
+    this.servicio.longitudInicio = localStorage.getItem("longitudInicio")
+    this.servicio.latitudDestino = localStorage.getItem("latitudDestino")
+    this.servicio.longitudDestino = localStorage.getItem("longitudDestino")
     console.log(this.fechaActual)
   }
 
@@ -81,5 +86,9 @@ export class ServicioseleccionadoComponent implements OnInit {
       ['/mensajeria'],
       { queryParams: data }
       )
+  }
+
+  imprimirFormularioServicio(){
+    console.log(this.servicio)
   }
 }
