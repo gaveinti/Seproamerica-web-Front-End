@@ -102,8 +102,10 @@ export class InicioSesionComponent implements OnInit {
     //this.authService.eliminarDatosLocalStorage("123")
     console.log("oninithijo")
 
-    localStorage.clear()
-    this.deleteAll()
+  
+
+/*    localStorage.clear()
+    this.deleteAll()*/
 
     this.inicioSesionForm = this.fb.group({
       'correo': [this.user.correo, [Validators.required, Validators.pattern('[a-z/.0-9_-]+@[a-z0-9]+[.{1}][a-z]{2,}([.{1}][a-z]{2,})?')]],

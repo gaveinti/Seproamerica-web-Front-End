@@ -222,7 +222,7 @@ reset(){
     localStorage.clear()
     this.cookieService.deleteAll()
     this.authService.logout()
-    this.router.navigate(["/"])
+    this.router.navigate(["/login"])
   }
 }
 

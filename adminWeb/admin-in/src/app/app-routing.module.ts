@@ -31,7 +31,7 @@ const routes: Routes = [
 { path: 'candadosSec', component: RecursosCandadosComponent,pathMatch: 'prefix' },
 { path: 'registrarPer', component: PersonalRegistroComponent,pathMatch: 'prefix' },
 
-//{ path: '',   redirectTo: 'serviciosVentana', pathMatch: 'prefix'},
+{ path: '',   redirectTo: '/login', pathMatch: 'prefix'},
 
 { path: '**',   component:NotFoundComponent, pathMatch: 'prefix'},
 

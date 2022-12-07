@@ -9,7 +9,11 @@
     background: linear-gradient(to right, rgb(243, 0, 0), rgb(100, 6, 6))
     }
 section{
-  background: #f12222;
+  --background: none;
+  background-image: url("../../assets/Fondo-Web-Administrador.png");
+  background-position: center; 
+  background-repeat: no-repeat; 
+  background-size: cover; 
   height: 100%;
 }
 .container{

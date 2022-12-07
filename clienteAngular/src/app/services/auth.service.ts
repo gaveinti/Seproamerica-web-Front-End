@@ -32,7 +32,9 @@ export class AuthService{
     rol:"2"
   };
 
-  constructor() { }
+  constructor() { 
+    
+  }
 
   //llave para guardar datos en el localStorage
   key = "123";

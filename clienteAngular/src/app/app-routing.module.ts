@@ -16,7 +16,7 @@ import { NotFoundComponentComponent } from './components/not-found-component/not
 
 const routes: Routes = [
   //{ path: "inicioSesion/:correo", component: InicioSesionComponent},
-  { path: '', component: InicioSesionComponent,pathMatch: 'prefix' },
+  { path: 'login', component: InicioSesionComponent,pathMatch: 'prefix' },
   { path: 'registro', component: RegistroComponent,pathMatch: 'prefix' },
   { path: "principal", component: PrincipalComponent, canActivate: [GuardService],pathMatch: 'prefix'},
   { path: "informacion", component: InfoempresaComponent,pathMatch: 'prefix'},
@@ -25,7 +25,7 @@ const routes: Routes = [
   { path: "mensajeria", component: MensajeriaComponent,pathMatch: 'prefix'},
   { path: "servicioSeleccionado", component: ServicioseleccionadoComponent,pathMatch: 'prefix'},
   { path: "ubicacion", component: UbicacionComponent,pathMatch: 'prefix'},
-  //{ path: '',   redirectTo: 'inicioSesion', pathMatch: 'prefix'},
+  { path: '',   redirectTo: '/login', pathMatch: 'prefix'},
   { path: '**',  component:NotFoundComponentComponent, pathMatch: 'prefix'},
 ];
 
