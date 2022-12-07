@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/routes
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { InicioSesionComponent } from './inicio-sesion/inicio-sesion.component';
 import { MensajeriaWindComponent } from './mensajeria-wind/mensajeria-wind.component';
@@ -36,6 +36,10 @@ const routes: Routes = [
 { path: '**',   component:NotFoundComponent, pathMatch: 'prefix'},
 
 ];
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MensajeriaWindComponent } from './mensajeria-wind/mensajeria-wind.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({

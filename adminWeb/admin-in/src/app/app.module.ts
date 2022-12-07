@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -27,6 +28,7 @@ import { RecursosCelularComponent } from './recursos-celular/recursos-celular.co
 import { RecursosArmasComponent } from './recursos-armas/recursos-armas.component';
 import { PersonalRegistroComponent } from './personal-registro/personal-registro.component';
 
+<<<<<<< HEAD
 import { HttpClientModule } from '@angular/common/http';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { InicioSesionComponent } from './inicio-sesion/inicio-sesion.component';
@@ -34,6 +36,22 @@ import { RegistroComponent } from './registro/registro.component';
 import { HeaderComponent } from './header/header.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { ActualizarPerfilComponent } from './actualizar-perfil/actualizar-perfil.component';
+=======
+
+const routes: Routes = [
+  {path: 'personalVentana', component: PersonalWindComponent},
+  {path: 'registrarPer', component: PersonalRegistroComponent},
+  {path: 'recursosVentana', component: RecursosWindComponent},
+  {path: 'serviciosVentana', component: ServiciosWindComponent},
+  {path: 'reportesVentana', component: ReportesWindComponent},
+  {path: 'mensajeriaVentana', component: MensajeriaWindComponent},
+  {path: 'vehiculosSec',component: RecursosVehiculosComponent},
+  {path: 'celularesSec', component: RecursosCelularComponent},
+  {path: 'armasSec', component: RecursosArmasComponent},
+  {path: 'candadosSec', component: RecursosCandadosComponent},
+]
+
+>>>>>>> emCambios
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,17 +77,25 @@ import { ActualizarPerfilComponent } from './actualizar-perfil/actualizar-perfil
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
+<<<<<<< HEAD
     HttpClientModule,
+=======
+    RouterModule.forRoot(routes),
+>>>>>>> emCambios
     BrowserAnimationsModule,
     MatToolbarModule,
     MatTableModule,
     MatPaginatorModule,
     MatTooltipModule,
     MatIconModule,
+<<<<<<< HEAD
     MatInputModule,
    MatButtonModule,
     AppRoutingModule,
    
+=======
+    HttpClientModule,
+>>>>>>> emCambios
   ],
   providers: [],
   bootstrap: [AppComponent]
