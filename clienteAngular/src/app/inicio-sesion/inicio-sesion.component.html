@@ -15,8 +15,8 @@
     </div>
     <div class="formulario mb-md-5 mt-5 mt-md-4 pb-5">
 
-      <form [formGroup]="inicioSesionForm" autocomplete="on"
-        (ngSubmit)="inicioSesionForm.valid && onInicioSesionSubmit()">
+      <form [formGroup]="inicioSesionForm" autocomplete="off"
+        (ngSubmit)="inicioSesionForm.valid && onInicioSesionSubmit()" novalidate>
 
         <label class="form-label" for="typeEmailX">Email</label>
 
@@ -33,7 +33,7 @@
           class="form-control form-control-lg" 
           formControlName="correo"
             [(ngModel)]="user.correo"
-             placeholder="Ingrese email" />
+            />
           <!--label class="form-label" for="typeEmailX">Correo</label-->
         </div>
         <p class="error" *ngIf="inicioSesionForm.get('correo')?.errors?.['required'] && inicioSesionForm.get('correo')?.touched ">
@@ -54,13 +54,12 @@
           </span>
 
           <input 
-          maxlength="10"
           
           type="password" 
           id="typePasswordX" 
           class="form-control form-control-lg" 
           formControlName="contrasenha"
-          placeholder="Ingrese contraseña..."
+          
             [(ngModel)]="user.contrasenia" [type]="hide ? 'password':'text'" />
           <!--label class="form-label" for="typeEmailX">Correo</label-->
         </div>
@@ -72,7 +71,7 @@
         </p>
 
 
-        <button [ngClass]="{'valido': inicioSesionForm.valid, 'invalido': !inicioSesionForm.valid}" class="boton-login  btn-lg px-5" type="submit" [disabled]="inicioSesionForm.invalid"
+        <button class="boton-login  btn-lg px-5" type="submit" [disabled]="false" routerLink="/principal"
           (click)="getUsuarioA()">Ingresar </button>
 
         <p routerLink="/registro" style="cursor: pointer" id="text-crear-cuenta" class="m-4"><a>Crear cuenta</a></p>

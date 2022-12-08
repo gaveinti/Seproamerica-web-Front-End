@@ -89,7 +89,7 @@
             [(ngModel)]="user.correo"
             />
             <mat-error *ngIf="registerForm.controls['correo'].errors?.['required']"> *</mat-error>
-            <mat-error *ngIf="registerForm.controls['correo'].errors?.['pattern']"> Debe contener una extensión válida</mat-error>
+            <mat-error *ngIf="registerForm.controls['correo'].errors?.['pattern']"> Correo no válido</mat-error>
             <!--<mat-error *ngIf="registerForm.controls['correo'].errors?.['email']"> Correo no válido</mat-error>-->
             
 
@@ -123,7 +123,6 @@
             </span>
   
             <input 
-            maxlength="10"
             type="password" 
             id="form3Example8cg" 
             class="form-control form-control-lg" 
