@@ -27,6 +27,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { ServicioseleccionadoComponent } from './servicioseleccionado/servicioseleccionado.component';
 import { UbicacionComponent } from './ubicacion/ubicacion.component';
 import { NotFoundComponentComponent } from './components/not-found-component/not-found-component.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 //import { AngularFireModule } from '@angular/fire/compat';
 //import { AngularFireMessagingModule } from '@angular/fire/compat/messaging';
@@ -65,7 +66,14 @@ import { NotFoundComponentComponent } from './components/not-found-component/not
     
   ],
   exports: [RouterModule],
-  providers: [ClienteWAService, AuthService, AuthGuard, GuardService, CookieService],
+  providers: [
+    ClienteWAService, 
+    AuthService, 
+    AuthGuard, 
+    GuardService, 
+    CookieService,
+    {provide:LocationStrategy,useClass:HashLocationStrategy}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
