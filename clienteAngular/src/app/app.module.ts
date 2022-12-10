@@ -1,3 +1,4 @@
+/// <reference types="@types/googlemaps" />
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
@@ -26,6 +27,7 @@ import { EditarperfilComponent } from './editarperfil/editarperfil.component';
 import { CookieService } from 'ngx-cookie-service';
 import { ServicioseleccionadoComponent } from './servicioseleccionado/servicioseleccionado.component';
 import { UbicacionComponent } from './ubicacion/ubicacion.component';
+
 import { NotFoundComponentComponent } from './components/not-found-component/not-found-component.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
@@ -34,6 +36,9 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 //import { environment } from 'src/environments/environment';
 //import { initializeApp } from "firebase/app";
 //initializeApp(environment.firebase);
+
+import { } from 'googlemaps';
+
 
 
 @NgModule({

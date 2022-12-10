@@ -54,7 +54,7 @@ export class InicioSesionComponent implements OnInit {
   constructor(public fb: FormBuilder, private http: HttpClient, private clienteWAService: ClienteWAService,
     private authService: AuthService , private route: ActivatedRoute, private router: Router, private cookieService: CookieService) {
     this.inicioSesionForm = this.fb.group({
-      correo: [this.user.correo, [Validators.required, Validators.email,]],
+      correo: [this.user.correo, [Validators.required, Validators.email, Validators.pattern('^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$')]],
       contrasenha: [this.user.contrasenia, [Validators.required, Validators.minLength(8)]]
     });
     console.log(router.url)

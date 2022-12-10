@@ -58,7 +58,7 @@ export class RegistroComponent implements OnInit {
       'cedula': [this.user.cedula, [Validators.required, Validators.minLength(10),Validators.pattern('^[0-9]*$')]],
       'fechaNac': [this.user.fechaNac, []],
       'sexo': [this.user.sexo, [Validators.required]],
-      'correo': [this.user.correo, [Validators.required, Validators.pattern('^([a-zA-Z0-9_\.-]+)@([a-z0-9]+)\\.([a-z\.]{2,6})$')/*, Validators.email*/]],
+      'correo': [this.user.correo, [Validators.required,  Validators.email, Validators.pattern('^([a-z0-9_\.-]+)@([a-z0-9]+)\\.([a-z\.]{2,6})$')/*, Validators.email*/]],
       'telefono': [this.user.telefono, [Validators.required, Validators.minLength(9), Validators.maxLength(10), Validators.pattern('^(0){1}(9){1}[0-9]{8}$')]],
       'contrasenha': [this.user.contrasenia, [Validators.required, Validators.minLength(8)]],
     });

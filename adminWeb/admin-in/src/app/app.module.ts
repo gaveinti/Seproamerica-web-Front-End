@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 
@@ -27,14 +26,17 @@ import { RecursosCelularComponent } from './recursos-celular/recursos-celular.co
 import { RecursosArmasComponent } from './recursos-armas/recursos-armas.component';
 import { PersonalRegistroComponent } from './personal-registro/personal-registro.component';
 
-import { HttpClientModule } from '@angular/common/http';
+
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { InicioSesionComponent } from './inicio-sesion/inicio-sesion.component';
 import { RegistroComponent } from './registro/registro.component';
 import { HeaderComponent } from './header/header.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { ActualizarPerfilComponent } from './actualizar-perfil/actualizar-perfil.component';
+
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+
+
 @NgModule({
   declarations: [
     AppComponent,
