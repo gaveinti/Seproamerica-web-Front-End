@@ -1,5 +1,6 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { interval } from 'rxjs';
 import { MensajeriaService, smsInfo2 } from '../services/mensajeria/mensajeria.service';
 
 @Component({
@@ -57,7 +58,12 @@ export class MensajeriaWindComponent implements OnInit {
       this.mensajeriaService.obtenerMensajesPorUsuarioLogeado()
 
     })*/
-    
+    const obs$=interval(2000)
+    obs$.subscribe((t)=>{
+      //console.log(t)
+      this.mensajeriaService.obtenerListaMensajes()
+      this.mensajeriaService.obtenerMensajesPorUsuarioLogeado()
+    })
     
     
     this.mensajeriaService.socket.onmessage = (e: { data: string; }) => {
@@ -75,7 +81,7 @@ export class MensajeriaWindComponent implements OnInit {
     console.log("desconectado")
   }
   sendMessage() {
-    console.log(this.mensajeriaService.contactosMensajes)
+    //console.log(this.mensajeriaService.contactosMensajes)
     if (this.textSms.length > 0) {
       this.mensajeriaService.sendMessage(this.textSms)
       //this.mensajeriaService.enviar()
