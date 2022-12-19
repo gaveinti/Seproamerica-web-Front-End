@@ -5,6 +5,8 @@ import { GuardService } from '../services/guard.service';
 import { ServiceModel } from '../models/servicio';
 import { CookieService } from 'ngx-cookie-service';
 import { ServicioseleccionadoService } from '../services/servicioseleccionado.service';
+import { ClienteWAService } from '../services/cliente-wa.service';
+
 
 
 @Component({
@@ -13,12 +15,14 @@ import { ServicioseleccionadoService } from '../services/servicioseleccionado.se
   styleUrls: ['./principal.component.css']
 })
 export class PrincipalComponent implements OnInit {
-  listaServicios: ServiceModel[] = [
+  /*listaServicios: ServiceModel[] = [
     { nombre: "Custodia Armada"},
     { nombre: "Transporte de productos"},
     { nombre: "Chofer seguro"},
     { nombre: "Guardia de seguridad"}
-  ];
+  ];*/
+
+  listaServicios?: ServiceModel[];
 
   listaOpciones: [string, string][] = [
     ["/", "Servicios"],
@@ -45,7 +49,7 @@ export class PrincipalComponent implements OnInit {
   data: string = "";
 
   constructor(private authService: AuthService, private guardS: GuardService, private cookieService: CookieService,
-    private servicioSeleccionadoService: ServicioseleccionadoService) {
+    private servicioSeleccionadoService: ServicioseleccionadoService, private clienteWAService: ClienteWAService) {
 
     const correo = this.authService.obtenerCorreo()
     console.log("Correo de sesion iniciada: " + correo)
@@ -57,8 +61,7 @@ export class PrincipalComponent implements OnInit {
     const data = localStorage.getItem("usuario_logeado")
     console.log(data)
     this.usuario = this.authService.getUsuario();
-
-    
+    this.obtener_Servicios_Request();
   }
 
   //Envio de nombre de servicio a componente "servicioseleccionado" y además setea en cookie el nombre del servicio escogido
@@ -69,6 +72,17 @@ export class PrincipalComponent implements OnInit {
   }
 
   
+  //Obtener Servicios desde un request
+  obtener_Servicios_Request(): void{
+    this.clienteWAService.obtener_Servicios()
+    .subscribe({
+      next: (data) => {
+        this.listaServicios = data;
+        console.log(data);
+      },
+      error: (e) => console.error(e)
+    });
+  }
 
   
 }
