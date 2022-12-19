@@ -15,8 +15,8 @@
     </div>
     <div class="formulario mb-md-5 mt-5 mt-md-4 pb-5">
 
-      <form [formGroup]="inicioSesionForm" autocomplete="off"
-        (ngSubmit)="inicioSesionForm.valid && onInicioSesionSubmit()" novalidate>
+      <form [formGroup]="inicioSesionForm" autocomplete="on"
+        (ngSubmit)="inicioSesionForm.valid && onInicioSesionSubmit()" >
 
         <label class="form-label" for="typeEmailX">Email</label>
 
@@ -33,6 +33,7 @@
           class="form-control form-control-lg" 
           formControlName="correo"
             [(ngModel)]="user.correo"
+            placeholder="Ingrese email" 
             />
           <!--label class="form-label" for="typeEmailX">Correo</label-->
         </div>
@@ -59,8 +60,10 @@
           id="typePasswordX" 
           class="form-control form-control-lg" 
           formControlName="contrasenha"
-          
+          placeholder="Ingrese contraseña..."
+
             [(ngModel)]="user.contrasenia" [type]="hide ? 'password':'text'" />
+            
           <!--label class="form-label" for="typeEmailX">Correo</label-->
         </div>
         <p class="error" *ngIf="inicioSesionForm.get('contrasenha')?.errors?.['required'] && inicioSesionForm.get('contrasenha')?.touched">
@@ -69,9 +72,8 @@
         <p class="error" *ngIf="user.contrasenia.length < 8 && inicioSesionForm.get('contrasenha')?.touched">
           Debe ingresar una contraseña mayor a 8 caracteres
         </p>
+        <button [ngClass]="{'valido': inicioSesionForm.valid, 'invalido': !inicioSesionForm.valid}" class="boton-login  btn-lg px-5" type="submit" [disabled]="inicioSesionForm.invalid"
 
-
-        <button class="boton-login  btn-lg px-5" type="submit" [disabled]="false" routerLink="/principal"
           (click)="getUsuarioA()">Ingresar </button>
 
         <p routerLink="/registro" style="cursor: pointer" id="text-crear-cuenta" class="m-4"><a>Crear cuenta</a></p>

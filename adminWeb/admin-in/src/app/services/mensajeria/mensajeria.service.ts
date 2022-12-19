@@ -62,8 +62,8 @@ export class MensajeriaService {
 
   }
   obtenerListaMensajes() {
-    console.log(this.servicio_actual,this.usuario_receptor,this.usuario_logeado)
-    this.contactosMensajes=[]
+    //console.log(this.servicio_actual,this.usuario_receptor,this.usuario_logeado)
+    //this.contactosMensajes=[]
     this.http.get<any[]>(this.url_chat + this.servicio_actual + "/" + this.usuario_receptor + "/" + this.usuario_logeado)
       .subscribe(res => {
         let data = JSON.stringify(res)
@@ -83,16 +83,18 @@ export class MensajeriaService {
     this.http.post<any>(this.url_chat + this.servicio_actual + "/" + this.usuario_receptor + "/" + this.usuario_logeado + "/", sms_info)
       .subscribe(res => {
         this.enviar()
+        this.obtenerMensajesPorUsuarioLogeado()
+        this.obtenerListaMensajes()
       })
   }
 
   obtenerMensajesPorUsuarioLogeado() {
-    console.log("url", this.url_chat + "inbox/" + this.usuario_logeado + "/")
+    //console.log("url", this.url_chat + "inbox/" + this.usuario_logeado + "/")
     this.http.get<any>(this.url_chat + "inbox/" + this.usuario_logeado + "/")
       .subscribe(res => {
         this.chats = []
         let data = JSON.stringify(res)
-        console.log(JSON.parse(data))
+        //console.log(JSON.parse(data))
         let canales = JSON.parse(data)
         for (let i in canales) {
 
@@ -100,22 +102,22 @@ export class MensajeriaService {
 
             let cantidad_mensajes = canales[i].mensajes.length
             let ultimo_mensaje = canales[i].mensajes[cantidad_mensajes - 1]
-            console.log(ultimo_mensaje)
+            //console.log(ultimo_mensaje)
             let usuario = canales[i].usuarios_canal[0]
-            console.log(usuario)
+            //console.log(usuario)
             ultimo_mensaje.usuario__correo == usuario[0] ?
               ultimo_mensaje["nombre_perfil"] = usuario[1] :
               ultimo_mensaje["nombre_perfil"] = canales[i].usuarios_canal[1][1]
 
             if (usuario[0] != this.usuario_logeado) {
-              console.log("no es logeado")
+              //console.log("no es logeado")
               ultimo_mensaje["receptor"] = usuario[1]
               ultimo_mensaje["correo_receptor"] = usuario[0]
 
-              console.log(ultimo_mensaje)
+              //console.log(ultimo_mensaje)
 
             } else {
-              console.log("es logeado")
+              //console.log("es logeado")
               ultimo_mensaje["receptor"] = canales[i].usuarios_canal[1][1]
               ultimo_mensaje["correo_receptor"] = canales[i].usuarios_canal[1][0]
 
