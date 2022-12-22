@@ -68,15 +68,15 @@ export class MensajeriaService {
   }
   obtenerListaMensajes() {
     //this.usuario_receptor=""
-    console.log(this.url_chat+ this.servicio_actual + "/" + this.usuario_receptor + "/" + this.usuario_logeado,"ruta")
+    //console.log(this.url_chat+ this.servicio_actual + "/" + this.usuario_receptor + "/" + this.usuario_logeado,"ruta")
     this.http.get<any[]>(this.url_chat + this.servicio_actual + "/" + this.usuario_receptor + "/" + this.usuario_logeado)
       .subscribe(res => {
         let data = JSON.stringify(res)
-        console.log(data)
+        //console.log(data)
         let mensajes = JSON.parse(data).mensajes
         this.canal_actual = JSON.parse(data).canal
         this.contactosMensajes = mensajes
-        console.log(this.contactosMensajes)
+        //console.log(this.contactosMensajes)
       })
   }
 
@@ -91,38 +91,39 @@ export class MensajeriaService {
       .subscribe(res => {
         //this.socketService.socket.emit('OK','Mensaje enviado')
         this.enviar()
+        this.obtenerMensajesPorUsuarioLogeado()
         this.obtenerListaMensajes()
       })
   }
 
   obtenerMensajesPorUsuarioLogeado() {
-    console.log("url", this.url_chat + "inbox/" + this.usuario_logeado + "/")
+    //console.log("url", this.url_chat + "inbox/" + this.usuario_logeado + "/")
     this.http.get<any>(this.url_chat + "inbox/" + this.usuario_logeado + "/")
       .subscribe(res => {
         this.chats = []
         let data = JSON.stringify(res)
-        console.log(JSON.parse(data))
+        //console.log(JSON.parse(data))
         let canales = JSON.parse(data)
         for (let i in canales) {
 
           if (canales[i].mensajes.length>0) {
             let cantidad_mensajes = canales[i].mensajes.length
             let ultimo_mensaje = canales[i].mensajes[cantidad_mensajes - 1]
-            console.log(ultimo_mensaje)
+            //console.log(ultimo_mensaje)
             let usuario = canales[i].usuarios_canal[0]
-            console.log(usuario)
+            //console.log(usuario)
             ultimo_mensaje.usuario__correo == usuario[0] ?
               ultimo_mensaje["nombre_perfil"] = usuario[1] :
               ultimo_mensaje["nombre_perfil"] = canales[i].usuarios_canal[1][1]
             //ultimo_mensaje["receptor"] = ultimo_mensaje.usuarios_canal.find((usuario: string | null) => usuario != this.usuario_logeado)
 
             if (usuario[0] != this.usuario_logeado) {
-              console.log("no es logeado")
+              //console.log("no es logeado")
               ultimo_mensaje["receptor"] = usuario[1]
-              console.log(ultimo_mensaje)
+              //console.log(ultimo_mensaje)
 
             } else {
-              console.log("es logeado")
+              //console.log("es logeado")
               ultimo_mensaje["receptor"] = canales[i].usuarios_canal[1][1]
             }
 

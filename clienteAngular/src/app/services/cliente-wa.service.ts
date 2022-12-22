@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { InicioSesionModel } from '../models/inicioSesion.model';
 import { RegisterModel } from '../models/register.model';
+import { ServiceModel } from '../models/servicio';
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +17,12 @@ export class ClienteWAService {
   "https://seproamerica2022.pythonanywhere.com/api/usuarioInicioSesion";
    */
   /*Url del servidor */
-  DJANGO_SERVER: string = "https://seproamerica2022.pythonanywhere.com/api/usuarioRegistro";
-  DJANGO_SERVER_INICIO_SESION: string = "https://seproamerica2022.pythonanywhere.com/api/usuarioInicioSesion";
+  //DJANGO_SERVER: string = "https://seproamerica2022.pythonanywhere.com/api/usuarioRegistro";
+  //DJANGO_SERVER_INICIO_SESION: string = "https://seproamerica2022.pythonanywhere.com/api/usuarioInicioSesion";
   /*Url para desarrolllo */
-  //DJANGO_SERVER: string = "http://127.0.0.1:8000/api/usuarioRegistro";
-  //DJANGO_SERVER_INICIO_SESION: string = "http://127.0.0.1:8000/api/usuarioInicioSesion";
+  DJANGO_SERVER: string = "http://127.0.0.1:8000/api/usuarioRegistro";
+  DJANGO_SERVER_INICIO_SESION: string = "http://127.0.0.1:8000/api/usuarioInicioSesion";
+  DJANGO_SERVER_SERVICIOS: string = "http://127.0.0.1:8000/api/obtenerServicio";
   
   constructor(private http: HttpClient) { }
 
@@ -43,4 +45,10 @@ export class ClienteWAService {
   update(correoU: any, data: any): Observable<any> {
     return this.http.put(`${this.DJANGO_SERVER_INICIO_SESION}/${correoU}/`, data);
   }
+
+  //Request para obtener informacion de los servicios que ofrece Seproamerica
+  obtener_Servicios(): Observable<ServiceModel[]>{
+    return this.http.get<ServiceModel[]>(this.DJANGO_SERVER_SERVICIOS);
+  }
+
 }

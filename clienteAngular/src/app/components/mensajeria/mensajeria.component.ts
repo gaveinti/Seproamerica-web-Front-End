@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { interval } from 'rxjs';
 import { MensajeriaService, smsInfo1, smsInfo2 } from 'src/app/services/mensajeria/mensajeria.service';
 import { SocketService } from 'src/app/services/mensajeria/socket.service';
 
@@ -59,7 +60,12 @@ export class MensajeriaComponent implements OnInit {
 
     })*/
     
-    
+    const obs$=interval(2000)
+    obs$.subscribe((t)=>{
+      //console.log(t)
+      this.mensajeriaService.obtenerListaMensajes()
+      this.mensajeriaService.obtenerMensajesPorUsuarioLogeado()
+    })
     
     this.mensajeriaService.socket.onmessage = (e: { data: string; }) => {
       const data = JSON.parse(e.data);

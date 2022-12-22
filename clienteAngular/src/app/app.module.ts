@@ -1,3 +1,4 @@
+/// <reference types="@types/googlemaps" />
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
@@ -26,13 +27,18 @@ import { EditarperfilComponent } from './editarperfil/editarperfil.component';
 import { CookieService } from 'ngx-cookie-service';
 import { ServicioseleccionadoComponent } from './servicioseleccionado/servicioseleccionado.component';
 import { UbicacionComponent } from './ubicacion/ubicacion.component';
+
 import { NotFoundComponentComponent } from './components/not-found-component/not-found-component.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 //import { AngularFireModule } from '@angular/fire/compat';
 //import { AngularFireMessagingModule } from '@angular/fire/compat/messaging';
 //import { environment } from 'src/environments/environment';
 //import { initializeApp } from "firebase/app";
 //initializeApp(environment.firebase);
+
+import { } from 'googlemaps';
+
 
 
 @NgModule({
@@ -65,7 +71,14 @@ import { NotFoundComponentComponent } from './components/not-found-component/not
     
   ],
   exports: [RouterModule],
-  providers: [ClienteWAService, AuthService, AuthGuard, GuardService, CookieService],
+  providers: [
+    ClienteWAService, 
+    AuthService, 
+    AuthGuard, 
+    GuardService, 
+    CookieService,
+    {provide:LocationStrategy,useClass:HashLocationStrategy}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

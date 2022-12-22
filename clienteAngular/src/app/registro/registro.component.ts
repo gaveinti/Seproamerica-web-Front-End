@@ -15,7 +15,9 @@ import * as moment from "moment";
 export class RegistroComponent implements OnInit {
 
   //Mensaje de error
+  //Error cuando ya se ha registrado cuenta con el número de cédula que se ingresa
   mensajeError = "";
+  //Error cuando ya se ha registrado cuenta con el correo que se ingresa
   mensajeErrorCorreo = "";
 
   title = 'email-validation-tutorial';
@@ -45,6 +47,9 @@ export class RegistroComponent implements OnInit {
   //Indicador si registro fue guardado en la base de datos o no
   submitted = false;
 
+  //Bandera creada para indicar que la cuenta fue creada y así cambiar el mensaje de retroalimentacion
+  exito = false;
+
   esMayorEdad: boolean = false;
   p: boolean = false;
   constructor(private formBuilder: FormBuilder, 
@@ -58,7 +63,7 @@ export class RegistroComponent implements OnInit {
       'cedula': [this.user.cedula, [Validators.required, Validators.minLength(10),Validators.pattern('^[0-9]*$')]],
       'fechaNac': [this.user.fechaNac, []],
       'sexo': [this.user.sexo, [Validators.required]],
-      'correo': [this.user.correo, [Validators.required, Validators.pattern('^([a-zA-Z0-9_\.-]+)@([a-z0-9]+)\\.([a-z\.]{2,6})$')/*, Validators.email*/]],
+      'correo': [this.user.correo, [Validators.required,  Validators.email, Validators.pattern('^([a-z0-9_\.-]+)@([a-z0-9]+)\\.([a-z\.]{2,6})$')/*, Validators.email*/]],
       'telefono': [this.user.telefono, [Validators.required, Validators.minLength(9), Validators.maxLength(10), Validators.pattern('^(0){1}(9){1}[0-9]{8}$')]],
       'contrasenha': [this.user.contrasenia, [Validators.required, Validators.minLength(8)]],
     });
@@ -74,6 +79,10 @@ export class RegistroComponent implements OnInit {
 
   /*Función para guardar usuario nuevo que se registre */
   guardarUsuario(): void {
+    let elem = document.getElementById("mensajeDeConfirmacionDos") 
+    if(elem?.innerHTML != undefined){
+      elem.innerHTML = " ";
+    }
     this.camposCompletos = !this.registerForm.invalid;
     const data = {
       apellidos : this.user.apellidos,
@@ -101,7 +110,9 @@ export class RegistroComponent implements OnInit {
           next: (res) => {
             console.log(res);
             this.submitted = true;
-            alert("Cuenta creada exitosamente")
+            this.exito = true;
+            this.cuentaCreada(this.exito)
+            //alert("Cuenta creada exitosamente")
             this.registerForm.reset()
           },
           error: (e) => {
@@ -109,31 +120,34 @@ export class RegistroComponent implements OnInit {
           this.mensajeError = e.error.cedula
           this.mensajeErrorCorreo = e.error.correo
           if(this.mensajeError != undefined){
-            console.log(this.mensajeError)
-            alert(this.mensajeError)
+            let elemento_Error_Cedula = document.getElementById("mensajeDeConfirmacionDos") 
+            if(elemento_Error_Cedula?.innerHTML != undefined){
+              elemento_Error_Cedula!.innerHTML = this.mensajeError
+            }
+            //console.log(this.mensajeError)
+            //alert(this.mensajeError)
           }
           if(this.mensajeErrorCorreo != undefined){
-            console.log(this.mensajeErrorCorreo)
-            alert(this.mensajeErrorCorreo)
-
+            let elemento_Error_Correo = document.getElementById("mensajeDeConfirmacionDos") 
+            if(elemento_Error_Correo?.innerHTML != undefined){
+              elemento_Error_Correo!.innerHTML = this.mensajeErrorCorreo
+            }
+            //console.log(this.mensajeErrorCorreo)
+            //alert(this.mensajeErrorCorreo)
           }
           }
         });
     } else{
-
-      alert("Debe completar los campos y aceptar los términos y condiciones")
+      let elemento_Dos = document.getElementById("mensajeDeConfirmacionDos") 
+      if(elemento_Dos?.innerHTML != undefined){
+        elemento_Dos!.innerHTML = "Debe completar los campos y aceptar los términos y condiciones"
+      }
     }
     if(this.submitted){
       console.log("Datos guardados")
     } else {
       console.log("Datos no guardados")
-      /*console.log(this.mensajeError)
-      console.log(this.mensajeErrorCorreo)
-      alert(this.mensajeError)
-      alert(this.mensajeErrorCorreo)*/
-      //Cerrar ventana(modal) que indica guardar
-      //const modalPresentado = document.getElementById('modalDos')
-      //modalPresentado?.hidden
+      
     }
   }
 
@@ -231,8 +245,23 @@ export class RegistroComponent implements OnInit {
     }
   }*/
 
-  
+  cuentaCreada(exito){
+    let element = document.getElementById("mensajeDeConfirmacion");
+    //let hidden = element?.getAttribute("hidden");
 
+    if(exito){
+      element?.setAttribute("mensajeDeConfirmacion", "hidden")
+      let elemento_Dos = document.getElementById("mensajeDeConfirmacionDos") 
+      if(elemento_Dos?.innerHTML != undefined){
+        elemento_Dos!.innerHTML = "La cuenta se ha creado exitosamente"
+      }
+    }else{
+      let elemento_Dos = document.getElementById("mensajeDeConfirmacionDos") 
+      if(elemento_Dos?.innerHTML != undefined){
+        elemento_Dos!.innerHTML = "La cuenta no se ha creado"
+      }
+    }
+  }
 
 
 }

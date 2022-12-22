@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule, Routes } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -56,6 +55,10 @@ const routes: Routes = [
 
 ]
 
+
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -100,7 +103,12 @@ const routes: Routes = [
     MatDialogModule,
   ],
   entryComponents: [AgregarvehiculoDialogComponent],
-  providers: [],
+ providers: [],
+   
+  ],
+  providers: [    
+    {provide:LocationStrategy,useClass:HashLocationStrategy}
+  ],
   bootstrap: [AppComponent]
 })
 
