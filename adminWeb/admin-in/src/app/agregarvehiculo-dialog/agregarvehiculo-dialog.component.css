@@ -1,57 +1,6 @@
-.demo-table {
-    width: 100%;
-  }
-  
-  .mat-row .mat-cell {
-    border-bottom: 1px solid transparent;
-    border-top: 1px solid transparent;
-    cursor: pointer;
-  }
-  
-  .mat-row:hover .mat-cell {
-    border-color: currentColor;
-  }
-  
-  .demo-row-is-clicked {
-    font-weight: bold;
-  }
-   
-  .wrapper .bottom_nav{
-    width: 100%;
-    background: #f9f9f9;
-    height: 45px;
-    padding: 0 0px;
-  }
-  
-  .wrapper .bottom_nav ul{
-    width: 100%;
-    height: 45px;
-    display: flex;
-    justify-content: space-evenly;
-    padding-bottom: 0cm;
-    list-style: none;
-    align-items: center;
-    margin-bottom: 0px;
-  }
-  
-  .wrapper .bottom_nav ul li a{
-    color: white;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    font-size: 12px;
-  }
-    
-  #navbarResponsive2{
-    background-color: rgb(157, 13, 13);
-    border-radius: 50px 50px 0px 0px;
-    margin-bottom: 0cm;
-    padding-bottom: 0px;
-  }
-  
-
   /*seccion del form*/
   
-form {
+  form {
     --background: white;
     --border: rgba(0, 0, 0, 0.125);
     --borderDark: rgba(0, 0, 0, 0.25);
@@ -80,7 +29,7 @@ form {
     overflow: hidden;
   }
   
-  form , form a {
+  form .email, form .email a {
     color: hsl(var(--fgColorH), var(--fgColorS), var(--fgColorL));
     font-size: 0.825rem;
     order: 4;
@@ -178,11 +127,11 @@ form {
     margin-top: 0.25rem;
     order: 2;
     padding: 0.25rem 0.5rem;
-    width: 28rem;
+    width: 18rem;
     transition: all 0.25s;
   }
   
-  input[type="submit"] {
+  input[type="submit"], button {
     color: hsl(var(--bgColorH), var(--bgColorS), var(--bgColorL));
     background: hsl(var(--fgColorH), var(--fgColorS), var(--fgColorL));
     font-size: 0.75rem;
@@ -196,20 +145,20 @@ form {
   }
   
   input[type="checkbox"]:focus + label span::before,
-  input[type="submit"]:focus {
+  input[type="submit"]:focus, button:focus {
     outline: 1px dashed hsl(var(--fgColorH), calc(var(--fgColorS) * 2), calc(var(--fgColorL) * 1.15));
     outline-offset: 2px;
   }
   
-  input[type="submit"]:focus {
+  input[type="submit"]:focus, button:focus {
     background: hsl(var(--fgColorH), var(--fgColorS), calc(var(--fgColorL) * 0.85));
   }
   
-  input[type="submit"]:hover {
+  input[type="submit"]:hover, button:hover {
     background: hsl(var(--fgColorH), var(--fgColorS), calc(var(--fgColorL) * 0.85));
   }
   
-  input[type="submit"]:active {
+  input[type="submit"]:active, button:active {
     background: hsl(var(--fgColorH), calc(var(--fgColorS) * 2), calc(var(--fgColorL) * 1.15));
     transition: all 0.125s;
   }
@@ -262,4 +211,8 @@ form {
     flex: 48%;
     padding: 0%;
     height: auto; /* Should be removed. Only for demonstration */
+  }
+
+  .botonesConf{
+    text-align:center;
   }

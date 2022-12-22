@@ -16,7 +16,7 @@
                   <label class="form-label" for="form3Example1cg">Apellidos</label>
                   <input type="text" id="form3Example1cg" matInput class="form-control form-control-lg" required
                   formControlName="apellidos"
-                  [(ngModel)]="user.apellidos"
+                  [(ngModel)]="user.apellidos" 
                   />
                   <mat-error *ngIf="registerForm.controls['apellidos'].errors?.['required']"> *</mat-error>
                   <mat-error *ngIf="registerForm.controls['apellidos'].errors?.['pattern']"> Solo insertar letras</mat-error>

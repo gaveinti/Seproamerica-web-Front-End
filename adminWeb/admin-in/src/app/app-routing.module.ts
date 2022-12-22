@@ -14,6 +14,29 @@ import { RecursosWindComponent } from './recursos-wind/recursos-wind.component';
 import { RegistroComponent } from './registro/registro.component';
 import { ReportesWindComponent } from './reportes-wind/reportes-wind.component';
 import { ServiciosWindComponent } from './servicios-wind/servicios-wind.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+
+const routes: Routes = [
+{ path: 'login', component: InicioSesionComponent,pathMatch: 'prefix' },
+{ path: 'registro', component: RegistroComponent,pathMatch: 'prefix' },
+{ path: 'perfil', component: PerfilComponent,pathMatch: 'prefix' },
+{ path: 'recursosVentana', component: RecursosWindComponent,pathMatch: 'prefix' },
+{ path: 'serviciosVentana', component: ServiciosWindComponent,pathMatch: 'prefix' },
+{ path: 'personalVentana', component: PersonalWindComponent,pathMatch: 'prefix' },
+{ path: 'reportesVentana', component: ReportesWindComponent,pathMatch: 'prefix' },
+{ path: 'mensajeriaVentana', component: MensajeriaWindComponent,pathMatch: 'prefix' },
+{ path: 'vehiculosSec', component: RecursosVehiculosComponent,pathMatch: 'prefix' },
+{ path: 'celularesSec', component: RecursosCelularComponent,pathMatch: 'prefix' },
+{ path: 'armasSec', component: RecursosArmasComponent,pathMatch: 'prefix' },
+{ path: 'candadosSec', component: RecursosCandadosComponent,pathMatch: 'prefix' },
+{ path: 'registrarPer', component: PersonalRegistroComponent,pathMatch: 'prefix' },
+{ path: '',   redirectTo: '/login', pathMatch: 'prefix'},
+{ path: '**',   component:NotFoundComponent, pathMatch: 'prefix'},
+
+];
+
 
 //import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 //import { FormsModule, ReactiveFormsModule } from '@angular/forms';
