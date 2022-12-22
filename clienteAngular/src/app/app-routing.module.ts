@@ -13,18 +13,36 @@ import { EditarperfilComponent } from './editarperfil/editarperfil.component';
 import { ServicioseleccionadoComponent } from './servicioseleccionado/servicioseleccionado.component';
 import { UbicacionComponent } from './ubicacion/ubicacion.component';
 import { NotFoundComponentComponent } from './components/not-found-component/not-found-component.component';
+import { PermitidoConSesionActivaGuard } from './guards/permitido-con-sesion-activa.guard';
+import { NoPermitidoSinSesionActivaGuard } from './guards/no-permitido-sin-sesion-activa.guard';
 
 const routes: Routes = [
   //{ path: "inicioSesion/:correo", component: InicioSesionComponent},
-  { path: 'login', component: InicioSesionComponent,pathMatch: 'prefix' },
-  { path: 'registro', component: RegistroComponent,pathMatch: 'prefix' },
-  { path: "principal", component: PrincipalComponent, canActivate: [GuardService],pathMatch: 'prefix'},
-  { path: "informacion", component: InfoempresaComponent,pathMatch: 'prefix'},
-  { path: "perfil", component: PerfilComponent,pathMatch: 'prefix'},
-  { path: "editarPerfil", component: EditarperfilComponent,pathMatch: 'prefix'},
-  { path: "mensajeria", component: MensajeriaComponent,pathMatch: 'prefix'},
-  { path: "servicioSeleccionado", component: ServicioseleccionadoComponent,pathMatch: 'prefix'},
-  { path: "ubicacion", component: UbicacionComponent,pathMatch: 'prefix'},
+  { path: 'login', component: InicioSesionComponent,pathMatch: 'prefix',
+  canActivate:[NoPermitidoSinSesionActivaGuard]},
+  { path: 'registro', component: RegistroComponent,pathMatch: 'prefix',
+  canActivate:[NoPermitidoSinSesionActivaGuard] },
+  { path: "principal", component: PrincipalComponent,pathMatch: 'prefix',
+  //canActivate:[PermitidoConSesionActivaGuard]
+},
+  { path: "informacion", component: InfoempresaComponent,pathMatch: 'prefix',
+  //canActivate:[PermitidoConSesionActivaGuard]
+},
+  { path: "perfil", component: PerfilComponent,pathMatch: 'prefix',
+  //canActivate:[PermitidoConSesionActivaGuard]
+},
+  { path: "editarPerfil", component: EditarperfilComponent,pathMatch: 'prefix',
+  //canActivate:[PermitidoConSesionActivaGuard]
+},
+  { path: "mensajeria", component: MensajeriaComponent,pathMatch: 'prefix',
+  //canActivate:[PermitidoConSesionActivaGuard]
+},
+  { path: "servicioSeleccionado", component: ServicioseleccionadoComponent,pathMatch: 'prefix',
+  //canActivate:[PermitidoConSesionActivaGuard]
+},
+  { path: "ubicacion", component: UbicacionComponent,pathMatch: 'prefix',
+  //canActivate:[PermitidoConSesionActivaGuard]
+},
   { path: '',   redirectTo: '/login', pathMatch: 'prefix'},
   { path: '**',  component:NotFoundComponentComponent, pathMatch: 'prefix'},
 ];

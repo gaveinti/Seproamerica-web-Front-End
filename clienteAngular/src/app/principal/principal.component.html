@@ -18,6 +18,9 @@
       <div class="flexbox-terceraDivision-item2">
         <mat-icon class="icono iconoNotificacion">notifications</mat-icon>
       </div>
+      <div class="flexbox-terceraDivision-item3">
+        <mat-icon class="icono "><a routerLink="/mensajeria">account_circle</a></mat-icon>
+      </div>
     </div>
 </header>
 
@@ -28,7 +31,7 @@
         <img src={{servicio.icono}} alt="_blank">
       </div>
       <div class="contenedorNombreServicio">
-        <button class="botonServicio" id="BotonServicio" role="button" routerLink="/servicioSeleccionado" value={{servicio.nombreServicio}} (click)="envioNombre(servicio.nombreServicio)">
+        <button class="botonServicio" id="BotonServicio" role="button" routerLink="/servicioSeleccionado"  value={{servicio.nombreServicio}} (click)="envioNombre(servicio.nombreServicio)">
           {{servicio.nombreServicio}}
         </button>
       </div>

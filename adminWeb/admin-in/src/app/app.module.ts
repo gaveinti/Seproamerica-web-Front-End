@@ -39,21 +39,6 @@ import { AgregarcandadosDialogComponent } from './agregarcandados-dialog/agregar
 import { AgregararmamentoDialogComponent } from './agregararmamento-dialog/agregararmamento-dialog.component';
 
 
-const routes: Routes = [
-  {path: 'personalVentana', component: PersonalWindComponent},
-  {path: 'registrarPer', component: PersonalRegistroComponent},
-  {path: 'recursosVentana', component: RecursosWindComponent},
-  {path: 'serviciosVentana', component: ServiciosWindComponent},
-  {path: 'reportesVentana', component: ReportesWindComponent},
-  {path: 'mensajeriaVentana', component: MensajeriaWindComponent},
-  {path: 'vehiculosSec',component: RecursosVehiculosComponent},
-  {path: 'celularesSec', component: RecursosCelularComponent},
-  {path: 'armasSec', component: RecursosArmasComponent},
-  {path: 'candadosSec', component: RecursosCandadosComponent},
-  {path: 'inicioSesion', component: InicioSesionComponent},
-  {path: 'inicioSesion', component: InicioSesionComponent},
-
-]
 
 
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
@@ -62,6 +47,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
+    HeaderComponent,
     ServiciosWindComponent,
     PersonalWindComponent,
     RecursosWindComponent,
@@ -89,7 +75,6 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(routes),
     BrowserAnimationsModule,
     MatToolbarModule,
     MatTableModule,
@@ -97,16 +82,20 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     MatTooltipModule,
     MatIconModule,
     MatInputModule,
-   MatButtonModule,
-    AppRoutingModule,
+    MatButtonModule,
     HttpClientModule,
     MatDialogModule,
+    AppRoutingModule,
+
   ],
   entryComponents: [AgregarvehiculoDialogComponent],
- providers: [],
    
-  ],
-  providers: [    
+  providers: [   
+/*    ClienteWAService, 
+    AuthService, 
+    AuthGuard, 
+    GuardService, 
+    CookieService, */
     {provide:LocationStrategy,useClass:HashLocationStrategy}
   ],
   bootstrap: [AppComponent]
