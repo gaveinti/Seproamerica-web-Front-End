@@ -13,7 +13,7 @@
   </div>
   </div>
   </div>
-  <button class="btn btn-primary">
+  <button class="btn btn-primary"  mat-button (click)="openDialog()">
     Agregar Candado
   </button>
 
@@ -22,7 +22,7 @@
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" #tabla1>
   
       <ng-container matColumnDef="Numero Serie">
-        <th mat-header-cell *matHeaderCellDef> Placa </th>
+        <th mat-header-cell *matHeaderCellDef> Número de serie </th>
         <td mat-cell *matCellDef="let CandadoList"> {{CandadoList.numSerie}}</td>
       </ng-container>
   
