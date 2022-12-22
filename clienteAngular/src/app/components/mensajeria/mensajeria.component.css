@@ -185,7 +185,13 @@ container-chat{
     font-size: x-small;
 }
 
+.leido{
+color: blue;
 
+}
+.noleido{
+
+}
 .sms-enviado{
     background-color: darkcyan;
     align-self: flex-end;

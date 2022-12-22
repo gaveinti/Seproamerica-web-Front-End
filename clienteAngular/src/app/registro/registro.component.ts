@@ -106,6 +106,9 @@ export class RegistroComponent implements OnInit {
           },
           error: (e) => {
           console.error(e.error.cedula)
+          console.error(e)
+          console.error(e.error)
+          
           this.mensajeError = e.error.cedula
           this.mensajeErrorCorreo = e.error.correo
           if(this.mensajeError != undefined){

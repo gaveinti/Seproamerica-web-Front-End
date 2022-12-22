@@ -25,7 +25,7 @@
         <div *ngFor="let message of mensajeriaService.chats" id="historial-mensaje">
 
                 <div (click)="clickOnChat(message)" id="item-mensaje">
-                    <div id="nombre-servicio">Servicio <br>{{message.canal__servicio}}</div>
+                    <div id="nombre-servicio">Servicio <br>{{message.canal__id_servicio}}</div>
                     <div >
                         
                         <span  class="info-envio">{{message.nombre_perfil}} 
@@ -51,7 +51,7 @@
                 
               <div id="nombre-servicio">
                     
-                <div> <div>Servicio </div>  {{mensajeriaService.servicio_actual}} : {{mensajeriaService.nombre_usuario_receptor}}</div>
+                <div> <div>Servicio : {{mensajeriaService.num_servicio_actual}} </div>  {{mensajeriaService.servicio_actual}} : {{mensajeriaService.nombre_usuario_receptor}}</div>
                 
             </div>
 
@@ -62,7 +62,7 @@
             <p *ngFor="let message of mensajeriaService.contactosMensajes" 
              class="sms-general" [ngClass]="{'sms-recibido' : message.usuario__correo==mensajeriaService.usuario_receptor,'sms-enviado' : message.usuario__correo==mensajeriaService.usuario_logeado}">
                 {{message.texto}}
-                <span class="tiempo " text-right><br>{{ message.tiempo | date:'short' }}</span>
+                <span class="tiempo " text-right><br>{{ message.tiempo | date:'short' }} <!--span *ngIf="leido" class="leido" ><mat-icon>done_all</mat-icon></span--> </span>
 
             </p>
         </div>

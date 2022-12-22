@@ -18,6 +18,7 @@ export class MensajeriaService {
   usuario_receptor = ""
   nombre_usuario_receptor = ""
   servicio_actual = ""
+  num_servicio_actual=""
   canal_actual = ""
   chats: smsInfo2[] = [];
   contactosMensajes!: smsInfo2[];
@@ -28,12 +29,13 @@ export class MensajeriaService {
 
   url_websocket = ""
 
+  contador_temporal=0
   constructor(
     private http: HttpClient,
     private servicioActualService: ServicioseleccionadoService,
     //private socketService: SocketService
   ) {
-//https://sepro-chat-server.herokuapp.com/
+
     if (window.location.host == "localhost:4200") {
       this.url_websocket = 'ws://'
         //+ Constantes.DOMINIO_SERVER
@@ -50,7 +52,7 @@ export class MensajeriaService {
     console.log(this.url_websocket)
     this.obtenerMensajesPorUsuarioLogeado()
     this.obtenerListaMensajes()
-    this.socket = new WebSocket(this.url_websocket)
+    //this.socket = new WebSocket(this.url_websocket)
     console.log("usuario", this.usuario_logeado)
   }
 
@@ -67,33 +69,42 @@ export class MensajeriaService {
 
   }
   obtenerListaMensajes() {
-    //this.usuario_receptor=""
-    //console.log(this.url_chat+ this.servicio_actual + "/" + this.usuario_receptor + "/" + this.usuario_logeado,"ruta")
-    this.http.get<any[]>(this.url_chat + this.servicio_actual + "/" + this.usuario_receptor + "/" + this.usuario_logeado)
+    if(this.num_servicio_actual){
+        //this.num_servicio_actual=(this.contador_temporal+1).toString()
+        this.http.get<any[]>(this.url_chat +this.num_servicio_actual+"/"+ this.servicio_actual + "/" + this.usuario_receptor + "/" + this.usuario_logeado)
       .subscribe(res => {
         let data = JSON.stringify(res)
         //console.log(data)
         let mensajes = JSON.parse(data).mensajes
         this.canal_actual = JSON.parse(data).canal
         this.contactosMensajes = mensajes
-        //console.log(this.contactosMensajes)
+        console.log(this.contactosMensajes)
+        console.log(this.servicio_actual)
       })
+    }
+    
+    //this.usuario_receptor=""
+    //console.log(this.url_chat+ this.servicio_actual + "/" + this.usuario_receptor + "/" + this.usuario_logeado,"ruta")
+    
   }
 
   sendMessage(sms: string) {
     let sms_info: smsInfo1 = {
       texto: sms,
       usuario: this.usuario_logeado,
-      canal: this.canal_actual,
+      canal: this.canal_actual
 
     }
-    this.http.post<any>(this.url_chat + this.servicio_actual + "/" + this.usuario_receptor + "/" + this.usuario_logeado + "/", sms_info)
+    if(this.num_servicio_actual){
+
+    this.http.post<any>(this.url_chat +this.num_servicio_actual+"/"+ this.servicio_actual + "/" + this.usuario_receptor + "/" + this.usuario_logeado + "/", sms_info)
       .subscribe(res => {
         //this.socketService.socket.emit('OK','Mensaje enviado')
-        this.enviar()
+        //this.enviar()
         this.obtenerMensajesPorUsuarioLogeado()
         this.obtenerListaMensajes()
       })
+    }
   }
 
   obtenerMensajesPorUsuarioLogeado() {
@@ -168,6 +179,7 @@ export interface smsInfoCanal {
 
 export interface smsInfo2 {
   canal__servicio: string
+  canal__id_servicio:string
   texto: string
   tiempo: string
   usuario: string
@@ -175,8 +187,6 @@ export interface smsInfo2 {
   usuario__rol: number
   receptor: string
   nombre_perfil: string
-
-
 }
 
 /*fecha_envio: string,

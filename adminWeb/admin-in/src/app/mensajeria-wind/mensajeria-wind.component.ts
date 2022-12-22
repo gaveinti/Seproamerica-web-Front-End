@@ -66,13 +66,13 @@ export class MensajeriaWindComponent implements OnInit {
     })
     
     
-    this.mensajeriaService.socket.onmessage = (e: { data: string; }) => {
+    /*this.mensajeriaService.socket.onmessage = (e: { data: string; }) => {
       const data = JSON.parse(e.data);
       console.log(data)
       this.mensajeriaService.obtenerListaMensajes()
       this.mensajeriaService.obtenerMensajesPorUsuarioLogeado()
 
-    };
+    };*/
     
 
   }
@@ -96,6 +96,8 @@ export class MensajeriaWindComponent implements OnInit {
   clickOnChat(mensaje: smsInfo2) {
     console.log(mensaje)
     this.mensajeriaService.servicio_actual=mensaje.canal__servicio
+    this.mensajeriaService.num_servicio_actual=mensaje.canal__id_servicio
+    
     this.mensajeriaService.nombre_usuario_receptor=mensaje.receptor
     this.mensajeriaService.usuario_receptor=mensaje.correo_receptor
   

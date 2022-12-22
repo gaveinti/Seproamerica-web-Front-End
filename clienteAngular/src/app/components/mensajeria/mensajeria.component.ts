@@ -63,8 +63,8 @@ export class MensajeriaComponent implements OnInit {
     const obs$=interval(2000)
     obs$.subscribe((t)=>{
       //console.log(t)
-      this.mensajeriaService.obtenerListaMensajes()
-      this.mensajeriaService.obtenerMensajesPorUsuarioLogeado()
+      //this.mensajeriaService.obtenerListaMensajes()
+      //this.mensajeriaService.obtenerMensajesPorUsuarioLogeado()
     })
     
     this.mensajeriaService.socket.onmessage = (e: { data: string; }) => {
@@ -96,6 +96,7 @@ export class MensajeriaComponent implements OnInit {
 
   clickOnChat(mensaje: smsInfo2) {
     console.log(mensaje)
+    this.mensajeriaService.num_servicio_actual=mensaje.canal__id_servicio
     this.mensajeriaService.servicio_actual=mensaje.canal__servicio
     this.mensajeriaService.nombre_usuario_receptor=mensaje.receptor
   
