@@ -35,9 +35,6 @@ export class AppComponent {
     console.log("oninit")
     
   }
-  recibirRutaEvent($event: any){
-    console.log($event)
-    console.log("evento disparado")
-  }
+ 
 
 }

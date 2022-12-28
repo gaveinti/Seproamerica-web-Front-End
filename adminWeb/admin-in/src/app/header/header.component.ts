@@ -13,51 +13,51 @@ import { ModalsService } from '../services/modals/modals.service';
 })
 export class HeaderComponent implements OnInit {
   constructor(
-    private modalService:ModalsService,
-    private authService:AuthService,
-    private router:Router
-    ) {
-   }
+    private modalService: ModalsService,
+    private authService: AuthService,
+    private router: Router
+  ) {
+  }
 
   ngOnInit(): void {
-    this.authService.estaAutenticado().subscribe(res=>{
+    this.authService.estaAutenticado().subscribe(res => {
       console.log(res)
       console.log("cambio")
-      if(res==false){
+      if (res == false) {
 
         this.modalService.closeAllModals()
-          setTimeout(() => {
-            this.router.navigate(["/login"])
-          }, 500);
+        setTimeout(() => {
+          this.router.navigate(["/login"])
+        }, 500);
 
       }
-      
-    })
-   
-  }
- 
 
-  abrirModalPerfil(){
+    })
+
+  }
+
+
+  abrirModalPerfil() {
     //this.dialogRef.closeAll()
     //this.dialogRef.open(ModalPerfilComponent,this.dialogConfig)
     this.modalService.getDialogRef().closeAll()
-    this.modalService.getDialogRef().open(ModalPerfilComponent,this.modalService.getDialogConfig())
-    
+    this.modalService.getDialogRef().open(ModalPerfilComponent, this.modalService.getDialogConfig())
+
   }
-  abrirModalNotificaciones(){
+  abrirModalNotificaciones() {
     this.modalService.getDialogRef().closeAll()
 
-    
-    this.modalService.getDialogRef().open(ModalNotificacionesComponent,this.modalService.getDialogConfig(),
-      )
+
+    this.modalService.getDialogRef().open(ModalNotificacionesComponent, this.modalService.getDialogConfig(),
+    )
   }
-  abrirModalMensajeria(){
+  abrirModalMensajeria() {
     this.modalService.getDialogRef().closeAll()
 
-   
-   this.modalService.getDialogRef().open(ModalMensajeriaComponent,this.modalService.getDialogConfig())
+
+    this.modalService.getDialogRef().open(ModalMensajeriaComponent, this.modalService.getDialogConfig())
   }
 
-  
+
 
 }
