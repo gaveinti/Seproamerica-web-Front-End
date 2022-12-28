@@ -35,29 +35,37 @@
           <div id="map"></div>
         </div>
         <button class="botonAtras" routerLink="/servicioSeleccionado">Atras</button>
-        <button class="botonGuardar" (click)="obtenerInfoMarkers()">Guardar</button>
+        <button type="button" id="btnGuardar" class="botonGuardar btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" 
+        data-bs-dismiss="modal" (click)="obtenerInfoMarkers()">Guardar</button>
+      </div>
 
-        <!--<label for="latitude">
-            Latitude:
-        </label>
-        <input id="txtLat" type="text" style="color:red" value="19.4326077" />
-
-        <label for="longitude">
-            Longitude:
-        </label>
-        <input id="txtLng" type="text" style="color:red" value="-99.13320799999997" />-->
-
+      <!-- Modal para confirmar que la direccion ha sido guardada-->
+    <div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <!--<h1 class="modal-title" id="exampleModalLabel">Direccion guardada</h1>-->
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" routerLink="/servicioSeleccionado">
+            </button>
+          </div>
+          <div class="modal-body" style="background-color:green;">
+            <h1 class="modal-title" id="exampleModalLabel" style="color: white;">Direccion guardada</h1>
+          </div>
+          <div class="modal-footer">
+            <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>-->
+          </div>
+        </div>
       </div>
     </div>
 
-    <!--<div class="map-container">
-      <div class="map-frame">
-        <div id="map"></div>
-      </div>
-    </div>-->
+
+    </div>
+
+
   
     <div class="contenedorInfoBarra">
       <app-generalinfobar [usuario]="usuario"></app-generalinfobar>
     </div>
   
-  </div>
+</div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { from, VirtualTimeScheduler } from 'rxjs';
 import { RegisterModel } from '../models/register.model';
+import { Cliente_Registro_Model } from '../models/clienteRegistro';
 import { FormGroup, FormBuilder, Validators, FormControl, FormControlDirective} from '@angular/forms';
 import { ClienteWAService } from '../services/cliente-wa.service';
 import * as moment from "moment";
@@ -33,6 +34,8 @@ export class RegistroComponent implements OnInit {
   direccion: string = 'a@a.com';
   fechaRegistro: string = '2000-09-01';
   rol: string ='2';
+
+  cliente_registro: Cliente_Registro_Model = new Cliente_Registro_Model();
 
   //Variables de campos completados del registro y de confirmacion de que se han aceptado los términos y condiciones
   camposCompletos: boolean = false;
@@ -77,8 +80,12 @@ export class RegistroComponent implements OnInit {
     this.fechaRegistro + ' ' + this.rol);*/
   }
 
+ 
+
   /*Función para guardar usuario nuevo que se registre */
   guardarUsuario(): void {
+    
+    localStorage.setItem("cedula_Cliente", this.user.cedula.toString());
     let elem = document.getElementById("mensajeDeConfirmacionDos") 
     if(elem?.innerHTML != undefined){
       elem.innerHTML = " ";
@@ -97,6 +104,9 @@ export class RegistroComponent implements OnInit {
       direccion : this.user.correo,
       rol : '2'
     };
+    /*const data_cliente = {
+      cedula : this.cliente_registro.cedula
+    };*/
     console.log("entra")
     console.log(data)
     console.log("Fecha valida:" )
@@ -149,37 +159,37 @@ export class RegistroComponent implements OnInit {
       console.log("Datos no guardados")
       
     }
-  }
 
+  }
 
 
 
   validarTerminosyCondiciones(): void{
     var checkBox = document.getElementById("invalidCheck") as HTMLInputElement | null;
     if(checkBox?.checked == true){
-      console.log("checkeado")
+      //console.log("checkeado")
       this.terminosValidados = true;
     }  
     if(!checkBox?.checked == true){
-      console.log("no checkeado")
+      //console.log("no checkeado")
       this.terminosValidados = false;
     } 
   }
 
   permitirRegistro(): void{
-    console.log("entra a fucnion")
+    //console.log("entra a fucnion")
     var botonRegistro = document.querySelector("#botonRegistro") as HTMLInputElement | null;
     /*Caso en el que se deba habilitar el boton */
     if(!this.registerForm  && !this.terminosValidados){
       if(botonRegistro != undefined){
-        console.log("se ha habilitado el boton")
+        //console.log("se ha habilitado el boton")
         botonRegistro.disabled = false;
       }
     } else{
       if(botonRegistro != undefined){
-        console.log("boton deshabilitado")
-        console.log(this.registerForm)
-        console.log(this.terminosValidados)
+        //console.log("boton deshabilitado")
+        //console.log(this.registerForm)
+        //console.log(this.terminosValidados)
         botonRegistro.disabled = false;
       }
     }
@@ -189,7 +199,7 @@ export class RegistroComponent implements OnInit {
     const varValid = document.querySelector('#invalidCheck') as HTMLInputElement | null;
     if(varValid != null){
       this.terminosAceptados = varValid.checked
-      console.log(varValid.checked);
+      //console.log(varValid.checked);
     }
   }
   
@@ -197,15 +207,15 @@ export class RegistroComponent implements OnInit {
   /*validar si fecha escogida indica si usuario es mayor de edad */
   validacionFecha(control: any){
 
-    console.log(control)
+    //console.log(control)
     if(control){
       const date = moment(control).format('DD-MM-YYYY')
-      console.log("Fecha introducida: " + date)
+      //console.log("Fecha introducida: " + date)
       const diaEscogido: number = parseInt(date.split('-')[0])
       const mesEscogido: number = parseInt(date.split('-')[1])
       const anioEscogido: number = parseInt(date.split('-')[2])
       const today = moment().format('DD-MM-YYYY')
-      console.log("Fecha de hoy: " + today)
+      //console.log("Fecha de hoy: " + today)
       const diaActual: number = parseInt(today.split('-')[0])
       const mesActual: number = parseInt(today.split('-')[1])
       const anioActual: number = parseInt(today.split('-')[2])
@@ -213,25 +223,25 @@ export class RegistroComponent implements OnInit {
       const restaMes = mesActual - mesEscogido
       const restaDia = diaActual - diaEscogido
       if(restaAnio > 18){
-        console.log("Es mayor de edad")
+        //console.log("Es mayor de edad")
         this.esMayorEdad=true
-        console.log("conf",this.esMayorEdad)
+        //console.log("conf",this.esMayorEdad)
         return null
       }
       if ((restaAnio == 18) && (restaMes >= 0) && (restaDia >= 0)){
-        console.log("Es mayor de edad")
+        //console.log("Es mayor de edad")
         this.esMayorEdad=true
-        console.log("conf",this.esMayorEdad)
+        //console.log("conf",this.esMayorEdad)
 
         return null/*{ 'validDate': true}*/
       }
       this.esMayorEdad=false
     }
     this.esMayorEdad=false
-    console.log("conf",this.esMayorEdad)
+    //console.log("conf",this.esMayorEdad)
 
     let mensajeError = "Debe ser mayor de edad"
-    console.log("No es mayor de edad")
+    //console.log("No es mayor de edad")
     //this.esMayorEdad=false
     return mensajeError/*{'validDate': false};*/
   }

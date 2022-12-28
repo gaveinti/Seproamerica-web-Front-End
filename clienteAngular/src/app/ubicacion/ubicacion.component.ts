@@ -8,6 +8,7 @@ import * as moment from "moment";
 import * as L from 'leaflet';
 import { map } from 'jquery';
 import { InicioSesionComponent } from '../inicio-sesion/inicio-sesion.component';
+import { ClienteWAService } from '../services/cliente-wa.service';
 
 @Component({
   selector: 'app-ubicacion',
@@ -92,53 +93,6 @@ export class UbicacionComponent implements OnInit{
     });
 
 
-    //Evento para crear markers
-    /*google.maps.event.addListener(map, 'click', function(event) {
-      var markerInicio;
-      var markerDestino;
-      if( enter == 2 ){
-        alert("Solo puede ingresar los marcadores de inicio y destino")
-        console.log(markers)
-
-      } 
-      else if ( enter == 0) {
-        console.log(enter)
-        markerInicio = new google.maps.Marker({
-          position: event.latLng,
-          map: map,
-          title: 'inicio',
-          label: 'inicio',
-          draggable: true,
-          animation: google.maps.Animation.DROP,
-        });
-        markers.push(markerInicio.position.toJSON())
-        let loc = event.latLng.toJSON()
-        console.log("Localizacion: ")
-        console.log(JSON.stringify(event.latLng.toJSON(), null, 2))
-        console.log(loc.lat)
-        console.log(loc.lng)
-        enter++;
-      }
-      else if (enter == 1){
-        console.log(enter)
-        markerDestino = new google.maps.Marker({
-          position: event.latLng,
-          map: map,
-          title: 'destino',
-          label: 'destino',
-          draggable: true,
-          animation: google.maps.Animation.DROP,
-        });
-        markers.push(markerDestino.position.toJSON())
-        let loc = event.latLng.toJSON()
-        console.log("Localizacion: ")
-        console.log(JSON.stringify(event.latLng.toJSON(), null, 2))
-        console.log(loc.lat)
-        console.log(loc.lng)
-        enter++;
-      }
-    });*/
-
     //Evento para obtener ultima latitud y longitud de markerInicio que puede moverse
     google.maps.event.addListener(markerInicio, 'dragend', function(event) {
       //$("#txtLat").val(event.latLng.lat())
@@ -182,7 +136,10 @@ export class UbicacionComponent implements OnInit{
   
 
 
-  constructor(private authService: AuthService, private formBuilder: FormBuilder, private servicioSeleccionadoService: ServicioseleccionadoService) { }
+  constructor(private authService: AuthService, private formBuilder: FormBuilder, 
+    private servicioSeleccionadoService: ServicioseleccionadoService,
+    private clienteWAService: ClienteWAService,
+    ) { }
 
   ngOnInit(): void {
     this.usuario = this.authService.getUsuario();
@@ -205,6 +162,7 @@ export class UbicacionComponent implements OnInit{
 
     console.log(this.latitudInicioMarker + "\n" + this.longitudInicioMarker
       + "\n" + this.latitudDestinoMarker + "\n" + this.longitudDestinoMarker)
+
   }
 
 

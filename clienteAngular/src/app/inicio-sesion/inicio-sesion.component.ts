@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { InicioSesionModel } from '../models/inicioSesion.model';
 import { RegisterModel } from '../models/register.model';
+//import { Cliente_Registro_Model } from '../models/clienteRegistro';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ClienteWAService } from '../services/cliente-wa.service';
@@ -22,6 +23,17 @@ export class InicioSesionComponent implements OnInit {
   private cookie_correo='';
   private all_cookies:any='';
   
+  /*cliente_registro: Cliente_Registro_Model = new Cliente_Registro_Model();
+
+  data_cliente = {
+    cedula : localStorage.getItem("cedula_Cliente")
+  };
+  data_Usuario = JSON.parse(localStorage.getItem("datoUsuario")!)
+  cedula_Usuario = this.data_Usuario.cedula
+
+  data_cliente = {
+    cedula : this.cedula_Usuario
+  };*/
 
   usuariosLista?: RegisterModel[];
   user: RegisterModel = new RegisterModel();
@@ -129,6 +141,7 @@ export class InicioSesionComponent implements OnInit {
 
   //Funcion que obtiene el objeto de la base de datos y valida el inicio de sesion
   getUsuarioA(): void{
+    
     this.estaRegistrado=true
     this.esCliente=true
     this.exito=true
@@ -159,6 +172,10 @@ export class InicioSesionComponent implements OnInit {
               //localStorage.setItem("estaLogeado", "true")
               localStorage.setItem("datoUsuario", JSON.stringify(this.usuarioActual))
               localStorage.setItem("usuario_logeado", this.usuarioActual.correo.toString())
+
+              //this.data_cliente.cedula = data.cedula.toString();
+              //Se llama a funcion que guarde al usuario en la tabla cliente si este no ha sido guardado todavía
+              this.crear_Cliente_En_Tabla(data.cedula.toString());
   
               this.router.navigate(["/principal"])
             } else{
@@ -182,6 +199,17 @@ export class InicioSesionComponent implements OnInit {
     }else{
       console.log("Campos no válidos")
     }
+
+    /*this.clienteWAService.create_cliente(this.data_cliente)
+    .subscribe({
+      next: (res) => {
+        console.log(res)
+      },
+      error: (e) => console.error(e)
+    });*/
+
+
+
   }
 
   imprimirObjeto(): void{
@@ -193,6 +221,58 @@ export class InicioSesionComponent implements OnInit {
   //Función que habilita el boton "inicio de sesion" si correo y contraseña coinciden
   esV(){
     return true;
+  }
+
+  //Funcion para crear cliente en tablas cliente si aún no existen 
+  crear_Cliente_En_Tabla(cedula_Cliente: string){
+    let existe_cliente = 0
+
+    let data_cliente = {
+      cedula : cedula_Cliente
+    };
+
+    this.clienteWAService.obtener_cliente(cedula_Cliente)
+      .subscribe({
+        next: (data) => {
+          console.log(data)
+          console.log("Cliente ya existe en tabla Clientes")
+          existe_cliente = 1
+          console.log(existe_cliente)
+          /*if(existe_cliente == 0){
+            console.log("Cliente no ha sido registrado, por ende se procede a registrarlo en la tabla de Cliente")
+            this.clienteWAService.create_cliente(data_cliente)
+            .subscribe({
+              next: (res) => {
+              console.log(res)
+            },
+            error: (e) => console.error(e)
+          });
+          }*/
+        },
+        error: (e) => { 
+          console.error(e) 
+          console.log("Cliente no ha sido registrado, por ende se procede a registrarlo en la tabla de Cliente")
+          this.clienteWAService.create_cliente(data_cliente)
+            .subscribe({
+              next: (res) => {
+              console.log(res)
+          },
+          error: (e) => console.error(e)
+          });
+        }
+      });
+
+    /*if(existe_cliente == 0){
+      console.log("Cliente no ha sido registrado, por ende se procede a registrarlo en la tabla de Cliente")
+      this.clienteWAService.create_cliente(data_cliente)
+        .subscribe({
+          next: (res) => {
+          console.log(res)
+      },
+      error: (e) => console.error(e)
+      });
+    }*/
+
   }
 
 }

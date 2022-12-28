@@ -22,6 +22,8 @@ export class PrincipalComponent implements OnInit {
     { nombre: "Guardia de seguridad"}
   ];*/
 
+  info_Servicio: any
+
   listaServicios?: ServiceModel[];
 
   listaOpciones: [string, string][] = [
@@ -68,7 +70,11 @@ export class PrincipalComponent implements OnInit {
   envioNombre(servicioNombre: any){
     //console.log(servicioNombre)
     this.servicioSeleccionadoService.nombreServicioEscogido(servicioNombre)
-    localStorage.setItem("servicio", JSON.stringify(servicioNombre))
+    localStorage.setItem("servicio", servicioNombre.toString())
+    this.info_Servicio = this.encontrar_Servicio(servicioNombre)
+    console.log("Se selecciono: ")
+    console.log(this.info_Servicio)
+    localStorage.setItem("info_Servicio", JSON.stringify(this.info_Servicio))
   }
 
   
@@ -82,6 +88,18 @@ export class PrincipalComponent implements OnInit {
       },
       error: (e) => console.error(e)
     });
+  }
+
+  //Encontrar servicio seleccionado de la lista de servicio
+  encontrar_Servicio(nombre_Servicio: any){
+    let informacion_Servicio
+    this.listaServicios?.forEach( (servicio) => {
+      if(servicio.nombreServicio == nombre_Servicio){
+        informacion_Servicio = servicio
+      }
+    })
+    return informacion_Servicio
+    
   }
 
   

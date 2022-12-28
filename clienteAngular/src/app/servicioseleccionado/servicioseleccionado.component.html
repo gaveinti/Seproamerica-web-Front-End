@@ -41,7 +41,7 @@
             <label class="form-label" for="form3Example4cg">Fecha de inicio</label>
             <input type="date" id="form3Example4cg" class="form-control form-control-lg campoFormulario" 
             formControlName="fechaInicio"
-            [(ngModel)]="servicio.fechaInicio" required validarFecha
+            [(ngModel)]="solicitud_Servicio.fecha_Inicio" required validarFecha
             />
           </div>
 
@@ -49,7 +49,7 @@
             <label class="form-label" for="form3Example4cg">Fecha de finalizacion</label>
             <input type="date" id="form3Example4cg" class="form-control form-control-lg campoFormulario" 
             formControlName="fechaFinalizacion"
-            [(ngModel)]="servicio.fechaFinalizacion" required validarFecha
+            [(ngModel)]="solicitud_Servicio.fecha_Finalizacion" required validarFecha
             />
           </div>
 
@@ -57,7 +57,7 @@
             <label class="form-label" for="form3Example4cg">Hora de inicio</label>
             <input type="time" id="form3Example4cg" class="form-control form-control-lg campoFormulario" 
             formControlName="horaInicio"
-            [(ngModel)]="servicio.horaInicio" required validarFecha
+            [(ngModel)]="solicitud_Servicio.hora_Inicio" required validarFecha
             />
           </div>
 
@@ -65,7 +65,7 @@
             <label class="form-label" for="form3Example4cg">Hora de finalizacion</label>
             <input type="time" id="form3Example4cg" class="form-control form-control-lg campoFormulario" 
             formControlName="horaFinalizacion"
-            [(ngModel)]="servicio.horaFinalizacion" required validarFecha
+            [(ngModel)]="solicitud_Servicio.hora_Finalizacion" required validarFecha
             />
           </div>
 
@@ -73,7 +73,7 @@
             <label class="form-label" for="form3Example4cg">Número de guardias</label>
             <input type="number" id="form3Example4cg" class="form-control form-control-lg campoFormulario" min="0" max="100" step="1"
             formControlName="numeroEmpleados"
-            [(ngModel)]="servicio.numeroEmpleados" 
+            [(ngModel)]="solicitud_Servicio.cantidad_Empleados_Asignados" 
             />
           </div>
         </form>
@@ -81,7 +81,29 @@
         <label class="textoUbicacion" for="Ubicacion">Elegir ubicacion</label>
         <button class="botonAbrirMapa" routerLink="/ubicacion">Abrir mapa</button>
 
-        <button class="botonSolicitarServicio" (click)="imprimirFormularioServicio()">Solicitar servicio</button>
+        <button type="button" id="btnSolicitarServicio" class="botonSolicitarServicio btn btn-primary" 
+        data-bs-toggle="modal" data-bs-target="#exampleModal" 
+        data-bs-dismiss="modal" (click)="imprimirFormularioServicio()">Solicitar servicio</button>
+
+        <!-- Modal para confirmar que la direccion ha sido guardada-->
+        <div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <!--<h1 class="modal-title" id="exampleModalLabel">Direccion guardada</h1>-->
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" routerLink="/servicioSeleccionado">
+                </button>
+              </div>
+              <div class="modal-body" style="background-color:green;">
+                <h1 class="modal-title" id="exampleModalLabel" style="color: white;">Solicitud enviada</h1>
+              </div>
+              <div class="modal-footer">
+                <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>-->
+              </div>
+            </div>
+          </div>
+        </div>
 
       </div>
     </div>

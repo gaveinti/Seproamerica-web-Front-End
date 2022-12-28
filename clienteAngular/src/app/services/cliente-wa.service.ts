@@ -5,6 +5,7 @@ import { catchError, retry } from 'rxjs/operators';
 import { InicioSesionModel } from '../models/inicioSesion.model';
 import { RegisterModel } from '../models/register.model';
 import { ServiceModel } from '../models/servicio';
+import { Cliente_Obtener_Model } from '../models/cliente_Obtener';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,9 @@ export class ClienteWAService {
   DJANGO_SERVER: string = "http://127.0.0.1:8000/api/usuarioRegistro";
   DJANGO_SERVER_INICIO_SESION: string = "http://127.0.0.1:8000/api/usuarioInicioSesion";
   DJANGO_SERVER_SERVICIOS: string = "http://127.0.0.1:8000/api/obtenerServicio";
+  DJANGO_SERVER_SOLICITUD_PEDIDO: string = "http://127.0.0.1:8000/api/solicitarServicio";
+  DJANGO_SERVER_REGISTRO_CLIENTE: string = "http://127.0.0.1:8000/api/clienteRegistro";
+  DJANGO_SERVER_OBTENER_CLIENTE: string = "http://127.0.0.1:8000/api/obtenerCliente";
   
   constructor(private http: HttpClient) { }
 
@@ -49,6 +53,21 @@ export class ClienteWAService {
   //Request para obtener informacion de los servicios que ofrece Seproamerica
   obtener_Servicios(): Observable<ServiceModel[]>{
     return this.http.get<ServiceModel[]>(this.DJANGO_SERVER_SERVICIOS);
+  }
+
+  //Request para crear una solicitud de pedido de servicio
+  create_Solicitud_Servicio(data: any): Observable<any> {
+    return this.http.post(this.DJANGO_SERVER_SOLICITUD_PEDIDO, data);
+  }
+
+  //Request para luego de registrar usuario, registrar en la tavla de clientes
+  create_cliente(data: any): Observable<any> {
+    return this.http.post(this.DJANGO_SERVER_REGISTRO_CLIENTE, data);
+  }
+
+  //Request para obtener un cliente a partir de su cédula
+  obtener_cliente(cedula_cliente: any): Observable<Cliente_Obtener_Model>{
+    return this.http.get<Cliente_Obtener_Model>(`${this.DJANGO_SERVER_OBTENER_CLIENTE}/${cedula_cliente}`)
   }
 
 }
