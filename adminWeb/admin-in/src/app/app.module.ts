@@ -42,6 +42,9 @@ import { AgregararmamentoDialogComponent } from './agregararmamento-dialog/agreg
 
 
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { ModalMensajeriaComponent } from './components/modals/modal-mensajeria/modal-mensajeria.component';
+import { ModalPerfilComponent } from './components/modals/modal-perfil/modal-perfil.component';
+import { ModalNotificacionesComponent } from './components/modals/modal-notificaciones/modal-notificaciones.component';
 
 
 @NgModule({
@@ -69,6 +72,9 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     EditCandadosComponent,
     AgregarcandadosDialogComponent,
     AgregararmamentoDialogComponent,
+    ModalMensajeriaComponent,
+    ModalPerfilComponent,
+    ModalNotificacionesComponent,
   ],
   imports: [
     BrowserModule,

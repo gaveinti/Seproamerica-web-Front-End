@@ -1,0 +1,34 @@
+<section class="modal-mensajeria">
+
+    <div >
+        <div *ngFor="let message of mensajeriaService.chats" id="historial-mensaje">
+
+                <div  id="item-mensaje">
+                    <div id="nombre-servicio">Servicio <br> {{message.canal__id_servicio}}</div>
+
+                    <div id="mensaje" >
+                        <div style="width:20%;" class="text-center">
+                            <mat-icon  style="zoom: 1.5; color: rgb(96, 96, 223);">person</mat-icon>
+                        </div>
+
+                        <div style="width: 80%;">
+                            <span   class="info-envio">{{message.nombre_perfil}} 
+                                <span class="info-envio" *ngIf='message.usuario__rol==1'> - Administrador</span>
+                                <span class="info-envio" *ngIf='message.usuario__rol==1'>(Yo)</span>
+                                <span class="info-envio" *ngIf='message.usuario__rol==2'> - Cliente</span>
+                                <span class="info-envio" *ngIf='message.usuario__rol==3'> - Empleado</span>
+    
+                            </span>
+                        
+                            <p >{{message.texto.split(" ").splice(0, 8).join(" ")}} </p>
+                        </div>
+                    </div>
+                </div>
+                <br>
+        </div>
+        <div class="btn-mensajeria">
+            <button (click)="irMensajeria()" class="btn" >Ir a mensajería</button>
+        </div>
+
+    </div>
+</section>
