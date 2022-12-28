@@ -177,6 +177,8 @@ export class InicioSesionComponent implements OnInit {
               //Se llama a funcion que guarde al usuario en la tabla cliente si este no ha sido guardado todavía
               this.crear_Cliente_En_Tabla(data.cedula.toString());
   
+              localStorage.setItem("ingresado", "true")
+
               this.router.navigate(["/principal"])
             } else{
               this.exito=false

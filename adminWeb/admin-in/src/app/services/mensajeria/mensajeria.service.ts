@@ -14,6 +14,8 @@ export class MensajeriaService {
 
   usuario_receptor = ""
   nombre_usuario_receptor = ""
+  num_servicio_actual=""
+
   servicio_actual = ""
   canal_actual = ""
   chats: smsInfo2[] = [];
@@ -45,7 +47,7 @@ export class MensajeriaService {
 
     this.obtenerMensajesPorUsuarioLogeado()
     this.obtenerListaMensajes()
-    this.socket = new WebSocket(this.url_websocket)
+    //this.socket = new WebSocket(this.url_websocket)
     console.log("usuario", this.usuario_logeado)
   }
 
@@ -64,7 +66,7 @@ export class MensajeriaService {
   obtenerListaMensajes() {
     //console.log(this.servicio_actual,this.usuario_receptor,this.usuario_logeado)
     //this.contactosMensajes=[]
-    this.http.get<any[]>(this.url_chat + this.servicio_actual + "/" + this.usuario_receptor + "/" + this.usuario_logeado)
+    this.http.get<any[]>(this.url_chat +this.num_servicio_actual+"/"+ this.servicio_actual + "/" + this.usuario_receptor + "/" + this.usuario_logeado)
       .subscribe(res => {
         let data = JSON.stringify(res)
         let mensajes = JSON.parse(data).mensajes
@@ -80,9 +82,9 @@ export class MensajeriaService {
       canal: this.canal_actual,
 
     }
-    this.http.post<any>(this.url_chat + this.servicio_actual + "/" + this.usuario_receptor + "/" + this.usuario_logeado + "/", sms_info)
+    this.http.post<any>(this.url_chat+this.num_servicio_actual+"/" + this.servicio_actual + "/" + this.usuario_receptor + "/" + this.usuario_logeado + "/", sms_info)
       .subscribe(res => {
-        this.enviar()
+        //this.enviar()
         this.obtenerMensajesPorUsuarioLogeado()
         this.obtenerListaMensajes()
       })
@@ -155,6 +157,7 @@ export interface smsInfoCanal {
 }
 
 export interface smsInfo2 {
+  canal__id_servicio: string;
   canal__servicio: string
   texto: string
   tiempo: string

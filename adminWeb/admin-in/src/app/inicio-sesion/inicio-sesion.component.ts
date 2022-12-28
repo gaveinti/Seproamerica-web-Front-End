@@ -157,8 +157,10 @@ export class InicioSesionComponent implements OnInit {
               //localStorage.setItem("estaLogeado", "true")
               localStorage.setItem("datoUsuario", JSON.stringify(this.usuarioActual))
               localStorage.setItem("usuario_logeado", this.usuarioActual.correo.toString())
+              localStorage.setItem("ingresado", "true")
+
   
-              this.router.navigate(["serviciosVentana"])
+              this.router.navigate(["/serviciosVentana"])
             } else{
               this.exito=false
               console.log("inicio de sesion fallido")

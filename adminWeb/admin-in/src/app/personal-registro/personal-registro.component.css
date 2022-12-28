@@ -80,7 +80,7 @@ form {
     overflow: hidden;
   }
   
-  form .email, form .email a {
+  form , form a {
     color: hsl(var(--fgColorH), var(--fgColorS), var(--fgColorL));
     font-size: 0.825rem;
     order: 4;

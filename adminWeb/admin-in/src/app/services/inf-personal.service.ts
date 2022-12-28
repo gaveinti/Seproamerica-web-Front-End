@@ -5,6 +5,10 @@ import { Observable } from 'rxjs';
 //import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 const baseUrl = 'http://localhost:8000/api/visualizarPersonal';
+/*
+ DJANGO_SERVER: string = "https://seproamerica2022.pythonanywhere.com/api/usuarioRegistro";
+  DJANGO_SERVER_INICIO_SESION: string = "https://seproamerica2022.pythonanywhere.com/api/usuarioInicioSesion";
+  */
 
 
 @Injectable({
@@ -25,18 +29,36 @@ export class InfPersonalService {
     return this.datos.slice();
    }
 
+   /*Basandome en la pagina https://www.bezkoder.com/angular-crud-app/ */
+  create(data: any): Observable<any>{
+    return this.http.post('http://127.0.0.1:8000/api/visualizarPersonal', data)
+  }
+
+  getAllPersonalOp(): Observable<any[]> {
+    return this.http.get<any[]>(baseUrl);
+  }
+
+  obtenerPersonalOp(){
+      return this.http.get('http://127.0.0.1:8000/api/visualizarPersonal');
+    }
+  
+/*  get(correoU: any): Observable<RegisterModel>{
+    return this.http.get<RegisterModel>(`${this.DJANGO_SERVER_INICIO_SESION}/${correoU}`);
+  }
+
+  encontrarCorreo(correoU: any): Observable<RegisterModel>{
+    return this.http.get<RegisterModel>(`${this.DJANGO_SERVER_INICIO_SESION}?correo=${correoU}`)
+  }
+  */
+
+  update(correoU: any, data: any): Observable<any> {
+    return this.http.put(`'http://127.0.0.1:8000/api/visualizarPersonal'/${correoU}/`, data);
+  }
     eliminarRegistro(index: number){
       this.datos.splice(index,1);
     }
 
-    getAllPersonalOp(): Observable<any[]> {
-      return this.http.get<any[]>(baseUrl);
-    }
-
-    obtenerPersonalOp(){
-        return this.http.get('http://127.0.0.1:8000/api/visualizarPersonal');
-      }
-    
+   
     agregarPersonalOp(val:any){
       return this.http.post('http://127.0.0.1:8000/api/visualizarPersonal/',val);
     }

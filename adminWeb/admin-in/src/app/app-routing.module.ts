@@ -14,38 +14,68 @@ import { RecursosWindComponent } from './recursos-wind/recursos-wind.component';
 import { RegistroComponent } from './registro/registro.component';
 import { ReportesWindComponent } from './reportes-wind/reportes-wind.component';
 import { ServiciosWindComponent } from './servicios-wind/servicios-wind.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PermitidoConSesionActivaGuard } from './guards/permitido-con-sesion-activa.guard';
+import { NoPermitidoSinSesionActivaGuard } from './guards/no-permitido-sin-sesion-activa.guard';
+
+
 
 //import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 //import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 const routes: Routes = [
-  { path: 'login', component: InicioSesionComponent, pathMatch: 'prefix' },
-  { path: 'registro', component: RegistroComponent, pathMatch: 'prefix' },
-  { path: 'perfil', component: PerfilComponent, pathMatch: 'prefix' },
-  { path: 'recursosVentana', component: RecursosWindComponent, pathMatch: 'prefix' },
-  { path: 'serviciosVentana', component: ServiciosWindComponent, pathMatch: 'prefix' },
-  { path: 'personalVentana', component: PersonalWindComponent, pathMatch: 'prefix' },
-  { path: 'reportesVentana', component: ReportesWindComponent, pathMatch: 'prefix' },
-  { path: 'mensajeriaVentana', component: MensajeriaWindComponent, pathMatch: 'prefix' },
+  { path: 'login', 
+  component: InicioSesionComponent, pathMatch: 'prefix',
+  canActivate:[NoPermitidoSinSesionActivaGuard]},
+  { path: 'registro', component: RegistroComponent, pathMatch: 'prefix',    
+  canActivate:[NoPermitidoSinSesionActivaGuard]},
+  { path: 'perfil', component: PerfilComponent, pathMatch: 'prefix',    
+  canActivate:[PermitidoConSesionActivaGuard]},
+  { path: 'recursosVentana', component: RecursosWindComponent, pathMatch: 'prefix',
+  canActivate:[PermitidoConSesionActivaGuard]},
+  { path: 'serviciosVentana', component: ServiciosWindComponent, pathMatch: 'prefix',
+  canActivate:[PermitidoConSesionActivaGuard] },
+  { path: 'personalVentana', component: PersonalWindComponent, pathMatch: 'prefix',
+  canActivate:[PermitidoConSesionActivaGuard] },
+  { path: 'reportesVentana', component: ReportesWindComponent, pathMatch: 'prefix',
+  canActivate:[PermitidoConSesionActivaGuard] },
+  { path: 'mensajeriaVentana', component: MensajeriaWindComponent, pathMatch: 'prefix',
+  canActivate:[PermitidoConSesionActivaGuard] },
 
-  { path: 'vehiculosSec', component: RecursosVehiculosComponent, pathMatch: 'prefix' },
-  { path: 'celularesSec', component: RecursosCelularComponent, pathMatch: 'prefix' },
-  { path: 'armasSec', component: RecursosArmasComponent, pathMatch: 'prefix' },
-  { path: 'candadosSec', component: RecursosCandadosComponent, pathMatch: 'prefix' },
-  { path: 'registrarPer', component: PersonalRegistroComponent, pathMatch: 'prefix' },
+  { path: 'vehiculosSec', component: RecursosVehiculosComponent, pathMatch: 'prefix',
+  canActivate:[PermitidoConSesionActivaGuard] },
+  { path: 'celularesSec', component: RecursosCelularComponent, pathMatch: 'prefix',
+  canActivate:[PermitidoConSesionActivaGuard] },
+  { path: 'armasSec', component: RecursosArmasComponent, pathMatch: 'prefix',
+  canActivate:[PermitidoConSesionActivaGuard] },
+  { path: 'candadosSec', component: RecursosCandadosComponent, pathMatch: 'prefix',
+  canActivate:[PermitidoConSesionActivaGuard] },
+  { path: 'registrarPer', component: PersonalRegistroComponent, pathMatch: 'prefix',
+  canActivate:[PermitidoConSesionActivaGuard] },
 
 
-  { path: 'personalVentana', component: PersonalWindComponent },
-  { path: 'registrarPer', component: PersonalRegistroComponent },
-  { path: 'recursosVentana', component: RecursosWindComponent },
-  { path: 'serviciosVentana', component: ServiciosWindComponent },
-  { path: 'reportesVentana', component: ReportesWindComponent },
-  { path: 'mensajeriaVentana', component: MensajeriaWindComponent },
-  { path: 'vehiculosSec', component: RecursosVehiculosComponent },
-  { path: 'celularesSec', component: RecursosCelularComponent },
-  { path: 'armasSec', component: RecursosArmasComponent },
-  { path: 'candadosSec', component: RecursosCandadosComponent },
+  { path: 'personalVentana', component: PersonalWindComponent,
+  canActivate:[PermitidoConSesionActivaGuard] },
+  { path: 'registrarPer', component: PersonalRegistroComponent,
+  canActivate:[PermitidoConSesionActivaGuard] },
+  { path: 'recursosVentana', component: RecursosWindComponent,
+  canActivate:[PermitidoConSesionActivaGuard] },
+  { path: 'serviciosVentana', component: ServiciosWindComponent,
+  canActivate:[PermitidoConSesionActivaGuard] },
+  { path: 'reportesVentana', component: ReportesWindComponent,
+  canActivate:[PermitidoConSesionActivaGuard] },
+  { path: 'mensajeriaVentana', component: MensajeriaWindComponent,
+  canActivate:[PermitidoConSesionActivaGuard] },
+  { path: 'vehiculosSec', component: RecursosVehiculosComponent,
+  canActivate:[PermitidoConSesionActivaGuard] },
+  { path: 'celularesSec', component: RecursosCelularComponent,
+  canActivate:[PermitidoConSesionActivaGuard] },
+  { path: 'armasSec', component: RecursosArmasComponent,
+  canActivate:[PermitidoConSesionActivaGuard] },
+  { path: 'candadosSec', component: RecursosCandadosComponent,
+  canActivate:[PermitidoConSesionActivaGuard] },
 
   { path: '', redirectTo: '/login', pathMatch: 'prefix' },
 
