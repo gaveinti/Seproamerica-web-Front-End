@@ -4,6 +4,7 @@ import { RegisterModel } from '../models/register.model';
 import { FormGroup, FormBuilder, Validators, FormControl, FormControlDirective} from '@angular/forms';
 import { ClienteWAService } from '../services/cliente-wa.service';
 import * as moment from "moment";
+import { SucursalModel } from '../models/sucursal.model';
 
 
 
@@ -13,6 +14,11 @@ import * as moment from "moment";
   styleUrls: ['./registro.component.css']
 })
 export class RegistroComponent implements OnInit {
+
+  //Lista de sucursales para el registro
+  lista_Sucursales?: SucursalModel[];
+
+  sucursal_De_Admin = ""
 
   //Mensaje de error
   mensajeError = "";
@@ -45,6 +51,9 @@ export class RegistroComponent implements OnInit {
   //Indicador si registro fue guardado en la base de datos o no
   submitted = false;
 
+  //Bandera creada para indicar que la cuenta fue creada y así cambiar el mensaje de retroalimentacion
+  exito = false;
+
   esMayorEdad: boolean = false;
   p: boolean = false;
   constructor(private formBuilder: FormBuilder, 
@@ -61,9 +70,11 @@ export class RegistroComponent implements OnInit {
       'correo': [this.user.correo, [Validators.required, Validators.pattern('^([a-zA-Z0-9_\.-]+)@([a-z0-9]+)\\.([a-z\.]{2,6})$')/*, Validators.email*/]],
       'telefono': [this.user.telefono, [Validators.required, Validators.minLength(9), Validators.maxLength(10), Validators.pattern('^(0){1}(9){1}[0-9]{8}$')]],
       'contrasenha': [this.user.contrasenia, [Validators.required, Validators.minLength(8)]],
+      'sucursal_seleccionada' : [this.sucursal_De_Admin, [Validators.required]]
     });
     this.validarTerminosyCondiciones();
     this.permitirRegistro();
+    this.obtener_Sucursales_Request();
   }
 
   onRegisterSubmit(){
@@ -74,6 +85,10 @@ export class RegistroComponent implements OnInit {
 
   /*Función para guardar usuario nuevo que se registre */
   guardarUsuario(): void {
+    let elem = document.getElementById("mensajeDeConfirmacionDos") 
+    if(elem?.innerHTML != undefined){
+      elem.innerHTML = " ";
+    }
     this.camposCompletos = !this.registerForm.invalid;
     const data = {
       apellidos : this.user.apellidos,
@@ -90,6 +105,8 @@ export class RegistroComponent implements OnInit {
     };
     console.log("entra")
     console.log(data)
+    console.log("Sucursal escogida")
+    console.log(this.sucursal_De_Admin)
     console.log("Fecha valida:" )
     console.log("Campos completos: "+this.camposCompletos)
     console.log("Terminos aceptados:")
@@ -103,39 +120,49 @@ export class RegistroComponent implements OnInit {
           next: (res) => {
             console.log(res);
             this.submitted = true;
-            alert("Cuenta creada exitosamente")
+            this.exito = true;
+            this.cuentaCreada(this.exito)
+            //Sucursal escogida es guardada en local storage para en inicio de sesion usarla para guardar en tabla de personal admin
+            localStorage.setItem("idSucursal", this.sucursal_De_Admin);
+            localStorage.setItem("cedula_Admin", this.user.cedula.toString())
             this.registerForm.reset()
           },
           error: (e) => {
-          console.error(e.error.cedula)
-          this.mensajeError = e.error.cedula
-          this.mensajeErrorCorreo = e.error.correo
-          if(this.mensajeError != undefined){
-            console.log(this.mensajeError)
-            alert(this.mensajeError)
-          }
-          if(this.mensajeErrorCorreo != undefined){
-            console.log(this.mensajeErrorCorreo)
-            alert(this.mensajeErrorCorreo)
-
-          }
+            console.error(e.error.cedula)
+            console.error(e)
+            console.error(e.error)
+            
+            this.mensajeError = e.error.cedula
+            this.mensajeErrorCorreo = e.error.correo
+            if(this.mensajeError != undefined){
+              let elemento_Error_Cedula = document.getElementById("mensajeDeConfirmacionDos") 
+              if(elemento_Error_Cedula?.innerHTML != undefined){
+                elemento_Error_Cedula!.innerHTML = this.mensajeError
+              }
+              //console.log(this.mensajeError)
+              //alert(this.mensajeError)
+            }
+            if(this.mensajeErrorCorreo != undefined){
+              let elemento_Error_Correo = document.getElementById("mensajeDeConfirmacionDos") 
+              if(elemento_Error_Correo?.innerHTML != undefined){
+                elemento_Error_Correo!.innerHTML = this.mensajeErrorCorreo
+              }
+              //console.log(this.mensajeErrorCorreo)
+              //alert(this.mensajeErrorCorreo)
+            }
           }
         });
     } else{
-
-      alert("Debe completar los campos y aceptar los términos y condiciones")
+      let elemento_Dos = document.getElementById("mensajeDeConfirmacionDos") 
+      if(elemento_Dos?.innerHTML != undefined){
+        elemento_Dos!.innerHTML = "Debe completar los campos y aceptar los términos y condiciones"
+      }
     }
     if(this.submitted){
       console.log("Datos guardados")
     } else {
       console.log("Datos no guardados")
-      /*console.log(this.mensajeError)
-      console.log(this.mensajeErrorCorreo)
-      alert(this.mensajeError)
-      alert(this.mensajeErrorCorreo)*/
-      //Cerrar ventana(modal) que indica guardar
-      //const modalPresentado = document.getElementById('modalDos')
-      //modalPresentado?.hidden
+      
     }
   }
 
@@ -224,17 +251,46 @@ export class RegistroComponent implements OnInit {
     return mensajeError/*{'validDate': false};*/
   }
 
-  /*Validar si Dias y meses escogidos con actuales son válidos para cumplir la mayoria de edad 
-  validacionMesDia(){
-    let restaMesDia = 1/*actual - escogido
-    if(restaMesDia >= 0){
-    } else {
-  
+  cuentaCreada(exito: boolean){
+    let element = document.getElementById("mensajeDeConfirmacion");
+    //let hidden = element?.getAttribute("hidden");
+
+    if(exito){
+      element?.setAttribute("mensajeDeConfirmacion", "hidden")
+      let elemento_Dos = document.getElementById("mensajeDeConfirmacionDos") 
+      if(elemento_Dos?.innerHTML != undefined){
+        elemento_Dos!.innerHTML = "La cuenta se ha creado exitosamente"
+      }
+    }else{
+      let elemento_Dos = document.getElementById("mensajeDeConfirmacionDos") 
+      if(elemento_Dos?.innerHTML != undefined){
+        elemento_Dos!.innerHTML = "La cuenta no se ha creado"
+      }
     }
-  }*/
+  }
 
-  
+  //Obtener sucursales desde un request
+  obtener_Sucursales_Request(): void{
+    this.clienteWAService.obtener_Sucursales()
+    .subscribe({
+      next: (data) => {
+        this.lista_Sucursales = data;
+        console.log(data);
+      },
+      error: (e) => console.error(e)
+    });
+  }
 
+  //Encontrar sucursal seleccionada de la lista de sucursales
+  encontrar_Sucursal(direccion_seleccionada: any){
+    let info_Sucursal
+    this.lista_Sucursales?.forEach( (sucursal) => {
+      if(sucursal.direccion == direccion_seleccionada){
+        info_Sucursal = sucursal
+      }
+    })
+    return info_Sucursal
+  }
 
 
 }

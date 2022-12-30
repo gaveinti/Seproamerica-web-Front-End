@@ -134,7 +134,19 @@
                     [(ngModel)]="user.contrasenia" [type]="hide ? 'password':'text'" />
 
                 </div>
-                <mat-error *ngIf="registerForm.controls['contrasenha'].errors?.['minlength']"> Minimo 8 caracteres</mat-error>
+                <mat-error *ngIf="registerForm.controls['contrasenha'].errors?.['minlength']"> Minimo 8 caracteres</mat-error><br>
+
+                <label class="form-label" for="form3Example1cg">Sucursales</label>
+                <div class="form-outline mb-4">
+                    <div *ngFor="let sucursal of lista_Sucursales" class="form-check">
+                      <input class="form-check-input" type="radio" formControlName="sucursal_seleccionada" [(ngModel)]="sucursal_De_Admin" 
+                      id="gridRadios1" value={{sucursal.idSucursal}}>
+                      <label class="form-check-label" for="gridRadios1">
+                        {{sucursal.direccion}}
+                      </label>
+                    </div>
+                  <mat-error *ngIf="registerForm.controls['sucursal_seleccionada'].errors?.['required']"> *</mat-error>
+                </div>
 
 
 
@@ -162,8 +174,11 @@
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Crear cuenta con estos datos</h1>
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel mensajeDeConfirmacion">Crear cuenta con estos datos</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <h3 id="mensajeDeConfirmacionDos"></h3>
                       </div>
                       <div class="modal-footer">
                         <button type="button" (click)="guardarUsuario()" class="btn btn-primary" style="background-color:green;">Guardar</button>

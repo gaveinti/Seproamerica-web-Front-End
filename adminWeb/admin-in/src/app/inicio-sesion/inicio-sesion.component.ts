@@ -1,12 +1,14 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { InicioSesionModel } from '../models/inicioSesion.model';
 import { RegisterModel } from '../models/register.model';
+import { AdminRegisterModel } from '../models/adminRegistro';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ClienteWAService } from '../services/cliente-wa.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { CookieService } from 'ngx-cookie-service';
+import { ContentObserver } from '@angular/cdk/observers';
 
 @Component({
   selector: 'app-inicio-sesion',
@@ -102,7 +104,7 @@ export class InicioSesionComponent implements OnInit {
     //this.authService.eliminarDatosLocalStorage("123")
     console.log("oninithijo")
 
-    localStorage.clear()
+    //localStorage.clear()
     this.deleteAll()
 
     this.inicioSesionForm = this.fb.group({
@@ -193,6 +195,41 @@ export class InicioSesionComponent implements OnInit {
   //Función que habilita el boton "inicio de sesion" si correo y contraseña coinciden
   esV(){
     return true;
+  }
+
+  //Funcion para crear administrador en tabla personal administrativo si aun no existe
+  crear_Admin_En_Tabla(inicio_Operaciones_Admin: Date, sucursal_Admin: Number, cedula_Admin: String, fecha_Modificacion_Admin: Date){
+    let existe_admin = 0
+
+    let data_Admin = {
+      inicio_Operaciones : inicio_Operaciones_Admin,
+      sucursal : sucursal_Admin,
+      cedula : cedula_Admin,
+      cargo: 1,
+      estado : 1,
+      fecha_Modificacion : fecha_Modificacion_Admin
+    };
+
+    this.clienteWAService.obtener_Administrador(cedula_Admin)
+    .subscribe({
+      next: (data) => {
+        console.log(data)
+        console.log("Administrador ya existe en tabla Personal Administrativo")
+        existe_admin = 1
+        console.log(existe_admin)
+      },
+      error: (e) => {
+        console.error(e)
+        console.log("Administrador no ha sido registrado, por ende se procede a registrarlo en la tabla de Personal Administrativo")
+        this.clienteWAService.registrar_administrador(data_Admin)
+        .subscribe({
+          next: (res) => {
+            console.log(res)
+          },
+          error: (e) => console.error(e)
+        });
+      }
+    });
   }
 
 }
