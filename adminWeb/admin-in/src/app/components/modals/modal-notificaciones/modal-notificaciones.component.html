@@ -1,1 +1,19 @@
-<p>modal-notificaciones works!</p>
+<section class="modal-notificacion">
+
+    <div >
+        <div *ngFor="let notificacion of notificaciones" id="notificaciones">
+
+                <div  id="item-notificacion">
+                    <div id="titulo">
+                        {{notificacion.titulo}}
+                    </div>
+                    <div id="hora">
+                        21:20
+                    </div>
+                </div>
+                <br>
+        </div>
+     
+
+    </div>
+</section>
