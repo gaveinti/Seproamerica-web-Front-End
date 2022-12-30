@@ -1,156 +1,309 @@
 <app-header></app-header>
 <div class="wrapper">
-    <div class="bottom_nav" >
-      <div id="navbarResponsive2">
+  <div class="bottom_nav">
+    <div id="navbarResponsive2">
       <ul>
         <li><a routerLink="/personalVentana">Personal Activo</a></li>
         <li><a routerLink="/registrarPer">Registrar Personal</a></li>
       </ul>
     </div>
-    </div>
-    </div>
-    <mat-toolbar color="primary">
-      <span>Mi aplicación</span>
-      </mat-toolbar>
-  <div class="cuerpo">
-    <form id="demoForm" class="needs-validation" [formGroup]="registerForm" autocomplete="on" (ngSubmit)="registerForm.valid && onRegisterSubmit()" novalidate>
+  </div>
+</div>
 
-    <div class="campos row">
-        <div class="column">
+<div class="contenido">
+  <form class="row" [formGroup]="registerForm">
+    <div class="col-3">
+      <div id="txtDatos">
+         DATOS PERSONALES
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="item">
+        <label >NOMBRES</label>
+        <input   type="text" id="fname" name="nombres"  tabindex="1" matInput
+           required formControlName="nombres" [(ngModel)]="user.nombres" />
+        <mat-error *ngIf="registerForm.controls['nombres'].errors?.['required']"> *</mat-error>
+        <mat-error *ngIf="registerForm.controls['nombres'].errors?.['pattern']"> Solo insertar letras</mat-error>
+
+      </div>
+
+      <div class="item">
+        <label  for="apellido">Apellidos</label>
+        <input   type="text" id="apellido" matInput  required
+          formControlName="apellidos" [(ngModel)]="user.apellidos" />
+        <mat-error *ngIf="registerForm.controls['apellidos'].errors?.['required']"> *</mat-error>
+        <mat-error *ngIf="registerForm.controls['apellidos'].errors?.['pattern']"> Solo insertar letras</mat-error>
+      </div>
+
+      <!--div class="item">
+        <label class="label-email">FECHA DE NACIMIENTO</label>
+          <input type="text" name="fechaNac"  tabindex="1" matInput
+            class="form-control form-control-lg" required formControlName="fechaNac" [(ngModel)]="user.fechaNac"
+            required validarFecha />
+          <mat-error *ngIf="validacionFecha(user.fechaNac)">
+            Debe ser mayor de 18 años
+          </mat-error>
+
+
+      </div-->
+
+      <div class="item" >
+        <label >FECHA DE NACIMIENTO</label>
+        <mat-form-field >
+          <div>
+            <input  
+            type="text" name="fechaNac"  tabindex="1" 
+              required formControlName="fechaNac" [(ngModel)]="user.fechaNac"
+              matInput [matDatepicker]="picker"  required  validarFecha  >
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          </div>
+          
+          <mat-datepicker touchUi="true"  #picker ></mat-datepicker>
+        </mat-form-field>
+        <mat-error *ngIf="validacionFecha(user.fechaNac)">
+          Debe ser mayor de 18 años
+        </mat-error>
+      </div>
+      
+      <div class="item">
+        <label >DOCUMENTO DE IDENTIDAD</label>
+          <input type="text" id="fname" name="cedula"  tabindex="1" matInput
+            required formControlName="cedula" [(ngModel)]="user.cedula" />
+          <mat-error *ngIf="registerForm.controls['cedula'].errors?.['required']"> *</mat-error><br>
+          <mat-error *ngIf="registerForm.controls['cedula'].errors?.['minlength']"> Su cédula debe tener 10
+            dígitos</mat-error><br>
+          <mat-error *ngIf="registerForm.controls['cedula'].errors?.['pattern']"> Su cédula solo debe contener
+            digitos</mat-error><br>
+      </div>
+      <div class="item">
+        <label >PROFESION</label>
+          <input type="text" id="fname" name="profesion"  tabindex="1" matInput
+            required  />
+          
+      </div>
+
+      <div class="item">
+        <label  for="tel">TELÉFONO</label>
+        <input maxlength="10" type="tel" id="tel" 
+          formControlName="telefono" [(ngModel)]="user.telefono" />
+        <mat-error *ngIf="registerForm.controls['telefono'].errors?.['required']"> *</mat-error>
+        <mat-error *ngIf="registerForm.controls['telefono'].errors?.['pattern']"> Su telefono debe comenzar con 09 y
+          tener como máximo 10 dígitos</mat-error>
+        <mat-error *ngIf="registerForm.controls['telefono'].errors?.['minlength']"> Minimo 9 caracteres</mat-error>
+        <mat-error *ngIf="registerForm.controls['telefono'].errors?.['maxlength']"> Maximo 10 caracteres</mat-error>
+      </div>
+      <div class="item">
+        <label >CORREO ELECTRÓNICO</label>
+        <input type="email" id="fname" name="correo" tabindex="1" matInput
+           required formControlName="correo" [(ngModel)]="user.correo" />
+        <mat-error *ngIf="registerForm.controls['correo'].errors?.['required']"> *</mat-error>
+        <mat-error *ngIf="registerForm.controls['correo'].errors?.['pattern']"> Debe contener una extensión
+          válida</mat-error>
+      </div>
+      <div class="item">
+        <div class="item">
+          <label >DIRECCIÓN</label>
+            <input type="text" id="fname" name="direccion"  tabindex="1" matInput
+              required  />
+            
+        </div>
+      </div>
+      <div class="item"></div>
+      
+
+    </div>
+    <div class="col">
+      <div class="row">
+        <div class="col">
+          <div  id="txtDatos">
+            DATOS DEL CARGO
+         </div>
+        </div>
+       
+
+       <div class="col">
+        <select class="form-select" aria-label="Default select example">
+          <option selected>Custodio</option>
+          <option value="1">Chófer</option>
+          <option value="2">Guía para eventos</option>
+        </select><br>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+          <label class="form-check-label" for="flexRadioDefault1">
+            Conducción
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+          <label class="form-check-label" for="flexRadioDefault2">
+            Uso de armamento
+          </label>
+        </div>
+       </div>
+      </div><br><br><br>
+      <div class="row pe-4">
+          <div class="col">
+            <div id="txtDatos">
+              DATOS DE LA CUENTA
+           </div>
+          </div>
+         <div class="col">
+          <div class="item">
+            <label >Correo</label>
+              <input type="email"  name="correo"  tabindex="1" matInput
+                required  />
+              
+          </div><br>
+          <div class="item">
+            <label >Contraseña</label>
+              <input type="text"  name="clave"  tabindex="1" matInput
+                required  />
+              
+          </div>
+         </div>
+  
+      </div>
+      <div class="row">
+        <div class="col cont-guardar">
+          <img id="img-guardar" src="../../assets/Iconos/app sepro vectores-62.png" alt="">
+         </div>
+      </div>
+     
+    </div>
    
 
-            <div class="form-outline mb-4">
-              <label class="form-label" for="form3Example1cg">Apellidos</label>
-              <input type="text" id="form3Example1cg" matInput class="form-control form-control-lg" required
-              formControlName="apellidos"
-              [(ngModel)]="user.apellidos"
-              />
-              <mat-error *ngIf="registerForm.controls['apellidos'].errors?.['required']"> *</mat-error>
-              <mat-error *ngIf="registerForm.controls['apellidos'].errors?.['pattern']"> Solo insertar letras</mat-error>
-            </div>
-  
-            <div class="form-outline mb-4">
-              <label class="label-email">Nombres</label>
-                  <input type="text" id="fname"  name="nombres" placeholder="Ingrese el Número de serie" tabindex="1" matInput class="form-control form-control-lg" required
-              formControlName="nombres"
-              [(ngModel)]="user.nombres"
-              />
-              <mat-error *ngIf="registerForm.controls['nombres'].errors?.['required']"> *</mat-error>
-              <mat-error *ngIf="registerForm.controls['nombres'].errors?.['pattern']"> Solo insertar letras</mat-error>
-            </div>
-  
-            <div class="form-outline mb-4">
-              <label class="label-email">Cedula</label>
-              <input type="text" id="fname"  name="cedula" placeholder="Ingrese el Número de serie" tabindex="1" matInput class="form-control form-control-lg" required
-              formControlName="cedula"
-              [(ngModel)]="user.cedula"
-              />
-              <mat-error *ngIf="registerForm.controls['cedula'].errors?.['required']"> *</mat-error><br>
-              <mat-error *ngIf="registerForm.controls['cedula'].errors?.['minlength']"> Su cédula debe tener 10 dígitos</mat-error><br>
-              <mat-error *ngIf="registerForm.controls['cedula'].errors?.['pattern']"> Su cédula solo debe contener digitos</mat-error><br>
-  
-            </div>
-            
-  
-            <div class="form-outline mb-4">
-              <label class="label-email">Fecha de Nacimiento</label>
-              <input type="text" id="fname"  name="fechaNac" placeholder="Ingrese el Número de serie" tabindex="1" matInput class="form-control form-control-lg" required 
-              formControlName="fechaNac"
-              [(ngModel)]="user.fechaNac" required validarFecha
-              />
-              <mat-error *ngIf="validacionFecha(user.fechaNac)">
-                Debe ser mayor de 18 años
-              </mat-error>
-            </div>
-            
-  
-            <label class="form-label" for="form3Example1cg">Sexo</label>
-            <div class="form-outline mb-4">
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" formControlName="sexo" [(ngModel)]="user.sexo" 
-                  id="gridRadios1" value="M">
-                  <label class="form-check-label" for="gridRadios1">
-                    Masculino
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" formControlName="sexo" [(ngModel)]="user.sexo" 
-                  id="gridRadios2" value="F">
-                  <label class="form-check-label" for="gridRadios2">
-                    Femenino
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" formControlName="sexo" [(ngModel)]="user.sexo" 
-                  id="gridRadios3" value="Nd">
-                  <label class="form-check-label" for="gridRadios3">
-                    No definir
-                  </label>
-                </div>
-              <mat-error *ngIf="registerForm.controls['sexo'].errors?.['required']"> *</mat-error>
-            </div>
-  
 
-    </div>
-    <div class="column" >  
-  
-            
+  </form>
+
+</div>
+
+<!--div class="cuerpo">
+  <form id="demoForm" class="needs-validation" [formGroup]="registerForm" autocomplete="on"
+    (ngSubmit)="registerForm.valid && onRegisterSubmit()" novalidate>
+
+    <div class="campos row">
+      <div class="column">
+
+
+        <div class="form-outline mb-4">
+          <label class="form-label" for="form3Example1cg">Apellidos</label>
+          <input type="text" id="form3Example1cg" matInput class="form-control form-control-lg" required
+            formControlName="apellidos" [(ngModel)]="user.apellidos" />
+          <mat-error *ngIf="registerForm.controls['apellidos'].errors?.['required']"> *</mat-error>
+          <mat-error *ngIf="registerForm.controls['apellidos'].errors?.['pattern']"> Solo insertar letras</mat-error>
+        </div>
+
+        <div class="form-outline mb-4">
+          <label class="label-email">Nombres</label>
+          <input type="text" id="fname" name="nombres" placeholder="Ingrese el Número de serie" tabindex="1" matInput
+            class="form-control form-control-lg" required formControlName="nombres" [(ngModel)]="user.nombres" />
+          <mat-error *ngIf="registerForm.controls['nombres'].errors?.['required']"> *</mat-error>
+          <mat-error *ngIf="registerForm.controls['nombres'].errors?.['pattern']"> Solo insertar letras</mat-error>
+        </div>
+
+        <div class="form-outline mb-4">
+          <label class="label-email">Cedula</label>
+          <input type="text" id="fname" name="cedula" placeholder="Ingrese el Número de serie" tabindex="1" matInput
+            class="form-control form-control-lg" required formControlName="cedula" [(ngModel)]="user.cedula" />
+          <mat-error *ngIf="registerForm.controls['cedula'].errors?.['required']"> *</mat-error><br>
+          <mat-error *ngIf="registerForm.controls['cedula'].errors?.['minlength']"> Su cédula debe tener 10
+            dígitos</mat-error><br>
+          <mat-error *ngIf="registerForm.controls['cedula'].errors?.['pattern']"> Su cédula solo debe contener
+            digitos</mat-error><br>
+
+        </div>
+
+
+        <div class="form-outline mb-4">
+          <label class="label-email">Fecha de Nacimiento</label>
+          <input type="text" id="fname" name="fechaNac" placeholder="Ingrese el Número de serie" tabindex="1" matInput
+            class="form-control form-control-lg" required formControlName="fechaNac" [(ngModel)]="user.fechaNac"
+            required validarFecha />
+          <mat-error *ngIf="validacionFecha(user.fechaNac)">
+            Debe ser mayor de 18 años
+          </mat-error>
+        </div>
+
+
+        <label class="form-label" for="form3Example1cg">Sexo</label>
+        <div class="form-outline mb-4">
+          <div class="form-check">
+            <input class="form-check-input" type="radio" formControlName="sexo" [(ngModel)]="user.sexo" id="gridRadios1"
+              value="M">
+            <label class="form-check-label" for="gridRadios1">
+              Masculino
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" formControlName="sexo" [(ngModel)]="user.sexo" id="gridRadios2"
+              value="F">
+            <label class="form-check-label" for="gridRadios2">
+              Femenino
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" formControlName="sexo" [(ngModel)]="user.sexo" id="gridRadios3"
+              value="Nd">
+            <label class="form-check-label" for="gridRadios3">
+              No definir
+            </label>
+          </div>
+          <mat-error *ngIf="registerForm.controls['sexo'].errors?.['required']"> *</mat-error>
+        </div>
+
+
+      </div>
+      <div class="column">
+
+
         <div class="form-outline mb-4">
           <label class="label-email">Correo</label>
-          <input type="text" id="fname"  name="correo" placeholder="Ingrese el Número de serie" tabindex="1" matInput class="form-control form-control-lg" required
-            formControlName="correo"
-            [(ngModel)]="user.correo"
-            />
-            <mat-error *ngIf="registerForm.controls['correo'].errors?.['required']"> *</mat-error>
-            <mat-error *ngIf="registerForm.controls['correo'].errors?.['pattern']"> Debe contener una extensión válida</mat-error>
-            <!--<mat-error *ngIf="registerForm.controls['correo'].errors?.['email']"> Correo no válido</mat-error>-->
-            
+          <input type="text" id="fname" name="correo" placeholder="Ingrese el Número de serie" tabindex="1" matInput
+            class="form-control form-control-lg" required formControlName="correo" [(ngModel)]="user.correo" />
+          <mat-error *ngIf="registerForm.controls['correo'].errors?.['required']"> *</mat-error>
+          <mat-error *ngIf="registerForm.controls['correo'].errors?.['pattern']"> Debe contener una extensión
+            válida</mat-error>
 
-          </div>
 
-          <div class="form-outline mb-4">
-            <label class="form-label" for="form3Example7cg">Telefono</label>
-            <input 
-            maxlength="10"
-            type="tel"
-             id="form3Example7cg" 
-             class="form-control form-control-lg" 
-            formControlName="telefono"
-            [(ngModel)]="user.telefono"
-            />
-            <mat-error *ngIf="registerForm.controls['telefono'].errors?.['required']"> *</mat-error>
-            <mat-error *ngIf="registerForm.controls['telefono'].errors?.['pattern']"> Su telefono debe comenzar con 09 y tener como máximo 10 dígitos</mat-error>
-            <mat-error *ngIf="registerForm.controls['telefono'].errors?.['minlength']"> Minimo 9 caracteres</mat-error>
-            <mat-error *ngIf="registerForm.controls['telefono'].errors?.['maxlength']"> Maximo 10 caracteres</mat-error>
-          </div>
+        </div>
 
-  
-          <div class="d-flex justify-content-center">
-            <button mat-button type="submit button" data-bs-toggle="modal" data-bs-target="#modalDos" 
+        <div class="form-outline mb-4">
+          <label class="form-label" for="form3Example7cg">Telefono</label>
+          <input maxlength="10" type="tel" id="form3Example7cg" class="form-control form-control-lg"
+            formControlName="telefono" [(ngModel)]="user.telefono" />
+          <mat-error *ngIf="registerForm.controls['telefono'].errors?.['required']"> *</mat-error>
+          <mat-error *ngIf="registerForm.controls['telefono'].errors?.['pattern']"> Su telefono debe comenzar con 09 y
+            tener como máximo 10 dígitos</mat-error>
+          <mat-error *ngIf="registerForm.controls['telefono'].errors?.['minlength']"> Minimo 9 caracteres</mat-error>
+          <mat-error *ngIf="registerForm.controls['telefono'].errors?.['maxlength']"> Maximo 10 caracteres</mat-error>
+        </div>
+
+
+        <div class="d-flex justify-content-center">
+          <button mat-button type="submit button" data-bs-toggle="modal" data-bs-target="#modalDos"
             data-bs-dismiss="modal" id="botonRegistro" [disabled]="!esMayorEdad || !registerForm.valid"
             class="btn-confirmar">Confirmar</button>
-          </div>
+        </div>
 
-          <!--Pantalla para confirmar registro-->
-          <div class="modal fade" id="modalDos" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Crear cuenta con estos datos</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" (click)="guardarUsuario()" class="btn btn-primary" style="background-color:green;">Guardar</button>
-                </div>
+        <div class="modal fade" id="modalDos" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+          aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Crear cuenta con estos datos</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-footer">
+                <button type="button" (click)="guardarUsuario()" class="btn btn-primary"
+                  style="background-color:green;">Guardar</button>
               </div>
             </div>
           </div>
+        </div>
 
-    
-    </div> 
-  
-  </div>
-</form> 
-</div>
- 
-  
+
+      </div>
+
+    </div>
+  </form>
+</div-->

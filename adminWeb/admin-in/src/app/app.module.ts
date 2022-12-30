@@ -9,7 +9,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatDialogModule, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -45,6 +45,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { ModalMensajeriaComponent } from './components/modals/modal-mensajeria/modal-mensajeria.component';
 import { ModalPerfilComponent } from './components/modals/modal-perfil/modal-perfil.component';
 import { ModalNotificacionesComponent } from './components/modals/modal-notificaciones/modal-notificaciones.component';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 @NgModule({
@@ -91,6 +92,8 @@ import { ModalNotificacionesComponent } from './components/modals/modal-notifica
     MatButtonModule,
     HttpClientModule,
     MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     AppRoutingModule,
 
   ],

@@ -96,7 +96,9 @@ export class RegistroComponent implements OnInit {
     this.validarAceptacionDeTerminos();
     //Se han completado los campos y se han aceptado los términos de la empresa
     if(this.camposCompletos && this.terminosAceptados){
+      console.log(data+"prueba")
       this.clienteWAService.create(data)
+
         .subscribe({
           next: (res) => {
             console.log(res);

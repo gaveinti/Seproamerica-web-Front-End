@@ -12,8 +12,7 @@ import { SocketService } from './socket.service';
 })
 export class MensajeriaService {
 
-  url_chat = Constantes.URL_CHAT_PRODUCCION
-
+  url_chat = Constantes.URL_CHAT
   usuario_logeado = localStorage.getItem("usuario_logeado")
   usuario_receptor = ""
   nombre_usuario_receptor = ""
