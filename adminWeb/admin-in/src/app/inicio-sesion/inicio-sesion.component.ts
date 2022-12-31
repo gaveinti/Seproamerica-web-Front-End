@@ -23,6 +23,10 @@ export class InicioSesionComponent implements OnInit {
   //variables para las cookies
   private cookie_correo='';
   private all_cookies:any='';
+
+  //Variables para crear a administrador en tabla PersonalAdministrativo
+  var_inicioOperaciones = new Date();
+  var_fechaModificacion = new Date();
   
 
   usuariosLista?: RegisterModel[];
@@ -159,6 +163,9 @@ export class InicioSesionComponent implements OnInit {
               //localStorage.setItem("estaLogeado", "true")
               localStorage.setItem("datoUsuario", JSON.stringify(this.usuarioActual))
               localStorage.setItem("usuario_logeado", this.usuarioActual.correo.toString())
+
+              this.crear_Admin_En_Tabla(this.var_inicioOperaciones, data.cedula.toString(), this.var_fechaModificacion);
+
               localStorage.setItem("ingresado", "true")
 
   
@@ -198,12 +205,12 @@ export class InicioSesionComponent implements OnInit {
   }
 
   //Funcion para crear administrador en tabla personal administrativo si aun no existe
-  crear_Admin_En_Tabla(inicio_Operaciones_Admin: Date, sucursal_Admin: Number, cedula_Admin: String, fecha_Modificacion_Admin: Date){
+  crear_Admin_En_Tabla(inicio_Operaciones_Admin: Date, cedula_Admin: String, fecha_Modificacion_Admin: Date){
     let existe_admin = 0
 
     let data_Admin = {
       inicio_Operaciones : inicio_Operaciones_Admin,
-      sucursal : sucursal_Admin,
+      sucursal : 1,
       cedula : cedula_Admin,
       cargo: 1,
       estado : 1,
