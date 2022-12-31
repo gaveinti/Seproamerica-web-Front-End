@@ -3,6 +3,7 @@ import { RegisterModel } from '../models/register.model';
 import { FormGroup, FormBuilder, Validators, FormControl, FormControlDirective} from '@angular/forms';
 import * as moment from "moment";
 import { InfPersonalService } from '../services/inf-personal.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-personal-registro',
@@ -46,8 +47,10 @@ export class PersonalRegistroComponent implements OnInit {
   esMayorEdad: boolean = false;
   p: boolean = false;
   constructor(private formBuilder: FormBuilder, 
-    private _infPersonalService: InfPersonalService,
-    ) { }
+    private _infPersonalService: InfPersonalService,private router:Router
+    ) { 
+      console.log(router.url)
+    }
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
@@ -64,6 +67,9 @@ export class PersonalRegistroComponent implements OnInit {
     this.permitirRegistro();
   }
 
+  fecha(){
+    console.log(this.user.fechaNac)
+  }
   onRegisterSubmit(){
     /*alert(this.user.apellidos + ' ' + this.user.nombres + ' ' + this.user.cedula + ' ' + this.user + ' ' + 
     this.user.sexo+ ' '+ this.user.correo + ' ' + this.user.telefono + ' ' + this.user.contrasenia + ' ' +  this.direccion + ' ' +
@@ -153,6 +159,7 @@ export class PersonalRegistroComponent implements OnInit {
     if(control){
       const date = moment(control).format('DD-MM-YYYY')
       console.log("Fecha introducida: " + date)
+      //this.user.fechaNac=date.replace("-","/").toString()
       const diaEscogido: number = parseInt(date.split('-')[0])
       const mesEscogido: number = parseInt(date.split('-')[1])
       const anioEscogido: number = parseInt(date.split('-')[2])

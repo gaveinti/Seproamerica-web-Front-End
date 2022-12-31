@@ -56,26 +56,7 @@ const routes: Routes = [
   canActivate:[PermitidoConSesionActivaGuard] },
 
 
-  { path: 'personalVentana', component: PersonalWindComponent,
-  canActivate:[PermitidoConSesionActivaGuard] },
-  { path: 'registrarPer', component: PersonalRegistroComponent,
-  canActivate:[PermitidoConSesionActivaGuard] },
-  { path: 'recursosVentana', component: RecursosWindComponent,
-  canActivate:[PermitidoConSesionActivaGuard] },
-  { path: 'serviciosVentana', component: ServiciosWindComponent,
-  canActivate:[PermitidoConSesionActivaGuard] },
-  { path: 'reportesVentana', component: ReportesWindComponent,
-  canActivate:[PermitidoConSesionActivaGuard] },
-  { path: 'mensajeriaVentana', component: MensajeriaWindComponent,
-  canActivate:[PermitidoConSesionActivaGuard] },
-  { path: 'vehiculosSec', component: RecursosVehiculosComponent,
-  canActivate:[PermitidoConSesionActivaGuard] },
-  { path: 'celularesSec', component: RecursosCelularComponent,
-  canActivate:[PermitidoConSesionActivaGuard] },
-  { path: 'armasSec', component: RecursosArmasComponent,
-  canActivate:[PermitidoConSesionActivaGuard] },
-  { path: 'candadosSec', component: RecursosCandadosComponent,
-  canActivate:[PermitidoConSesionActivaGuard] },
+
 
   { path: '', redirectTo: '/login', pathMatch: 'prefix' },
 

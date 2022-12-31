@@ -1,0 +1,30 @@
+::-webkit-scrollbar {
+    display: none;
+    }
+    
+#notificaciones {
+    padding: 10px;
+    overflow-y: scroll;
+}
+
+#item-notificacion{
+    position: relative;
+    width: 100%;
+    display: flex;
+    background-color: white;
+    border-radius: 32px ;
+    border: 1px solid black;
+    padding: 10px;  
+
+}
+#titulo{
+    
+    text-align: start;
+}
+
+
+#hora{
+    position: absolute;
+    right: 10px;
+    justify-content: center;
+}
