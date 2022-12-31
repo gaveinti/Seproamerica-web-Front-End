@@ -70,7 +70,6 @@ export class RegistroComponent implements OnInit {
       'correo': [this.user.correo, [Validators.required, Validators.pattern('^([a-zA-Z0-9_\.-]+)@([a-z0-9]+)\\.([a-z\.]{2,6})$')/*, Validators.email*/]],
       'telefono': [this.user.telefono, [Validators.required, Validators.minLength(9), Validators.maxLength(10), Validators.pattern('^(0){1}(9){1}[0-9]{8}$')]],
       'contrasenha': [this.user.contrasenia, [Validators.required, Validators.minLength(8)]],
-      'sucursal_seleccionada' : [this.sucursal_De_Admin, [Validators.required]]
     });
     this.validarTerminosyCondiciones();
     this.permitirRegistro();
@@ -122,9 +121,7 @@ export class RegistroComponent implements OnInit {
             this.submitted = true;
             this.exito = true;
             this.cuentaCreada(this.exito)
-            //Sucursal escogida es guardada en local storage para en inicio de sesion usarla para guardar en tabla de personal admin
-            localStorage.setItem("idSucursal", this.sucursal_De_Admin);
-            localStorage.setItem("cedula_Admin", this.user.cedula.toString())
+           
             this.registerForm.reset()
           },
           error: (e) => {
