@@ -46,6 +46,9 @@ import { ModalMensajeriaComponent } from './components/modals/modal-mensajeria/m
 import { ModalPerfilComponent } from './components/modals/modal-perfil/modal-perfil.component';
 import { ModalNotificacionesComponent } from './components/modals/modal-notificaciones/modal-notificaciones.component';
 import { MatNativeDateModule } from '@angular/material/core';
+import { TipoServicioComponent } from './servicios-wind/tipo-servicio/tipo-servicio/tipo-servicio.component';
+import { ServicioPorAsignarComponent } from './servicios-wind/servicio-por-asignar/servicio-por-asignar/servicio-por-asignar.component';
+import { ServicioEnCursoComponent } from './servicios-wind/servicio-en-curso/servicio-en-curso/servicio-en-curso.component';
 
 
 @NgModule({
@@ -76,6 +79,9 @@ import { MatNativeDateModule } from '@angular/material/core';
     ModalMensajeriaComponent,
     ModalPerfilComponent,
     ModalNotificacionesComponent,
+    TipoServicioComponent,
+    ServicioPorAsignarComponent,
+    ServicioEnCursoComponent,
   ],
   imports: [
     BrowserModule,

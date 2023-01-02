@@ -18,9 +18,14 @@ export class Constantes{
     
     //URLS PARA MENSAJERIA
     
-    public static URL_CHAT="http://127.0.0.1:8000/api/chat/"
-    public static URL_CHAT_INBOX="http://localhost:8000/api/chat/inbox/"
+    public static URL_CHAT=this.HOST_DESARROLLO+"/api/chat/"
+    public static URL_CHAT_INBOX=this.HOST_DESARROLLO+"/api/chat/inbox/"
     
+    //URLS PARA NOTIFICACIONES
+    public static URL_NOTIFICACION=this.HOST_DESARROLLO+"/api/notificacion/"
+
+
+
     
     
     /*PARA PRODUCCION*/

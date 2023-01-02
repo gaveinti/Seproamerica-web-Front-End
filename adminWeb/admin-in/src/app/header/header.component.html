@@ -24,14 +24,15 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav">
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
-                            routerLink="/serviciosVentana">Servicios</a></li>
+                        routerLink="/serviciosTipo" >Servicios</a></li>
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
                             routerLink="/personalVentana">Personal</a></li>
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
                             routerLink="/recursosVentana">Recursos</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
+                    <li  class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
                             routerLink="/reportesVentana">Reportes</a> </li>
                 </ul>
+                
             </div>
 
         </div>
@@ -48,9 +49,12 @@
                     </div>
                 </li>
                 <li>
-                    <div (click)="abrirModalNotificaciones()"  class="">
+                    <div  (click)="abrirModalNotificaciones()"  class="">
                         <img class="logoI "  src="../../assets/Iconos/app-sepro-vectores-notificaciones.png">
                     </div>
+
+                    <div class="badge"><span>{{notificacionService.noti_no_leida_num}}</span></div>
+
                 </li>
                 
 

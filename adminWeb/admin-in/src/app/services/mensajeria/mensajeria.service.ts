@@ -66,13 +66,15 @@ export class MensajeriaService {
   obtenerListaMensajes() {
     //console.log(this.servicio_actual,this.usuario_receptor,this.usuario_logeado)
     //this.contactosMensajes=[]
-    this.http.get<any[]>(this.url_chat +this.num_servicio_actual+"/"+ this.servicio_actual + "/" + this.usuario_receptor + "/" + this.usuario_logeado)
+    if(this.num_servicio_actual!="" && this.servicio_actual!=""&&this.usuario_receptor!="" ){
+      this.http.get<any[]>(this.url_chat +this.num_servicio_actual+"/"+ this.servicio_actual + "/" + this.usuario_receptor + "/" + this.usuario_logeado)
       .subscribe(res => {
         let data = JSON.stringify(res)
         let mensajes = JSON.parse(data).mensajes
         this.canal_actual = JSON.parse(data).canal
         this.contactosMensajes = mensajes
       })
+    }
   }
 
   sendMessage(sms: string) {

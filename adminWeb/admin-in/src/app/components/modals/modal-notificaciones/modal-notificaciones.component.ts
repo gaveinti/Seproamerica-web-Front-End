@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { NotificacionesService } from 'src/app/services/notificaciones/notificaciones.service';
 
 @Component({
   selector: 'app-modal-notificaciones',
@@ -7,7 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ModalNotificacionesComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public notificacionService:NotificacionesService,
+    private router:Router
+  ) { 
+    //console.log(notificacionService.obtenerListaNotificaciones())
+  }
 
   notificaciones=[
     {
@@ -52,4 +59,17 @@ export class ModalNotificacionesComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  leerNotificacion(notificacion: any){
+    console.log(notificacion)
+    this.notificacionService.marcarComoLeido(notificacion.id)
+    this.notificacionService.obtenerNotificacionesNoLeidas()
+    this.redirigirNoificacion(notificacion.level)
+
+  }
+
+  redirigirNoificacion(valor:string){
+    if(valor=="Cualquiera"){
+      this.router.navigate(['/mensajeriaVentana'])
+    }
+  }
 }

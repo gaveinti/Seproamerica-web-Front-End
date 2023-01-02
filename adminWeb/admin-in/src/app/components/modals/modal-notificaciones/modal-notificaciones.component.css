@@ -2,19 +2,26 @@
     display: none;
     }
     
+.contenido h1{
+    text-align: center;
+    font-weight: bold;
+    color: white;
+}
 #notificaciones {
     padding: 10px;
     overflow-y: scroll;
+    cursor: pointer;
 }
 
 #item-notificacion{
-    position: relative;
+    font-weight: bold;
     width: 100%;
     display: flex;
-    background-color: white;
+    
     border-radius: 32px ;
     border: 1px solid black;
     padding: 10px;  
+    justify-content: space-between;
 
 }
 #titulo{
@@ -24,7 +31,19 @@
 
 
 #hora{
-    position: absolute;
-    right: 10px;
-    justify-content: center;
+    text-align: end;
+    margin-right: 5px;
+}
+
+#estado{
+    background-color: blue;
+    border-radius: 26px;
+    text-align: end;
+    width: 15px;
+    height: 15px;
+}
+
+.cualquiera{
+    background-color: yellow;
+    color: rgb(187, 21, 21) ;
 }

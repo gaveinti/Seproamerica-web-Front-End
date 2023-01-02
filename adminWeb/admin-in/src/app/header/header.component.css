@@ -80,7 +80,7 @@
 
 @media (min-width: 992px) {
   #mainNav {
-    padding-top: 1.5rem;
+    padding-top: 0;
     padding-bottom: 0;
     transition: padding-top 0.3s, padding-bottom 0.3s;
   }
@@ -107,7 +107,7 @@
   }
 
   #mainNav.navbar-shrink {
-    padding-top: 0.5rem;
+    padding-top: 0;
   }
 
   #mainNav.navbar-shrink .navbar-brand {
@@ -267,7 +267,7 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  padding-top: 0.5rem;
+  padding-top: 0;
 }
 
 .navbar>.container,
@@ -838,7 +838,7 @@
   background-color: #111;
   overflow-x: hidden;
   transition: 0.5s;
-  padding-top: 60px;
+  padding-top: 0;
 }
 
 .sidenav a {
@@ -869,7 +869,7 @@
 
 @media screen and (max-height: 450px) {
   .sidenav {
-    padding-top: 15px;
+    padding-top: 0;
   }
 
   .sidenav a {
@@ -897,7 +897,16 @@
       background-color: rgb(187, 21, 21);
 
   }
-
-
-
+.icons ul li{
+  position: relative;
+}
+.badge{
+  background-color: rgb(255, 255, 255);
+  color: rgb(187, 21, 21);
+  border-radius: 16px;
+  padding: 5px;
+  position: absolute;
+  top: -5px;
+  right: -5px;
+}
 

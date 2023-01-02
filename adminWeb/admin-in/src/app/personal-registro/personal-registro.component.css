@@ -30,6 +30,21 @@
   margin-bottom: 0cm;
   padding-bottom: 0px;
 }
+a{
+  text-decoration: none;
+ }
+ li{
+  padding: 10px;
+  border-radius: 32px;
+ }
+ li:hover { 
+  background-color: rgb(203, 56, 56);
+  color: pink;
+}
+.active{
+  margin-top: 2px;
+  text-decoration: underline 2px solid white;
+}
 
 /*estilos para contenido*/
 .contenido{

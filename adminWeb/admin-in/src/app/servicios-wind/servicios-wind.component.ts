@@ -7,7 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ServiciosWindComponent implements OnInit {
 
+
+  
   constructor() { }
+
+
 
   ngOnInit(): void {
   }
