@@ -1,14 +1,22 @@
 <section class="modal-notificacion">
 
-    <div >
-        <div *ngFor="let notificacion of notificaciones" id="notificaciones">
+    <div class="contenido" >
+        <h1>NOTIFICACIONES</h1>
 
-                <div  id="item-notificacion">
+        <div (click)="leerNotificacion(notificacion)"  *ngFor="let notificacion of notificacionService.notificaciones" id="notificaciones">
+                <div [ngClass]="{
+                    'cualquiera' : notificacion.level=='Cualquiera'}"
+                    id="item-notificacion">
                     <div id="titulo">
-                        {{notificacion.titulo}}
+                        {{notificacion.verbo}}
                     </div>
-                    <div id="hora">
-                        21:20
+                    <div class="d-flex">
+                        <div id="hora">
+                            21:20
+                        </div>
+                        <div id="estado" *ngIf="notificacion.read==false">
+                            
+                        </div>
                     </div>
                 </div>
                 <br>

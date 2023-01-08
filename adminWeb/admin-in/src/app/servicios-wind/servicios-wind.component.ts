@@ -29,6 +29,8 @@ export class ServiciosWindComponent implements OnInit {
 
   constructor(private clienteWAService: ClienteWAService, private router: Router) { }
 
+
+
   ngOnInit(): void {
     this.obtener_servicios()
     console.log(this.lista_Servicio)

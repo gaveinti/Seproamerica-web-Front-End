@@ -49,6 +49,9 @@ import { ModalNotificacionesComponent } from './components/modals/modal-notifica
 import { MatNativeDateModule } from '@angular/material/core';
 import { ServicioCrearComponent } from './servicio-crear/servicio-crear.component';
 import { ServicioEditarEliminarComponent } from './servicio-editar-eliminar/servicio-editar-eliminar.component';
+import { TipoServicioComponent } from './servicios-wind/tipo-servicio/tipo-servicio/tipo-servicio.component';
+import { ServicioPorAsignarComponent } from './servicios-wind/servicio-por-asignar/servicio-por-asignar/servicio-por-asignar.component';
+import { ServicioEnCursoComponent } from './servicios-wind/servicio-en-curso/servicio-en-curso/servicio-en-curso.component';
 
 
 @NgModule({
@@ -81,6 +84,9 @@ import { ServicioEditarEliminarComponent } from './servicio-editar-eliminar/serv
     ModalNotificacionesComponent,
     ServicioCrearComponent,
     ServicioEditarEliminarComponent,
+    TipoServicioComponent,
+    ServicioPorAsignarComponent,
+    ServicioEnCursoComponent,
   ],
   imports: [
     BrowserModule,

@@ -20,6 +20,9 @@ import { PermitidoConSesionActivaGuard } from './guards/permitido-con-sesion-act
 import { NoPermitidoSinSesionActivaGuard } from './guards/no-permitido-sin-sesion-activa.guard';
 import { ServicioCrearComponent } from './servicio-crear/servicio-crear.component';
 import { ServicioEditarEliminarComponent } from './servicio-editar-eliminar/servicio-editar-eliminar.component';
+import { TipoServicioComponent } from './servicios-wind/tipo-servicio/tipo-servicio/tipo-servicio.component';
+import { ServicioPorAsignarComponent } from './servicios-wind/servicio-por-asignar/servicio-por-asignar/servicio-por-asignar.component';
+import { ServicioEnCursoComponent } from './servicios-wind/servicio-en-curso/servicio-en-curso/servicio-en-curso.component';
 
 
 
@@ -43,13 +46,18 @@ const routes: Routes = [
   canActivate:[PermitidoConSesionActivaGuard] },
   { path: 'servicioEditarEliminar', component: ServicioEditarEliminarComponent, pathMatch: 'prefix',
   canActivate:[PermitidoConSesionActivaGuard] },
+  { path: 'serviciosTipo', component: TipoServicioComponent, pathMatch: 'prefix',
+  canActivate:[PermitidoConSesionActivaGuard] },
+  { path: 'serviciosPorAsignar', component: ServicioPorAsignarComponent, pathMatch: 'prefix',
+  canActivate:[PermitidoConSesionActivaGuard] },
+  { path: 'serviciosEnCurso', component: ServicioEnCursoComponent, pathMatch: 'prefix',
+  canActivate:[PermitidoConSesionActivaGuard] },
   { path: 'personalVentana', component: PersonalWindComponent, pathMatch: 'prefix',
   canActivate:[PermitidoConSesionActivaGuard] },
   { path: 'reportesVentana', component: ReportesWindComponent, pathMatch: 'prefix',
   canActivate:[PermitidoConSesionActivaGuard] },
   { path: 'mensajeriaVentana', component: MensajeriaWindComponent, pathMatch: 'prefix',
   canActivate:[PermitidoConSesionActivaGuard] },
-
   { path: 'vehiculosSec', component: RecursosVehiculosComponent, pathMatch: 'prefix',
   canActivate:[PermitidoConSesionActivaGuard] },
   { path: 'celularesSec', component: RecursosCelularComponent, pathMatch: 'prefix',

@@ -1,6 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { interval } from 'rxjs';
 import { InicioSesionComponent } from './inicio-sesion/inicio-sesion.component';
+import { NotificacionesService } from './services/notificaciones/notificaciones.service';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +17,8 @@ export class AppComponent {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private rutaActiva: ActivatedRoute
+    private rutaActiva: ActivatedRoute,
+    private notificacionService:NotificacionesService
      ) { 
       this.ruta=window.location.href.split("/").pop()
     console.log(this.ruta)
@@ -34,6 +37,7 @@ export class AppComponent {
   ngOnInit(){
     console.log("oninit")
     
+   
   }
  
 
