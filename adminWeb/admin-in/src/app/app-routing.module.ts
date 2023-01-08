@@ -18,6 +18,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PermitidoConSesionActivaGuard } from './guards/permitido-con-sesion-activa.guard';
 import { NoPermitidoSinSesionActivaGuard } from './guards/no-permitido-sin-sesion-activa.guard';
+import { ServicioCrearComponent } from './servicio-crear/servicio-crear.component';
+import { ServicioEditarEliminarComponent } from './servicio-editar-eliminar/servicio-editar-eliminar.component';
 
 
 
@@ -36,6 +38,10 @@ const routes: Routes = [
   { path: 'recursosVentana', component: RecursosWindComponent, pathMatch: 'prefix',
   canActivate:[PermitidoConSesionActivaGuard]},
   { path: 'serviciosVentana', component: ServiciosWindComponent, pathMatch: 'prefix',
+  canActivate:[PermitidoConSesionActivaGuard] },
+  { path: 'servicioCrear', component: ServicioCrearComponent, pathMatch: 'prefix',
+  canActivate:[PermitidoConSesionActivaGuard] },
+  { path: 'servicioEditarEliminar', component: ServicioEditarEliminarComponent, pathMatch: 'prefix',
   canActivate:[PermitidoConSesionActivaGuard] },
   { path: 'personalVentana', component: PersonalWindComponent, pathMatch: 'prefix',
   canActivate:[PermitidoConSesionActivaGuard] },

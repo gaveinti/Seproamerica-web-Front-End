@@ -13,16 +13,19 @@
     </div>
 </div>
 <div class="servicios">
-  <div class="custodia">
+
+  <div *ngFor="let servicio of lista_Servicio" class="{{servicio.nombreServicio}}">
     <div class="detalles">
-      <h1>CUSTODIA ARMADA</h1>
+      <h1>{{servicio.nombreServicio.replaceAll('_',' ')}}</h1>
       <img class="logo-servicio" src="../../assets/Iconos/app sepro vectores-19.png" alt="">
-      <img class="btn-detalle" src="../../assets/Iconos/app sepro vectores-21.png" alt="">
+      <img class="btn-detalle" src="../../assets/Iconos/app sepro vectores-21.png"
+       alt="" (click)="enviar_servicio_seleccionado(servicio.nombreServicio)">
 
     </div>
     <img src="../../assets/Iconos/app sepro vectores-12.png" alt="">
   </div>
-  <div class="guardia">
+
+  <!--<div class="guardia">
     <div class="detalles">
       <h1>GUARDIA DE SEGURIDAD</h1>
       <img class="logo-servicio" src="../../assets/Iconos/app sepro vectores-20.png" alt="">
@@ -31,6 +34,7 @@
     </div>
     <img src="../../assets/Iconos/app sepro vectores-15.png" alt="">
   </div>
+
   <div class="chofer">
     <div class="detalles">
       <h1>CHOFER SEGURO</h1>
@@ -41,6 +45,7 @@
     <img src="../../assets/Iconos/app sepro vectores-12.png" alt="">
 
   </div>
+
   <div class="transporte">
     <div class="detalles">
       <h1>TRANSPORTE SEGURO</h1>
@@ -50,5 +55,11 @@
     </div>
     <img src="../../assets/Iconos/app sepro vectores-15.png" alt="">
 
-  </div>
+  </div>-->
+  
+
+</div>
+
+<div class="area_Boton">
+  <button type="button" class="btn_Crear_Servicio btn btn-primary" routerLink="/servicioCrear">Crear Servicio</button>
 </div>

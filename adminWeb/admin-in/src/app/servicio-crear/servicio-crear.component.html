@@ -1,0 +1,195 @@
+<app-header></app-header>
+
+<div class="wrapper">
+    <div class="bottom_nav" >
+      <div id="navbarResponsive2">
+      <ul>
+        <li><a href="#">En Curso</a></li>
+        <li><a href="#">Por asignar</a></li>
+        <li><a href="#">Tipo</a></li>
+        
+      </ul>
+    </div>
+    </div>
+</div>
+
+<div class="contenido">
+    <form class="row" [formGroup]="registerForm" enctype="multipart/form-data">
+      <div class="col-3">
+        <div id="txtDatos">
+          DATOS DEL SERVICIO
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="item">
+          <label >NOMBRE DE SERVICIO</label>
+          <input   type="text" id="fname" name="nombreServicio"  tabindex="1" matInput
+             required formControlName="nombreServicio" [(ngModel)]="servicio.nombreServicio" />
+          <mat-error *ngIf="registerForm.controls['nombreServicio'].errors?.['required']"> *</mat-error>
+          <mat-error *ngIf="registerForm.controls['nombreServicio'].errors?.['pattern']"> Solo insertar letras</mat-error>
+  
+        </div>
+  
+        <div class="item">
+          <label>COSTO</label>
+          <input   type="number" id="costo" matInput  required
+            formControlName="costo" [(ngModel)]="servicio.costo" />
+          <mat-error *ngIf="registerForm.controls['costo'].errors?.['required']"> *</mat-error>
+          <mat-error *ngIf="registerForm.controls['costo'].errors?.['pattern']">Solo debe contener digitos</mat-error>
+        </div>
+
+        <!--<div class="item">
+          <label >DETALLES</label>
+          <input   type="text" id="fname" name="detalles"  tabindex="1" matInput
+             required formControlName="detalles" [(ngModel)]="servicio.detalles" />
+          <mat-error *ngIf="registerForm.controls['detalles'].errors?.['required']"> *</mat-error>
+          <mat-error *ngIf="registerForm.controls['detalles'].errors?.['pattern']"> Solo insertar letras</mat-error>
+        </div>-->
+
+        <div class="item">
+          <label>TIPO DE SERVICIO</label><br>
+          <!--<input   type="text" id="tipo_Servicio" matInput  required
+            formControlName="tipo_Servicio" [(ngModel)]="servicio.tipo_Servicio" />-->
+          
+          <div *ngFor="let tipoServicio of lista_Tipos_Servicios" class="form-check">
+            <input class="form-check-input" type="radio"
+          id="tipo_Servicio1" value="{{tipoServicio.idTipo}}" formControlName="tipo_Servicio" [(ngModel)]="servicio.tipo_Servicio">
+            <label class="form-check-label" for="gridRadios1">{{tipoServicio.tarifa}}</label>
+          </div>
+            
+          
+          <mat-error *ngIf="registerForm.controls['tipo_Servicio'].errors?.['required']"> *</mat-error>
+        </div>  
+  
+        
+  
+        <label class="form-label" for="form3Example1cg"></label>
+        <div class="form-outline mb-4">
+          <div class="form-check">
+           
+            <label class="form-check-label" for="gridRadios1">
+            </label>
+          </div>
+          <div class="form-check">
+            
+            <label class="form-check-label" for="gridRadios2">
+            </label>
+          </div>
+          <div class="form-check">
+            
+            <label class="form-check-label" for="gridRadios3">
+            </label>
+          </div>
+        </div>
+  
+  
+        <!--<div class="item">
+          <label >PROFESION</label>
+        </div>
+  
+        <div class="item">
+          <label  >TELÉFONO</label>
+        </div>-->
+        
+      </div>
+
+
+      <div class="col">
+        <div class="row pe-4">
+          <div class="col">
+            <div  id="txtDatos">
+              INVENTARIO REQUERIDO EN EL SERVICIO
+           </div>
+          </div>
+         
+
+          <!--<div class="col">-->
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="flexRadioDefault" id="flexRadioDefault1">
+              <label class="form-check-label" for="flexRadioDefault1">
+                Vehiculo
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="flexRadioDefault" id="flexRadioDefault2">
+              <label class="form-check-label" for="flexRadioDefault2">
+                Armamento
+              </label>
+            </div>
+           <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="flexRadioDefault" id="flexRadioDefault3">
+              <label class="form-check-label" for="flexRadioDefault3">
+                Candado Satelital
+              </label>
+            </div>
+          <!--</div>-->
+        </div><br><br>
+  
+         
+        <div class="row pe-4">
+            <div class="col">
+              <div id="txtDatos">
+                TIPO DE PERSONAL EN EL SERVICIO
+             </div>
+            </div>
+            
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="flexRadioDefault" id="check_Guardia">
+              <label class="form-check-label" for="check_Guardia">
+                Guardia
+              </label>
+          </div>
+          <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="flexRadioDefault" id="check_Guardaespaldas">
+              <label class="form-check-label" for="check_Guardaespaldas">
+                Guardaespaldas
+              </label>
+          </div>
+          <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="flexRadioDefault" id="check_Conductor_Chofer">
+              <label class="form-check-label" for="check_Conductor_Chofer">
+                Conductor/Chofer
+              </label>
+          </div>
+
+          <br>
+          <br>
+
+
+          <label > Icono </label> 
+          <input type="file"  accept="uploads/png" (change)="setImagen($event)">
+
+          
+      </div>
+
+      <div class="row pe-4">
+        <div class="col cont-guardar">
+           <input type="image" id="img-guardar" src="../../assets/Iconos/app sepro vectores-62.png"
+          data-bs-toggle="modal" data-bs-target="#modalDos" data-bs-dismiss="modal"
+           alt="" (click)="crear_Servicio()">
+        </div>
+      </div>
+          
+       
+      </div>
+  
+      <!--Pantalla para confirmar registro-->
+      <div class="modal fade" id="modalDos" data-bs-backdrop="static" [ngStyle]="{'display':display}" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel mensajeDeConfirmacion">Datos enviados</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <h3 id="mensajeDeConfirmacionDos"></h3>
+            </div>
+          </div>
+        </div>
+      </div>
+     
+  
+  
+    </form>
+  
+</div>

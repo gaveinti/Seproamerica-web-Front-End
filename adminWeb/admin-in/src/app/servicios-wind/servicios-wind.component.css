@@ -81,3 +81,18 @@
  .guardia, .transporte{
   color: white;
  }
+
+
+ .area_Boton {
+  background-color: pink;
+   padding: 1% 5% 2% 5%;
+
+   display: flex;
+   text-align: center;
+   justify-content: space-between;
+ }
+
+ .area_Boton .btn_Crear_Servicio {
+  margin-top: -5%;
+  margin-left: 2%;
+ }
