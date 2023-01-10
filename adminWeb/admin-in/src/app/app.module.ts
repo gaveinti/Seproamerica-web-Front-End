@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 
 
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ServiciosWindComponent } from './servicios-wind/servicios-wind.component';
@@ -46,6 +47,8 @@ import { ModalMensajeriaComponent } from './components/modals/modal-mensajeria/m
 import { ModalPerfilComponent } from './components/modals/modal-perfil/modal-perfil.component';
 import { ModalNotificacionesComponent } from './components/modals/modal-notificaciones/modal-notificaciones.component';
 import { MatNativeDateModule } from '@angular/material/core';
+import { ServicioCrearComponent } from './servicio-crear/servicio-crear.component';
+import { ServicioEditarEliminarComponent } from './servicio-editar-eliminar/servicio-editar-eliminar.component';
 import { TipoServicioComponent } from './servicios-wind/tipo-servicio/tipo-servicio/tipo-servicio.component';
 import { ServicioPorAsignarComponent } from './servicios-wind/servicio-por-asignar/servicio-por-asignar/servicio-por-asignar.component';
 import { ServicioEnCursoComponent } from './servicios-wind/servicio-en-curso/servicio-en-curso/servicio-en-curso.component';
@@ -79,6 +82,8 @@ import { ServicioEnCursoComponent } from './servicios-wind/servicio-en-curso/ser
     ModalMensajeriaComponent,
     ModalPerfilComponent,
     ModalNotificacionesComponent,
+    ServicioCrearComponent,
+    ServicioEditarEliminarComponent,
     TipoServicioComponent,
     ServicioPorAsignarComponent,
     ServicioEnCursoComponent,
