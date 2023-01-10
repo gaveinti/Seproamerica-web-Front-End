@@ -31,7 +31,8 @@
 
                         <p id="mensaje">{{message.texto.split(" ").splice(0, 8).join(" ")}} </p>
                         <span class="tiempo col " text-right><br>{{ message.tiempo | date:'short' }}</span>
-
+                        <div *ngIf="!message.check_leido.includes(usuario_actual)" class="no-leido">
+                        </div>
                     </div>
                 </div>
                 <hr>

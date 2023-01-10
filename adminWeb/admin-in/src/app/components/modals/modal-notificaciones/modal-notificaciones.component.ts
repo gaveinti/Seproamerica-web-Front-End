@@ -63,12 +63,12 @@ export class ModalNotificacionesComponent implements OnInit {
     console.log(notificacion)
     this.notificacionService.marcarComoLeido(notificacion.id)
     this.notificacionService.obtenerNotificacionesNoLeidas()
-    this.redirigirNoificacion(notificacion.level)
+    this.redirigirNotificacion(notificacion.level)
 
   }
 
-  redirigirNoificacion(valor:string){
-    if(valor=="Cualquiera"){
+  redirigirNotificacion(valor:string){
+    if(valor=="Nuevo Mensaje"){
       this.router.navigate(['/mensajeriaVentana'])
     }
   }

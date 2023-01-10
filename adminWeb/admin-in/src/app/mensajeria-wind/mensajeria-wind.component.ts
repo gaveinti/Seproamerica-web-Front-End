@@ -14,6 +14,7 @@ export class MensajeriaWindComponent implements OnInit {
   data_ventana_principal_canal_nuevo: any
   nombre_usuario_receptor = ""
   data_chat = { 'receptor': "mel@gmail.com", 'emisor': "bryanloor.21@gmail.com", 'servicio': "Guardia" }
+  usuario_actual=localStorage.getItem("usuario_logeado")!
 
   constructor(
     public mensajeriaService: MensajeriaService,

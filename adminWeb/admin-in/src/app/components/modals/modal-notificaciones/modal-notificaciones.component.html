@@ -5,11 +5,13 @@
 
         <div (click)="leerNotificacion(notificacion)"  *ngFor="let notificacion of notificacionService.notificaciones" id="notificaciones">
                 <div [ngClass]="{
-                    'cualquiera' : notificacion.level=='Cualquiera'}"
+                    'cualquiera' : notificacion.level=='Nuevo Mensaje'}"
                     id="item-notificacion">
+                    
                     <div id="titulo">
-                        {{notificacion.verbo}}
+                        {{notificacion.level}}
                     </div>
+                    <div class="contenido">{{notificacion.verbo}}</div>
                     <div class="d-flex">
                         <div id="hora">
                             21:20

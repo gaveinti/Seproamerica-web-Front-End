@@ -2,14 +2,16 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable,  } from 'rxjs';
 import { Constantes } from 'src/app/util/constantes';
+import { NotificacionesService } from '../notificaciones/notificaciones.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MensajeriaService {
 
-  url_chat = Constantes.URL_CHAT
-  usuario_logeado = localStorage.getItem("usuario_logeado")
+  url_chat = Constantes.URL_CHAT_PRODUCCION
+  usuario_logeado = localStorage.getItem("usuario_logeado")!
+
   //usuario_logeado = "bryanloor.21@gmail.com"
 
   usuario_receptor = ""
@@ -29,6 +31,7 @@ export class MensajeriaService {
 
   constructor(
     private http: HttpClient,
+    private notificacionService:NotificacionesService
   ) {
 
 
@@ -73,6 +76,8 @@ export class MensajeriaService {
         let mensajes = JSON.parse(data).mensajes
         this.canal_actual = JSON.parse(data).canal
         this.contactosMensajes = mensajes
+        this.marcar_leido()
+
       })
     }
   }
@@ -82,14 +87,40 @@ export class MensajeriaService {
       texto: sms,
       usuario: this.usuario_logeado,
       canal: this.canal_actual,
+      check_leido: this.usuario_logeado
 
     }
+    this.notificacionService.notificar({
+      titulo:"Nuevo Mensaje", 
+      descripcion:sms
+
+    })
+
     this.http.post<any>(this.url_chat+this.num_servicio_actual+"/" + this.servicio_actual + "/" + this.usuario_receptor + "/" + this.usuario_logeado + "/", sms_info)
       .subscribe(res => {
         //this.enviar()
+        console.log("notificado")
         this.obtenerMensajesPorUsuarioLogeado()
         this.obtenerListaMensajes()
       })
+  }
+
+  
+  marcar_leido() {
+    this.contactosMensajes.forEach(sms => {
+      //console.log(e)
+      if (!sms.check_leido.includes(this.usuario_logeado)) {
+        let check = sms.check_leido + this.usuario_logeado
+        this.http.get<any[]>(this.url_chat + "sms_update/" + sms.id + "/" + check)
+          .subscribe(res => {
+            let data = JSON.stringify(res)
+           
+          })
+      }
+
+    })
+
+
   }
 
   obtenerMensajesPorUsuarioLogeado() {
@@ -150,6 +181,7 @@ export interface smsInfo1 {
   canal: string
   texto: string
   usuario: string | null
+  check_leido:string
 }
 export interface smsInfoCanal {
   CANAL_ID: string
@@ -159,6 +191,7 @@ export interface smsInfoCanal {
 }
 
 export interface smsInfo2 {
+  id: string
   canal__id_servicio: string;
   canal__servicio: string
   texto: string
@@ -169,6 +202,8 @@ export interface smsInfo2 {
   receptor: string
   correo_receptor: string
   nombre_perfil: string
+  check_leido: string
+
 
 }
 
