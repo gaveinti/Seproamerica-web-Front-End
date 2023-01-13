@@ -11,7 +11,7 @@ export class NotificacionesService {
   notificaciones:Notificacion[]=[]
   notificaciones_no_leidas:Notificacion[]=[]
 
-  url_notificaciones=Constantes.URL_NOTIFICACION_PRODUCCION
+  url_notificaciones=Constantes.URL_NOTIFICACION
   dataUsuario=JSON.parse(localStorage.getItem("datoUsuario")!)
   noti_no_leida_num: any;
   
@@ -50,18 +50,30 @@ export class NotificacionesService {
 
     })  }
 
-  notificar(info:any){
+  notificar_fcm_movil(info:any){
     let data:any = {
       API_KEY_FCM:this.API_KEY_FCM,
       titulo:info.titulo,
       descripcion:info.descripcion
 
     }
+    this.http.post<any>(this.url_notificaciones+"notificar_fcm_movil/",data)
+      .subscribe(res => {
+        console.log(res)
+      })
+  }
+
+  notificar(info:any){
+    let data:any={
+      emisor:info.emisor,
+      receptor:info.receptor,
+      contenido:info.contenido,
+      level:info.level,
+
+    }
     this.http.post<any>(this.url_notificaciones+"notificar/",data)
       .subscribe(res => {
         console.log(res)
       })
-    this
   }
-
 }

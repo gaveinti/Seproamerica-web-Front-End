@@ -9,7 +9,7 @@ import { NotificacionesService } from '../notificaciones/notificaciones.service'
 })
 export class MensajeriaService {
 
-  url_chat = Constantes.URL_CHAT_PRODUCCION
+  url_chat = Constantes.URL_CHAT
   usuario_logeado = localStorage.getItem("usuario_logeado")!
 
   //usuario_logeado = "bryanloor.21@gmail.com"
@@ -90,18 +90,26 @@ export class MensajeriaService {
       check_leido: this.usuario_logeado
 
     }
-    this.notificacionService.notificar({
-      titulo:"Nuevo Mensaje", 
-      descripcion:sms
-
-    })
+    
 
     this.http.post<any>(this.url_chat+this.num_servicio_actual+"/" + this.servicio_actual + "/" + this.usuario_receptor + "/" + this.usuario_logeado + "/", sms_info)
       .subscribe(res => {
         //this.enviar()
+        this.notificacionService.notificar({
+          emisor:this.usuario_logeado,
+          receptor:this.usuario_receptor,
+          contenido:sms,
+          level:"Nuevo Mensaje"
+        })
+        this.notificacionService.notificar_fcm_movil({
+          titulo:"Nuevo Mensaje", 
+          descripcion:sms
+    
+        })
         console.log("notificado")
         this.obtenerMensajesPorUsuarioLogeado()
         this.obtenerListaMensajes()
+        
       })
   }
 
