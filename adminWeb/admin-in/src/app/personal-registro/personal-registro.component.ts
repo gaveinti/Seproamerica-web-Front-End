@@ -125,6 +125,20 @@ export class PersonalRegistroComponent implements OnInit {
       licencia_uso_armamento : this.validar_licencia_armamento(),
       //rol : '3'
     };
+    //data para tabla de usuarios
+    const data_usuario = {
+      apellidos : this.user.apellidos,
+      nombres : this.user.nombres,
+      cedula : this.user.numCedula,
+      fechaNac : this.user.fechaNac,
+      sexo : this.user.sexo,
+      correo : this.user.correo,
+      telefono : this.user.telefono,
+      contrasenia : "personalOp",
+      direccion : this.user.direccion,
+      rol : '3'
+    }
+
     console.log("entra")
     console.log(data)
     console.log("Campos completos: "+this.camposCompletos)
@@ -174,6 +188,14 @@ export class PersonalRegistroComponent implements OnInit {
           }
         }
       });
+      this.clienteWAService.create(data_usuario)
+      .subscribe({
+        next: (res) => {
+          console.log(res)
+        },
+        error: (e) => console.error(e)
+      });
+
     } else{
 
       console.log("Los datos no han sido completados")
