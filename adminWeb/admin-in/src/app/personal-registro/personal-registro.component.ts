@@ -16,12 +16,6 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./personal-registro.component.css']
 })
 export class PersonalRegistroComponent implements OnInit {
-/*
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-*/
   //Variable para el modal
   display = 'none';
 
@@ -82,8 +76,8 @@ export class PersonalRegistroComponent implements OnInit {
       'correo': [this.user.correo, [Validators.required, Validators.pattern('^([a-zA-Z0-9_\.-]+)@([a-z0-9]+)\\.([a-z\.]{2,6})$')]],
       'telefono': [this.user.telefono, [Validators.required, Validators.minLength(9), Validators.maxLength(10), Validators.pattern('^(0){1}(9){1}[0-9]{8}$')]],
       'direccion': [this.user.direccion, [Validators.required]],
-      'profesion':[this.user.profesion, [Validators.required]],
-      'fotoOp':[''],
+      'profesion':[this.user.profesion, [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
+      'fotoOp':[null],
       'sucursal_seleccionada' : [this.sucursal_De_Personal,  [Validators.required]]
 
     });
@@ -107,6 +101,10 @@ export class PersonalRegistroComponent implements OnInit {
   guardar_Personal_Operativo(): void {
     console.log(this.validar_licencia_armamento())
     console.log(this.validar_licencia_conduccion())
+    let elem = document.getElementById("mensajeDeConfirmacionDos") 
+    if(elem?.innerHTML != undefined){
+      elem.innerHTML = " ";
+    }
     this.camposCompletos = !this.registerForm.invalid;
     const data = {
       apellidos : this.user.apellidos,
@@ -143,6 +141,12 @@ export class PersonalRegistroComponent implements OnInit {
           this.cuentaCreada(this.exito)
          
           this.registerForm.reset()
+
+          let elem_confirmacion_registro = document.getElementById("mensajeDeConfirmacionDos")
+          if(elem_confirmacion_registro?.innerHTML != undefined){
+            elem_confirmacion_registro!.innerHTML = "Personal Operativo registrado exitosamente"
+          }
+
         },
         error: (e) => {
           //const elementModal = document.getElementById('modalDos') as HTMLElement;
@@ -152,12 +156,12 @@ export class PersonalRegistroComponent implements OnInit {
           console.error(e)
           console.error(e.error)
           
-          this.mensajeError = e.error.cedula
+          this.mensajeError = e.error.numCedula
           this.mensajeErrorCorreo = e.error.correo
           if(this.mensajeError != undefined){
             let elemento_Error_Cedula = document.getElementById("mensajeDeConfirmacionDos") 
             if(elemento_Error_Cedula?.innerHTML != undefined){
-              elemento_Error_Cedula!.innerHTML = this.mensajeError
+              elemento_Error_Cedula!.innerHTML = "Ya existe personal operativo con este numero de cedula"
             }
             
           }
@@ -172,7 +176,12 @@ export class PersonalRegistroComponent implements OnInit {
       });
     } else{
 
-      alert("Debe completar los campos")
+      console.log("Los datos no han sido completados")
+      let elem_campos = document.getElementById("mensajeDeConfirmacionDos")
+          if(elem_campos?.innerHTML != undefined){
+            elem_campos!.innerHTML = "Llene los campos solicitados"
+          }
+      //alert("Debe completar los campos")
     }
     
     if(this.submitted){
@@ -322,8 +331,8 @@ export class PersonalRegistroComponent implements OnInit {
 
   //
   setImagen(event: any){
-    this.user.fotoOp = event.target.files[0];
-    this.registerForm.get('fotoOp')?.setValue(this.user.fotoOp);
+    /*this.user.fotoOp = event.target.files[0];
+    this.registerForm.get('fotoOp')?.setValue(this.user.fotoOp);*/
   }
 
 }

@@ -23,6 +23,7 @@ import { ServicioEditarEliminarComponent } from './servicio-editar-eliminar/serv
 import { TipoServicioComponent } from './servicios-wind/tipo-servicio/tipo-servicio/tipo-servicio.component';
 import { ServicioPorAsignarComponent } from './servicios-wind/servicio-por-asignar/servicio-por-asignar/servicio-por-asignar.component';
 import { ServicioEnCursoComponent } from './servicios-wind/servicio-en-curso/servicio-en-curso/servicio-en-curso.component';
+import { PersonalActualizarComponent } from './personal-actualizar/personal-actualizar.component';
 
 
 
@@ -54,6 +55,8 @@ const routes: Routes = [
   canActivate:[PermitidoConSesionActivaGuard] },
   { path: 'personalVentana', component: PersonalWindComponent, pathMatch: 'prefix',
   canActivate:[PermitidoConSesionActivaGuard] },
+  { path: 'personalActualizar', component: PersonalActualizarComponent, pathMatch: 'prefix',
+  canActivate:[PermitidoConSesionActivaGuard] },
   { path: 'reportesVentana', component: ReportesWindComponent, pathMatch: 'prefix',
   canActivate:[PermitidoConSesionActivaGuard] },
   { path: 'mensajeriaVentana', component: MensajeriaWindComponent, pathMatch: 'prefix',
@@ -70,7 +73,7 @@ const routes: Routes = [
   canActivate:[PermitidoConSesionActivaGuard] },
 
 
-
+//PersonalActualizarComponent
 
   { path: '', redirectTo: '/login', pathMatch: 'prefix' },
 

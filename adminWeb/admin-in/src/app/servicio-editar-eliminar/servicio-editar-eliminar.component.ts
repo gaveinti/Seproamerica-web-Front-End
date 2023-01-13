@@ -555,7 +555,7 @@ export class ServicioEditarEliminarComponent implements OnInit {
         if(lista_tpersonal[i] == "guardaespaldas"){
           this.check_guardaespaldas = true
         }
-        if(lista_tpersonal[i] == "chofer/conductor"){
+        if(lista_tpersonal[i] == "conductor_chofer"){
           this.check_conductor_chofer = true
         }
       }
