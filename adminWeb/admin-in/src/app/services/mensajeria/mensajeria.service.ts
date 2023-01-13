@@ -8,7 +8,7 @@ import { Constantes } from 'src/app/util/constantes';
 })
 export class MensajeriaService {
 
-  url_chat = Constantes.URL_CHAT
+  url_chat = Constantes.URL_CHAT_PRODUCCION
   usuario_logeado = localStorage.getItem("usuario_logeado")
   //usuario_logeado = "bryanloor.21@gmail.com"
 
