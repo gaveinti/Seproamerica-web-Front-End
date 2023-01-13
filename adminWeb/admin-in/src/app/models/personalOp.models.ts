@@ -12,7 +12,7 @@ export class PersonalOpModel {
     sucursal!: Number;
     estado!: Number;
     cargo!: String;
-    fotoOp!: File;
+    fotoOp!: String;
     licencia_conductor!: Boolean;
     licencia_uso_armamento!: Boolean;
 }

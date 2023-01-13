@@ -12,7 +12,6 @@ export class MensajeriaService {
   url_chat = Constantes.URL_CHAT
   usuario_logeado = localStorage.getItem("usuario_logeado")!
 
-  //usuario_logeado = "bryanloor.21@gmail.com"
 
   usuario_receptor = ""
   nombre_usuario_receptor = ""
