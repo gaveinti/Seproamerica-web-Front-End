@@ -106,6 +106,7 @@ export class PersonalRegistroComponent implements OnInit {
       elem.innerHTML = " ";
     }
     this.camposCompletos = !this.registerForm.invalid;
+    
     const data = {
       apellidos : this.user.apellidos,
       nombres : this.user.nombres,
@@ -124,6 +125,18 @@ export class PersonalRegistroComponent implements OnInit {
       licencia_conductor : this.validar_licencia_conduccion(),
       licencia_uso_armamento : this.validar_licencia_armamento(),
       //rol : '3'
+    };
+    const data2 = {
+      apellidos : this.user.apellidos,
+      nombres : this.user.nombres,
+      cedula : this.user.numCedula,
+      fechaNac : this.user.fechaNac,
+      sexo : this.user.sexo,
+      correo : this.user.correo,
+      telefono : this.user.telefono,
+      contrasenia : null,
+      direccion : this.user.direccion,
+      rol : '3'
     };
     console.log("entra")
     console.log(data)
