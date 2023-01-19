@@ -4,6 +4,35 @@ import { ServiceModel } from '../models/servicio';
 import { TiposServiciosModel } from '../models/tipoServicio.model';
 import { ClienteWAService } from '../services/cliente-wa.service';
 import { Router } from '@angular/router';
+import { MatTableDataSource } from '@angular/material/table';
+
+
+export interface TablaElemento {
+  kilometro: string;
+  precio: number;
+}
+
+var DATA_TABLA : TablaElemento[] = [
+  
+];
+
+const ESQUEMA_COLUMNAS = [
+  {
+    key: 'kilometro',
+    type: 'text',
+    label: 'Kilometro'
+  },
+  {
+    key: "precio",
+    type: "number",
+    label: "Precio"
+  },
+  {
+    key: 'isEdit',
+    type: 'isEdit',
+    label: ''
+  }
+]
 
 
 @Component({
@@ -80,6 +109,21 @@ export class ServicioEditarEliminarComponent implements OnInit {
     icono: new URL("https://cdn-icons-png.flaticon.com/512/263/263100.png")
   }
 
+  //Dato booleano para mostrar tabla
+  mostrar_tabla!:boolean
+
+    //Columnas para tabla de Kilometro y precio
+  columnas_tabla: string[] = ESQUEMA_COLUMNAS.map((col) => col.key)
+
+  //Lista de datos como fuente de la tabla
+  lista_tabla = new MatTableDataSource(DATA_TABLA)
+
+
+  //Esquema de columnas
+  esquema_columnas: any = ESQUEMA_COLUMNAS
+  
+  data_tabla_source: any = DATA_TABLA
+
   constructor(
     private formBuilder: FormBuilder, 
     private clienteWAService: ClienteWAService,
@@ -91,12 +135,10 @@ export class ServicioEditarEliminarComponent implements OnInit {
     //this.obtener_info_servicio()
     let lista_inventario: string[] = [];
     let lista_tipo_personal: string[] = [];
+    let lista_kilometro_precio: any[] = [];
 
-    console.log("esta tontera es: " + localStorage.getItem("nombre_servicio_editar"))
-    
     //if(localStorage.getItem("detalles_servicio")){
       const info_servicio = JSON.parse(localStorage.getItem("detalles_servicio")!)
-      this.servicio.nombreServicio = info_servicio.nombreServicio!.replaceAll('_', ' ')
       this.servicio.nombreServicio = info_servicio.nombreServicio!.replaceAll('_', ' ')
       this.servicio.costo = info_servicio.costo
       this.servicio.detalles = info_servicio.detalles
@@ -115,11 +157,16 @@ export class ServicioEditarEliminarComponent implements OnInit {
     if(this.servicio.detalles){
       lista_reporte = this.parsear_detalles(this.servicio.detalles.toString())
     }
-    //console.log(lista_reporte)
+    console.log(lista_reporte)
     lista_inventario = lista_reporte.at(1)!
     //console.log(lista_inventario)
     lista_tipo_personal = lista_reporte.at(2)!
     //console.log(lista_tipo_personal)
+    lista_kilometro_precio = lista_reporte.at(3)!
+    lista_kilometro_precio.pop()
+    console.log("Lista kilometro precio")
+    console.log(lista_kilometro_precio)
+    this.data_tabla_source = lista_kilometro_precio
 
     this.check_valores_estandar(lista_inventario, lista_tipo_personal);
     console.log("Esta " + this.check_vehiculo)
@@ -162,6 +209,8 @@ export class ServicioEditarEliminarComponent implements OnInit {
                 + "guardaespaldas: " + this.check_guardaespaldas + "\n"
                 + "conductor/chofer: " + this.check_conductor_chofer + "\n"
     )
+    let reporte_precio_kilometro = this.convertir_reporte_kilometro(this.data_tabla_source)
+
 
     var checkbox_vehiculo = document.getElementById("flexRadioDefault1") as HTMLInputElement;
     console.log("esta checkeado: " + checkbox_vehiculo.checked)
@@ -174,7 +223,7 @@ export class ServicioEditarEliminarComponent implements OnInit {
     console.log("reporte inventtttt")
     console.log(reporte_inventario)
     let reporte_tipo_personal = this.convertir_reporte_tipo_personal(this.tipo_Personal_Requerido)
-    let reporte = reporte_inventario + '. ' + reporte_tipo_personal
+    let reporte = reporte_inventario + '. ' + reporte_tipo_personal + '. ' + reporte_precio_kilometro
     this.guardar()
     this.camposCompletos = !this.registerForm.invalid
     const info_servicio_actualizar = {
@@ -255,7 +304,7 @@ export class ServicioEditarEliminarComponent implements OnInit {
     this.eliminado = true
     let x = document.getElementById('btnEliminarConfirmacion') as HTMLInputElement;
     x.hidden = true
-    this.clienteWAService.eliminar_servicio(this.servicio.nombreServicio)
+    this.clienteWAService.eliminar_servicio(JSON.parse(localStorage.getItem("detalles_servicio")!).nombreServicio)
     .subscribe({
       next: (data) => {
         console.log(data);
@@ -468,6 +517,25 @@ export class ServicioEditarEliminarComponent implements OnInit {
     return reporte_detalles
   }
 
+  //Funcion para convertir diccionario de precios por kilometro
+  convertir_reporte_kilometro(arreglo_diccionario_kilometro: [Map<string, any>]){
+    var reporte_detalles: string = "Precio por kilometro" + " => "
+    for(let dic of arreglo_diccionario_kilometro){
+      console.log(dic)
+      console.log(Object.values(dic))
+      console.log(Object.values(dic)[0])
+      console.log(Object.values(dic)[1])
+      console.log(Object.values(dic)[2])
+      console.log(Object.values(dic)[3])
+      reporte_detalles += Object.values(dic)[0] + " - " + Object.values(dic)[1] + " - " + Object.values(dic)[2] + " - " + Object.values(dic)[3] + " / "
+      //for(let [key, value] of dic){
+      //  console.log(key + " " + value)
+     // }
+    }
+    console.log(reporte_detalles)
+    return reporte_detalles
+  }
+
   //Funcion para guardar los tipos de servicios
   obtener_Tipo_Servicios_Request(): void{
     this.clienteWAService.obtener_Tipos_Servicios()
@@ -502,6 +570,8 @@ export class ServicioEditarEliminarComponent implements OnInit {
     let lista_general: [string[]] = [[]];
     let lista_inventario: string[] = [];
     let lista_tipo_personal: string[] = [];
+    let lista_kilometro_con_precio: any[] = [];
+
 
     let separacion_requerimientos = reporte.split('.')
 
@@ -517,12 +587,34 @@ export class ServicioEditarEliminarComponent implements OnInit {
       lista_tipo_personal.push(obj_tipo_personal.replaceAll(' ', ''))
     })
 
+    let kilometro_precio = separacion_requerimientos[2]
+    let valor_kilometro = kilometro_precio.split("=>")[1]
+    console.log("For de detalle de tabla")
+    valor_kilometro.split('/').forEach(function(obj_row){
+      let arreglo = obj_row.split('-')
+      console.log(arreglo[0].replaceAll(' ', ''))
+      console.log(arreglo[1])
+      console.log(arreglo[2])
+      console.log(arreglo[3])
+      let objeto_kilometro_precio = {
+        "id" : arreglo[0].replaceAll(' ', ''),
+        "kilometro" : arreglo[1],
+        "precio" : Number(arreglo[2]),
+        isEdit : false
+      }
+      console.log(objeto_kilometro_precio)
+      lista_kilometro_con_precio.push(objeto_kilometro_precio)
+    })
+
+
     lista_general.push(lista_inventario)
     lista_general.push(lista_tipo_personal)
+    lista_general.push(lista_kilometro_con_precio)
 
 
     console.log(lista_inventario);
     console.log(lista_tipo_personal);
+    console.log(lista_kilometro_con_precio)
     console.log("A".toLowerCase())
 
     return lista_general
@@ -555,7 +647,7 @@ export class ServicioEditarEliminarComponent implements OnInit {
         if(lista_tpersonal[i] == "guardaespaldas"){
           this.check_guardaespaldas = true
         }
-        if(lista_tpersonal[i] == "conductor_chofer"){
+        if(lista_tpersonal[i] == "conductor_chofer" || lista_tpersonal[i] == "chofer/conductor"){
           this.check_conductor_chofer = true
         }
       }
@@ -572,5 +664,24 @@ export class ServicioEditarEliminarComponent implements OnInit {
   volver_principal(){
     //this.router.navigate(['/serviciosVentana'])
   }
+
+  tipo_servicio_s2(event: any){
+    if(event.target.checked == true && this.servicio.tipo_Servicio == 2){
+      this.mostrar_tabla = true
+      console.log("Funcion 2: " + this.servicio.tipo_Servicio)
+    } else {
+      this.mostrar_tabla = false
+    }
+  }
+
+  addRow(){
+    const newRow = {"id": Date.now(),"kilometro": "", "precio": 0, isEdit: true}
+    this.data_tabla_source = [...this.data_tabla_source, newRow]
+  }
+
+  removeRow(id: number){
+    this.data_tabla_source = this.data_tabla_source.filter((u: { id: number; }) => u.id !== id)
+  }
+  
 
 }

@@ -36,10 +36,9 @@ export class ClienteWAService {
   DJANGO_SERVER_OBTENER_PERSONALOP_ESPECIFICO: string = "https://seproamerica2022.pythonanywhere.com/api/obtener_personalop_especifico";
   DJANGO_SERVER_ACTUALIZAR_PERSONALOP: string = "https://seproamerica2022.pythonanywhere.com/api/actualizar_personalop";
   /*Url para desarrolllo */
-  //DJANGO_SERVER: string = "http://127.0.0.1:8000/api/usuarioRegistro";
-  //DJANGO_SERVER_INICIO_SESION: string = "http://127.0.0.1:8000/api/usuarioInicioSesion";
-
-  /*DJANGO_SERVER_REGISTRO_ADMIN: string = "http://127.0.0.1:8000/api/personalAdminRegistro";
+  /*DJANGO_SERVER: string = "http://127.0.0.1:8000/api/usuarioRegistro";
+  DJANGO_SERVER_INICIO_SESION: string = "http://127.0.0.1:8000/api/usuarioInicioSesion";
+  DJANGO_SERVER_REGISTRO_ADMIN: string = "http://127.0.0.1:8000/api/personalAdminRegistro";
   DJANGO_SERVER_OBTENER_SUCURSALES: string = "http://127.0.0.1:8000/api/visualizarSucursales";
   DJANGO_SERVER_OBTENER_ADMINISTRADOR: string = "http://127.0.0.1:8000/api/obtenerAdministrador";
   DJANGO_SERVER_REGISTRO_PersonalOp: string = "http://127.0.0.1:8000/api/personalOperativoRegistro";

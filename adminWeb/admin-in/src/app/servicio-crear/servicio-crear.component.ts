@@ -4,6 +4,37 @@ import { map } from 'rxjs';
 import { ServiceModel } from '../models/servicio';
 import { TiposServiciosModel } from '../models/tipoServicio.model';
 import { ClienteWAService } from '../services/cliente-wa.service';
+import { ElementoTablaModel } from '../models/elementoTabla';
+import { MatTableDataSource } from '@angular/material/table';
+import { FormsModule } from '@angular/forms';
+
+export interface TablaElemento {
+  kilometro: string;
+  precio: number;
+}
+
+var DATA_TABLA : TablaElemento[] = [
+  
+];
+
+const ESQUEMA_COLUMNAS = [
+  {
+    key: 'kilometro',
+    type: 'text',
+    label: 'Kilometro'
+  },
+  {
+    key: "precio",
+    type: "number",
+    label: "Precio"
+  },
+  {
+    key: 'isEdit',
+    type: 'isEdit',
+    label: ''
+  }
+]
+
 
 @Component({
   selector: 'app-servicio-crear',
@@ -11,6 +42,8 @@ import { ClienteWAService } from '../services/cliente-wa.service';
   styleUrls: ['./servicio-crear.component.css']
 })
 export class ServicioCrearComponent implements OnInit {
+
+  km!: string
 
   registerForm!: FormGroup;
 
@@ -45,6 +78,41 @@ export class ServicioCrearComponent implements OnInit {
   //Bandera creada para indicar que la cuenta fue creada y así cambiar el mensaje de retroalimentacion
   exito = false;
 
+  //Dato booleano para mostrar tabla
+  mostrar_tabla!:boolean
+
+  //Elemento
+  elemento_tabla  = {
+    kilometro: "",
+    precio: 0
+  };
+
+  x!: string
+
+  data_ingresada: ElementoTablaModel = new ElementoTablaModel();
+
+
+  //Columnas para tabla de Kilometro y precio
+  //columnas_tabla: string[] = ['kilometro', 'precio']
+  columnas_tabla: string[] = ESQUEMA_COLUMNAS.map((col) => col.key)
+
+  //Lista de datos como fuente de la tabla
+  //lista_tabla!: ElementoTablaModel[]
+  lista_tabla = new MatTableDataSource(DATA_TABLA)
+
+
+  //Esquema de columnas
+  esquema_columnas: any = ESQUEMA_COLUMNAS
+  
+  /*data_Tabla_source : TablaElemento[] = [
+    {
+      kilometro: "0 a 5", 
+      precio: 5,
+    },
+  ];*/
+  data_tabla_source: any = DATA_TABLA
+  
+
   constructor(
     private formBuilder: FormBuilder, 
     private clienteWAService: ClienteWAService
@@ -57,9 +125,7 @@ export class ServicioCrearComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
       'nombreServicio': [this.servicio.nombreServicio, [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
       'costo': [this.servicio.costo, [Validators.required, Validators.pattern('^[0-9]*\.[0-9]*$')]],
-      //'detalles': [this.servicio.detalles, [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
       'tipo_Servicio': [this.servicio.tipo_Servicio, [Validators.required]],
-      //'icono' : ['']
     });
 
     this.inventario_Requerido.set('vehiculo', false);
@@ -74,16 +140,26 @@ export class ServicioCrearComponent implements OnInit {
 
   }
 
+ 
+
   //Metodo para crear servicio
   crear_Servicio(){
+    console.log("Estos son los detalles de los precios por kilometro")
+    console.log(this.data_tabla_source)
+    let reporte_precio_kilometro = this.convertir_reporte_kilometro(this.data_tabla_source)
+
     this.validar_inventario_requerido(this.inventario_Requerido);
     this.validar_tipo_personal_requerido(this.tipo_Personal_Requerido)
     let reporte_inventario = this.convertir_reporte_inventario(this.inventario_Requerido)
     let reporte_tipo_personal = this.convertir_reporte_tipo_personal(this.tipo_Personal_Requerido)
-    let reporte = reporte_inventario + '. ' + reporte_tipo_personal
+    let reporte = reporte_inventario + '. ' + reporte_tipo_personal + '. ' + reporte_precio_kilometro
     console.log("Reporte inventario")
     console.log(reporte_inventario)
     this.camposCompletos = !this.registerForm.invalid;
+    console.log("Datos completos " + this.camposCompletos)
+    if(this.servicio.nombreServicio == undefined){
+      this.cuentaCreada(false)
+    }
     const data = {
       nombreServicio : this.servicio.nombreServicio.replaceAll(' ', '_'),
       costo : this.servicio.costo,
@@ -95,7 +171,6 @@ export class ServicioCrearComponent implements OnInit {
     };
     console.log("Datos del servicio a crear: ")
     console.log(data)
-    console.log(this.camposCompletos)
     if(this.camposCompletos){
       this.clienteWAService.crear_Servicio(data)
       .subscribe({
@@ -108,6 +183,10 @@ export class ServicioCrearComponent implements OnInit {
         },
         error : (e) => console.log(e)
       });
+    } else {
+      console.log("entra el else")
+      this.exito = true
+      this.cuentaCreada(this.exito)
     }
   }
 
@@ -226,6 +305,25 @@ export class ServicioCrearComponent implements OnInit {
     return reporte_detalles
   }
 
+  //Funcion para convertir diccionario de precios por kilometro
+  convertir_reporte_kilometro(arreglo_diccionario_kilometro: [Map<string, any>]){
+    var reporte_detalles: string = "Precio por kilometro" + " => "
+    for(let dic of arreglo_diccionario_kilometro){
+      console.log(dic)
+      console.log(Object.values(dic))
+      console.log(Object.values(dic)[0])
+      console.log(Object.values(dic)[1])
+      console.log(Object.values(dic)[2])
+      console.log(Object.values(dic)[3])
+      reporte_detalles += Object.values(dic)[0] + " - " + Object.values(dic)[1] + " - " + Object.values(dic)[2] + " - " + Object.values(dic)[3] + " / "
+      //for(let [key, value] of dic){
+      //  console.log(key + " " + value)
+     // }
+    }
+    console.log(reporte_detalles)
+    return reporte_detalles
+  }
+
   //Funcion para guardar los tipos de servicios
   obtener_Tipo_Servicios_Request(): void{
     this.clienteWAService.obtener_Tipos_Servicios()
@@ -251,9 +349,53 @@ export class ServicioCrearComponent implements OnInit {
     }else{
       let elemento_Dos = document.getElementById("mensajeDeConfirmacionDos") 
       if(elemento_Dos?.innerHTML != undefined){
-        elemento_Dos!.innerHTML = "La cuenta no se ha creado"
+        elemento_Dos!.innerHTML = "El servicio no se ha creado, complete los campos"
       }
     }
+  }
+
+  tipo_servicio_seleccionado(tipo: number | Number){
+    console.log(tipo)
+    if(tipo == 2){
+      console.log(true)
+      /*this.mostrar_tabla = true
+      let element = document.getElementById("tabla");
+      element!.innerHTML = `
+      
+      <label>TABLA DE PRECIO POR KILÓMETRO</label>
+
+      <table mat-table [dataSource]="dataSource">
+        <ng-container [matColumnDef]="col" *ngFor="let col of columnas_tabla">
+          <th mat-header-cell *matHeaderCellDef>
+            {{col}}
+          </th> 
+        </ng-container>
+      </table>
+        
+      
+      `*/
+    } else {
+      //let element = document.getElementById("tabla");
+      //element!.innerHTML = ""
+    }
+  }
+
+  tipo_servicio_s2(event: any){
+    if(event.target.checked == true && this.servicio.tipo_Servicio == 2){
+      this.mostrar_tabla = true
+      console.log("Funcion 2: " + this.servicio.tipo_Servicio)
+    } else {
+      this.mostrar_tabla = false
+    }
+  }
+
+  addRow(){
+    const newRow = {"id": Date.now(),"kilometro": "", "precio": 0, isEdit: true}
+    this.data_tabla_source = [...this.data_tabla_source, newRow]
+  }
+
+  removeRow(id: number){
+    this.data_tabla_source = this.data_tabla_source.filter((u: { id: number; }) => u.id !== id)
   }
 
 

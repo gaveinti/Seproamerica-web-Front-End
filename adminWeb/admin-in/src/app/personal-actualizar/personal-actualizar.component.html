@@ -226,46 +226,11 @@
 
         <!--[disabled]="!registerForm.valid"-->
 
-        <!--Boton eliminar-->
-        <div class="col cont-guardar" *ngIf="!inexistente">
-            <input type="image" id="img-guardar" src="../../assets/Iconos/app sepro vectores-77.png"
-           data-bs-toggle="modal" data-bs-target="#modalTres" data-bs-dismiss="modal"
-            alt="">
-         </div>
+        
       </div>
 
       <!--Pantalla para eliminar servicio-->
-      <div class="modal fade" id="modalTres" data-bs-backdrop="static" data-bs-keyboard="false"
-      tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-          <div class="modal-dialog">
-              <div class=" modal-content">
-                  <div class="modal-header">
-                      <h1 class="modal-title fs-5" id="staticBackdropLabel">Una vez eliminado el servicio no podra recuperar los datos 
-                        de este
-                      </h1>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal"
-                          aria-label="Close"></button>
-                  </div>
-                  <div class="modal-footer">
-                      <button type="button" (click)="eliminar_personal()" class="btn btn-primary" id="btnEliminarConfirmacion"
-                          style="background-color:rgb(128, 0, 0);">Confirmar eliminacion de personal</button>
-                          <button type="button" (click)="eliminar_personal()" class="btn btn-primary" id="btnEliminarConfirmacion"
-                          style="background-color:rgb(128, 0, 0);" *ngIf="eliminado == true" hidden>
-                          Confirmar eliminacion de personal</button>
-
-                  </div>
-                  <div *ngIf="eliminado==true" class="mensaje-actualizar exito">
-                      Personal eliminado con éxito <br>
-                      
-                  </div>
-                  <div *ngIf="eliminado==false" class="mensaje-actualizar error">
-                      Problemas al eliminar el personal. <br>
-                      Cierre la ventana para reinintentar
-                  </div>
-
-              </div>
-          </div>
-      </div>
+      
       
      
     </div>
