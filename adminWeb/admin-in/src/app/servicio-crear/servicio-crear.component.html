@@ -52,7 +52,7 @@
             formControlName="tipo_Servicio" [(ngModel)]="servicio.tipo_Servicio" />-->
           
           <div *ngFor="let tipoServicio of lista_Tipos_Servicios" class="form-check">
-            <input class="form-check-input" type="radio" (click)="tipo_servicio_seleccionado(tipoServicio.idTipo)" (change)="tipo_servicio_s2($event)"
+            <input class="form-check-input" type="radio" (click)="tipo_servicio_seleccionado(tipoServicio.idTipo)" (change)="tipo_servicio_s2($event, tipoServicio.tarifa)"
           id="tipo_Servicio1" value="{{tipoServicio.idTipo}}" formControlName="tipo_Servicio" [(ngModel)]="servicio.tipo_Servicio">
             <label class="form-check-label" for="gridRadios1">{{tipoServicio.tarifa}}</label>
           </div>
