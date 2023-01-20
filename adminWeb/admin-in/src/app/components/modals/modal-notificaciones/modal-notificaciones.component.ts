@@ -71,5 +71,11 @@ export class ModalNotificacionesComponent implements OnInit {
     if(valor=="Nuevo Mensaje"){
       this.router.navigate(['/mensajeriaVentana'])
     }
+    else if(valor=="Nuevo servicio"){
+      this.router.navigate(['/serviciosEnCurso'])
+
+
+      
+    }
   }
 }

@@ -54,8 +54,6 @@
           </span>
 
           <input 
-          maxlength="10"
-          
           type="password" 
           id="typePasswordX" 
           class="form-control form-control-lg" 
@@ -75,7 +73,7 @@
         <button [ngClass]="{'valido': inicioSesionForm.valid, 'invalido': !inicioSesionForm.valid}" class="boton-login  btn-lg px-5" type="submit" [disabled]="inicioSesionForm.invalid"
           (click)="getUsuarioA()">Ingresar </button>
 
-        <p routerLink="/registro" style="cursor: pointer" id="text-crear-cuenta" class="m-4"><a>Crear cuenta</a></p>
+        <!--<p routerLink="/registro" style="cursor: pointer" id="text-crear-cuenta" class="m-4"><a>Crear cuenta</a></p>-->
 
       </form>
 

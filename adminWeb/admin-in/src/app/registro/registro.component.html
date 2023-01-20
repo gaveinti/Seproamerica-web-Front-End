@@ -125,13 +125,12 @@
                   </span>
         
                   <input 
-                  maxlength="10"
                   type="password" 
                   id="form3Example8cg" 
                   class="form-control form-control-lg" 
                   formControlName="contrasenha"
                   placeholder="Ingrese contraseña..."
-                    [(ngModel)]="user.contrasenia" [type]="hide ? 'password':'text'" />
+                    [(ngModel)]="user.contrasenia" [type]="hide? 'password':'text'" />
 
                 </div>
                 <mat-error *ngIf="registerForm.controls['contrasenha'].errors?.['minlength']"> Minimo 8 caracteres</mat-error><br>

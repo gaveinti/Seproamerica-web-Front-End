@@ -70,7 +70,7 @@ export class PersonalRegistroComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
       'apellidos': [this.user.apellidos, [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
       'nombres': [this.user.nombres, [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
-      'cedula': [this.user.numCedula, [Validators.required, Validators.minLength(10),Validators.pattern('^[0-9]*$')]],
+      'cedula': [this.user.numCedula, [Validators.required, Validators.minLength(10),Validators.pattern('^(09|125)[0-9]*$')]],
       'fechaNac': [this.user.fechaNac, []],
       'sexo': [this.user.sexo, [Validators.required]],
       'correo': [this.user.correo, [Validators.required, Validators.pattern('^([a-zA-Z0-9_\.-]+)@([a-z0-9]+)\\.([a-z\.]{2,6})$')]],
@@ -204,7 +204,7 @@ export class PersonalRegistroComponent implements OnInit {
       console.log("Los datos no han sido completados")
       let elem_campos = document.getElementById("mensajeDeConfirmacionDos")
           if(elem_campos?.innerHTML != undefined){
-            elem_campos!.innerHTML = "Llene los campos solicitados"
+            elem_campos!.innerHTML = "Llene correctamente los campos solicitados"
           }
       //alert("Debe completar los campos")
     }

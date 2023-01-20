@@ -4,7 +4,8 @@
     <div id="navbarResponsive2">
       <ul>
         <li><a routerLinkActive="active" routerLink="/personalVentana">Personal Activo</a></li>
-        <li><a routerLinkActive="active" routerLink="/registrarPer">Registrar Personal</a></li>
+        <li><a routerLinkActive="active" routerLink="/personalAdminRegistro">Registrar Personal Administrativo</a></li>
+        <li><a routerLinkActive="active" routerLink="/registrarPer">Registrar Personal Operativo</a></li>
       </ul>
     </div>
   </div>
@@ -69,11 +70,11 @@
         <label >DOCUMENTO DE IDENTIDAD</label>
           <input type="text" id="fname" name="cedula"  tabindex="1" matInput
             required formControlName="cedula" [(ngModel)]="user.numCedula" />
-          <mat-error *ngIf="registerForm.controls['cedula'].errors?.['required']"> *</mat-error><br>
+          <mat-error *ngIf="registerForm.controls['cedula'].errors?.['required']"> *</mat-error>
+          <mat-error *ngIf="registerForm.controls['cedula'].errors?.['pattern']"> Su cédula solo debe contener
+            digitos y empezar con 09 o 125</mat-error>
           <mat-error *ngIf="registerForm.controls['cedula'].errors?.['minlength']"> Su cédula debe tener 10
             dígitos</mat-error><br>
-          <mat-error *ngIf="registerForm.controls['cedula'].errors?.['pattern']"> Su cédula solo debe contener
-            digitos</mat-error>
       </div>
 
       <label class="form-label" for="form3Example1cg">Sexo</label>

@@ -53,6 +53,7 @@ import { TipoServicioComponent } from './servicios-wind/tipo-servicio/tipo-servi
 import { ServicioPorAsignarComponent } from './servicios-wind/servicio-por-asignar/servicio-por-asignar/servicio-por-asignar.component';
 import { ServicioEnCursoComponent } from './servicios-wind/servicio-en-curso/servicio-en-curso/servicio-en-curso.component';
 import { PersonalActualizarComponent } from './personal-actualizar/personal-actualizar.component';
+import { PersonalAdminRegistroComponent } from './personal-admin-registro/personal-admin-registro.component';
 
 
 @NgModule({
@@ -89,6 +90,7 @@ import { PersonalActualizarComponent } from './personal-actualizar/personal-actu
     ServicioPorAsignarComponent,
     ServicioEnCursoComponent,
     PersonalActualizarComponent,
+    PersonalAdminRegistroComponent,
   ],
   imports: [
     BrowserModule,

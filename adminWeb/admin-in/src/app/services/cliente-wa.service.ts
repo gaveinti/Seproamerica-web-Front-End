@@ -39,8 +39,8 @@ export class ClienteWAService {
   
   */
 
-  /*Url para desarrolllo */
   
+  /*Url para desarrolllo */
   DJANGO_SERVER: string = "http://127.0.0.1:8000/api/usuarioRegistro";
   DJANGO_SERVER_INICIO_SESION: string = "http://127.0.0.1:8000/api/usuarioInicioSesion";
   DJANGO_SERVER_REGISTRO_ADMIN: string = "http://127.0.0.1:8000/api/personalAdminRegistro";
