@@ -242,7 +242,7 @@ export class ServicioEditarEliminarComponent implements OnInit {
       .subscribe({
         next: (res) => {
           console.log("Se han guardado los datos")
-          this.servicio.nombreServicio = res.nombreServicio
+          this.servicio.nombreServicio = res.nombreServicio!.replaceAll('_', ' ')
           this.servicio.costo = res.costo
           this.servicio.tipo_Servicio = res.tipo_Servicio
           this.servicio.detalles = reporte

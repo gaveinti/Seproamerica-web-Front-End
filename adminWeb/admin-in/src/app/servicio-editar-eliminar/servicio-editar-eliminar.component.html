@@ -294,7 +294,7 @@
     </form>
 
     <!--Código para presentar tabla-->
-    <div *ngIf="mostrar_tabla"  class="item" id="tabla">
+    <div *ngIf="mostrar_tabla && editable"  class="item" id="tabla">
       <label>TABLA DE PRECIO POR KILÓMETRO</label>
       <button mat-raised-button color="primary" (click)="addRow()">Agregar nuevo</button>
 
