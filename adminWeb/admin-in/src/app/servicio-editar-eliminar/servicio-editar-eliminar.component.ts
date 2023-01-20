@@ -665,8 +665,8 @@ export class ServicioEditarEliminarComponent implements OnInit {
     //this.router.navigate(['/serviciosVentana'])
   }
 
-  tipo_servicio_s2(event: any){
-    if(event.target.checked == true && this.servicio.tipo_Servicio == 2){
+  tipo_servicio_s2(event: any, tarifa: any){
+    if(event.target.checked == true && tarifa == "Por km/distancia recorrida"){
       this.mostrar_tabla = true
       console.log("Funcion 2: " + this.servicio.tipo_Servicio)
     } else {

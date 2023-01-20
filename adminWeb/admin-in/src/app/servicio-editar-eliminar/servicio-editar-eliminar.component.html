@@ -45,11 +45,11 @@
           <div *ngFor="let tipoServicio of lista_Tipos_Servicios" class="form-check">
             <input class="form-check-input" type="radio"
             id="tipo_Servicio1" value="{{tipoServicio.idTipo}}" 
-            formControlName="tipo_Servicio" [(ngModel)]="servicio.tipo_Servicio" (change)="tipo_servicio_s2($event)">
+            formControlName="tipo_Servicio" [(ngModel)]="servicio.tipo_Servicio" (change)="tipo_servicio_s2($event, tipoServicio.tarifa)">
             <input class="form-check-input" type="radio"
             id="tipo_Servicio1" value="{{tipoServicio.idTipo}}" [ngStyle]="{ 'color': 'white' }"
             formControlName="tipo_Servicio" [(ngModel)]="servicio.tipo_Servicio"
-             *ngIf="tipoServicio.idTipo == servicio.tipo_Servicio" (change)="tipo_servicio_s2($event)">
+             *ngIf="tipoServicio.idTipo == servicio.tipo_Servicio" (change)="tipo_servicio_s2($event, tipoServicio.tarifa)">
             <label class="form-check-label" for="gridRadios1"
              *ngIf="tipoServicio.idTipo == servicio.tipo_Servicio" [ngStyle]="{ 'color': 'blue' }">{{tipoServicio.tarifa}}</label>
              <label class="form-check-label" for="gridRadios1" *ngIf="tipoServicio.idTipo != servicio.tipo_Servicio">{{tipoServicio.tarifa}}</label>
