@@ -161,7 +161,17 @@ fondo-header{
 
 #historial-mensajes {
     border-right: 2px black solid;
-    height: 100%;
+    height: 600px;
+	overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+}
+.lista-mensajes-1{
+    display: flex;
+    flex-direction: column;
+	height: auto;
+    margin: 0;
+    padding-bottom: 20px;
 }
 #item-mensaje{
     display: flex;

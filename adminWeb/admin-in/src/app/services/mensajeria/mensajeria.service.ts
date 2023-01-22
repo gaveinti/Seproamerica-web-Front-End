@@ -9,7 +9,7 @@ import { NotificacionesService } from '../notificaciones/notificaciones.service'
 })
 export class MensajeriaService {
 
-  url_chat = Constantes.URL_CHAT
+  url_chat = Constantes.URL_CHAT_PRODUCCION
   usuario_logeado = localStorage.getItem("usuario_logeado")!
 
 
@@ -47,8 +47,8 @@ export class MensajeriaService {
         + '/ws/chat/mensajeria/'
     }
 
-    this.obtenerMensajesPorUsuarioLogeado()
-    this.obtenerListaMensajes()
+    //this.obtenerMensajesPorUsuarioLogeado()
+    //this.obtenerListaMensajes()
     //this.socket = new WebSocket(this.url_websocket)
     console.log("usuario", this.usuario_logeado)
   }
@@ -86,7 +86,7 @@ export class MensajeriaService {
       texto: sms,
       usuario: this.usuario_logeado,
       canal: this.canal_actual,
-      check_leido: this.usuario_logeado
+      check_leido: false
 
     }
     
@@ -115,15 +115,25 @@ export class MensajeriaService {
   
   marcar_leido() {
     this.contactosMensajes.forEach(sms => {
-      //console.log(e)
-      if (!sms.check_leido.includes(this.usuario_logeado)) {
+      //console.log(sms)
+
+      if(sms.check_leido==false && sms.usuario__correo!=this.usuario_logeado){
+        console.log("entra enviando")
+        this.http.get<any[]>(this.url_chat + "sms_update/" + sms.id + "/")
+          .subscribe(res => {
+            console.log("leido actualizdo")
+            let data = JSON.stringify(res)
+           
+          })
+      }
+      /*if (!sms.check_leido.includes(this.usuario_logeado)) {
         let check = sms.check_leido + this.usuario_logeado
         this.http.get<any[]>(this.url_chat + "sms_update/" + sms.id + "/" + check)
           .subscribe(res => {
             let data = JSON.stringify(res)
            
           })
-      }
+      }*/
 
     })
 
@@ -188,7 +198,7 @@ export interface smsInfo1 {
   canal: string
   texto: string
   usuario: string | null
-  check_leido:string
+  check_leido:boolean
 }
 export interface smsInfoCanal {
   CANAL_ID: string
@@ -209,7 +219,7 @@ export interface smsInfo2 {
   receptor: string
   correo_receptor: string
   nombre_perfil: string
-  check_leido: string
+  check_leido: boolean
 
 
 }

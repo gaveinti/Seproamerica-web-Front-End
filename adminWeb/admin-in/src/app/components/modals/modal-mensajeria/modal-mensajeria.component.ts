@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { interval } from 'rxjs';
 import { MensajeriaService } from 'src/app/services/mensajeria/mensajeria.service';
 
 @Component({
@@ -8,7 +9,8 @@ import { MensajeriaService } from 'src/app/services/mensajeria/mensajeria.servic
   styleUrls: ['./modal-mensajeria.component.css']
 })
 export class ModalMensajeriaComponent implements OnInit {
-
+  obs$=interval(2000)
+  usuario_actual=localStorage.getItem('usuario_logeado')
   constructor(
     public mensajeriaService: MensajeriaService,
     private router:Router,
@@ -16,6 +18,10 @@ export class ModalMensajeriaComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.mensajeriaService.obtenerMensajesPorUsuarioLogeado()
+    this.obs$.subscribe(res=>{
+      this.mensajeriaService.obtenerMensajesPorUsuarioLogeado()
+    })
   }
   irMensajeria(){
     console.log("ir mensajeria")

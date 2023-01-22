@@ -12,30 +12,33 @@
 
 <section >
         <div class="col-3 " id="historial-mensajes">
-            <div *ngFor="let message of mensajeriaService.chats">
+            <div class="lista-mensajes1">
+                <div *ngFor="let message of mensajeriaService.chats">
 
-                <div (click)="clickOnChat(message)" id="item-mensaje">
-                    <div id="nombre-servicio">Servicio <br> {{message.canal__id_servicio}}</div>
-
-                    <div>
-
-                        <span class="info-envio">{{message.nombre_perfil}}
-                            <span class="info-envio" *ngIf='message.usuario__rol==1'> - Administrador</span>
-                            <span class="info-envio" *ngIf='message.usuario__rol==1'>(Yo)</span>
-                            <span class="info-envio" *ngIf='message.usuario__rol==2'> - Cliente</span>
-                            <span class="info-envio" *ngIf='message.usuario__rol==3'> - Empleado</span>
-
-                        </span>
-
-
-
-                        <p id="mensaje">{{message.texto.split(" ").splice(0, 8).join(" ")}} </p>
-                        <span class="tiempo col " text-right><br>{{ message.tiempo | date:'short' }}</span>
-                        <div *ngIf="!message.check_leido.includes(usuario_actual)" class="no-leido">
+                    <div (click)="clickOnChat(message)" id="item-mensaje">
+                        <div id="nombre-servicio">Servicio <br> {{message.canal__id_servicio}}</div>
+    
+                        <div>
+    
+                            <span class="info-envio">{{message.nombre_perfil}}
+                                <span class="info-envio" *ngIf='message.usuario__rol==1'> - Administrador</span>
+                                <span class="info-envio" *ngIf='message.usuario__rol==1'>(Yo)</span>
+                                <span class="info-envio" *ngIf='message.usuario__rol==2'> - Cliente</span>
+                                <span class="info-envio" *ngIf='message.usuario__rol==3'> - Empleado</span>
+    
+                            </span>
+    
+    
+    
+                            <p id="mensaje">{{message.texto.split(" ").splice(0, 8).join(" ")}} </p>
+                            <span class="tiempo col " text-right><br>{{ message.tiempo | date:'short' }}</span>
+                            <div *ngIf="message.check_leido==false && message.usuario__correo!=usuario_actual" class="no-leido">
+                            
+                            </div>
                         </div>
                     </div>
+                    <hr>
                 </div>
-                <hr>
             </div>
 
         </div>

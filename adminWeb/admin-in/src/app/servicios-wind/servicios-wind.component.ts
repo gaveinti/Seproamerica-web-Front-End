@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ServiceModel } from '../models/servicio';
 import { ClienteWAService } from '../services/cliente-wa.service';
 import { Router } from '@angular/router';
+import { ModalsService } from '../services/modals/modals.service';
 
 @Component({
   selector: 'app-servicios-wind',
@@ -27,11 +28,17 @@ export class ServiciosWindComponent implements OnInit {
     icono: new URL("https://cdn-icons-png.flaticon.com/512/263/263100.png")
   }
 
-  constructor(private clienteWAService: ClienteWAService, private router: Router) { }
+  constructor(
+    private clienteWAService: ClienteWAService,
+     private router: Router,
+     private modalService:ModalsService
+     ) { }
 
 
 
   ngOnInit(): void {
+    this.modalService.closeAllModals()
+
     this.obtener_servicios()
     console.log(this.lista_Servicio)
     localStorage.removeItem('nombre_servicio_editar')

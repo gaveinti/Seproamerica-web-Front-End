@@ -2,6 +2,7 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { interval } from 'rxjs';
 import { MensajeriaService, smsInfo2 } from '../services/mensajeria/mensajeria.service';
+import { ModalsService } from '../services/modals/modals.service';
 
 @Component({
   selector: 'app-mensajeria-wind',
@@ -14,16 +15,17 @@ export class MensajeriaWindComponent implements OnInit {
   data_ventana_principal_canal_nuevo: any
   nombre_usuario_receptor = ""
   data_chat = { 'receptor': "mel@gmail.com", 'emisor': "bryanloor.21@gmail.com", 'servicio': "Guardia" }
-  usuario_actual=localStorage.getItem("usuario_logeado")!
+  usuario_actual=localStorage.getItem("usuario_logeado")!.toString()
 
   constructor(
     public mensajeriaService: MensajeriaService,
     private route: ActivatedRoute,
+    private modalService:ModalsService
     //private socketService: SocketService
 
 
   ) {
-    this.mensajeriaService.obtenerMensajesPorUsuarioLogeado()
+    //this.mensajeriaService.obtenerMensajesPorUsuarioLogeado()
     //this.data_chat=JSON.parse(this.data_chat)
     console.log(this.data_chat)
     this.mensajeriaService.usuario_receptor = this.data_chat!['receptor']
@@ -44,7 +46,10 @@ export class MensajeriaWindComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.modalService.closeAllModals()
     this.mensajeriaService.obtenerListaMensajes()
+    this.mensajeriaService.obtenerMensajesPorUsuarioLogeado()
+    //this.mensajeriaService.obtenerListaMensajes()
 
     /*this.socketService.socket.on("OK",(  data: any  )=>{
       console.log(data)
@@ -60,11 +65,17 @@ export class MensajeriaWindComponent implements OnInit {
 
     })*/
  
+
+
+
+      /*
       const obs$ = interval(2000)
       obs$.subscribe((t) => {
         this.mensajeriaService.obtenerListaMensajes()
         this.mensajeriaService.obtenerMensajesPorUsuarioLogeado()
       })
+      
+      */
     
 
 
@@ -107,6 +118,7 @@ export class MensajeriaWindComponent implements OnInit {
     this.mensajeriaService.usuario_receptor = mensaje.correo_receptor
 
     this.mensajeriaService.obtenerListaMensajes()
+    this.mensajeriaService.obtenerMensajesPorUsuarioLogeado()
    
 
   }

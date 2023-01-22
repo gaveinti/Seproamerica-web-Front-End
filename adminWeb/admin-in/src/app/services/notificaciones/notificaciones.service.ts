@@ -11,7 +11,7 @@ export class NotificacionesService {
   notificaciones:Notificacion[]=[]
   notificaciones_no_leidas:Notificacion[]=[]
 
-  url_notificaciones=Constantes.URL_NOTIFICACION
+  url_notificaciones=Constantes.URL_NOTIFICACION_PRODUCCION
   dataUsuario=JSON.parse(localStorage.getItem("datoUsuario")!)
   noti_no_leida_num: any;
   
@@ -39,7 +39,11 @@ export class NotificacionesService {
       let notificaciones = JSON.parse(data)
       this.notificaciones = notificaciones.data
       this.noti_no_leida_num=notificaciones.cantidad
+
+      
+      
     })
+    
   }
 
   marcarComoLeido(id:any){
@@ -76,4 +80,6 @@ export class NotificacionesService {
         console.log(res)
       })
   }
+
+  
 }

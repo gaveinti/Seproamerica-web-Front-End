@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { interval } from 'rxjs';
 import { NotificacionesService } from 'src/app/services/notificaciones/notificaciones.service';
 
 @Component({
@@ -8,6 +9,7 @@ import { NotificacionesService } from 'src/app/services/notificaciones/notificac
   styleUrls: ['./modal-notificaciones.component.css']
 })
 export class ModalNotificacionesComponent implements OnInit {
+  
 
   constructor(
     public notificacionService:NotificacionesService,
@@ -57,6 +59,7 @@ export class ModalNotificacionesComponent implements OnInit {
 
   ]
   ngOnInit(): void {
+   
   }
 
   leerNotificacion(notificacion: any){
@@ -64,6 +67,7 @@ export class ModalNotificacionesComponent implements OnInit {
     this.notificacionService.marcarComoLeido(notificacion.id)
     this.notificacionService.obtenerNotificacionesNoLeidas()
     this.redirigirNotificacion(notificacion.level)
+    
 
   }
 
@@ -78,4 +82,5 @@ export class ModalNotificacionesComponent implements OnInit {
       
     }
   }
+ 
 }
