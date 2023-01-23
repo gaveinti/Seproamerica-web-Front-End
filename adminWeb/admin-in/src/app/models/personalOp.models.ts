@@ -12,6 +12,7 @@ export class PersonalOpModel {
     sucursal!: Number;
     estado!: Number;
     cargo!: String;
+    cargo_trabajo!: String;
     fotoOp!: String;
     licencia_conductor!: Boolean;
     licencia_uso_armamento!: Boolean;

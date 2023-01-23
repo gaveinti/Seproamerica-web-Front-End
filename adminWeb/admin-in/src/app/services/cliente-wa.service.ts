@@ -9,6 +9,11 @@ import { Administrador_Obtener_Model } from '../models/admin_Obtener';
 import { TiposServiciosModel } from '../models/tipoServicio.model';
 import { ServiceModel } from '../models/servicio';
 import { PersonalOpModel } from '../models/personalOp.models';
+import { PedidoModel } from '../models/pedido.model';
+import { VehiculoModel} from '../models/vehiculo.model';
+import { ArmamentoModel } from '../models/armamento.model';
+import { CandadoModel } from '../models/candado.model';
+import { MobilModel } from '../models/mobil.model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +26,7 @@ export class ClienteWAService {
   "https://seproamerica2022.pythonanywhere.com/api/usuarioInicioSesion";
    */
   /*Url del servidor */
-  DJANGO_SERVER: string = "https://seproamerica2022.pythonanywhere.com/api/usuarioRegistro";
+  /*DJANGO_SERVER: string = "https://seproamerica2022.pythonanywhere.com/api/usuarioRegistro";
   DJANGO_SERVER_INICIO_SESION: string = "https://seproamerica2022.pythonanywhere.com/api/usuarioInicioSesion";
   DJANGO_SERVER_REGISTRO_ADMIN: string = "https://seproamerica2022.pythonanywhere.com/api/personalAdminRegistro";
   DJANGO_SERVER_OBTENER_SUCURSALES: string = "https://seproamerica2022.pythonanywhere.com/api/visualizarSucursales";
@@ -35,8 +40,15 @@ export class ClienteWAService {
   DJANGO_SERVER_ELIMINAR_PERSONALOP: string = "https://seproamerica2022.pythonanywhere.com/api/eliminarPersonalOperativo";
   DJANGO_SERVER_OBTENER_PERSONALOP_ESPECIFICO: string = "https://seproamerica2022.pythonanywhere.com/api/obtener_personalop_especifico";
   DJANGO_SERVER_ACTUALIZAR_PERSONALOP: string = "https://seproamerica2022.pythonanywhere.com/api/actualizar_personalop";
+  DJANGO_SERVER_OBTENER_PEDIDOS: string = "https://seproamerica2022.pythonanywhere.com/api/solicitarServicio";
+  DJANGO_SERVER_OBTENER_VEHICULOS: string = "https://seproamerica2022.pythonanywhere.com/api/visualizarVehiculos";
+  DJANGO_SERVER_OBTENER_CANDADOS: string = "https://seproamerica2022.pythonanywhere.com/api/visualizarCandados";
+  DJANGO_SERVER_OBTENER_ARMAMENTOS: string = "https://seproamerica2022.pythonanywhere.com/api/visualizarArmamentos";
+  DJANGO_SERVER_OBTENER_MOBIL: string = "https://seproamerica2022.pythonanywhere.com/api/visualizarMobil";
+  DJANGO_SERVER_ACTUALIZAR_PEDIDO: string = "https://seproamerica2022.pythonanywhere.com/api/actualizar_pedido_servicio";
+  */
   /*Url para desarrolllo */
-  /*DJANGO_SERVER: string = "http://127.0.0.1:8000/api/usuarioRegistro";
+  DJANGO_SERVER: string = "http://127.0.0.1:8000/api/usuarioRegistro";
   DJANGO_SERVER_INICIO_SESION: string = "http://127.0.0.1:8000/api/usuarioInicioSesion";
   DJANGO_SERVER_REGISTRO_ADMIN: string = "http://127.0.0.1:8000/api/personalAdminRegistro";
   DJANGO_SERVER_OBTENER_SUCURSALES: string = "http://127.0.0.1:8000/api/visualizarSucursales";
@@ -49,7 +61,13 @@ export class ClienteWAService {
   DJANGO_SERVER_OBTENER_PERSONALOP: string = "http://127.0.0.1:8000/api/obtenerTodoPersonalOperativo";
   DJANGO_SERVER_ELIMINAR_PERSONALOP: string = "http://127.0.0.1:8000/api/eliminarPersonalOperativo";
   DJANGO_SERVER_OBTENER_PERSONALOP_ESPECIFICO: string = "http://127.0.0.1:8000/api/obtener_personalop_especifico";
-  DJANGO_SERVER_ACTUALIZAR_PERSONALOP: string = "http://127.0.0.1:8000/api/actualizar_personalop";*/
+  DJANGO_SERVER_ACTUALIZAR_PERSONALOP: string = "http://127.0.0.1:8000/api/actualizar_personalop";
+  DJANGO_SERVER_OBTENER_PEDIDOS: string = "http://127.0.0.1:8000/api/solicitarServicio";
+  DJANGO_SERVER_OBTENER_VEHICULOS: string = "http://127.0.0.1:8000/api/visualizarVehiculos";
+  DJANGO_SERVER_OBTENER_CANDADOS: string = "http://127.0.0.1:8000/api/visualizarCandados";
+  DJANGO_SERVER_OBTENER_ARMAMENTOS: string = "http://127.0.0.1:8000/api/visualizarArmamentos";
+  DJANGO_SERVER_OBTENER_MOBIL: string = "http://127.0.0.1:8000/api/visualizarMobil";
+  DJANGO_SERVER_ACTUALIZAR_PEDIDO: string = "http://127.0.0.1:8000/api/actualizar_pedido_servicio";
   
   constructor(private http: HttpClient) { }
 
@@ -144,6 +162,36 @@ export class ClienteWAService {
   //Request para actualizar informacion de personal operativo
   actualizar_personalOp(cedula_personal: any, data: any): Observable<any>{
     return this.http.put(`${this.DJANGO_SERVER_ACTUALIZAR_PERSONALOP}/${cedula_personal}/`, data);
+  }
+
+  //Request para obtener los pedidos de servicios
+  obtener_Pedidos(): Observable<PedidoModel[]>{
+    return this.http.get<PedidoModel[]>(this.DJANGO_SERVER_OBTENER_PEDIDOS);
+  }
+
+  //Request para obtener los vehiculos
+  obtener_vehiculos(): Observable<VehiculoModel[]>{
+    return this.http.get<VehiculoModel[]>(this.DJANGO_SERVER_OBTENER_VEHICULOS);
+  }
+
+  //Request para obtener candado
+  obtener_candados(): Observable<CandadoModel[]>{
+    return this.http.get<CandadoModel[]>(this.DJANGO_SERVER_OBTENER_CANDADOS);
+  }
+
+  //Request para obtener el armamento
+  obtener_armamentos(): Observable<ArmamentoModel[]>{
+    return this.http.get<ArmamentoModel[]>(this.DJANGO_SERVER_OBTENER_ARMAMENTOS);
+  }
+
+  //Request para obtener mobiles
+  obtener_mobiles(): Observable<MobilModel[]>{
+    return this.http.get<MobilModel[]>(this.DJANGO_SERVER_OBTENER_MOBIL)
+  }
+
+  //Request para actualizar pedido de servicio
+  actualizar_pedido(id_pedido: any, data: any): Observable<any> {
+    return this.http.put(`${this.DJANGO_SERVER_ACTUALIZAR_PEDIDO}/${id_pedido}/`, data);
   }
 
 }

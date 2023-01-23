@@ -169,8 +169,61 @@
                 <mat-error *ngIf="registerForm.controls['sucursal'].errors?.['required']"> *</mat-error>
             </div>
             <br>
-            <label > Foto de perfil </label> 
-            <input type="file"  accept="uploads/png, uploads/jpeg" (change)="setImagen($event)">
+            <!--<label > Foto de perfil </label> 
+            <input type="file"  accept="uploads/png, uploads/jpeg" (change)="setImagen($event)">-->
+
+            
+
+          <br>
+          <br>
+
+          <label class="form-label" for="form3Example1cg">Cargo de trabajo</label>
+          <div class="form-outline mb-4">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="flexRadioDefault" id="check_guardia" *ngIf="!editable" disabled>
+              <input class="form-check-input" type="checkbox" name="flexRadioDefault" id="check_guardia"*ngIf="!editable && check_guardia" disabled checked>
+              <input class="form-check-input" type="checkbox" name="flexRadioDefault" id="check_guardia" *ngIf="editable" (change)="cambio_check_guardia($event)">
+              <input class="form-check-input" type="checkbox" name="flexRadioDefault" id="check_guardia" *ngIf="editable && check_guardia" checked (change)="cambio_check_guardia($event)">
+              <label class="form-check-label" for="flexRadioDefault1">
+                Guardia
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="flexRadioDefault" id="check_guardaespaldas" *ngIf="!editable" disabled>
+              <input class="form-check-input" type="checkbox" name="flexRadioDefault" id="check_guardaespaldas" *ngIf="!editable && check_guardaespaldas" disabled checked>
+              <input class="form-check-input" type="checkbox" name="flexRadioDefault" id="check_guardaespaldas" *ngIf="editable" (change)="cambio_check_guardaespaldas($event)">
+              <input class="form-check-input" type="checkbox" name="flexRadioDefault" id="check_guardaespaldas" *ngIf="editable && check_guardaespaldas" checked (change)="cambio_check_guardaespaldas($event)">
+              <label class="form-check-label" for="flexRadioDefault2">
+                Guardaespaldas
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="flexRadioDefault" id="check_conductor" *ngIf="!editable" disabled>
+              <input class="form-check-input" type="checkbox" name="flexRadioDefault" id="check_conductor" *ngIf="!editable && check_conductor" disabled checked>
+              <input class="form-check-input" type="checkbox" name="flexRadioDefault" id="check_conductor" *ngIf="editable" (change)="cambio_check_conductor($event)">
+              <input class="form-check-input" type="checkbox" name="flexRadioDefault" id="check_conductor" *ngIf="editable && check_conductor" checked (change)="cambio_check_conductor($event)">
+              <label class="form-check-label" for="flexRadioDefault2">
+                Conductor
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="flexRadioDefault" id="check_motorizado" *ngIf="!editable" disabled>
+              <input class="form-check-input" type="checkbox" name="flexRadioDefault" id="check_motorizado" *ngIf="!editable && check_motorizado" disabled checked>
+              <input class="form-check-input" type="checkbox" name="flexRadioDefault" id="check_motorizado" *ngIf="editable" (change)="cambio_check_motorizado($event)">
+              <input class="form-check-input" type="checkbox" name="flexRadioDefault" id="check_motorizado" *ngIf="editable && check_motorizado" checked (change)="cambio_check_motorizado($event)">
+              <label class="form-check-label" for="flexRadioDefault2">
+                Motorizado
+              </label>
+            </div>
+            <mat-error *ngIf="registerForm.controls['sexo'].errors?.['required']"> *</mat-error>
+          </div>
+
+          <!--
+            <input class="form-check-input" type="checkbox" name="flexRadioDefault" id="flexRadioDefault2" *ngIf="!editable" disabled>
+          <input class="form-check-input" type="checkbox" name="flexRadioDefault" id="flexRadioDefault2" *ngIf="!editable && check_armamento" disabled checked>
+          <input class="form-check-input" type="checkbox" name="flexRadioDefault" id="flexRadioDefault2" *ngIf="editable" (change)="cambio_check_armamento($event)">
+          <input class="form-check-input" type="checkbox" name="flexRadioDefault" id="flexRadioDefault2" *ngIf="editable && check_armamento" checked (change)="cambio_check_armamento($event)">
+          -->
 
   
       </div>

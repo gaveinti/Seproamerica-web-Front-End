@@ -25,6 +25,7 @@ import { ServicioPorAsignarComponent } from './servicios-wind/servicio-por-asign
 import { ServicioEnCursoComponent } from './servicios-wind/servicio-en-curso/servicio-en-curso/servicio-en-curso.component';
 import { PersonalActualizarComponent } from './personal-actualizar/personal-actualizar.component';
 import { PersonalAdminRegistroComponent } from './personal-admin-registro/personal-admin-registro.component';
+import { ServicioDetallesAsignacionComponent } from './servicio-detalles-asignacion/servicio-detalles-asignacion.component';
 
 
 
@@ -52,6 +53,8 @@ const routes: Routes = [
   canActivate:[PermitidoConSesionActivaGuard] },
   { path: 'serviciosPorAsignar', component: ServicioPorAsignarComponent, pathMatch: 'prefix',
   canActivate:[PermitidoConSesionActivaGuard] },
+  { path: 'serviciosDetallesAsignacion', component: ServicioDetallesAsignacionComponent, pathMatch: 'prefix',
+  canActivate:[PermitidoConSesionActivaGuard] },
   { path: 'serviciosEnCurso', component: ServicioEnCursoComponent, pathMatch: 'prefix',
   canActivate:[PermitidoConSesionActivaGuard] },
   { path: 'personalVentana', component: PersonalWindComponent, pathMatch: 'prefix',
@@ -74,7 +77,6 @@ const routes: Routes = [
   canActivate:[PermitidoConSesionActivaGuard] },
   { path: 'registrarPer', component: PersonalRegistroComponent, pathMatch: 'prefix',
   canActivate:[PermitidoConSesionActivaGuard] },
-
 
 
   { path: '', redirectTo: '/login', pathMatch: 'prefix' },

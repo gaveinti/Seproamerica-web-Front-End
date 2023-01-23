@@ -10,6 +10,8 @@ import {MatDialogModule, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSelectModule} from '@angular/material/select';
+
 
 
 
@@ -54,6 +56,7 @@ import { ServicioPorAsignarComponent } from './servicios-wind/servicio-por-asign
 import { ServicioEnCursoComponent } from './servicios-wind/servicio-en-curso/servicio-en-curso/servicio-en-curso.component';
 import { PersonalActualizarComponent } from './personal-actualizar/personal-actualizar.component';
 import { PersonalAdminRegistroComponent } from './personal-admin-registro/personal-admin-registro.component';
+import { ServicioDetallesAsignacionComponent } from './servicio-detalles-asignacion/servicio-detalles-asignacion.component';
 
 
 @NgModule({
@@ -91,6 +94,7 @@ import { PersonalAdminRegistroComponent } from './personal-admin-registro/person
     ServicioEnCursoComponent,
     PersonalActualizarComponent,
     PersonalAdminRegistroComponent,
+    ServicioDetallesAsignacionComponent,
   ],
   imports: [
     BrowserModule,
@@ -110,6 +114,7 @@ import { PersonalAdminRegistroComponent } from './personal-admin-registro/person
     MatDatepickerModule,
     MatNativeDateModule,
     AppRoutingModule,
+    MatSelectModule,
 
   ],
   entryComponents: [AgregarvehiculoDialogComponent],

@@ -114,7 +114,8 @@
   }
 
   #tabla{
+    width: 30%;
     float: left;
-    margin-left: 23%;
+    margin-left: 15%;
     margin-bottom: 15%;
   }

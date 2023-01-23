@@ -1,2 +1,24 @@
-<app-servicios-wind></app-servicios-wind>
-<p>servicio-por-asignar works!</p>
+<app-header></app-header>
+
+<div class="wrapper">
+    <div class="bottom_nav" >
+      <div id="navbarResponsive2">
+      <ul>
+        <li><a  routerLinkActive="active" routerLink="/serviciosEnCurso">En Curso</a></li>
+        <li><a routerLinkActive="active" routerLink="/serviciosPorAsignar">Por asignar</a></li>
+        <li><a routerLinkActive="active" routerLink="/serviciosTipo" href="#">Tipo</a></li>
+        
+      </ul>
+    </div>
+    </div>
+</div>
+
+<div class="servicios">
+
+    <div *ngFor="let pedido of lista_pedidos">
+        <p>{{pedido.nombre_Servicio}}</p>
+        <button routerLink="/serviciosDetallesAsignacion" (click)="encontrar_pedido_especifico(pedido.idPedido)">{{pedido.nombre_Servicio}}</button>
+    </div>
+    
+  
+</div>

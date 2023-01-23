@@ -58,6 +58,8 @@
             <mat-error *ngIf="registerForm.controls['cedula'].errors?.['required']"> *</mat-error>
             <mat-error *ngIf="registerForm.controls['cedula'].errors?.['pattern']"> Su cédula solo debe contener
               digitos y empezar con 09 o 125</mat-error>
+            <mat-error *ngIf="registerForm.controls['cedula'].errors?.['maxlength']"> Su cédula debe tener 10
+              dígitos</mat-error>
             <mat-error *ngIf="registerForm.controls['cedula'].errors?.['minlength']"> Su cédula debe tener 10
               dígitos</mat-error><br>
         </div>

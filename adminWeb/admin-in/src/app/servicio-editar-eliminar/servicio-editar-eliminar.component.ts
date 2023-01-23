@@ -18,14 +18,25 @@ var DATA_TABLA : TablaElemento[] = [
 
 const ESQUEMA_COLUMNAS = [
   {
-    key: 'kilometro',
-    type: 'text',
-    label: 'Kilometro'
+    key: 'kilometro_inicial',
+    type: 'number',
+    label: 'Kilometro Inicial',
+    required: true,
+    pattern: '^[0-9]*\.[0-9]*',
+  },
+  {
+    key: 'kilometro_destino',
+    type: 'number',
+    label: 'Kilometro destino',
+    required: true,
+    pattern: '^[0-9]*\.[0-9]*',
   },
   {
     key: "precio",
     type: "number",
-    label: "Precio"
+    label: "Precio",
+    required: true,
+    pattern: '^[0-9]*\.[0-9]*',
   },
   {
     key: 'isEdit',
@@ -41,6 +52,8 @@ const ESQUEMA_COLUMNAS = [
   styleUrls: ['./servicio-editar-eliminar.component.css']
 })
 export class ServicioEditarEliminarComponent implements OnInit {
+
+  valid: any = {}
 
   //Mensaje de error
   mensajeError = "";
@@ -123,6 +136,14 @@ export class ServicioEditarEliminarComponent implements OnInit {
   esquema_columnas: any = ESQUEMA_COLUMNAS
   
   data_tabla_source: any = DATA_TABLA
+
+  //Variable para poder guardar ultimo km anterior
+  km_temporal = 0
+
+  //Variables de validacion de tabla
+  rango_no_valido = false
+  km_inicial_no_valido = false
+  km_destino_no_valido = false
 
   constructor(
     private formBuilder: FormBuilder, 
@@ -528,9 +549,6 @@ export class ServicioEditarEliminarComponent implements OnInit {
       console.log(Object.values(dic)[2])
       console.log(Object.values(dic)[3])
       reporte_detalles += Object.values(dic)[0] + " - " + Object.values(dic)[1] + " - " + Object.values(dic)[2] + " - " + Object.values(dic)[3] + " / "
-      //for(let [key, value] of dic){
-      //  console.log(key + " " + value)
-     // }
     }
     console.log(reporte_detalles)
     return reporte_detalles
@@ -598,8 +616,9 @@ export class ServicioEditarEliminarComponent implements OnInit {
       console.log(arreglo[3])
       let objeto_kilometro_precio = {
         "id" : arreglo[0].replaceAll(' ', ''),
-        "kilometro" : arreglo[1],
-        "precio" : Number(arreglo[2]),
+        "kilometro_inicial" : arreglo[1],
+        "kilometro_destino" : arreglo[2],
+        "precio" : Number(arreglo[3]),
         isEdit : false
       }
       console.log(objeto_kilometro_precio)
@@ -675,12 +694,82 @@ export class ServicioEditarEliminarComponent implements OnInit {
   }
 
   addRow(){
-    const newRow = {"id": Date.now(),"kilometro": "", "precio": 0, isEdit: true}
+    const newRow = {"id": Date.now(),"kilometro_inicial": 0, "kilometro_destino": 0 , "precio": 0, isEdit: true}
     this.data_tabla_source = [...this.data_tabla_source, newRow]
   }
 
   removeRow(id: number){
     this.data_tabla_source = this.data_tabla_source.filter((u: { id: number; }) => u.id !== id)
+  }
+
+
+  inputHandler(e: any, id: number, key: string){
+    if(!this.valid[id]){
+      this.valid[id] = {};
+    }
+    this.valid[id][key] = e.target.validity.valid;
+  }
+
+  disableSubmit(id: number){
+    if(this.valid[id]){
+      return Object.values(this.valid[id]).some((item) => item === false);
+    }
+    return false;
+  }
+
+
+
+  esta_listo(ed: boolean, km_i: number, km_d: number, km_id: number){
+    let cont = 0
+    let cont_dos = 0
+    let indice_temp = 0
+    //alert("Lista de datos: \n" + this.data_tabla_source.toString() + "\n" + "dato temporal: \n" + this.km_temporal)
+    console.log("El id a editar es: " + km_id)
+
+    this.rango_no_valido = false
+    this.km_inicial_no_valido = false
+    this.km_destino_no_valido = false
+
+    indice_temp = this.data_tabla_source[0].id
+    console.log("Indice inicial: " + indice_temp)
+    
+    console.log(this.data_tabla_source)
+
+    while(indice_temp < km_id){
+      if(km_i <= this.data_tabla_source[cont].kilometro_destino){
+        console.log("entra a inicial no valido")
+        this.km_inicial_no_valido = true
+        return true
+      }
+      cont ++
+      indice_temp = this.data_tabla_source[cont].id
+    }
+
+    for(let i = 0; i < this.data_tabla_source.length; i++){
+      if(this.data_tabla_source[i + 1] && this.data_tabla_source[i].id == km_id){
+        console.log("km puesto: " + km_d)
+        console.log("km inicial siguiente: " + this.data_tabla_source[i + 1].kilometro_inicial)
+        if(Number(km_d) >= Number(this.data_tabla_source[i + 1].kilometro_inicial)){
+          console.log("entra a destino no valido")
+          this.km_destino_no_valido = true
+          return true
+        }
+      }
+    }
+
+    console.log("La cantidad de rangos es de: " + this.data_tabla_source.length)
+    console.log("inicial: " + km_i + "--" + "destino: " + km_d)
+    if(km_i >= km_d){
+      //alert("Entra segundo caso" + km_i + "--" + km_d)
+      console.log("entra a rango no valido")
+      console.log( km_i + "--" + km_d)
+      this.rango_no_valido = true
+      return true
+    }else{
+      //alert("Entra tercer caso")
+      return !ed
+    }
+
   }
   
 

@@ -55,6 +55,9 @@ export class PersonalRegistroComponent implements OnInit {
   //Bandera creada para indicar que la cuenta fue creada y así cambiar el mensaje de retroalimentacion
   exito = false;
 
+  //Diccionario cargos de trabajo seleccionados
+  cargos_trabajo_seleccionado = new Map();
+
   esMayorEdad: boolean = false;
   p: boolean = false;
   constructor(private formBuilder: FormBuilder, 
@@ -70,7 +73,7 @@ export class PersonalRegistroComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
       'apellidos': [this.user.apellidos, [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
       'nombres': [this.user.nombres, [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
-      'cedula': [this.user.numCedula, [Validators.required, Validators.minLength(10),Validators.pattern('^(09|125)[0-9]*$')]],
+      'cedula': [this.user.numCedula, [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern('^(09|125)[0-9]*$')]],
       'fechaNac': [this.user.fechaNac, []],
       'sexo': [this.user.sexo, [Validators.required]],
       'correo': [this.user.correo, [Validators.required, Validators.pattern('^([a-zA-Z0-9_\.-]+)@([a-z0-9]+)\\.([a-z\.]{2,6})$')]],
@@ -81,7 +84,13 @@ export class PersonalRegistroComponent implements OnInit {
       'sucursal_seleccionada' : [this.sucursal_De_Personal,  [Validators.required]]
 
     });
-    //this.permitirRegistro();
+    
+    this.cargos_trabajo_seleccionado.set('guardia', false)
+    this.cargos_trabajo_seleccionado.set('guardaespaldas', false)
+    this.cargos_trabajo_seleccionado.set('conductor', false)
+    this.cargos_trabajo_seleccionado.set('motorizado', false)
+
+
     this.obtener_Sucursales_Request();
     console.log(this.lista_Sucursales);
     this.validar_licencia_armamento();
@@ -99,6 +108,9 @@ export class PersonalRegistroComponent implements OnInit {
 
   /*Función para guardar usuario nuevo que se registre */
   guardar_Personal_Operativo(): void {
+    this.validar_cargos_trabajo(this.cargos_trabajo_seleccionado)
+    let cargos_trabajo_personal = this.convertir_reporte_cargos_trabajo(this.cargos_trabajo_seleccionado)
+
     console.log(this.validar_licencia_armamento())
     console.log(this.validar_licencia_conduccion())
     let elem = document.getElementById("mensajeDeConfirmacionDos") 
@@ -121,6 +133,7 @@ export class PersonalRegistroComponent implements OnInit {
       fechaRegistro : this.fechaRegistro,
       estado : 2,
       cargo : 2,
+      cargo_trabajo : cargos_trabajo_personal,
       licencia_conductor : this.validar_licencia_conduccion(),
       licencia_uso_armamento : this.validar_licencia_armamento(),
       //rol : '3'
@@ -230,6 +243,62 @@ export class PersonalRegistroComponent implements OnInit {
         botonRegistro.disabled = false;
       }
     }
+  }
+
+  //Metodo para verificar los cargos de trabajo del personal
+  validar_cargos_trabajo(diccionario_cargos_trabajo: Map<string, boolean>){
+    var checkbox_guardia = document.getElementById("check_guardia") as HTMLInputElement | null;
+    var checkbox_guardaespaldas = document.getElementById("check_guardaespaldas") as HTMLInputElement | null;
+    var checkbox_conductor = document.getElementById("check_conductor") as HTMLInputElement | null;
+    var checkbox_motorizado = document.getElementById("check_motorizado") as HTMLInputElement | null;
+
+
+    if(checkbox_guardia?.checked == true){
+      diccionario_cargos_trabajo.set('guardia', true);
+    }
+
+    if(checkbox_guardia?.checked == false){
+      diccionario_cargos_trabajo.set('guardia', false);
+    }
+
+    if(checkbox_guardaespaldas?.checked == true){
+      diccionario_cargos_trabajo.set('guardaespaldas', true);
+    }
+
+    if(checkbox_guardaespaldas?.checked == false){
+      diccionario_cargos_trabajo.set('guardaespaldas', false);
+    }
+
+    if(checkbox_conductor?.checked == true){
+      diccionario_cargos_trabajo.set('conductor', true)
+    }
+
+    if(checkbox_conductor?.checked == false){
+      diccionario_cargos_trabajo.set('conductor', false)
+    }
+
+    if(checkbox_motorizado?.checked == true){
+      diccionario_cargos_trabajo.set('motorizado', true)
+    }
+
+    if(checkbox_motorizado?.checked == false){
+      diccionario_cargos_trabajo.set('motorizado', false)
+    }
+
+  }
+
+  //Metodo para reporte de tipo de personal
+  convertir_reporte_cargos_trabajo(diccionario_cargos_trabajo: Map<string, boolean>){
+    console.log(diccionario_cargos_trabajo)
+    var reporte_detalles: string = "Cargos de trabajo del personal" + " => "
+    for(let [key, value] of diccionario_cargos_trabajo){
+      console.log(key + " " + value)
+      if(value == true){
+        reporte_detalles += key + " | "
+      }
+    }
+    console.log(reporte_detalles)
+    return reporte_detalles
   }
 
    /*validar si fecha escogida indica si usuario es mayor de edad */

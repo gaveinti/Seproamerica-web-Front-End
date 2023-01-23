@@ -203,14 +203,19 @@
 
             <div *ngIf="element.isEdit">
               <div class="btn-edit" *ngIf="col.key === 'isEdit'; else dataField">
-                <button mat-button (click)="element.isEdit = !element.isEdit">Hecho</button>
+                <button mat-button (click)="element.isEdit = esta_listo(element.isEdit, element.kilometro_inicial, element.kilometro_destino, element.id)" [disabled]="disableSubmit(element.id)">Hecho</button>
               </div>
               <ng-template #dataField>
                 <mat-form-field>
                   <input
+                    min = 0
+                    step="0.01"
+                    [required]="col.required"
+                    [pattern]="col.pattern"
                     [type]="col.type"
                     matInput
                     [(ngModel)]="element[col.key]"
+                    (change)="inputHandler($event, element.id, col.key)"
                   />
                 </mat-form-field>
               </ng-template>
@@ -222,6 +227,9 @@
         <tr mat-header-row *matHeaderRowDef="columnas_tabla"></tr>
         <tr mat-row *matRowDef="let row; columns: columnas_tabla;"></tr>
       </table>
+      <p *ngIf="rango_no_valido" style="color:rgb(168, 13, 13);">Rango no válido</p>
+      <p *ngIf="km_inicial_no_valido" style="color:rgb(168, 13, 13);">Kilómetro inicial debe ser mayor que el anterior kilómetro de destino</p>
+      <p *ngIf="km_destino_no_valido" style="color:rgb(168, 13, 13);">Kilómetro destino debe ser menor que el siguiente kilómetro inicial</p>
     </div>
   
 </div>
