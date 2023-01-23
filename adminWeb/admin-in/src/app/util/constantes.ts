@@ -43,6 +43,9 @@ export class Constantes{
     public static URL_CHAT_PRODUCCION=this.HOST_SERVER+"api/chat/"
     public static URL_CHAT_INBOX_PRODUCCION=this.HOST_SERVER+"api/chat/inbox/"
     
-    
+    //URLS PARA NOTIFICACIONES
+    public static URL_NOTIFICACION_PRODUCCION=this.HOST_SERVER+"/api/notificacion/"
+
+
     
     }

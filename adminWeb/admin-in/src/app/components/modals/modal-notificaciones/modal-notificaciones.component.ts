@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { interval } from 'rxjs';
 import { NotificacionesService } from 'src/app/services/notificaciones/notificaciones.service';
 
 @Component({
@@ -8,6 +9,7 @@ import { NotificacionesService } from 'src/app/services/notificaciones/notificac
   styleUrls: ['./modal-notificaciones.component.css']
 })
 export class ModalNotificacionesComponent implements OnInit {
+  
 
   constructor(
     public notificacionService:NotificacionesService,
@@ -57,19 +59,28 @@ export class ModalNotificacionesComponent implements OnInit {
 
   ]
   ngOnInit(): void {
+   
   }
 
   leerNotificacion(notificacion: any){
     console.log(notificacion)
     this.notificacionService.marcarComoLeido(notificacion.id)
     this.notificacionService.obtenerNotificacionesNoLeidas()
-    this.redirigirNoificacion(notificacion.level)
+    this.redirigirNotificacion(notificacion.level)
+    
 
   }
 
-  redirigirNoificacion(valor:string){
-    if(valor=="Cualquiera"){
+  redirigirNotificacion(valor:string){
+    if(valor=="Nuevo Mensaje"){
       this.router.navigate(['/mensajeriaVentana'])
     }
+    else if(valor=="Nuevo servicio"){
+      this.router.navigate(['/serviciosEnCurso'])
+
+
+      
+    }
   }
+ 
 }

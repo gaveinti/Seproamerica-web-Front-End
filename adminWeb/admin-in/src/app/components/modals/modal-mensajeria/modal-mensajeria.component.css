@@ -20,11 +20,22 @@
     display: none;
     }
     
-#historial-mensajes {
-    padding: 10px;
-    overflow-y: scroll;
+
+.mensajes{
+    height: 450px;
+	width: 100%;
+	overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
 }
 
+.lista-mensajes{
+    display: flex;
+    flex-direction: column;
+	height: auto;
+    margin: 0;
+    padding-bottom: 20px;
+}
 #item-mensaje{
 
     display: flex;
@@ -59,4 +70,10 @@
 }
 
 
+.no-leido {
+    background-color: blue;
+    width: 15px;
+    height: 15px;
+    border-radius: 12px;
+  }
 

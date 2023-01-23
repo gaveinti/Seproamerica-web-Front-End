@@ -19,55 +19,38 @@ import { MobilModel } from '../models/mobil.model';
   providedIn: 'root'
 })
 export class ClienteWAService {
+  HOST_DESARROLLO="http://127.0.0.1:8000/"
+  HOST_PRODUCCION="https://seproamerica2022.pythonanywhere.com/"
+  BASE_URL=this.HOST_PRODUCCION
+
+  
   //"http://127.0.0.1:8000/api/usuarioRegistro";
   //"http://127.0.0.1:8000/api/usuarioInicioSesion";
   /*
   "https://seproamerica2022.pythonanywhere.com/api/usuarioRegistro";
   "https://seproamerica2022.pythonanywhere.com/api/usuarioInicioSesion";
    */
-  /*Url del servidor */
-  DJANGO_SERVER: string = "https://seproamerica2022.pythonanywhere.com/api/usuarioRegistro";
-  DJANGO_SERVER_INICIO_SESION: string = "https://seproamerica2022.pythonanywhere.com/api/usuarioInicioSesion";
-  DJANGO_SERVER_REGISTRO_ADMIN: string = "https://seproamerica2022.pythonanywhere.com/api/personalAdminRegistro";
-  DJANGO_SERVER_OBTENER_SUCURSALES: string = "https://seproamerica2022.pythonanywhere.com/api/visualizarSucursales";
-  DJANGO_SERVER_OBTENER_ADMINISTRADOR: string = "https://seproamerica2022.pythonanywhere.com/api/obtenerAdministrador";
-  DJANGO_SERVER_REGISTRO_PersonalOp: string = "https://seproamerica2022.pythonanywhere.com/api/personalOperativoRegistro";
-  DJANGO_SERVER_OBTENER_TIPOSSERVICIOS: string = "https://seproamerica2022.pythonanywhere.com/api/visualizarTiposServicios";
-  DJANGO_SERVER_CREAR_SERVICIO: string = "https://seproamerica2022.pythonanywhere.com/api/crearServicio";
-  DJANGO_SERVER_OBTENER_SERVICIOS: string = "https://seproamerica2022.pythonanywhere.com/api/obtenerServicio";
-  DJANGO_SERVER_SELECCIONAR_ACTUALIZAR_ELIMINAR: string = "https://seproamerica2022.pythonanywhere.com/api/servicio_seleccionar_actualizar_eliminar";
-  DJANGO_SERVER_OBTENER_PERSONALOP: string = "https://seproamerica2022.pythonanywhere.com/api/obtenerTodoPersonalOperativo";
-  DJANGO_SERVER_ELIMINAR_PERSONALOP: string = "https://seproamerica2022.pythonanywhere.com/api/eliminarPersonalOperativo";
-  DJANGO_SERVER_OBTENER_PERSONALOP_ESPECIFICO: string = "https://seproamerica2022.pythonanywhere.com/api/obtener_personalop_especifico";
-  DJANGO_SERVER_ACTUALIZAR_PERSONALOP: string = "https://seproamerica2022.pythonanywhere.com/api/actualizar_personalop";
-  DJANGO_SERVER_OBTENER_PEDIDOS: string = "https://seproamerica2022.pythonanywhere.com/api/solicitarServicio";
-  DJANGO_SERVER_OBTENER_VEHICULOS: string = "https://seproamerica2022.pythonanywhere.com/api/visualizarVehiculos";
-  DJANGO_SERVER_OBTENER_CANDADOS: string = "https://seproamerica2022.pythonanywhere.com/api/visualizarCandados";
-  DJANGO_SERVER_OBTENER_ARMAMENTOS: string = "https://seproamerica2022.pythonanywhere.com/api/visualizarArmamentos";
-  DJANGO_SERVER_OBTENER_MOBIL: string = "https://seproamerica2022.pythonanywhere.com/api/visualizarMobil";
-  DJANGO_SERVER_ACTUALIZAR_PEDIDO: string = "https://seproamerica2022.pythonanywhere.com/api/actualizar_pedido_servicio";
-  
-  /*Url para desarrolllo */
-  /*DJANGO_SERVER: string = "http://127.0.0.1:8000/api/usuarioRegistro";
-  DJANGO_SERVER_INICIO_SESION: string = "http://127.0.0.1:8000/api/usuarioInicioSesion";
-  DJANGO_SERVER_REGISTRO_ADMIN: string = "http://127.0.0.1:8000/api/personalAdminRegistro";
-  DJANGO_SERVER_OBTENER_SUCURSALES: string = "http://127.0.0.1:8000/api/visualizarSucursales";
-  DJANGO_SERVER_OBTENER_ADMINISTRADOR: string = "http://127.0.0.1:8000/api/obtenerAdministrador";
-  DJANGO_SERVER_REGISTRO_PersonalOp: string = "http://127.0.0.1:8000/api/personalOperativoRegistro";
-  DJANGO_SERVER_OBTENER_TIPOSSERVICIOS: string = "http://127.0.0.1:8000/api/visualizarTiposServicios";
-  DJANGO_SERVER_CREAR_SERVICIO: string = "http://127.0.0.1:8000/api/crearServicio";
-  DJANGO_SERVER_OBTENER_SERVICIOS: string = "http://127.0.0.1:8000/api/obtenerServicio";
-  DJANGO_SERVER_SELECCIONAR_ACTUALIZAR_ELIMINAR: string = "http://127.0.0.1:8000/api/servicio_seleccionar_actualizar_eliminar";
-  DJANGO_SERVER_OBTENER_PERSONALOP: string = "http://127.0.0.1:8000/api/obtenerTodoPersonalOperativo";
-  DJANGO_SERVER_ELIMINAR_PERSONALOP: string = "http://127.0.0.1:8000/api/eliminarPersonalOperativo";
-  DJANGO_SERVER_OBTENER_PERSONALOP_ESPECIFICO: string = "http://127.0.0.1:8000/api/obtener_personalop_especifico";
-  DJANGO_SERVER_ACTUALIZAR_PERSONALOP: string = "http://127.0.0.1:8000/api/actualizar_personalop";
-  DJANGO_SERVER_OBTENER_PEDIDOS: string = "http://127.0.0.1:8000/api/solicitarServicio";
-  DJANGO_SERVER_OBTENER_VEHICULOS: string = "http://127.0.0.1:8000/api/visualizarVehiculos";
-  DJANGO_SERVER_OBTENER_CANDADOS: string = "http://127.0.0.1:8000/api/visualizarCandados";
-  DJANGO_SERVER_OBTENER_ARMAMENTOS: string = "http://127.0.0.1:8000/api/visualizarArmamentos";
-  DJANGO_SERVER_OBTENER_MOBIL: string = "http://127.0.0.1:8000/api/visualizarMobil";
-  DJANGO_SERVER_ACTUALIZAR_PEDIDO: string = "http://127.0.0.1:8000/api/actualizar_pedido_servicio";*/
+  /*Urls */
+  DJANGO_SERVER: string = this.BASE_URL+"api/usuarioRegistro";
+  DJANGO_SERVER_INICIO_SESION: string = this.BASE_URL+"api/usuarioInicioSesion";
+  DJANGO_SERVER_REGISTRO_ADMIN: string = this.BASE_URL+"api/personalAdminRegistro";
+  DJANGO_SERVER_OBTENER_SUCURSALES: string = this.BASE_URL+"api/visualizarSucursales";
+  DJANGO_SERVER_OBTENER_ADMINISTRADOR: string = this.BASE_URL+"api/obtenerAdministrador";
+  DJANGO_SERVER_REGISTRO_PersonalOp: string = this.BASE_URL+"api/personalOperativoRegistro";
+  DJANGO_SERVER_OBTENER_TIPOSSERVICIOS: string = this.BASE_URL+"api/visualizarTiposServicios";
+  DJANGO_SERVER_CREAR_SERVICIO: string = this.BASE_URL+"api/crearServicio";
+  DJANGO_SERVER_OBTENER_SERVICIOS: string = this.BASE_URL+"api/obtenerServicio";
+  DJANGO_SERVER_SELECCIONAR_ACTUALIZAR_ELIMINAR: string = this.BASE_URL+"api/servicio_seleccionar_actualizar_eliminar";
+  DJANGO_SERVER_OBTENER_PERSONALOP: string = this.BASE_URL+"api/obtenerTodoPersonalOperativo";
+  DJANGO_SERVER_ELIMINAR_PERSONALOP: string = this.BASE_URL+"api/eliminarPersonalOperativo";
+  DJANGO_SERVER_OBTENER_PERSONALOP_ESPECIFICO: string = this.BASE_URL+"api/obtener_personalop_especifico";
+  DJANGO_SERVER_ACTUALIZAR_PERSONALOP: string = this.BASE_URL+"api/actualizar_personalop";
+  DJANGO_SERVER_OBTENER_PEDIDOS: string = this.BASE_URL+"api/solicitarServicio";
+  DJANGO_SERVER_OBTENER_VEHICULOS: string = this.BASE_URL+"api/visualizarVehiculos";
+  DJANGO_SERVER_OBTENER_CANDADOS: string = this.BASE_URL+"api/visualizarCandados";
+  DJANGO_SERVER_OBTENER_ARMAMENTOS: string = this.BASE_URL+"api/visualizarArmamentos";
+  DJANGO_SERVER_OBTENER_MOBIL: string = this.BASE_URL+"api/visualizarMobil";
+  DJANGO_SERVER_ACTUALIZAR_PEDIDO: string = this.BASE_URL+"api/actualizar_pedido_servicio";
   
   constructor(private http: HttpClient) { }
 

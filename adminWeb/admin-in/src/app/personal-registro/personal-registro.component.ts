@@ -118,6 +118,7 @@ export class PersonalRegistroComponent implements OnInit {
       elem.innerHTML = " ";
     }
     this.camposCompletos = !this.registerForm.invalid;
+    
     const data = {
       apellidos : this.user.apellidos,
       nombres : this.user.nombres,
@@ -138,6 +139,7 @@ export class PersonalRegistroComponent implements OnInit {
       licencia_uso_armamento : this.validar_licencia_armamento(),
       //rol : '3'
     };
+
     //data para tabla de usuarios
     const data_usuario = {
       apellidos : this.user.apellidos,
@@ -151,6 +153,7 @@ export class PersonalRegistroComponent implements OnInit {
       direccion : this.user.direccion,
       rol : '3'
     }
+   
 
     console.log("entra")
     console.log(data)

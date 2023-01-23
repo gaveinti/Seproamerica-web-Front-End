@@ -6,11 +6,12 @@ import {Notificacion} from '../../models/notificacion.model'
   providedIn: 'root'
 })
 export class NotificacionesService {
+  API_KEY_FCM="AAAA9RJBEJ8:APA91bE4kCPeZfUI9eAs-fX4dGjxvIXKlZDG7I_Q0N1SrFDJN5F-oEkhbYNS27F_-7CCecZeMznffeb9qRAajLkp0x37ZzygtjHEzcxeSSNqdqhczvZTof4vG7sEhiaikq_gtO87RVZ0"
 
   notificaciones:Notificacion[]=[]
   notificaciones_no_leidas:Notificacion[]=[]
 
-  url_notificaciones=Constantes.URL_NOTIFICACION
+  url_notificaciones=Constantes.URL_NOTIFICACION_PRODUCCION
   dataUsuario=JSON.parse(localStorage.getItem("datoUsuario")!)
   noti_no_leida_num: any;
   
@@ -38,7 +39,11 @@ export class NotificacionesService {
       let notificaciones = JSON.parse(data)
       this.notificaciones = notificaciones.data
       this.noti_no_leida_num=notificaciones.cantidad
+
+      
+      
     })
+    
   }
 
   marcarComoLeido(id:any){
@@ -49,4 +54,32 @@ export class NotificacionesService {
 
     })  }
 
+  notificar_fcm_movil(info:any){
+    let data:any = {
+      API_KEY_FCM:this.API_KEY_FCM,
+      titulo:info.titulo,
+      descripcion:info.descripcion
+
+    }
+    this.http.post<any>(this.url_notificaciones+"notificar_fcm_movil/",data)
+      .subscribe(res => {
+        console.log(res)
+      })
+  }
+
+  notificar(info:any){
+    let data:any={
+      emisor:info.emisor,
+      receptor:info.receptor,
+      contenido:info.contenido,
+      level:info.level,
+
+    }
+    this.http.post<any>(this.url_notificaciones+"notificar/",data)
+      .subscribe(res => {
+        console.log(res)
+      })
+  }
+
+  
 }

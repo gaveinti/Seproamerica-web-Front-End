@@ -5,11 +5,20 @@
 
         <div (click)="leerNotificacion(notificacion)"  *ngFor="let notificacion of notificacionService.notificaciones" id="notificaciones">
                 <div [ngClass]="{
-                    'cualquiera' : notificacion.level=='Cualquiera'}"
+                    'nuevo_servicio' : notificacion.level=='Nuevo servicio',
+                    'cualquiera' : notificacion.level=='Nuevo Mensaje'}"
                     id="item-notificacion">
+                    
                     <div id="titulo">
-                        {{notificacion.verbo}}
+                        <span *ngIf="notificacion.level=='Nuevo servicio'">    
+                            NUEVO SERVICIO SOLICITADO
+                        </span>
+                        <span *ngIf="notificacion.level!='Nuevo servicio'">    
+                            {{notificacion.level | uppercase}} 
+                        </span>
+
                     </div>
+                    <div class="contenido">{{notificacion.verbo}}</div>
                     <div class="d-flex">
                         <div id="hora">
                             21:20
@@ -24,4 +33,8 @@
      
 
     </div>
+    <audio hidden controls src='../../../../assets/audio/audio_alerta.mp3' type="audio/mp3">
+        Your browser does not support the <code>audio</code> element.
+    </audio>
+    
 </section>
