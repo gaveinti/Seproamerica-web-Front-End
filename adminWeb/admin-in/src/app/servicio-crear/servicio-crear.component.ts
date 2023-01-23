@@ -212,12 +212,12 @@ export class ServicioCrearComponent implements OnInit {
 
   //Metodo para obtener id del administrador
   obtener_idAdmin(cedula_Administrador: String){
-    this.clienteWAService.obtener_Administrador(cedula_Administrador)
+    this.clienteWAService.obtener_admin_especifico(cedula_Administrador)
     .subscribe({
       next: (data) => {
         console.log(data)
         console.log(data.idPersonal)
-        localStorage.setItem("idAdmin", data.idPersonal.toString())
+        localStorage.setItem("idAdmin", JSON.stringify(data.idPersonal))
       },
       error : (e) => console.log(e)
     })

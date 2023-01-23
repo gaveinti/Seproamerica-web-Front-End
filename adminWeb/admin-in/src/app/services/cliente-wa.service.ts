@@ -21,7 +21,7 @@ import { MobilModel } from '../models/mobil.model';
 export class ClienteWAService {
   HOST_DESARROLLO="http://127.0.0.1:8000/"
   HOST_PRODUCCION="https://seproamerica2022.pythonanywhere.com/"
-  BASE_URL=this.HOST_PRODUCCION
+  BASE_URL=this.HOST_DESARROLLO
 
   
   //"http://127.0.0.1:8000/api/usuarioRegistro";
@@ -51,6 +51,7 @@ export class ClienteWAService {
   DJANGO_SERVER_OBTENER_ARMAMENTOS: string = this.BASE_URL+"api/visualizarArmamentos";
   DJANGO_SERVER_OBTENER_MOBIL: string = this.BASE_URL+"api/visualizarMobil";
   DJANGO_SERVER_ACTUALIZAR_PEDIDO: string = this.BASE_URL+"api/actualizar_pedido_servicio";
+  DJANGO_SERVER_OBTENER_ADMINISTRADOR_ESPECIFICO: string = this.BASE_URL+"api/obtenerAdministrador_especifico";
   
   constructor(private http: HttpClient) { }
 
@@ -140,6 +141,11 @@ export class ClienteWAService {
   //Request para obtener un administrador a partir d su cédula
   obtener_personalOp_especifico(cedula_personalOp_especifico: any): Observable<PersonalOpModel>{
     return this.http.get<PersonalOpModel>(`${this.DJANGO_SERVER_OBTENER_PERSONALOP_ESPECIFICO}/${cedula_personalOp_especifico}`)
+  }
+
+  //Request para obtener administrador especifico
+  obtener_admin_especifico(cedula_admin: any): Observable<Administrador_Obtener_Model>{
+    return this.http.get<Administrador_Obtener_Model>(`${this.DJANGO_SERVER_OBTENER_ADMINISTRADOR_ESPECIFICO}/${cedula_admin}`)
   }
 
   //Request para actualizar informacion de personal operativo
