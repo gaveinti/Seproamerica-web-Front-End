@@ -26,7 +26,7 @@ export class ClienteWAService {
   "https://seproamerica2022.pythonanywhere.com/api/usuarioInicioSesion";
    */
   /*Url del servidor */
-  /*DJANGO_SERVER: string = "https://seproamerica2022.pythonanywhere.com/api/usuarioRegistro";
+  DJANGO_SERVER: string = "https://seproamerica2022.pythonanywhere.com/api/usuarioRegistro";
   DJANGO_SERVER_INICIO_SESION: string = "https://seproamerica2022.pythonanywhere.com/api/usuarioInicioSesion";
   DJANGO_SERVER_REGISTRO_ADMIN: string = "https://seproamerica2022.pythonanywhere.com/api/personalAdminRegistro";
   DJANGO_SERVER_OBTENER_SUCURSALES: string = "https://seproamerica2022.pythonanywhere.com/api/visualizarSucursales";
@@ -46,9 +46,9 @@ export class ClienteWAService {
   DJANGO_SERVER_OBTENER_ARMAMENTOS: string = "https://seproamerica2022.pythonanywhere.com/api/visualizarArmamentos";
   DJANGO_SERVER_OBTENER_MOBIL: string = "https://seproamerica2022.pythonanywhere.com/api/visualizarMobil";
   DJANGO_SERVER_ACTUALIZAR_PEDIDO: string = "https://seproamerica2022.pythonanywhere.com/api/actualizar_pedido_servicio";
-  */
+  
   /*Url para desarrolllo */
-  DJANGO_SERVER: string = "http://127.0.0.1:8000/api/usuarioRegistro";
+  /*DJANGO_SERVER: string = "http://127.0.0.1:8000/api/usuarioRegistro";
   DJANGO_SERVER_INICIO_SESION: string = "http://127.0.0.1:8000/api/usuarioInicioSesion";
   DJANGO_SERVER_REGISTRO_ADMIN: string = "http://127.0.0.1:8000/api/personalAdminRegistro";
   DJANGO_SERVER_OBTENER_SUCURSALES: string = "http://127.0.0.1:8000/api/visualizarSucursales";
@@ -67,7 +67,7 @@ export class ClienteWAService {
   DJANGO_SERVER_OBTENER_CANDADOS: string = "http://127.0.0.1:8000/api/visualizarCandados";
   DJANGO_SERVER_OBTENER_ARMAMENTOS: string = "http://127.0.0.1:8000/api/visualizarArmamentos";
   DJANGO_SERVER_OBTENER_MOBIL: string = "http://127.0.0.1:8000/api/visualizarMobil";
-  DJANGO_SERVER_ACTUALIZAR_PEDIDO: string = "http://127.0.0.1:8000/api/actualizar_pedido_servicio";
+  DJANGO_SERVER_ACTUALIZAR_PEDIDO: string = "http://127.0.0.1:8000/api/actualizar_pedido_servicio";*/
   
   constructor(private http: HttpClient) { }
 
