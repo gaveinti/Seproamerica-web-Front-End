@@ -21,7 +21,7 @@ import { MobilModel } from '../models/mobil.model';
 export class ClienteWAService {
   HOST_DESARROLLO="http://127.0.0.1:8000/"
   HOST_PRODUCCION="https://seproamerica2022.pythonanywhere.com/"
-  BASE_URL=this.HOST_DESARROLLO
+  BASE_URL=this.HOST_PRODUCCION
 
   
   //"http://127.0.0.1:8000/api/usuarioRegistro";
