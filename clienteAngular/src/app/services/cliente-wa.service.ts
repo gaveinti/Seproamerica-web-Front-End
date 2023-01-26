@@ -33,6 +33,7 @@ export class ClienteWAService {
   DJANGO_SERVER_REGISTRO_CLIENTE: string = "http://127.0.0.1:8000/api/clienteRegistro";
   DJANGO_SERVER_OBTENER_CLIENTE: string = "http://127.0.0.1:8000/api/obtenerCliente";
   */
+  
   constructor(private http: HttpClient) { }
 
   

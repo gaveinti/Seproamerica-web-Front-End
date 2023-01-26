@@ -124,7 +124,7 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Movil</mat-label>
-      <mat-select [(ngModel)]="moviles_escogidos" multiple>
+      <mat-select [(ngModel)]="moviles_escogidos">
         <mat-option *ngFor="let movil of lista_moviles" value="{{movil.numeroCell}}">
           {{movil.marca}}
         </mat-option>
