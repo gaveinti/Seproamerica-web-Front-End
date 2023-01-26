@@ -12,7 +12,7 @@ import { NotificacionesService } from './services/notificaciones/notificaciones.
 })
 export class AppComponent {
   audio = new Audio('assets/audio/audio_alerta1.mp3');
-  obs$=interval(3000)
+  obs$=interval(5000)
   title = 'admin-in';
   ruta=window.location.href.split("/").pop()
   child!: { ruta: string; };
@@ -27,6 +27,7 @@ export class AppComponent {
       this.ruta=window.location.href.split("/").pop()
     console.log(this.ruta)
     console.log("constructor")
+    localStorage.clear()
     
   }
 
@@ -39,6 +40,7 @@ export class AppComponent {
   
 
   ngOnInit(){
+
     console.log("oninit")
     this.obs$.subscribe(res=>{
       if(this.notificacionService.noti_no_leida_num>0){
@@ -51,9 +53,9 @@ export class AppComponent {
    
   }
   reproducir_alerta() {
-    this.audio.muted = true; // without this line it's not working although I have "muted" in HTML
-    //this.audio.load()
-    //this.audio.play();
+    //this.audio.muted = true; // without this line it's not working although I have "muted" in HTML
+    this.audio.load()
+    this.audio.play();
     
   }
 
