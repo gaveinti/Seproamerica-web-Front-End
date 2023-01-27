@@ -29,6 +29,15 @@
           <mat-error *ngIf="registerForm.controls['nombreServicio'].errors?.['pattern']"> Solo insertar letras</mat-error>
   
         </div>
+
+        <div class="item">
+          <label >ID DE SERVICIO</label>
+          <input   type="number" id="id_Servicio" name="id_Servicio"  tabindex="1" matInput
+             required formControlName="id_Servicio" [(ngModel)]="servicio.idServicio" />
+          <mat-error *ngIf="registerForm.controls['id_Servicio'].errors?.['required']"> *</mat-error>
+          <mat-error *ngIf="registerForm.controls['id_Servicio'].errors?.['pattern']"> Solo insertar letras</mat-error>
+  
+        </div>
   
         <div class="item">
           <label>COSTO</label>
