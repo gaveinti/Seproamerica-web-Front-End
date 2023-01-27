@@ -97,6 +97,9 @@ export class ServicioEditarEliminarComponent implements OnInit {
   //Indicador si registro fue guardado en la base de datos o no
   submitted = false;
 
+  //Variable que indica que se está editando una fila
+  editando_fila = false;
+
   //Bandera creada para indicar que la cuenta fue creada y así cambiar el mensaje de retroalimentacion
   exito = false;
 
@@ -175,9 +178,10 @@ export class ServicioEditarEliminarComponent implements OnInit {
 
     //console.log(this.servicio.detalles)
     let lista_reporte: [string[]] = [[]]
-    if(this.servicio.detalles){
+    //if(this.servicio.detalles){
       lista_reporte = this.parsear_detalles(this.servicio.detalles.toString())
-    }
+    //}
+    console.log("lista reporte")
     console.log(lista_reporte)
     lista_inventario = lista_reporte.at(1)!
     //console.log(lista_inventario)
@@ -244,7 +248,7 @@ export class ServicioEditarEliminarComponent implements OnInit {
     console.log("reporte inventtttt")
     console.log(reporte_inventario)
     let reporte_tipo_personal = this.convertir_reporte_tipo_personal(this.tipo_Personal_Requerido)
-    let reporte = reporte_inventario + '. ' + reporte_tipo_personal + '. ' + reporte_precio_kilometro
+    let reporte = reporte_inventario + '; ' + reporte_tipo_personal + '; ' + reporte_precio_kilometro//
     this.guardar()
     this.camposCompletos = !this.registerForm.invalid
     const info_servicio_actualizar = {
@@ -256,7 +260,7 @@ export class ServicioEditarEliminarComponent implements OnInit {
       administrador_Creador: this.servicio.administrador_Creador,
       icono: new URL("https://cdn-icons-png.flaticon.com/512/263/263100.png")
     }
-    if(this.camposCompletos){
+    if(this.camposCompletos && !this.editando_fila){
       console.log("Informacion del servicio para actualizar")
       console.log(info_servicio_actualizar)
       this.clienteWAService.actualizar_servicio(JSON.parse(localStorage.getItem("detalles_servicio")!).nombreServicio, info_servicio_actualizar)
@@ -279,6 +283,7 @@ export class ServicioEditarEliminarComponent implements OnInit {
       });
     } else{
       this.actualizado = false
+      this.exito = false
       alert("Servicio no actualizado")
     }
   }
@@ -590,11 +595,11 @@ export class ServicioEditarEliminarComponent implements OnInit {
     let lista_tipo_personal: string[] = [];
     let lista_kilometro_con_precio: any[] = [];
 
-
-    let separacion_requerimientos = reporte.split('.')
+    //Separacion general
+    let separacion_requerimientos = reporte.split(';')
 
     let inventario_requerido = separacion_requerimientos[0]
-    let valor_inventario = inventario_requerido.split("=>")[1]
+    let valor_inventario = inventario_requerido.split("=>")[1]//
     valor_inventario.split('|').forEach(function(obj_inventario){
       lista_inventario.push(obj_inventario.replaceAll(' ', ''))
     });
@@ -607,6 +612,8 @@ export class ServicioEditarEliminarComponent implements OnInit {
 
     let kilometro_precio = separacion_requerimientos[2]
     let valor_kilometro = kilometro_precio.split("=>")[1]
+    console.log("Kilometro antes de hacer el split")
+    console.log(valor_kilometro)
     console.log("For de detalle de tabla")
     valor_kilometro.split('/').forEach(function(obj_row){
       let arreglo = obj_row.split('-')
@@ -616,11 +623,16 @@ export class ServicioEditarEliminarComponent implements OnInit {
       console.log(arreglo[3])
       let objeto_kilometro_precio = {
         "id" : arreglo[0].replaceAll(' ', ''),
-        "kilometro_inicial" : arreglo[1],
-        "kilometro_destino" : arreglo[2],
+        "kilometro_inicial" : Number(arreglo[1]),
+        "kilometro_destino" : Number(arreglo[2]),
         "precio" : Number(arreglo[3]),
         isEdit : false
       }
+      console.log("objeto kilometro precio")
+      console.log("kilometro inicial")
+      console.log( typeof objeto_kilometro_precio.kilometro_inicial)
+      console.log("precio")
+      console.log(typeof objeto_kilometro_precio.precio)
       console.log(objeto_kilometro_precio)
       lista_kilometro_con_precio.push(objeto_kilometro_precio)
     })
@@ -694,21 +706,16 @@ export class ServicioEditarEliminarComponent implements OnInit {
   }
 
   addRow(){
+    this.editando_fila = true;
     const newRow = {"id": Date.now(),"kilometro_inicial": 0, "kilometro_destino": 0 , "precio": 0, isEdit: true}
     this.data_tabla_source = [...this.data_tabla_source, newRow]
+    console.log("Se agrega una nueva fila")
   }
 
   removeRow(id: number){
     this.data_tabla_source = this.data_tabla_source.filter((u: { id: number; }) => u.id !== id)
   }
 
-
-  inputHandler(e: any, id: number, key: string){
-    if(!this.valid[id]){
-      this.valid[id] = {};
-    }
-    this.valid[id][key] = e.target.validity.valid;
-  }
 
   disableSubmit(id: number){
     if(this.valid[id]){
@@ -720,6 +727,7 @@ export class ServicioEditarEliminarComponent implements OnInit {
 
 
   esta_listo(ed: boolean, km_i: number, km_d: number, km_id: number){
+    this.editando_fila = true
     let cont = 0
     let cont_dos = 0
     let indice_temp = 0
@@ -736,7 +744,10 @@ export class ServicioEditarEliminarComponent implements OnInit {
     console.log(this.data_tabla_source)
 
     while(indice_temp < km_id){
-      if(km_i <= this.data_tabla_source[cont].kilometro_destino){
+      //console.log("Km destino anterior: " + Math.ceil(this.data_tabla_source[cont].kilometro_destino))
+      //console.log("km inicial actual: " + Math.ceil(km_i))
+      if(Math.ceil(km_i) <= this.data_tabla_source[cont].kilometro_destino){
+        this.editando_fila = true;
         console.log("entra a inicial no valido")
         this.km_inicial_no_valido = true
         return true
@@ -751,6 +762,7 @@ export class ServicioEditarEliminarComponent implements OnInit {
         console.log("km inicial siguiente: " + this.data_tabla_source[i + 1].kilometro_inicial)
         if(Number(km_d) >= Number(this.data_tabla_source[i + 1].kilometro_inicial)){
           console.log("entra a destino no valido")
+          this.editando_fila = true;
           this.km_destino_no_valido = true
           return true
         }
@@ -759,17 +771,31 @@ export class ServicioEditarEliminarComponent implements OnInit {
 
     console.log("La cantidad de rangos es de: " + this.data_tabla_source.length)
     console.log("inicial: " + km_i + "--" + "destino: " + km_d)
-    if(km_i >= km_d){
+    console.log(km_i)
+    //console.log(km_i * 10)
+    console.log(km_d)
+    if(Number(km_i) >= Number(km_d)){
       //alert("Entra segundo caso" + km_i + "--" + km_d)
       console.log("entra a rango no valido")
       console.log( km_i + "--" + km_d)
+      this.editando_fila = true
       this.rango_no_valido = true
       return true
     }else{
       //alert("Entra tercer caso")
+      this.editando_fila = false;
       return !ed
     }
 
+  }
+
+
+  fila_en_edicion(){
+    this.editando_fila = true;
+  }
+
+  fila_en_no_edicion(){
+    this.editando_fila = false;
   }
   
 

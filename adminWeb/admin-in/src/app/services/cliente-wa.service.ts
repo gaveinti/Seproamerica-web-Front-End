@@ -14,6 +14,8 @@ import { VehiculoModel} from '../models/vehiculo.model';
 import { ArmamentoModel } from '../models/armamento.model';
 import { CandadoModel } from '../models/candado.model';
 import { MobilModel } from '../models/mobil.model';
+import { ClienteTablaModel } from '../models/cliente_tabla.model';
+import { UsuarioModel } from '../models/usuario.model';
 
 @Injectable({
   providedIn: 'root'
@@ -52,6 +54,8 @@ export class ClienteWAService {
   DJANGO_SERVER_OBTENER_MOBIL: string = this.BASE_URL+"api/visualizarMobil";
   DJANGO_SERVER_ACTUALIZAR_PEDIDO: string = this.BASE_URL+"api/actualizar_pedido_servicio";
   DJANGO_SERVER_OBTENER_ADMINISTRADOR_ESPECIFICO: string = this.BASE_URL+"api/obtenerAdministrador_especifico";
+  DJANGO_SERVER_OBTENER_CLIENTE_TABLA_CLIENTE: string = this.BASE_URL+"api/obtener_cliente_tabla_cliente";
+  DJANGO_SERVER_OBTENER_CLIENTE_TABLA_USUARIO: string = this.BASE_URL+"api/obtener_cliente_tabla_usuario";
   
   constructor(private http: HttpClient) { }
 
@@ -181,6 +185,16 @@ export class ClienteWAService {
   //Request para actualizar pedido de servicio
   actualizar_pedido(id_pedido: any, data: any): Observable<any> {
     return this.http.put(`${this.DJANGO_SERVER_ACTUALIZAR_PEDIDO}/${id_pedido}/`, data);
+  }
+
+  //Request para obtener info de clientes de la tabla cliente
+  obtener_cliente_tabla_cliente(id_cliente: any): Observable<ClienteTablaModel> {
+    return this.http.get<ClienteTablaModel>(`${this.DJANGO_SERVER_OBTENER_CLIENTE_TABLA_CLIENTE}/${id_cliente}`)
+  }
+
+  //Request para obtener ususario/cliente de la tabla de usuario
+  obtener_cliente_tabla_usuario(cedula_cliente: any): Observable<UsuarioModel> {
+    return this.http.get<UsuarioModel>(`${this.DJANGO_SERVER_OBTENER_CLIENTE_TABLA_USUARIO}/${cedula_cliente}`)
   }
 
 }
