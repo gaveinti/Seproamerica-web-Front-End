@@ -28,6 +28,12 @@ export class PersonalWindComponent implements OnInit{
     //Lista para guardar los servicios ya creados
     lista_personal!: PersonalOpModel[];
 
+    //Variable para el modal
+    display = 'none';
+
+    //cedula temporal
+    cedula_temp!: number
+
 
     //datos: PersonalOpN[] = [];
     personalList:any=[];
@@ -69,12 +75,26 @@ export class PersonalWindComponent implements OnInit{
       this.dataSource = new MatTableDataSource<any>(this.personalList);
       this.dataSource.paginator = this.paginator;
     }
+
+    guardar_cedula_eliminar(cedula: number){
+      this.cedula_temp = cedula
+      console.log("La cedula temporal es")
+      console.log(this.cedula_temp)
+    }
     
-    eliminarUsuario(cedula: number){
-      this.clienteWAService.eliminar_personaOp(cedula)
+    eliminarUsuario(){
+      let elem = document.getElementById("mensajeDeConfirmacionDos") 
+      if(elem?.innerHTML != undefined){
+        elem.innerHTML = " ";
+      }
+      this.clienteWAService.eliminar_personaOp(this.cedula_temp)
       .subscribe({
         next: (res) => {
           console.log(res)
+          let elemento_Dos = document.getElementById("mensajeDeConfirmacionDos") 
+          if(elemento_Dos?.innerHTML != undefined){
+            elemento_Dos!.innerHTML = "El personal ha sido eliminado"
+          }
           window.location.reload();
         },
         error: (e) => console.error(e)

@@ -296,7 +296,9 @@
     <!--Código para presentar tabla-->
     <div *ngIf="mostrar_tabla && editable"  class="item" id="tabla">
       <label>TABLA DE PRECIO POR KILÓMETRO</label>
-      <button mat-raised-button color="primary" (click)="addRow()">Agregar nuevo</button>
+      <button mat-raised-button *ngIf="!editando_fila" color="primary" (click)="addRow()">Agregar nuevo</button>
+      <button mat-raised-button *ngIf="editando_fila" color="primary" (click)="addRow()" disabled>Agregar nuevo</button>
+      <!--<button mat-raised-button color="primary" (click)="addRow()">Agregar nuevo</button>-->
 
 
       
@@ -310,8 +312,14 @@
 
             <div [ngSwitch]="col.type" *ngIf="!element.isEdit">
               <div class="btn-edit" *ngSwitchCase="'isEdit'">
-                <button mat-button (click)="element.isEdit = !element.isEdit">Editar</button>
-                <button mat-button class="button_remove" (click)="removeRow(element.id)">Eliminar</button>
+                <!--<button mat-button (click)="element.isEdit = !element.isEdit">Editar</button>-->
+                <button mat-button *ngIf="!editando_fila" (click)="element.isEdit = !element.isEdit" (click)="fila_en_edicion()">Editar</button>
+                <button mat-button *ngIf="editando_fila" (click)="element.isEdit = !element.isEdit" disabled>Editar</button>
+
+                <!--<button mat-button class="button_remove" (click)="removeRow(element.id)">Eliminar</button>-->
+                <button mat-button class="button_remove" *ngIf="!editando_fila" (click)="removeRow(element.id)">Eliminar</button>
+                <button mat-button class="button_remove" *ngIf="editando_fila" (click)="removeRow(element.id)" disabled>Eliminar</button>
+
               </div>
               <span *ngSwitchDefault>
                 {{ element[col.key]}}
@@ -320,6 +328,7 @@
 
             <div *ngIf="element.isEdit">
               <div class="btn-edit" *ngIf="col.key === 'isEdit'; else dataField">
+                <button mat-button (click)="fila_en_no_edicion()" class="button_remove" (click)="removeRow(element.id)">Eliminar</button>
                 <button mat-button (click)="element.isEdit = esta_listo(element.isEdit, element.kilometro_inicial, element.kilometro_destino, element.id)" [disabled]="disableSubmit(element.id)">Hecho</button>
               </div>
               <ng-template #dataField>
@@ -332,7 +341,7 @@
                     [type]="col.type"
                     matInput
                     [(ngModel)]="element[col.key]"
-                    (change)="inputHandler($event, element.id, col.key)"
+                    
                   />
                 </mat-form-field>
               </ng-template>

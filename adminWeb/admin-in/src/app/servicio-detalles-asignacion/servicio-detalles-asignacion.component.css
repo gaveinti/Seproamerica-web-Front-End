@@ -83,3 +83,37 @@
   justify-content: center;
   
 }
+
+#Datos_Servicio{
+  background-color: #faf9f9;
+  border-style: solid;
+  border-color: rgb(134, 134, 134);
+  border-radius: 50px 50px 50px 50px;
+  height: 1000px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 10px;
+  padding-left: 3%;
+  padding-right: 3%;
+  margin-top: 30px;
+}
+
+#Titulo_Datos{
+  background-color: #3cb4ec;
+  border-radius: 50px 50px 50px 50px;
+  color: white;
+}
+
+#Campo{
+  border-bottom: solid;
+  text-align: left;
+}
+
+#Fila_Datos{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  border-bottom: solid;
+
+}

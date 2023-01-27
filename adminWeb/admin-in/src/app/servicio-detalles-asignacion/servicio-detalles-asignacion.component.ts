@@ -100,7 +100,7 @@ export class ServicioDetallesAsignacionComponent implements OnInit {
     this.pedido_a_asignar.idPedido = info_pedido.idPedido
     this.pedido_a_asignar.nombre_Servicio = info_pedido.nombre_Servicio
     this.pedido_a_asignar.costo = info_pedido.costo
-    this.pedido_a_asignar.fecha_Solicitud = info_pedido.fecha_Solicitud
+    this.pedido_a_asignar.fecha_Solicitud = info_pedido.fecha_Solicitud.toLocaleString().slice(0, 10) + " " + info_pedido.fecha_Solicitud.toLocaleString().slice(11, 19)
     this.pedido_a_asignar.fecha_Finalizacion = info_pedido.fecha_Finalizacion
     this.pedido_a_asignar.fecha_Inicio = info_pedido.fecha_Inicio
     this.pedido_a_asignar.hora_Inicio = info_pedido.hora_Inicio
@@ -131,8 +131,11 @@ export class ServicioDetallesAsignacionComponent implements OnInit {
     let armamento = ar[7]
     let movil = ar[8]
 
+    console.log("Se ha asignado movil?")
+    console.log(movil)
+
     let elem = document.getElementById("detalles")
-    if(elem?.innerHTML != undefined){
+    if(elem?.innerHTML != undefined && movil != undefined){
       elem.innerHTML = `
         <br>
         <p>${lider}</p>
@@ -145,6 +148,10 @@ export class ServicioDetallesAsignacionComponent implements OnInit {
         <p>${armamento}</p>
         <p>${movil}</p>
 
+      `
+    }else {
+      elem!.innerHTML = `
+        <h3>Porfavor seleccione al equipo y armamento para el pedido</h3>
       `
     }
   }

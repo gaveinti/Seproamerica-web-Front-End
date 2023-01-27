@@ -4,7 +4,7 @@ export class PedidoModel {
     idPedido!: Number; 
     nombre_Servicio!: String | string | null;
     costo!: Number;
-    fecha_Solicitud!: Date;
+    fecha_Solicitud!: Date | string | String;
     fecha_Finalizacion!: Date;
     fecha_Inicio!: Date;
     hora_Inicio!: Time;
