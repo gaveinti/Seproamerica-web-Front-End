@@ -140,6 +140,7 @@ export class ServicioCrearComponent implements OnInit {
     this.obtener_idAdmin(this.cedula_Admin.toString())
     this.registerForm = this.formBuilder.group({
       'nombreServicio': [this.servicio.nombreServicio, [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
+      'id_Servicio':[this.servicio.idServicio, [Validators.required, Validators.pattern('^[0-9]*\.[0-9]*$')]],
       'costo': [this.servicio.costo, [Validators.required, Validators.pattern('^[0-9]*\.[0-9]*$')]],
       'tipo_Servicio': [this.servicio.tipo_Servicio, [Validators.required]],
     });
@@ -178,6 +179,7 @@ export class ServicioCrearComponent implements OnInit {
     }
     const data = {
       nombreServicio : this.servicio.nombreServicio.replaceAll(' ', '_'),
+      idServicio : this.servicio.idServicio,
       costo : this.servicio.costo,
       detalles : reporte,
       fecha_Creacion : this.fecha_Creacion_Servicio,
