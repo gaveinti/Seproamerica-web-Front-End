@@ -61,7 +61,7 @@
 
                 </div>
 
-                <div id="mensajes" class="mensajes">
+                <div id="mensajes" class="mensajes" #scrollMe [scrollTop]="scrollMe.scrollHeight">
                     <!-- class="sms-general" [ngClass]="{'sms-recibido' : message.correo_usuario==mensajeriaService.usuario_receptor,'sms-enviado' : message.correo_usuario==mensajeriaService.usuario_logeado}">-->
                     <div id="lista" class="lista-mensajes">
                         <p *ngFor="let message of mensajeriaService.contactosMensajes" class="sms-general row"

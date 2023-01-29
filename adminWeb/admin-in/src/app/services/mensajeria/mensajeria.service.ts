@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable,  } from 'rxjs';
 import { Constantes } from 'src/app/util/constantes';
+import { ClienteWAService } from '../cliente-wa.service';
 import { NotificacionesService } from '../notificaciones/notificaciones.service';
 
 @Injectable({
@@ -30,7 +31,8 @@ export class MensajeriaService {
 
   constructor(
     private http: HttpClient,
-    private notificacionService:NotificacionesService
+    private notificacionService:NotificacionesService,
+    private clienteService:ClienteWAService
   ) {
 
 
@@ -100,11 +102,23 @@ export class MensajeriaService {
           contenido:sms,
           level:"Nuevo Mensaje"
         })
-        this.notificacionService.notificar_fcm_movil({
-          titulo:"Nuevo Mensaje", 
-          descripcion:sms
-    
+
+        this.clienteService.get(this.usuario_receptor).subscribe(res=>{
+          let data_usuario = JSON.parse(localStorage.getItem("datoUsuario")!)
+
+
+          console.log(data_usuario)
+          this.notificacionService.notificar_fcm_movil_individual({
+            titulo:"Nuevo mensaje de "+data_usuario.nombres+" "+data_usuario.apellidos, 
+            descripcion:sms,
+            id:1,
+            cedula:res.cedula
+          })
         })
+
+      
+
+
         console.log("notificado")
         this.obtenerMensajesPorUsuarioLogeado()
         this.obtenerListaMensajes()

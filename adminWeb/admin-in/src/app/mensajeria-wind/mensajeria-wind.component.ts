@@ -10,7 +10,6 @@ import { ModalsService } from '../services/modals/modals.service';
   styleUrls: ['./mensajeria-wind.component.css']
 })
 export class MensajeriaWindComponent implements OnInit {
-
   textSms = "";
   data_ventana_principal_canal_nuevo: any
   nombre_usuario_receptor = ""

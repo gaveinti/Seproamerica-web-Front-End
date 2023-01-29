@@ -40,7 +40,13 @@ export class NotificacionesService {
       this.notificaciones = notificaciones.data
       this.noti_no_leida_num=notificaciones.cantidad
 
-      
+      this.notificaciones.sort((a, b) => {
+        var firstDate = new Date(a.timestamp),
+          SecondDate = new Date(b.timestamp);
+        if (firstDate > SecondDate) return -1;
+        if (firstDate < SecondDate) return 1;
+        return 0;
+      });
       
     })
     
@@ -53,19 +59,21 @@ export class NotificacionesService {
       this.obtenerNotificacionesNoLeidas()
 
     })  }
-
-  notificar_fcm_movil(info:any){
-    let data:any = {
-      API_KEY_FCM:this.API_KEY_FCM,
-      titulo:info.titulo,
-      descripcion:info.descripcion
-
+    notificar_fcm_movil_individual(info:any){
+      let data:any = {
+        API_KEY_FCM:this.API_KEY_FCM,
+        titulo:info.titulo,
+        descripcion:info.descripcion,
+        id:info.id,
+        cedula:info.cedula
+  
+      }
+      this.http.post<any>(this.url_notificaciones+"notificar_fcm_movil/",data)
+        .subscribe(res => {
+          console.log(res)
+        })
     }
-    this.http.post<any>(this.url_notificaciones+"notificar_fcm_movil/",data)
-      .subscribe(res => {
-        console.log(res)
-      })
-  }
+ 
 
   notificar(info:any){
     let data:any={

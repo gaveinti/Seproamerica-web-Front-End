@@ -27,7 +27,6 @@ export class AppComponent {
       this.ruta=window.location.href.split("/").pop()
     console.log(this.ruta)
     console.log("constructor")
-    localStorage.clear()
     
   }
 
