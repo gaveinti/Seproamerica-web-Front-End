@@ -22,7 +22,7 @@ const ESQUEMA_COLUMNAS = [
     type: 'number',
     label: 'Kilometro Inicial',
     required: true,
-    pattern: '^[0-9]*\.[0-9]*',
+    pattern: '^[0-9]+(\.[0-9]{1,2})?$',
   },
   {
     key: 'kilometro_destino',
@@ -70,6 +70,9 @@ export class ServicioEditarEliminarComponent implements OnInit {
   registerForm!: FormGroup;
 
   servicio: ServiceModel = new ServiceModel();
+
+  //Lista para guardar los servicios ya creados
+  lista_Servicio?: ServiceModel[];
 
   //Variable para el modal
   display = 'none';
@@ -125,6 +128,12 @@ export class ServicioEditarEliminarComponent implements OnInit {
     icono: new URL("https://cdn-icons-png.flaticon.com/512/263/263100.png")
   }
 
+  //Variable que presenta si hay nombre de servicio ta creado
+  servicio_diferente = false
+
+  //Variable para que solo borre el nombre del servicio de la lista una sola vez
+  entrada = 1
+
   //Dato booleano para mostrar tabla
   mostrar_tabla!:boolean
 
@@ -155,7 +164,6 @@ export class ServicioEditarEliminarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
     //this.obtener_info_servicio()
     let lista_inventario: string[] = [];
     let lista_tipo_personal: string[] = [];
@@ -198,6 +206,8 @@ export class ServicioEditarEliminarComponent implements OnInit {
 
     console.log("Los datos a poner en el form son:")
     console.log(this.servicio)
+
+    this.obtener_servicios()
     
     this.registerForm = this.formBuilder.group({
       'nombreServicio': {value:[this.servicio.nombreServicio, [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]], disabled:!this.editable}, 
@@ -260,7 +270,10 @@ export class ServicioEditarEliminarComponent implements OnInit {
       administrador_Creador: this.servicio.administrador_Creador,
       icono: new URL("https://cdn-icons-png.flaticon.com/512/263/263100.png")
     }
-    if(this.camposCompletos && !this.editando_fila){
+    this.servicio_diferente = this.validar_nombre_servicio(info_servicio_actualizar.nombreServicio)
+    console.log("Existe un servicio con este nombre: " + this.servicio_diferente)
+    if(this.camposCompletos && !this.editando_fila && this.servicio_diferente == false){
+      console.log("se puede actualizar")
       console.log("Informacion del servicio para actualizar")
       console.log(info_servicio_actualizar)
       this.clienteWAService.actualizar_servicio(JSON.parse(localStorage.getItem("detalles_servicio")!).nombreServicio, info_servicio_actualizar)
@@ -284,8 +297,51 @@ export class ServicioEditarEliminarComponent implements OnInit {
     } else{
       this.actualizado = false
       this.exito = false
-      alert("Servicio no actualizado")
+      this.cuentaCreada(this.exito)
+      //alert("Servicio no actualizado")
     }
+  }
+
+  obtener_servicios(): void{
+    this.clienteWAService.obtener_servicios_creados()
+    .subscribe({
+      next: (data) => {
+        this.lista_Servicio = data;
+      },
+      error: (e) => console.error(e)
+    })
+  }
+
+  validar_nombre_servicio(nombre_a_crear: string | String){
+    let nombre_servicio_actualizar = JSON.parse(localStorage.getItem("detalles_servicio")!).nombreServicio
+    console.log("nombre de servicio del localS: " + nombre_servicio_actualizar)
+    console.log("Estos son todos los servicios")
+    console.log(this.lista_Servicio)
+    console.log(nombre_a_crear)
+    //borrar el nombre del servicio que se esta actualizando
+    if(this.entrada == 1){
+      for(let i = 0; i < this.lista_Servicio!.length; i++){
+        console.log(this.lista_Servicio![i])
+        if(nombre_a_crear == this.lista_Servicio![i].nombreServicio){
+          let indice_eliminar = i
+          console.log("indice a eliminar: " + indice_eliminar)
+          this.lista_Servicio!.splice(indice_eliminar, 1)
+          this.entrada = 0
+        }
+      }
+    }
+    //
+    for(let i = 0; i < this.lista_Servicio!.length; i++){
+      console.log(this.lista_Servicio![i])
+      if(nombre_a_crear == this.lista_Servicio![i].nombreServicio){
+        console.log("entra para que sea true")
+        console.log(nombre_a_crear)
+        console.log(this.lista_Servicio![i].nombreServicio)
+        return true
+      }
+    }
+    return false
+
   }
 
 
@@ -581,6 +637,11 @@ export class ServicioEditarEliminarComponent implements OnInit {
       if(elemento_Dos?.innerHTML != undefined){
         elemento_Dos!.innerHTML = "El servicio se ha creado exitosamente"
       }
+    } else if(this.servicio_diferente){
+      let elemento_Dos = document.getElementById("mensajeDeConfirmacionDos") 
+      if(elemento_Dos?.innerHTML != undefined){
+        elemento_Dos!.innerHTML = "Ya existe otro servicio con este nombre"
+      }
     }else{
       let elemento_Dos = document.getElementById("mensajeDeConfirmacionDos") 
       if(elemento_Dos?.innerHTML != undefined){
@@ -716,6 +777,13 @@ export class ServicioEditarEliminarComponent implements OnInit {
     this.data_tabla_source = this.data_tabla_source.filter((u: { id: number; }) => u.id !== id)
   }
 
+  inputHandler(e: any, id: number, key: string){
+    if(!this.valid[id]){
+      this.valid[id] = {};
+    }
+    this.valid[id][key] = e.target.validity.valid;
+  }
+
 
   disableSubmit(id: number){
     if(this.valid[id]){
@@ -744,13 +812,79 @@ export class ServicioEditarEliminarComponent implements OnInit {
     console.log(this.data_tabla_source)
 
     while(indice_temp < km_id){
+      console.log("-----------------------------------")
       //console.log("Km destino anterior: " + Math.ceil(this.data_tabla_source[cont].kilometro_destino))
       //console.log("km inicial actual: " + Math.ceil(km_i))
+
+      console.log("Km destino anterior: " + this.data_tabla_source[cont].kilometro_destino)
+      console.log("km inicial actual: " + km_i)
+
+
+      let entero_decimal_kmD: string[] = []
+      let entero_decimal_kmia: string[] = []
+      
+      console.log("-----------------------------------")
       if(Math.ceil(km_i) <= this.data_tabla_source[cont].kilometro_destino){
         this.editando_fila = true;
         console.log("entra a inicial no valido")
         this.km_inicial_no_valido = true
         return true
+      //Condicion para comprobar si con decimales km inicial y destinof inal son iguales (punto)
+      }else if(this.data_tabla_source[cont + 1].kilometro_inicial == km_i &&  km_i.toString().split('.').length > 1 && this.data_tabla_source[cont].kilometro_destino.toString().split('.').length > 1) {
+        console.log("Ambos son decimales")
+        entero_decimal_kmD = this.data_tabla_source[cont].kilometro_destino.toString().split('.')
+        let entero_kmD = entero_decimal_kmD[0]
+        let decimal_kmD = entero_decimal_kmD[1]
+        console.log(entero_kmD + "-" + decimal_kmD)
+
+
+        console.log("tamaño: " + km_i.toString().split('.').length)
+        entero_decimal_kmia = km_i.toString().split('.')
+        let entero_kmia = entero_decimal_kmia[0]
+        let decimal_kmia = entero_decimal_kmia[1]
+        console.log(entero_kmia + "-" + decimal_kmia)
+
+        if(parseInt(decimal_kmD) > parseInt(decimal_kmia)){
+          console.log("El decimal de km destino es mayor que el decimal de km inicial actual")
+          this.editando_fila = true;
+          this.km_inicial_no_valido = true
+          return true
+        }
+
+        if(parseInt(entero_kmD) == parseInt(entero_kmia) && parseInt(decimal_kmD) == parseInt(decimal_kmia)){
+          console.log("SOn iguales estos dos numeros decimales")
+          this.editando_fila = true;
+          this.km_inicial_no_valido = true
+          return true
+        }
+      //Condicion para comprobar si con decimales km inicial y destinof inal son iguales (coma)
+      }else if(km_i.toString().split(',').length > 1 && this.data_tabla_source[cont].kilometro_destino.toString().split(',').length > 1) {
+        console.log("Ambos son decimales")
+        entero_decimal_kmD = this.data_tabla_source[cont].kilometro_destino.toString().split(',')
+        let entero_kmD = entero_decimal_kmD[0]
+        let decimal_kmD = entero_decimal_kmD[1]
+        console.log(entero_kmD + "-" + decimal_kmD)
+
+
+        console.log("tamaño: " + km_i.toString().split(',').length)
+        entero_decimal_kmia = km_i.toString().split(',')
+        let entero_kmia = entero_decimal_kmia[0]
+        let decimal_kmia = entero_decimal_kmia[1]
+        console.log(entero_kmia + "-" + decimal_kmia)
+
+        if(parseInt(decimal_kmD) > parseInt(decimal_kmia)){
+          console.log("El decimal de km destino es mayor que el decimal de km inicial actual")
+          this.editando_fila = true;
+          this.km_inicial_no_valido = true
+          return true
+        }
+
+        if(parseInt(entero_kmD) == parseInt(entero_kmia) && parseInt(decimal_kmD) == parseInt(decimal_kmia)){
+          console.log("SOn iguales estos dos numeros decimales")
+          this.editando_fila = true;
+          this.km_inicial_no_valido = true
+          return true
+        }
       }
       cont ++
       indice_temp = this.data_tabla_source[cont].id
