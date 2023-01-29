@@ -69,6 +69,9 @@ export class ServicioEditarEliminarComponent implements OnInit {
 
   registerForm!: FormGroup;
 
+  //Variable para guardar nombre inicial
+  nombre_temporal!: string | String
+
   servicio: ServiceModel = new ServiceModel();
 
   //Lista para guardar los servicios ya creados
@@ -156,6 +159,8 @@ export class ServicioEditarEliminarComponent implements OnInit {
   rango_no_valido = false
   km_inicial_no_valido = false
   km_destino_no_valido = false
+  tres_digitos_no_valido = false
+
 
   constructor(
     private formBuilder: FormBuilder, 
@@ -168,6 +173,8 @@ export class ServicioEditarEliminarComponent implements OnInit {
     let lista_inventario: string[] = [];
     let lista_tipo_personal: string[] = [];
     let lista_kilometro_precio: any[] = [];
+
+    this.nombre_temporal = localStorage.getItem("nombre_servicio_editar")!
 
     //if(localStorage.getItem("detalles_servicio")){
       const info_servicio = JSON.parse(localStorage.getItem("detalles_servicio")!)
@@ -270,8 +277,8 @@ export class ServicioEditarEliminarComponent implements OnInit {
       administrador_Creador: this.servicio.administrador_Creador,
       icono: new URL("https://cdn-icons-png.flaticon.com/512/263/263100.png")
     }
+    this.quitar_servicio_lista()
     this.servicio_diferente = this.validar_nombre_servicio(info_servicio_actualizar.nombreServicio)
-    console.log("Existe un servicio con este nombre: " + this.servicio_diferente)
     if(this.camposCompletos && !this.editando_fila && this.servicio_diferente == false){
       console.log("se puede actualizar")
       console.log("Informacion del servicio para actualizar")
@@ -297,7 +304,9 @@ export class ServicioEditarEliminarComponent implements OnInit {
     } else{
       this.actualizado = false
       this.exito = false
-      this.cuentaCreada(this.exito)
+      this.servicio_diferente = true
+      this.cuentaCreada(this.exito, this.servicio_diferente)
+      console.log("no se puede actualizar")
       //alert("Servicio no actualizado")
     }
   }
@@ -312,31 +321,32 @@ export class ServicioEditarEliminarComponent implements OnInit {
     })
   }
 
-  validar_nombre_servicio(nombre_a_crear: string | String){
-    let nombre_servicio_actualizar = JSON.parse(localStorage.getItem("detalles_servicio")!).nombreServicio
+  quitar_servicio_lista(){
+    let nombre_servicio_actualizar = localStorage.getItem("nombre_servicio_editar")!
     console.log("nombre de servicio del localS: " + nombre_servicio_actualizar)
     console.log("Estos son todos los servicios")
     console.log(this.lista_Servicio)
-    console.log(nombre_a_crear)
-    //borrar el nombre del servicio que se esta actualizando
-    if(this.entrada == 1){
-      for(let i = 0; i < this.lista_Servicio!.length; i++){
-        console.log(this.lista_Servicio![i])
-        if(nombre_a_crear == this.lista_Servicio![i].nombreServicio){
-          let indice_eliminar = i
-          console.log("indice a eliminar: " + indice_eliminar)
-          this.lista_Servicio!.splice(indice_eliminar, 1)
-          this.entrada = 0
-        }
+    for(let i = 0; i < this.lista_Servicio!.length; i++){
+      if(nombre_servicio_actualizar == this.lista_Servicio![i].nombreServicio && this.entrada == 1){
+        let indice_eliminar = i
+        console.log("indice a eliminar: " + indice_eliminar)
+        this.lista_Servicio!.splice(indice_eliminar, 1)
+        this.entrada = 0
       }
     }
-    //
+    console.log("Lista de servicios luego de haber aplicado el quitar servicio")
+    console.log(this.lista_Servicio)
+  }
+
+  validar_nombre_servicio(nombre_a_crear: string | String){
+    //borrar el nombre del servicio que se esta actualizando
     for(let i = 0; i < this.lista_Servicio!.length; i++){
-      console.log(this.lista_Servicio![i])
       if(nombre_a_crear == this.lista_Servicio![i].nombreServicio){
         console.log("entra para que sea true")
         console.log(nombre_a_crear)
         console.log(this.lista_Servicio![i].nombreServicio)
+        console.log("Ya existe un servicio con ese nombre")
+        console.log("--------------------------------")
         return true
       }
     }
@@ -627,7 +637,7 @@ export class ServicioEditarEliminarComponent implements OnInit {
     });
   }
 
-  cuentaCreada(exito: boolean){
+  cuentaCreada(exito: boolean, servicioDiferente: boolean){
     let element = document.getElementById("mensajeDeConfirmacion");
     //let hidden = element?.getAttribute("hidden");
 
@@ -637,11 +647,13 @@ export class ServicioEditarEliminarComponent implements OnInit {
       if(elemento_Dos?.innerHTML != undefined){
         elemento_Dos!.innerHTML = "El servicio se ha creado exitosamente"
       }
-    } else if(this.servicio_diferente){
-      let elemento_Dos = document.getElementById("mensajeDeConfirmacionDos") 
+    } else if(servicioDiferente){
+      console.log("Existe un servicio diferente entra al elif")
+      let elemento_Dos = document.getElementById("Mensaje_Error") 
       if(elemento_Dos?.innerHTML != undefined){
         elemento_Dos!.innerHTML = "Ya existe otro servicio con este nombre"
       }
+      this.servicio.nombreServicio = this.nombre_temporal.replaceAll('_',' ')
     }else{
       let elemento_Dos = document.getElementById("mensajeDeConfirmacionDos") 
       if(elemento_Dos?.innerHTML != undefined){
@@ -805,11 +817,28 @@ export class ServicioEditarEliminarComponent implements OnInit {
     this.rango_no_valido = false
     this.km_inicial_no_valido = false
     this.km_destino_no_valido = false
+    this.tres_digitos_no_valido = false
+
 
     indice_temp = this.data_tabla_source[0].id
     console.log("Indice inicial: " + indice_temp)
     
     console.log(this.data_tabla_source)
+
+    console.log("tamaños")
+    //Separarlos
+    if(km_i.toString().includes('.')){
+      if(km_i.toString().split('.')[1].length > 2){
+        this.tres_digitos_no_valido = true
+        return true
+      }
+    }
+    if(km_d.toString().includes('.')){
+      if(km_d.toString().split('.')[1].length > 2){
+        this.tres_digitos_no_valido = true
+        return true
+      }
+    }
 
     while(indice_temp < km_id){
       console.log("-----------------------------------")

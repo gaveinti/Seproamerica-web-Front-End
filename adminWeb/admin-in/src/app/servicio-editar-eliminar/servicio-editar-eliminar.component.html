@@ -218,6 +218,10 @@
                         Problemas al actualizar sus datos!. <br>
                         Cierre la ventana para reinintentar
                     </div>
+                    <div *ngIf="servicio_diferente==true" id="Mensaje_Error">
+                      Ya existe otro servicio con este nombre
+                    </div>
+                    <div *ngIf="servicio_diferente==false" id="Mensaje_Error"></div>
 
                 </div>
             </div>
@@ -266,7 +270,6 @@
                       Problemas al eliminar el servicio. <br>
                       Cierre la ventana para reinintentar
                   </div>
-
               </div>
           </div>
       </div>
@@ -358,6 +361,7 @@
       <p *ngIf="rango_no_valido" style="color:rgb(168, 13, 13);">Rango no válido</p>
       <p *ngIf="km_inicial_no_valido" style="color:rgb(168, 13, 13);">Kilómetro inicial debe ser mayor que el anterior kilómetro de destino</p>
       <p *ngIf="km_destino_no_valido" style="color:rgb(168, 13, 13);">Kilómetro destino debe ser menor que el siguiente kilómetro inicial</p>
+      <p *ngIf="tres_digitos_no_valido" style="color:rgb(168, 13, 13);">Solo pueden haber tres dígitos decimales</p>
     </div>
 
     <div class="col cont-guardar" *ngIf="inexistente == true">
