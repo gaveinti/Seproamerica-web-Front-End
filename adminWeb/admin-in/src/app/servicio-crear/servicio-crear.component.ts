@@ -467,6 +467,7 @@ export class ServicioCrearComponent implements OnInit {
     this.rango_no_valido = false
     this.km_inicial_no_valido = false
     this.km_destino_no_valido = false
+    this.tres_digitos_no_valido = false
 
     indice_temp = this.data_tabla_source[0].id
     console.log("Indice inicial: " + indice_temp)
@@ -475,10 +476,14 @@ export class ServicioCrearComponent implements OnInit {
 
     console.log("tamaños")
     //Separarlos
-    let condicion1 = km_i.toString().includes('.') && km_d.toString().includes('.')
-    let condicion2 = km_i.toString().includes('.') || km_d.toString().includes('.')
-    if(condicion1 || condicion2){
-      if(km_i.toString().split('.')[1].length > 2 || km_d.toString().split('.')[1].length > 2){
+    if(km_i.toString().includes('.')){
+      if(km_i.toString().split('.')[1].length > 2){
+        this.tres_digitos_no_valido = true
+        return true
+      }
+    }
+    if(km_d.toString().includes('.')){
+      if(km_d.toString().split('.')[1].length > 2){
         this.tres_digitos_no_valido = true
         return true
       }
